@@ -1,0 +1,202 @@
+#include <mega8535.h>
+
+
+
+char t0_cnt0,t0_cnt1,t0_cnt2,t0_cnt3,t0_cnt4,t0_cnt5,t0_cnt6;
+
+char but_n,but_s,but,but0_cnt,but1_cnt,but_onL_temp;
+bit l_but;		//идет длинное нажатие на кнопку
+bit n_but;          //произошло нажатие
+bit speed;		//разрешение ускорени€ перебора
+
+
+
+//***********************************************
+//Ѕитовые переменные
+bit b200Hz;
+bit b100Hz;
+bit b10Hz;
+bit b5Hz;
+bit b2Hz;
+bit b1Hz;
+bit zero_on;
+bit bFl;
+bit bT;
+bit bFl_;
+
+int in_cnt,main_cnt;
+
+//-----------------------------------------------
+void t0_init(void)
+{
+#define T0_INITVALUE	0xe1	//1000√ц
+TCCR0=0x04;
+TCNT0=T0_INITVALUE;
+OCR0=0x00;
+}
+
+//***********************************************
+//***********************************************
+//***********************************************
+//***********************************************
+// Timer 0 overflow interrupt service routine
+interrupt [TIM0_OVF] void timer0_ovf_isr(void)
+{
+TCNT0=T0_INITVALUE;
+
+if(++t0_cnt6>=5)
+	{
+	t0_cnt6=0;
+	b200Hz=1;
+	} 
+if(++t0_cnt0>=10)
+	{
+	t0_cnt0=0;
+	b100Hz=1;
+	}
+if(++t0_cnt1>=100)
+	{
+	t0_cnt1=0;
+	b10Hz=1;
+		
+	if(++t0_cnt3>=10)
+		{
+		t0_cnt3=0;
+		b1Hz=1;
+		} 
+	if(++t0_cnt4>=5)
+		{
+		t0_cnt4=0;
+		b2Hz=1;
+		}	
+	} 
+if(++t0_cnt2>=200)
+	{
+	t0_cnt2=0;
+	b5Hz=1;
+	
+	
+	} 
+
+}
+
+//===============================================
+//===============================================
+//===============================================
+//===============================================
+void main(void)
+{
+PORTA=0x00;
+DDRA=0x00;
+
+PORTB=0x00;
+DDRB=0x00;
+
+
+PORTC=0x00;
+DDRC=0x00;
+
+
+PORTD=0x00;
+DDRD=0xB0;
+
+
+t0_init();
+
+
+
+
+
+
+
+
+GICR|=0x00;
+MCUCR=0x00;
+//MCUCSR=0x00;
+
+GICR|=0x00;
+MCUCR=0x00;
+MCUCSR=0x00;
+GIFR=0x00;
+
+TIMSK=0x01;
+
+
+ACSR=0x80;
+SFIOR=0x00;
+
+
+main_cnt=30;
+
+
+#asm("sei")
+
+while (1)
+      {
+      if(b200Hz)
+		{
+		b200Hz=0; 
+          
+		}         
+      if(b100Hz)
+		{        
+		b100Hz=0; 
+		if(!PINA.3)
+			{
+			if(in_cnt<5)
+				{
+				in_cnt++;
+				if(in_cnt==5)
+					{
+					main_cnt=0;
+					}          
+				}
+			}
+		else
+			{
+			in_cnt=0;
+			}			
+			
+			
+		DDRA.3=0;
+		PORTA.3=1;
+		}   
+	if(b10Hz)
+		{
+		b10Hz=0;
+		DDRC|=0b00000111;
+          if(main_cnt<30)main_cnt++;
+          if((main_cnt>0)&&(main_cnt<=20))
+          	{
+          	PORTC.2=1;
+          	}
+          else PORTC.2=0;
+          
+          if((main_cnt>5)&&(main_cnt<=20))
+          	{
+          	PORTC.0=1;
+          	}
+          else PORTC.0=0;          	
+          
+          }
+	if(b5Hz)
+		{
+		b5Hz=0;
+ 
+         	}
+    	if(b2Hz)
+		{
+		b2Hz=0;
+
+		} 		
+    	if(b1Hz)
+		{
+		b1Hz=0;
+          DDRC|=0b00000111;
+          
+		} 
+      };
+      
+
+      
+}

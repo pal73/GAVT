@@ -1,0 +1,16 @@
+Creating   'ind.eep'
+Creating   'ind.obj'
+Creating   'ind.lst'
+
+Assembling 'ind.asm'
+Including  'ind.vec'
+Including  'ind.inc'
+
+Program memory usage:
+Code             :  925 words
+Constants (dw/db):   10 words
+Unused           :    0 words
+Total            :  935 words
+
+Assembly complete with no errors.
+Deleting   'ind.eep'

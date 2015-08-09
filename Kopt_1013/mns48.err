@@ -1,0 +1,15 @@
+Creating   'mns48.eep'
+Creating   'mns48.obj'
+Creating   'mns48.lst'
+
+Assembling 'mns48.asm'
+Including  'mns48.vec'
+Including  'mns48.inc'
+
+Program memory usage:
+Code             :  944 words
+Constants (dw/db):    9 words
+Unused           :    0 words
+Total            :  953 words
+
+Assembly complete with no errors.

@@ -1,0 +1,1865 @@
+
+
+HI-TECH Software PICC Macro Assembler V8.05PL2
+Serial number: HCPIC-73420                            Thu Oct  4 02:15:27 2007
+
+Licensed to: HOME VER
+     1                           	processor	16F870
+     2                           	opt	pw 79
+     3                           	psect	__Z73420RS_,global,delta=1
+     4                           	psect	text0,local,class=CODE,delta=2
+     5                           	psect	config,global,class=CONFIG,delta=2
+     6                           	psect	rdata_0,global,class=BANK0,space=1,delta
+      +                          =1
+     7                           	psect	idata_0,global,class=CODE,delta=2
+     8                           	psect	text1,local,class=CODE,delta=2
+     9                           	psect	text2,local,class=CODE,delta=2
+    10                           	psect	text3,local,class=CODE,delta=2
+    11                           	psect	text4,local,class=CODE,delta=2
+    12                           	psect	text5,local,class=CODE,delta=2
+    13                           	psect	text6,local,class=CODE,delta=2
+    14                           	psect	text7,local,class=CODE,delta=2
+    15                           	psect	text8,local,class=CODE,delta=2
+    16                           	psect	text9,local,class=CODE,delta=2
+    17                           	psect	text10,local,class=CODE,delta=2
+    18                           	psect	text11,local,class=CODE,delta=2
+    19                           	psect	text12,local,class=CODE,delta=2
+    20                           	psect	text13,local,class=CODE,delta=2
+    21                           	psect	text14,local,class=CODE,delta=2
+    22                           	psect	intcode,global,class=CODE,delta=2
+    23                           	psect	intsave_0,global,ovrld,class=COMBANK,spa
+      +                          ce=1,delta=1
+    24                           	psect	intret,global,class=CODE,delta=2
+    25                           	psect	intentry,global,class=CODE,delta=2
+    26                           	psect	intsave,global,class=BANK0,space=1,delta
+      +                          =1
+    27                           	psect	text15,local,class=CODE,delta=2
+    28                           	psect	text16,local,class=CODE,delta=2
+    29                           	psect	rbit_0,global,bit,class=BANK0,space=1,de
+      +                          lta=1
+    30                           	psect	rbss_0,global,class=BANK0,space=1,delta=
+      +                          1
+    31                           	psect	temp,global,ovrld,class=BANK0,space=1,de
+      +                          lta=1
+    32  0000                     
+    33  0000                     
+    34  0000                     
+    35  0000                     
+    36  0000                     
+    37  0000                     
+    38  0000                     
+    39  0000                     
+    40  0000                     
+    41  0000                     
+    42                           
+    43                           	psect	__Z73420RS_
+    44  00A0                     
+    45  00A0                     	;#
+    46                           
+    47                           	psect	text0
+    48  04F2                     _DelayMs
+    49                           ;	_cnt assigned to ?a_DelayMs+0
+    50  0000                     _DelayMs$cnt	set	?a_DelayMs
+    51                           ;	_i assigned to ?a_DelayMs+1
+    52  0000                     _DelayMs$i	set	?a_DelayMs+1
+    53                           ;	__dcnt assigned to ?a_DelayMs+2
+    54  0000                     _DelayMs$_dcnt	set	?a_DelayMs+2
+    55                           ;_cnt stored from w
+    56  04F2  0183               	clrf	3	;select bank 0
+    57  04F3  00C7               	movwf	?a_DelayMs
+    58  04F4                     l4
+    59                           ;vzm_ob.c: 114: unsigned char i;
+    60                           ;vzm_ob.c: 116: i = 4;
+    61  04F4  3004               	movlw	4
+    62  04F5  00C8               	movwf	?a_DelayMs+1
+    63  04F6                     l7
+    64                           ;vzm_ob.c: 117: do {
+    65                           ;vzm_ob.c: 118: { unsigned char _dcnt; _dcnt = 
+      +                          ((250)/((12*1000L*10)/(4*1000L))|1)*10; while(-
+      +                          -_dcnt != 0) continue; };
+    66  04F6  305A               	movlw	90
+    67  04F7  00C9               	movwf	?a_DelayMs+2
+    68  04F8                     l9
+    69  04F8  0BC9               	decfsz	?a_DelayMs+2
+    70  04F9  2CF8               	goto	l9
+    71                           ;vzm_ob.c: 119: } while(--i);
+    72  04FA  0BC8               	decfsz	?a_DelayMs+1
+    73  04FB  2CF6               	goto	l7
+    74                           ;vzm_ob.c: 120: } while(--cnt);
+    75  04FC  0BC7               	decfsz	?a_DelayMs
+    76  04FD  2CF4               	goto	l4
+    77  04FE  0008               	return
+    78                           
+    79                           	psect	config
+    80  2007  3D7A               	dw	15738	;#
+    81                           
+    82                           	psect	rdata_0
+    83  004C                     _step1
+    84  004C                     	ds	1
+    85  004D                     _step2
+    86  004D                     	ds	1
+    87  004E                     _step_main
+    88  004E                     	ds	1
+    89  004F                     _prog
+    90  004F                     	ds	1
+    91                           
+    92                           	psect	idata_0
+    93  07FC  3400               	retlw	0
+    94  07FD  3400               	retlw	0
+    95  07FE  3400               	retlw	0
+    96  07FF  3400               	retlw	0
+    97                           
+    98                           	psect	text1
+    99                           ;vzm_ob.c: 127: void in_read(void)
+   100                           ;vzm_ob.c: 128: {
+   101  054E                     _in_read
+   102                           ;	_i assigned to ?a_in_read+0
+   103  0000                     _in_read$i	set	?a_in_read
+   104                           ;	_temp assigned to ?a_in_read+1
+   105  0000                     _in_read$temp	set	?a_in_read+1
+   106                           ;	_tempUI assigned to ?a_in_read+2
+   107  0000                     _in_read$tempUI	set	?a_in_read+2
+   108                           ;	__dcnt assigned to ?a_in_read+4
+   109  0000                     _in_read$_dcnt	set	?a_in_read+4
+   110                           ;vzm_ob.c: 129: char i,temp;
+   111  054E  30F0               	movlw	-16
+   112  054F  1683               	bsf	3,5
+   113  0550  1303               	bcf	3,6	;carry unused
+   114  0551  0585               	andwf	5	;volatile
+   115                           ;vzm_ob.c: 132: TRISA4=1;
+   116  0552  1605               	bsf	5,4
+   117                           ;vzm_ob.c: 134: for(i=0;i<16;i++)
+   118  0553  1283               	bcf	3,5
+   119  0554  01C7               	clrf	?a_in_read
+   120  0555                     l12
+   121                           ;vzm_ob.c: 135: {
+   122                           ;vzm_ob.c: 136: temp=PORTA;
+   123  0555  0805               	movf	5,w	;volatile
+   124  0556  00C8               	movwf	?a_in_read+1
+   125                           ;vzm_ob.c: 137: temp&=0xf0;
+   126  0557  30F0               	movlw	-16
+   127  0558  05C8               	andwf	?a_in_read+1
+   128                           ;vzm_ob.c: 138: temp+=i;
+   129  0559  0847               	movf	?a_in_read,w
+   130  055A  07C8               	addwf	?a_in_read+1
+   131                           ;vzm_ob.c: 139: PORTA=temp;
+   132  055B  0848               	movf	?a_in_read+1,w
+   133  055C  0085               	movwf	5	;volatile
+   134                           ;vzm_ob.c: 140: tempUI<<=1;
+   135  055D  1003               	bcf	3,0
+   136  055E  0DC9               	rlf	?a_in_read+2
+   137  055F  0DCA               	rlf	?a_in_read+3
+   138                           ;vzm_ob.c: 141: { unsigned char _dcnt; _dcnt = 
+      +                          ((200)/((12*1000L*10)/(4*1000L))|1)*10; while(-
+      +                          -_dcnt != 0) continue; };
+   139  0560  3046               	movlw	70
+   140  0561  00CB               	movwf	?a_in_read+4
+   141  0562                     l16
+   142  0562  0BCB               	decfsz	?a_in_read+4
+   143  0563  2D62               	goto	l16
+   144                           ;vzm_ob.c: 142: if(RA4)tempUI|=0x0001;
+   145  0564  1E05               	btfss	5,4
+   146  0565  2D68               	goto	l18
+   147  0566  1449               	bsf	?a_in_read+2,0
+   148                           ;vzm_ob.c: 143: else tempUI&=0xfffe;
+   149  0567  2D69               	goto	l19
+   150  0568                     l18
+   151  0568  1049               	bcf	?a_in_read+2,0
+   152  0569                     l19
+   153                           ;vzm_ob.c: 144: }
+   154  0569  0AC7               	incf	?a_in_read
+   155  056A  3010               	movlw	16
+   156  056B  0247               	subwf	?a_in_read,w
+   157  056C  1C03               	btfss	3,0
+   158  056D  2D55               	goto	l12
+   159                           ;vzm_ob.c: 145: in_word=tempUI;
+   160  056E  0849               	movf	?a_in_read+2,w
+   161  056F  00C5               	movwf	_in_word
+   162  0570  084A               	movf	?a_in_read+3,w
+   163  0571  00C6               	movwf	_in_word+1
+   164                           ;vzm_ob.c: 146: }
+   165  0572  0008               	return
+   166                           
+   167                           	psect	text2
+   168                           ;vzm_ob.c: 150: void tumbler_drv(void)
+   169                           ;vzm_ob.c: 151: {
+   170  0608                     _tumbler_drv
+   171                           ;vzm_ob.c: 152: if(!(in_word&(1<<9)))
+   172  0608  0183               	clrf	3	;select bank 0
+   173  0609  18C6               	btfsc	_in_word+1,1
+   174  060A  2E12               	goto	l21
+   175                           ;vzm_ob.c: 153: {
+   176  060B  0838               	movf	_sw1_cnt,w
+   177  060C  3A80               	xorlw	128
+   178  060D  3E62               	addlw	-158
+   179  060E  1803               	btfsc	3,0
+   180  060F  2E16               	goto	l23
+   181  0610  0AB8               	incf	_sw1_cnt
+   182                           ;vzm_ob.c: 155: }
+   183                           ;vzm_ob.c: 156: else
+   184  0611  2E16               	goto	l23
+   185  0612                     l21
+   186                           ;vzm_ob.c: 157: {
+   187  0612  08B8               	movf	_sw1_cnt
+   188  0613  1903               	btfsc	3,2
+   189  0614  2E16               	goto	l23
+   190  0615  03B8               	decf	_sw1_cnt
+   191                           ;vzm_ob.c: 159: }
+   192  0616                     l23
+   193                           ;vzm_ob.c: 161: if(!(in_word&(1<<8)))
+   194  0616  1846               	btfsc	_in_word+1,0
+   195  0617  2E1F               	goto	l25
+   196                           ;vzm_ob.c: 162: {
+   197  0618  0839               	movf	_sw2_cnt,w
+   198  0619  3A80               	xorlw	128
+   199  061A  3E62               	addlw	-158
+   200  061B  1803               	btfsc	3,0
+   201  061C  2E23               	goto	l27
+   202  061D  0AB9               	incf	_sw2_cnt
+   203                           ;vzm_ob.c: 164: }
+   204                           ;vzm_ob.c: 165: else
+   205  061E  2E23               	goto	l27
+   206  061F                     l25
+   207                           ;vzm_ob.c: 166: {
+   208  061F  08B9               	movf	_sw2_cnt
+   209  0620  1903               	btfsc	3,2
+   210  0621  2E23               	goto	l27
+   211  0622  03B9               	decf	_sw2_cnt
+   212                           ;vzm_ob.c: 168: }
+   213  0623                     l27
+   214                           ;vzm_ob.c: 170: if(!(in_word&(1<<10)))
+   215  0623  1946               	btfsc	_in_word+1,2
+   216  0624  2E2C               	goto	l29
+   217                           ;vzm_ob.c: 171: {
+   218  0625  083A               	movf	_sw_loop_cnt,w
+   219  0626  3A80               	xorlw	128
+   220  0627  3E62               	addlw	-158
+   221  0628  1803               	btfsc	3,0
+   222  0629  2E30               	goto	l31
+   223  062A  0ABA               	incf	_sw_loop_cnt
+   224                           ;vzm_ob.c: 173: }
+   225                           ;vzm_ob.c: 174: else
+   226  062B  2E30               	goto	l31
+   227  062C                     l29
+   228                           ;vzm_ob.c: 175: {
+   229  062C  08BA               	movf	_sw_loop_cnt
+   230  062D  1903               	btfsc	3,2
+   231  062E  2E30               	goto	l31
+   232  062F  03BA               	decf	_sw_loop_cnt
+   233                           ;vzm_ob.c: 177: }
+   234  0630                     l31
+   235                           ;vzm_ob.c: 180: if(sw_loop_cnt>=25)loop_stat=ls
+      +                          ON;
+   236  0630  083A               	movf	_sw_loop_cnt,w
+   237  0631  3A80               	xorlw	128
+   238  0632  3E67               	addlw	-153
+   239  0633  1C03               	btfss	3,0
+   240  0634  2E37               	goto	l33
+   241  0635  01B1               	clrf	_loop_stat
+   242                           ;vzm_ob.c: 181: else if(sw_loop_cnt<=5)loop_sta
+      +                          t=lsOFF;
+   243  0636  2E3E               	goto	l34
+   244  0637                     l33
+   245  0637  083A               	movf	_sw_loop_cnt,w
+   246  0638  3A80               	xorlw	128
+   247  0639  3E7A               	addlw	-134
+   248  063A  1803               	btfsc	3,0
+   249  063B  2E3E               	goto	l34
+   250  063C  01B1               	clrf	_loop_stat
+   251  063D  0AB1               	incf	_loop_stat
+   252                           ;vzm_ob.c: 183: if(sw1_cnt>=25)mode1=mON;
+   253  063E                     l34
+   254  063E  0838               	movf	_sw1_cnt,w
+   255  063F  3A80               	xorlw	128
+   256  0640  3E67               	addlw	-153
+   257  0641  1C03               	btfss	3,0
+   258  0642  2E45               	goto	l36
+   259  0643  01B2               	clrf	_mode1
+   260                           ;vzm_ob.c: 184: else if(sw1_cnt<=5)mode1=mOFF;
+   261  0644  2E4C               	goto	l37
+   262  0645                     l36
+   263  0645  0838               	movf	_sw1_cnt,w
+   264  0646  3A80               	xorlw	128
+   265  0647  3E7A               	addlw	-134
+   266  0648  1803               	btfsc	3,0
+   267  0649  2E4C               	goto	l37
+   268  064A  01B2               	clrf	_mode1
+   269  064B  0AB2               	incf	_mode1
+   270                           ;vzm_ob.c: 186: if(sw2_cnt>=25)mode2=mON;
+   271  064C                     l37
+   272  064C  0839               	movf	_sw2_cnt,w
+   273  064D  3A80               	xorlw	128
+   274  064E  3E67               	addlw	-153
+   275  064F  1C03               	btfss	3,0
+   276  0650  2E53               	goto	l39
+   277  0651  01B3               	clrf	_mode2
+   278                           ;vzm_ob.c: 187: else if(sw2_cnt<=5)mode2=mOFF;
+   279  0652  0008               	return
+   280  0653                     l39
+   281  0653  0839               	movf	_sw2_cnt,w
+   282  0654  3A80               	xorlw	128
+   283  0655  3E7A               	addlw	-134
+   284  0656  1803               	btfsc	3,0
+   285  0657  0008               	return
+   286  0658  01B3               	clrf	_mode2
+   287  0659  0AB3               	incf	_mode2
+   288                           ;vzm_ob.c: 188: }
+   289  065A  0008               	return
+   290                           
+   291                           	psect	text3
+   292                           ;vzm_ob.c: 192: void od_drv(void)
+   293                           ;vzm_ob.c: 193: {
+   294  05CF                     _od_drv
+   295                           ;vzm_ob.c: 197: if(!(PORTC&(1<<7)))
+   296  05CF  0183               	clrf	3	;select bank 0
+   297                           ;vzm_ob.c: 198: {
+   298  05D0  0835               	movf	_od1_cnt,w
+   299  05D1  3A80               	xorlw	128
+   300  05D2  1B87               	btfsc	7,7	;volatile
+   301  05D3  2DD9               	goto	L1
+   302  05D4  3E76               	addlw	-138
+   303  05D5  1803               	btfsc	3,0
+   304  05D6  2DDC               	goto	l45
+   305  05D7  0AB5               	incf	_od1_cnt
+   306                           ;vzm_ob.c: 200: }
+   307                           ;vzm_ob.c: 201: else
+   308  05D8  2DDC               	goto	l45
+   309                           ;vzm_ob.c: 202: {
+   310  05D9                     L1
+   311  05D9  3E7F               	addlw	-129
+   312  05DA  1803               	btfsc	3,0
+   313  05DB  03B5               	decf	_od1_cnt
+   314                           ;vzm_ob.c: 204: }
+   315  05DC                     l45
+   316                           ;vzm_ob.c: 207: {
+   317  05DC  0837               	movf	_od2_cnt,w
+   318  05DD  3A80               	xorlw	128
+   319                           ;vzm_ob.c: 206: if(!(PORTC&(1<<6)))
+   320  05DE  1B07               	btfsc	7,6	;volatile
+   321  05DF  2DE5               	goto	L2
+   322  05E0  3E76               	addlw	-138
+   323  05E1  1803               	btfsc	3,0
+   324  05E2  2DE8               	goto	l49
+   325  05E3  0AB7               	incf	_od2_cnt
+   326                           ;vzm_ob.c: 209: }
+   327                           ;vzm_ob.c: 210: else
+   328  05E4  2DE8               	goto	l49
+   329                           ;vzm_ob.c: 211: {
+   330  05E5                     L2
+   331  05E5  3E7F               	addlw	-129
+   332  05E6  1803               	btfsc	3,0
+   333  05E7  03B7               	decf	_od2_cnt
+   334                           ;vzm_ob.c: 213: }
+   335  05E8                     l49
+   336                           ;vzm_ob.c: 215: if(od1_cnt>=9)od1=odON;
+   337  05E8  0835               	movf	_od1_cnt,w
+   338  05E9  3A80               	xorlw	128
+   339  05EA  3E77               	addlw	-137
+   340  05EB  1C03               	btfss	3,0
+   341  05EC  2DEF               	goto	l51
+   342  05ED  01B4               	clrf	_od1
+   343                           ;vzm_ob.c: 216: else if(od1_cnt<=1)od1=odOFF;
+   344  05EE  2DF6               	goto	l52
+   345  05EF                     l51
+   346  05EF  0835               	movf	_od1_cnt,w
+   347  05F0  3A80               	xorlw	128
+   348  05F1  3E7E               	addlw	-130
+   349  05F2  1803               	btfsc	3,0
+   350  05F3  2DF6               	goto	l52
+   351  05F4  01B4               	clrf	_od1
+   352  05F5  0AB4               	incf	_od1
+   353                           ;vzm_ob.c: 218: if(od2_cnt>=9)od2=odON;
+   354  05F6                     l52
+   355  05F6  0837               	movf	_od2_cnt,w
+   356  05F7  3A80               	xorlw	128
+   357  05F8  3E77               	addlw	-137
+   358  05F9  1C03               	btfss	3,0
+   359  05FA  2DFD               	goto	l54
+   360  05FB  01B6               	clrf	_od2
+   361                           ;vzm_ob.c: 219: else if(od2_cnt<=1)od2=odOFF;
+   362  05FC  2E04               	goto	l55
+   363  05FD                     l54
+   364  05FD  0837               	movf	_od2_cnt,w
+   365  05FE  3A80               	xorlw	128
+   366  05FF  3E7E               	addlw	-130
+   367  0600  1803               	btfsc	3,0
+   368  0601  2E04               	goto	l55
+   369  0602  01B6               	clrf	_od2
+   370  0603  0AB6               	incf	_od2
+   371                           ;vzm_ob.c: 221: TRISC&=((1<<7)||(1<<6))^0xff;
+   372  0604                     l55
+   373  0604  1683               	bsf	3,5
+   374  0605  1007               	bcf	7,0	;volatile
+   375                           ;vzm_ob.c: 222: }
+   376  0606  1283               	bcf	3,5
+   377  0607  0008               	return
+   378                           
+   379                           	psect	text4
+   380                           ;vzm_ob.c: 225: void step_main_contr(void)
+   381                           ;vzm_ob.c: 226: {
+   382  078E                     _step_main_contr
+   383                           ;vzm_ob.c: 227: bPP1=0;
+   384  078E  0183               	clrf	3	;select bank 0
+   385  078F  1320               	bcf	_bPP1/(0+8),_bPP1& (0+7)
+   386                           ;vzm_ob.c: 228: bPP2=0;
+   387  0790  13A0               	bcf	_bPP2/(0+8),_bPP2& (0+7)
+   388                           ;vzm_ob.c: 230: if(step_main==sOFF)
+   389  0791  08CE               	movf	_step_main
+   390  0792  1903               	btfsc	3,2
+   391  0793  2FEB               	goto	l59
+   392                           ;vzm_ob.c: 231: {
+   393  0794  0B4E               	decfsz	_step_main,w
+   394  0795  2FA4               	goto	l60
+   395                           ;vzm_ob.c: 234: {
+   396  0796  08B4               	movf	_od1
+   397  0797  1903               	btfsc	3,2
+   398  0798  2F9C               	goto	u360
+   399  0799  08B2               	movf	_mode1
+   400  079A  1903               	btfsc	3,2
+   401  079B  2FEB               	goto	l59
+   402  079C                     u360
+   403  079C  08B6               	movf	_od2
+   404  079D  1903               	btfsc	3,2
+   405  079E  2FA2               	goto	u400
+   406  079F  08B3               	movf	_mode2
+   407  07A0  1903               	btfsc	3,2
+   408  07A1  2FEB               	goto	l59
+   409  07A2                     u400
+   410                           ;vzm_ob.c: 236: {
+   411  07A2  3002               	movlw	2
+   412  07A3  2FB6               	goto	L4
+   413                           ;vzm_ob.c: 238: cnt_del_main=30;
+   414                           ;vzm_ob.c: 239: }
+   415                           ;vzm_ob.c: 241: else if(step_main==s2)
+   416  07A4                     l60
+   417  07A4  084E               	movf	_step_main,w
+   418  07A5  3A02               	xorlw	2
+   419  07A6  1D03               	btfss	3,2
+   420  07A7  2FAD               	goto	l63
+   421                           ;vzm_ob.c: 242: {
+   422  07A8  1720               	bsf	_bPP1/(0+8),_bPP1& (0+7)
+   423                           ;vzm_ob.c: 244: cnt_del_main--;
+   424  07A9  0BAB               	decfsz	_cnt_del_main
+   425                           ;vzm_ob.c: 245: if(cnt_del_main==0)
+   426  07AA  2FEB               	goto	l59
+   427                           ;vzm_ob.c: 246: {
+   428  07AB  3003               	movlw	3
+   429  07AC  2FD2               	goto	L3
+   430                           ;vzm_ob.c: 248: }
+   431                           ;vzm_ob.c: 250: else if(step_main==s3)
+   432  07AD                     l63
+   433  07AD  084E               	movf	_step_main,w
+   434  07AE  3A03               	xorlw	3
+   435  07AF  1D03               	btfss	3,2
+   436  07B0  2FBA               	goto	l66
+   437                           ;vzm_ob.c: 251: {
+   438  07B1  1720               	bsf	_bPP1/(0+8),_bPP1& (0+7)
+   439                           ;vzm_ob.c: 253: bPP2=1;
+   440  07B2  17A0               	bsf	_bPP2/(0+8),_bPP2& (0+7)
+   441                           ;vzm_ob.c: 254: if(bMD)
+   442  07B3  1CA0               	btfss	_bMD/(0+8),_bMD& (0+7)
+   443  07B4  2FEB               	goto	l59
+   444                           ;vzm_ob.c: 255: {
+   445  07B5  3004               	movlw	4
+   446  07B6                     L4
+   447  07B6  00CE               	movwf	_step_main
+   448                           ;vzm_ob.c: 257: cnt_del_main=30;
+   449  07B7  301E               	movlw	30
+   450  07B8  00AB               	movwf	_cnt_del_main
+   451                           ;vzm_ob.c: 258: }
+   452                           ;vzm_ob.c: 261: else if(step_main==s4)
+   453  07B9  2FEB               	goto	l59
+   454  07BA                     l66
+   455  07BA  084E               	movf	_step_main,w
+   456  07BB  3A04               	xorlw	4
+   457  07BC  1D03               	btfss	3,2
+   458  07BD  2FC3               	goto	l69
+   459                           ;vzm_ob.c: 262: {
+   460  07BE  17A0               	bsf	_bPP2/(0+8),_bPP2& (0+7)
+   461                           ;vzm_ob.c: 264: cnt_del_main--;
+   462  07BF  0BAB               	decfsz	_cnt_del_main
+   463                           ;vzm_ob.c: 265: if(cnt_del_main==0)
+   464  07C0  2FEB               	goto	l59
+   465                           ;vzm_ob.c: 266: {
+   466  07C1  3005               	movlw	5
+   467  07C2  2FD2               	goto	L3
+   468                           ;vzm_ob.c: 268: }
+   469                           ;vzm_ob.c: 270: else if(step_main==s5)
+   470  07C3                     l69
+   471  07C3  084E               	movf	_step_main,w
+   472  07C4  3A05               	xorlw	5
+   473  07C5  1D03               	btfss	3,2
+   474  07C6  2FD4               	goto	l72
+   475                           ;vzm_ob.c: 271: {
+   476  07C7  08B2               	movf	_mode1
+   477  07C8  1D03               	btfss	3,2
+   478  07C9  2FCC               	goto	l73
+   479  07CA  01CC               	clrf	_step1
+   480  07CB  0ACC               	incf	_step1
+   481  07CC                     l73
+   482                           ;vzm_ob.c: 273: if(mode2==mON) step2=s1;
+   483  07CC  08B3               	movf	_mode2
+   484  07CD  1D03               	btfss	3,2
+   485  07CE  2FD1               	goto	l74
+   486  07CF  01CD               	clrf	_step2
+   487  07D0  0ACD               	incf	_step2
+   488  07D1                     l74
+   489                           ;vzm_ob.c: 274: step_main=s6;
+   490  07D1  3006               	movlw	6
+   491  07D2                     L3
+   492  07D2  00CE               	movwf	_step_main
+   493                           ;vzm_ob.c: 275: }
+   494  07D3  2FEB               	goto	l59
+   495  07D4                     l72
+   496  07D4  084E               	movf	_step_main,w
+   497  07D5  3A06               	xorlw	6
+   498  07D6  1D03               	btfss	3,2
+   499  07D7  2FEB               	goto	l59
+   500                           ;vzm_ob.c: 277: {
+   501  07D8  08CC               	movf	_step1
+   502  07D9  1903               	btfsc	3,2
+   503  07DA  2FDE               	goto	u530
+   504  07DB  08B2               	movf	_mode1
+   505  07DC  1903               	btfsc	3,2
+   506  07DD  2FEB               	goto	l59
+   507  07DE                     u530
+   508  07DE  08CD               	movf	_step2
+   509  07DF  1903               	btfsc	3,2
+   510  07E0  2FE4               	goto	u570
+   511  07E1  08B3               	movf	_mode2
+   512  07E2  1903               	btfsc	3,2
+   513  07E3  2FEB               	goto	l59
+   514  07E4                     u570
+   515                           ;vzm_ob.c: 279: {
+   516  07E4  08B1               	movf	_loop_stat
+   517  07E5  1D03               	btfss	3,2
+   518  07E6  2FEA               	goto	l78
+   519  07E7  01CE               	clrf	_step_main
+   520  07E8  0ACE               	incf	_step_main
+   521                           ;vzm_ob.c: 281: else step_main=sOFF;
+   522  07E9  2FEB               	goto	l59
+   523  07EA                     l78
+   524  07EA  01CE               	clrf	_step_main
+   525                           ;vzm_ob.c: 282: }
+   526                           ;vzm_ob.c: 285: TRISC4=0;
+   527  07EB                     l59
+   528  07EB  1683               	bsf	3,5
+   529  07EC  1207               	bcf	7,4
+   530                           ;vzm_ob.c: 286: if(bPP1)PORTC|=(1<<4);
+   531  07ED  1283               	bcf	3,5
+   532  07EE  1F20               	btfss	_bPP1/(0+8),_bPP1& (0+7)
+   533  07EF  2FF2               	goto	l80
+   534  07F0  1607               	bsf	7,4	;volatile
+   535                           ;vzm_ob.c: 287: else PORTC&=~(1<<4);
+   536  07F1  2FF3               	goto	l81
+   537  07F2                     l80
+   538  07F2  1207               	bcf	7,4	;volatile
+   539  07F3                     l81
+   540                           ;vzm_ob.c: 288: TRISC5=0;
+   541  07F3  1683               	bsf	3,5
+   542  07F4  1287               	bcf	7,5
+   543                           ;vzm_ob.c: 289: if(bPP2)PORTC|=(1<<5);
+   544  07F5  1283               	bcf	3,5
+   545  07F6  1FA0               	btfss	_bPP2/(0+8),_bPP2& (0+7)
+   546  07F7  2FFA               	goto	l82
+   547  07F8  1687               	bsf	7,5	;volatile
+   548                           ;vzm_ob.c: 290: else PORTC&=~(1<<5);
+   549  07F9  0008               	return
+   550  07FA                     l82
+   551  07FA  1287               	bcf	7,5	;volatile
+   552                           ;vzm_ob.c: 292: }
+   553  07FB  0008               	return
+   554                           
+   555                           	psect	text5
+   556                           ;vzm_ob.c: 295: void step1_contr(void)
+   557                           ;vzm_ob.c: 296: {
+   558  06BA                     _step1_contr
+   559                           ;	_temp assigned to ?a_step1_contr+0
+   560  0000                     _step1_contr$temp	set	?a_step1_contr
+   561                           ;vzm_ob.c: 297: char temp;
+   562  06BA  0183               	clrf	3	;select bank 0
+   563  06BB  01C7               	clrf	?a_step1_contr
+   564                           ;vzm_ob.c: 299: if((step_main==sOFF)||(mode1==m
+      +                          OFF))step1=sOFF;
+   565  06BC  08CE               	movf	_step_main
+   566  06BD  1903               	btfsc	3,2
+   567  06BE  2EC1               	goto	u630
+   568  06BF  0B32               	decfsz	_mode1,w
+   569  06C0  2EC2               	goto	l85
+   570  06C1                     u630
+   571  06C1  01CC               	clrf	_step1
+   572  06C2                     l85
+   573                           ;vzm_ob.c: 301: if(step1==sOFF)
+   574  06C2  08CC               	movf	_step1
+   575  06C3  1903               	btfsc	3,2
+   576  06C4  2F1F               	goto	l87
+   577                           ;vzm_ob.c: 302: {
+   578  06C5  0B4C               	decfsz	_step1,w
+   579  06C6  2ECB               	goto	l88
+   580                           ;vzm_ob.c: 306: {
+   581  06C7  3014               	movlw	20
+   582  06C8  00A9               	movwf	_cnt_del1
+   583                           ;vzm_ob.c: 308: step1=s2;
+   584  06C9  3002               	movlw	2
+   585  06CA  2F17               	goto	L10
+   586                           ;vzm_ob.c: 309: }
+   587  06CB                     l88
+   588  06CB  084C               	movf	_step1,w
+   589  06CC  3A02               	xorlw	2
+   590  06CD  1D03               	btfss	3,2
+   591  06CE  2ED5               	goto	l90
+   592                           ;vzm_ob.c: 311: {
+   593  06CF  0BA9               	decfsz	_cnt_del1
+   594                           ;vzm_ob.c: 313: if(cnt_del1==0)
+   595  06D0  2F1F               	goto	l87
+   596                           ;vzm_ob.c: 314: {
+   597  06D1  3014               	movlw	20
+   598  06D2  00A9               	movwf	_cnt_del1
+   599                           ;vzm_ob.c: 316: step1=s3;
+   600  06D3  3003               	movlw	3
+   601  06D4  2F17               	goto	L10
+   602                           ;vzm_ob.c: 317: }
+   603                           ;vzm_ob.c: 319: else if(step1==s3)
+   604  06D5                     l90
+   605  06D5  084C               	movf	_step1,w
+   606  06D6  3A03               	xorlw	3
+   607  06D7  1D03               	btfss	3,2
+   608  06D8  2EDE               	goto	l93
+   609                           ;vzm_ob.c: 320: {
+   610  06D9  17C7               	bsf	?a_step1_contr,7
+   611                           ;vzm_ob.c: 322: cnt_del1--;
+   612  06DA  0BA9               	decfsz	_cnt_del1
+   613                           ;vzm_ob.c: 323: if(cnt_del1==0)
+   614  06DB  2F1F               	goto	l87
+   615                           ;vzm_ob.c: 324: {
+   616  06DC  3004               	movlw	4
+   617  06DD  2F17               	goto	L10
+   618                           ;vzm_ob.c: 326: }
+   619                           ;vzm_ob.c: 329: else if(step1==s4)
+   620  06DE                     l93
+   621  06DE  084C               	movf	_step1,w
+   622  06DF  3A04               	xorlw	4
+   623  06E0  1D03               	btfss	3,2
+   624  06E1  2EEB               	goto	l96
+   625                           ;vzm_ob.c: 330: {
+   626  06E2  30C0               	movlw	-64
+   627  06E3  04C7               	iorwf	?a_step1_contr
+   628                           ;vzm_ob.c: 332: if(bVR1)
+   629  06E4  1C21               	btfss	_bVR1/(0+8),_bVR1& (0+7)
+   630  06E5  2F1F               	goto	l87
+   631                           ;vzm_ob.c: 333: {
+   632  06E6  3005               	movlw	5
+   633  06E7  00CC               	movwf	_step1
+   634                           ;vzm_ob.c: 335: cnt_del1=50;
+   635  06E8  3032               	movlw	50
+   636  06E9  00A9               	movwf	_cnt_del1
+   637                           ;vzm_ob.c: 336: }
+   638                           ;vzm_ob.c: 338: else if(step1==s5)
+   639  06EA  2F1F               	goto	l87
+   640  06EB                     l96
+   641  06EB  084C               	movf	_step1,w
+   642  06EC  3A05               	xorlw	5
+   643  06ED  1D03               	btfss	3,2
+   644  06EE  2EF7               	goto	l99
+   645                           ;vzm_ob.c: 339: {
+   646  06EF  30E0               	movlw	-32
+   647  06F0  04C7               	iorwf	?a_step1_contr
+   648                           ;vzm_ob.c: 341: cnt_del1--;
+   649  06F1  0BA9               	decfsz	_cnt_del1
+   650                           ;vzm_ob.c: 342: if(cnt_del1==0)
+   651  06F2  2F1F               	goto	l87
+   652                           ;vzm_ob.c: 343: {
+   653  06F3  3050               	movlw	80
+   654  06F4  00A9               	movwf	_cnt_del1
+   655                           ;vzm_ob.c: 345: step1=s6;
+   656  06F5  3006               	movlw	6
+   657  06F6  2F17               	goto	L10
+   658                           ;vzm_ob.c: 346: }
+   659                           ;vzm_ob.c: 348: else if(step1==s6)
+   660  06F7                     l99
+   661  06F7  084C               	movf	_step1,w
+   662  06F8  3A06               	xorlw	6
+   663  06F9  1D03               	btfss	3,2
+   664  06FA  2F03               	goto	l102
+   665                           ;vzm_ob.c: 349: {
+   666  06FB  30F0               	movlw	-16
+   667  06FC  04C7               	iorwf	?a_step1_contr
+   668                           ;vzm_ob.c: 351: cnt_del1--;
+   669  06FD  0BA9               	decfsz	_cnt_del1
+   670                           ;vzm_ob.c: 352: if(cnt_del1==0)
+   671  06FE  2F1F               	goto	l87
+   672                           ;vzm_ob.c: 353: {
+   673  06FF  303C               	movlw	60
+   674  0700  00A9               	movwf	_cnt_del1
+   675                           ;vzm_ob.c: 355: step1=s7;
+   676  0701  3007               	movlw	7
+   677  0702  2F17               	goto	L10
+   678                           ;vzm_ob.c: 356: }
+   679                           ;vzm_ob.c: 358: else if(step1==s7)
+   680  0703                     l102
+   681  0703  084C               	movf	_step1,w
+   682  0704  3A07               	xorlw	7
+   683  0705  1D03               	btfss	3,2
+   684  0706  2F0F               	goto	l105
+   685                           ;vzm_ob.c: 359: {
+   686  0707  3090               	movlw	-112
+   687  0708  04C7               	iorwf	?a_step1_contr
+   688                           ;vzm_ob.c: 361: cnt_del1--;
+   689  0709  0BA9               	decfsz	_cnt_del1
+   690                           ;vzm_ob.c: 362: if(cnt_del1==0)
+   691  070A  2F1F               	goto	l87
+   692                           ;vzm_ob.c: 363: {
+   693  070B  3014               	movlw	20
+   694  070C  00A9               	movwf	_cnt_del1
+   695                           ;vzm_ob.c: 365: step1=s8;
+   696  070D  3008               	movlw	8
+   697  070E  2F17               	goto	L10
+   698                           ;vzm_ob.c: 366: }
+   699                           ;vzm_ob.c: 368: else if(step1==s8)
+   700  070F                     l105
+   701  070F  084C               	movf	_step1,w
+   702  0710  3A08               	xorlw	8
+   703  0711  1D03               	btfss	3,2
+   704  0712  2F19               	goto	l108
+   705                           ;vzm_ob.c: 369: {
+   706  0713  1647               	bsf	?a_step1_contr,4
+   707                           ;vzm_ob.c: 371: cnt_del1--;
+   708  0714  0BA9               	decfsz	_cnt_del1
+   709                           ;vzm_ob.c: 372: if(cnt_del1==0)
+   710  0715  2F1F               	goto	l87
+   711                           ;vzm_ob.c: 373: {
+   712  0716  3009               	movlw	9
+   713  0717                     L10
+   714  0717  00CC               	movwf	_step1
+   715                           ;vzm_ob.c: 375: }
+   716                           ;vzm_ob.c: 377: else if(step1==s9)
+   717  0718  2F1F               	goto	l87
+   718  0719                     l108
+   719  0719  084C               	movf	_step1,w
+   720  071A  3A09               	xorlw	9
+   721  071B  1903               	btfsc	3,2
+   722                           ;vzm_ob.c: 378: {
+   723  071C  1D20               	btfss	_bMD1/(0+8),_bMD1& (0+7)
+   724  071D  2F1F               	goto	l87
+   725                           ;vzm_ob.c: 380: {
+   726  071E  01CC               	clrf	_step1
+   727                           ;vzm_ob.c: 382: }
+   728                           ;vzm_ob.c: 385: PORTB&=(0xff^((1<<7)|(1<<6)|(1<
+      +                          <5)|(1<<4)));
+   729  071F                     l87
+   730  071F  300F               	movlw	15
+   731  0720  0586               	andwf	6	;volatile
+   732                           ;vzm_ob.c: 386: PORTB|=temp;
+   733  0721  0847               	movf	?a_step1_contr,w
+   734  0722  0486               	iorwf	6	;volatile
+   735                           ;vzm_ob.c: 387: }
+   736  0723  0008               	return
+   737                           
+   738                           	psect	text6
+   739                           ;vzm_ob.c: 390: void step2_contr(void)
+   740                           ;vzm_ob.c: 391: {
+   741  0724                     _step2_contr
+   742                           ;	_temp assigned to ?a_step2_contr+0
+   743  0000                     _step2_contr$temp	set	?a_step2_contr
+   744                           ;vzm_ob.c: 392: char temp;
+   745  0724  0183               	clrf	3	;select bank 0
+   746  0725  01C7               	clrf	?a_step2_contr
+   747                           ;vzm_ob.c: 394: if((step_main==sOFF)||(mode2==m
+      +                          OFF))step2=sOFF;
+   748  0726  08CE               	movf	_step_main
+   749  0727  1903               	btfsc	3,2
+   750  0728  2F2B               	goto	u840
+   751  0729  0B33               	decfsz	_mode2,w
+   752  072A  2F2C               	goto	l114
+   753  072B                     u840
+   754  072B  01CD               	clrf	_step2
+   755  072C                     l114
+   756                           ;vzm_ob.c: 396: if(step2==sOFF)
+   757  072C  08CD               	movf	_step2
+   758  072D  1903               	btfsc	3,2
+   759  072E  2F89               	goto	l116
+   760                           ;vzm_ob.c: 397: {
+   761  072F  0B4D               	decfsz	_step2,w
+   762  0730  2F35               	goto	l117
+   763                           ;vzm_ob.c: 401: {
+   764  0731  3014               	movlw	20
+   765  0732  00AA               	movwf	_cnt_del2
+   766                           ;vzm_ob.c: 403: step2=s2;
+   767  0733  3002               	movlw	2
+   768  0734  2F81               	goto	L16
+   769                           ;vzm_ob.c: 404: }
+   770  0735                     l117
+   771  0735  084D               	movf	_step2,w
+   772  0736  3A02               	xorlw	2
+   773  0737  1D03               	btfss	3,2
+   774  0738  2F3F               	goto	l119
+   775                           ;vzm_ob.c: 406: {
+   776  0739  0BAA               	decfsz	_cnt_del2
+   777                           ;vzm_ob.c: 408: if(cnt_del2==0)
+   778  073A  2F89               	goto	l116
+   779                           ;vzm_ob.c: 409: {
+   780  073B  3014               	movlw	20
+   781  073C  00AA               	movwf	_cnt_del2
+   782                           ;vzm_ob.c: 411: step2=s3;
+   783  073D  3003               	movlw	3
+   784  073E  2F81               	goto	L16
+   785                           ;vzm_ob.c: 412: }
+   786                           ;vzm_ob.c: 414: else if(step2==s3)
+   787  073F                     l119
+   788  073F  084D               	movf	_step2,w
+   789  0740  3A03               	xorlw	3
+   790  0741  1D03               	btfss	3,2
+   791  0742  2F48               	goto	l122
+   792                           ;vzm_ob.c: 415: {
+   793  0743  1447               	bsf	?a_step2_contr,0
+   794                           ;vzm_ob.c: 417: cnt_del2--;
+   795  0744  0BAA               	decfsz	_cnt_del2
+   796                           ;vzm_ob.c: 418: if(cnt_del2==0)
+   797  0745  2F89               	goto	l116
+   798                           ;vzm_ob.c: 419: {
+   799  0746  3004               	movlw	4
+   800  0747  2F81               	goto	L16
+   801                           ;vzm_ob.c: 421: }
+   802                           ;vzm_ob.c: 424: else if(step2==s4)
+   803  0748                     l122
+   804  0748  084D               	movf	_step2,w
+   805  0749  3A04               	xorlw	4
+   806  074A  1D03               	btfss	3,2
+   807  074B  2F55               	goto	l125
+   808                           ;vzm_ob.c: 425: {
+   809  074C  3003               	movlw	3
+   810  074D  04C7               	iorwf	?a_step2_contr
+   811                           ;vzm_ob.c: 427: if(bVR2)
+   812  074E  1CA1               	btfss	_bVR2/(0+8),_bVR2& (0+7)
+   813  074F  2F89               	goto	l116
+   814                           ;vzm_ob.c: 428: {
+   815  0750  3005               	movlw	5
+   816  0751  00CD               	movwf	_step2
+   817                           ;vzm_ob.c: 430: cnt_del2=50;
+   818  0752  3032               	movlw	50
+   819  0753  00AA               	movwf	_cnt_del2
+   820                           ;vzm_ob.c: 431: }
+   821                           ;vzm_ob.c: 433: else if(step2==s5)
+   822  0754  2F89               	goto	l116
+   823  0755                     l125
+   824  0755  084D               	movf	_step2,w
+   825  0756  3A05               	xorlw	5
+   826  0757  1D03               	btfss	3,2
+   827  0758  2F61               	goto	l128
+   828                           ;vzm_ob.c: 434: {
+   829  0759  3007               	movlw	7
+   830  075A  04C7               	iorwf	?a_step2_contr
+   831                           ;vzm_ob.c: 436: cnt_del2--;
+   832  075B  0BAA               	decfsz	_cnt_del2
+   833                           ;vzm_ob.c: 437: if(cnt_del2==0)
+   834  075C  2F89               	goto	l116
+   835                           ;vzm_ob.c: 438: {
+   836  075D  3050               	movlw	80
+   837  075E  00AA               	movwf	_cnt_del2
+   838                           ;vzm_ob.c: 440: step2=s6;
+   839  075F  3006               	movlw	6
+   840  0760  2F81               	goto	L16
+   841                           ;vzm_ob.c: 441: }
+   842                           ;vzm_ob.c: 443: else if(step2==s6)
+   843  0761                     l128
+   844  0761  084D               	movf	_step2,w
+   845  0762  3A06               	xorlw	6
+   846  0763  1D03               	btfss	3,2
+   847  0764  2F6D               	goto	l131
+   848                           ;vzm_ob.c: 444: {
+   849  0765  300F               	movlw	15
+   850  0766  04C7               	iorwf	?a_step2_contr
+   851                           ;vzm_ob.c: 446: cnt_del2--;
+   852  0767  0BAA               	decfsz	_cnt_del2
+   853                           ;vzm_ob.c: 447: if(cnt_del2==0)
+   854  0768  2F89               	goto	l116
+   855                           ;vzm_ob.c: 448: {
+   856  0769  303C               	movlw	60
+   857  076A  00AA               	movwf	_cnt_del2
+   858                           ;vzm_ob.c: 450: step2=s7;
+   859  076B  3007               	movlw	7
+   860  076C  2F81               	goto	L16
+   861                           ;vzm_ob.c: 451: }
+   862                           ;vzm_ob.c: 453: else if(step2==s7)
+   863  076D                     l131
+   864  076D  084D               	movf	_step2,w
+   865  076E  3A07               	xorlw	7
+   866  076F  1D03               	btfss	3,2
+   867  0770  2F79               	goto	l134
+   868                           ;vzm_ob.c: 454: {
+   869  0771  3009               	movlw	9
+   870  0772  04C7               	iorwf	?a_step2_contr
+   871                           ;vzm_ob.c: 456: cnt_del2--;
+   872  0773  0BAA               	decfsz	_cnt_del2
+   873                           ;vzm_ob.c: 457: if(cnt_del2==0)
+   874  0774  2F89               	goto	l116
+   875                           ;vzm_ob.c: 458: {
+   876  0775  3014               	movlw	20
+   877  0776  00AA               	movwf	_cnt_del2
+   878                           ;vzm_ob.c: 460: step2=s8;
+   879  0777  3008               	movlw	8
+   880  0778  2F81               	goto	L16
+   881                           ;vzm_ob.c: 461: }
+   882                           ;vzm_ob.c: 463: else if(step2==s8)
+   883  0779                     l134
+   884  0779  084D               	movf	_step2,w
+   885  077A  3A08               	xorlw	8
+   886  077B  1D03               	btfss	3,2
+   887  077C  2F83               	goto	l137
+   888                           ;vzm_ob.c: 464: {
+   889  077D  15C7               	bsf	?a_step2_contr,3
+   890                           ;vzm_ob.c: 466: cnt_del2--;
+   891  077E  0BAA               	decfsz	_cnt_del2
+   892                           ;vzm_ob.c: 467: if(cnt_del2==0)
+   893  077F  2F89               	goto	l116
+   894                           ;vzm_ob.c: 468: {
+   895  0780  3009               	movlw	9
+   896  0781                     L16
+   897  0781  00CD               	movwf	_step2
+   898                           ;vzm_ob.c: 470: }
+   899                           ;vzm_ob.c: 472: else if(step2==s9)
+   900  0782  2F89               	goto	l116
+   901  0783                     l137
+   902  0783  084D               	movf	_step2,w
+   903  0784  3A09               	xorlw	9
+   904  0785  1903               	btfsc	3,2
+   905                           ;vzm_ob.c: 473: {
+   906  0786  1DA0               	btfss	_bMD2/(0+8),_bMD2& (0+7)
+   907  0787  2F89               	goto	l116
+   908                           ;vzm_ob.c: 475: {
+   909  0788  01CD               	clrf	_step2
+   910                           ;vzm_ob.c: 477: }
+   911                           ;vzm_ob.c: 480: PORTB&=(0xff^((1<<0)|(1<<1)|(1<
+      +                          <2)|(1<<3)));
+   912  0789                     l116
+   913  0789  30F0               	movlw	-16
+   914  078A  0586               	andwf	6	;volatile
+   915                           ;vzm_ob.c: 481: PORTB|=temp;
+   916  078B  0847               	movf	?a_step2_contr,w
+   917  078C  0486               	iorwf	6	;volatile
+   918                           ;vzm_ob.c: 482: }
+   919  078D  0008               	return
+   920                           
+   921                           	psect	text7
+   922                           ;vzm_ob.c: 487: void led_out(void)
+   923                           ;vzm_ob.c: 488: {
+   924  0598                     _led_out
+   925                           ;	_temp assigned to ?a_led_out+0
+   926  0000                     _led_out$temp	set	?a_led_out
+   927                           ;vzm_ob.c: 489: char temp=0;
+   928  0598  0183               	clrf	3	;select bank 0
+   929  0599  01C7               	clrf	?a_led_out
+   930                           ;vzm_ob.c: 490: TRISC&=0xF0;
+   931  059A  30F0               	movlw	-16
+   932  059B  1683               	bsf	3,5
+   933  059C  0587               	andwf	7	;volatile
+   934                           ;vzm_ob.c: 492: temp&=~(1<<3);
+   935  059D  1283               	bcf	3,5
+   936  059E  11C7               	bcf	?a_led_out,3
+   937                           ;vzm_ob.c: 494: if((step1==sOFF)&&(step2==sOFF)
+      +                          &&(step_main==sOFF))
+   938  059F  08CC               	movf	_step1
+   939  05A0  1D03               	btfss	3,2
+   940  05A1  2DAA               	goto	l143
+   941  05A2  08CD               	movf	_step2
+   942  05A3  1D03               	btfss	3,2
+   943  05A4  2DAA               	goto	l143
+   944  05A5  08CE               	movf	_step_main
+   945  05A6  1D03               	btfss	3,2
+   946  05A7  2DAA               	goto	l143
+   947                           ;vzm_ob.c: 495: {
+   948  05A8  1547               	bsf	?a_led_out,2
+   949                           ;vzm_ob.c: 497: }
+   950  05A9  2DAB               	goto	l144
+   951  05AA                     l143
+   952  05AA  1147               	bcf	?a_led_out,2
+   953  05AB                     l144
+   954                           ;vzm_ob.c: 500: temp|=(1<<1);
+   955  05AB  14C7               	bsf	?a_led_out,1
+   956                           ;vzm_ob.c: 502: if((step_main==sOFF)&&(bMD))
+   957  05AC  08CE               	movf	_step_main
+   958  05AD  1903               	btfsc	3,2
+   959  05AE  1CA0               	btfss	_bMD/(0+8),_bMD& (0+7)
+   960  05AF  2DB1               	goto	l145
+   961                           ;vzm_ob.c: 503: {
+   962  05B0  10C7               	bcf	?a_led_out,1
+   963  05B1                     l145
+   964                           ;vzm_ob.c: 505: }
+   965  05B1  08B2               	movf	_mode1
+   966  05B2  1D03               	btfss	3,2
+   967  05B3  2DBC               	goto	l146
+   968  05B4  08CC               	movf	_step1
+   969  05B5  1D03               	btfss	3,2
+   970  05B6  2DBC               	goto	l146
+   971  05B7  1920               	btfsc	_bMD1/(0+8),_bMD1& (0+7)
+   972  05B8  2DBB               	goto	u1170
+   973  05B9  1C21               	btfss	_bVR1/(0+8),_bVR1& (0+7)
+   974  05BA  2DBC               	goto	l146
+   975  05BB                     u1170
+   976                           ;vzm_ob.c: 507: {
+   977  05BB  10C7               	bcf	?a_led_out,1
+   978  05BC                     l146
+   979                           ;vzm_ob.c: 509: }
+   980  05BC  08B3               	movf	_mode2
+   981  05BD  1D03               	btfss	3,2
+   982  05BE  2DC7               	goto	l147
+   983  05BF  08CD               	movf	_step2
+   984  05C0  1D03               	btfss	3,2
+   985  05C1  2DC7               	goto	l147
+   986  05C2  19A0               	btfsc	_bMD2/(0+8),_bMD2& (0+7)
+   987  05C3  2DC6               	goto	u1240
+   988  05C4  1CA1               	btfss	_bVR2/(0+8),_bVR2& (0+7)
+   989  05C5  2DC7               	goto	l147
+   990  05C6                     u1240
+   991                           ;vzm_ob.c: 511: {
+   992  05C6  10C7               	bcf	?a_led_out,1
+   993  05C7                     l147
+   994                           ;vzm_ob.c: 513: }
+   995  05C7  0847               	movf	?a_led_out,w
+   996  05C8  38F0               	iorlw	-16
+   997  05C9  00F0               	movwf	btemp
+   998  05CA  0807               	movf	7,w	;volatile
+   999  05CB  380F               	iorlw	15
+  1000  05CC  0570               	andwf	btemp,w
+  1001  05CD  0087               	movwf	7	;volatile
+  1002                           ;vzm_ob.c: 518: }
+  1003  05CE  0008               	return
+  1004                           
+  1005                           	psect	text8
+  1006                           ;vzm_ob.c: 521: void mdvr_drv(void)
+  1007                           ;vzm_ob.c: 522: {
+  1008  065B                     _mdvr_drv
+  1009                           ;vzm_ob.c: 523: if(!(in_word&(1<<13)))
+  1010  065B  0183               	clrf	3	;select bank 0
+  1011  065C  1AC6               	btfsc	_in_word+1,5
+  1012  065D  2E69               	goto	l149
+  1013                           ;vzm_ob.c: 524: {
+  1014  065E  300A               	movlw	10
+  1015  065F  022C               	subwf	_cnt_md,w
+  1016  0660  1803               	btfsc	3,0
+  1017  0661  2E6F               	goto	l152
+  1018                           ;vzm_ob.c: 526: {
+  1019  0662  0AAC               	incf	_cnt_md
+  1020                           ;vzm_ob.c: 528: if(cnt_md==10) bMD=1;
+  1021  0663  082C               	movf	_cnt_md,w
+  1022  0664  3A0A               	xorlw	10
+  1023  0665  1D03               	btfss	3,2
+  1024  0666  2E6F               	goto	l152
+  1025  0667  14A0               	bsf	_bMD/(0+8),_bMD& (0+7)
+  1026                           ;vzm_ob.c: 529: }
+  1027                           ;vzm_ob.c: 531: }
+  1028                           ;vzm_ob.c: 532: else
+  1029  0668  2E6F               	goto	l152
+  1030  0669                     l149
+  1031                           ;vzm_ob.c: 533: {
+  1032  0669  08AC               	movf	_cnt_md
+  1033  066A  1903               	btfsc	3,2
+  1034  066B  2E6F               	goto	l152
+  1035                           ;vzm_ob.c: 535: {
+  1036  066C  0BAC               	decfsz	_cnt_md
+  1037                           ;vzm_ob.c: 537: if(cnt_md==0) bMD=0;
+  1038  066D  2E6F               	goto	l152
+  1039  066E  10A0               	bcf	_bMD/(0+8),_bMD& (0+7)
+  1040                           ;vzm_ob.c: 538: }
+  1041                           ;vzm_ob.c: 540: }
+  1042  066F                     l152
+  1043                           ;vzm_ob.c: 542: if(!(in_word&(1<<0)))
+  1044  066F  1845               	btfsc	_in_word,0
+  1045  0670  2E7C               	goto	l155
+  1046                           ;vzm_ob.c: 543: {
+  1047  0671  300A               	movlw	10
+  1048  0672  022D               	subwf	_cnt_md1,w
+  1049  0673  1803               	btfsc	3,0
+  1050  0674  2E82               	goto	l158
+  1051                           ;vzm_ob.c: 545: {
+  1052  0675  0AAD               	incf	_cnt_md1
+  1053                           ;vzm_ob.c: 547: if(cnt_md1==10) bMD1=1;
+  1054  0676  082D               	movf	_cnt_md1,w
+  1055  0677  3A0A               	xorlw	10
+  1056  0678  1D03               	btfss	3,2
+  1057  0679  2E82               	goto	l158
+  1058  067A  1520               	bsf	_bMD1/(0+8),_bMD1& (0+7)
+  1059                           ;vzm_ob.c: 548: }
+  1060                           ;vzm_ob.c: 550: }
+  1061                           ;vzm_ob.c: 551: else
+  1062  067B  2E82               	goto	l158
+  1063  067C                     l155
+  1064                           ;vzm_ob.c: 552: {
+  1065  067C  08AD               	movf	_cnt_md1
+  1066  067D  1903               	btfsc	3,2
+  1067  067E  2E82               	goto	l158
+  1068                           ;vzm_ob.c: 554: {
+  1069  067F  0BAD               	decfsz	_cnt_md1
+  1070                           ;vzm_ob.c: 556: if(cnt_md1==0) bMD1=0;
+  1071  0680  2E82               	goto	l158
+  1072  0681  1120               	bcf	_bMD1/(0+8),_bMD1& (0+7)
+  1073                           ;vzm_ob.c: 557: }
+  1074                           ;vzm_ob.c: 559: }
+  1075  0682                     l158
+  1076                           ;vzm_ob.c: 561: if(!(in_word&(1<<15)))
+  1077  0682  1BC6               	btfsc	_in_word+1,7
+  1078  0683  2E8F               	goto	l161
+  1079                           ;vzm_ob.c: 562: {
+  1080  0684  300A               	movlw	10
+  1081  0685  022E               	subwf	_cnt_md2,w
+  1082  0686  1803               	btfsc	3,0
+  1083  0687  2E95               	goto	l164
+  1084                           ;vzm_ob.c: 564: {
+  1085  0688  0AAE               	incf	_cnt_md2
+  1086                           ;vzm_ob.c: 566: if(cnt_md2==10) bMD2=1;
+  1087  0689  082E               	movf	_cnt_md2,w
+  1088  068A  3A0A               	xorlw	10
+  1089  068B  1D03               	btfss	3,2
+  1090  068C  2E95               	goto	l164
+  1091  068D  15A0               	bsf	_bMD2/(0+8),_bMD2& (0+7)
+  1092                           ;vzm_ob.c: 567: }
+  1093                           ;vzm_ob.c: 569: }
+  1094                           ;vzm_ob.c: 570: else
+  1095  068E  2E95               	goto	l164
+  1096  068F                     l161
+  1097                           ;vzm_ob.c: 571: {
+  1098  068F  08AE               	movf	_cnt_md2
+  1099  0690  1903               	btfsc	3,2
+  1100  0691  2E95               	goto	l164
+  1101                           ;vzm_ob.c: 573: {
+  1102  0692  0BAE               	decfsz	_cnt_md2
+  1103                           ;vzm_ob.c: 575: if(cnt_md2==0) bMD2=0;
+  1104  0693  2E95               	goto	l164
+  1105  0694  11A0               	bcf	_bMD2/(0+8),_bMD2& (0+7)
+  1106                           ;vzm_ob.c: 576: }
+  1107                           ;vzm_ob.c: 578: }
+  1108  0695                     l164
+  1109                           ;vzm_ob.c: 580: if(!(in_word&(1<<2)))
+  1110  0695  1945               	btfsc	_in_word,2
+  1111  0696  2EA2               	goto	l167
+  1112                           ;vzm_ob.c: 581: {
+  1113  0697  300A               	movlw	10
+  1114  0698  022F               	subwf	_cnt_vr1,w
+  1115  0699  1803               	btfsc	3,0
+  1116  069A  2EA8               	goto	l170
+  1117                           ;vzm_ob.c: 583: {
+  1118  069B  0AAF               	incf	_cnt_vr1
+  1119                           ;vzm_ob.c: 585: if(cnt_vr1==10) bVR1=1;
+  1120  069C  082F               	movf	_cnt_vr1,w
+  1121  069D  3A0A               	xorlw	10
+  1122  069E  1D03               	btfss	3,2
+  1123  069F  2EA8               	goto	l170
+  1124  06A0  1421               	bsf	_bVR1/(0+8),_bVR1& (0+7)
+  1125                           ;vzm_ob.c: 586: }
+  1126                           ;vzm_ob.c: 588: }
+  1127                           ;vzm_ob.c: 589: else
+  1128  06A1  2EA8               	goto	l170
+  1129  06A2                     l167
+  1130                           ;vzm_ob.c: 590: {
+  1131  06A2  08AF               	movf	_cnt_vr1
+  1132  06A3  1903               	btfsc	3,2
+  1133  06A4  2EA8               	goto	l170
+  1134                           ;vzm_ob.c: 592: {
+  1135  06A5  0BAF               	decfsz	_cnt_vr1
+  1136                           ;vzm_ob.c: 594: if(cnt_vr1==0) bVR1=0;
+  1137  06A6  2EA8               	goto	l170
+  1138  06A7  1021               	bcf	_bVR1/(0+8),_bVR1& (0+7)
+  1139                           ;vzm_ob.c: 595: }
+  1140                           ;vzm_ob.c: 597: }
+  1141  06A8                     l170
+  1142                           ;vzm_ob.c: 599: if(!(in_word&(1<<14)))
+  1143  06A8  1B46               	btfsc	_in_word+1,6
+  1144  06A9  2EB4               	goto	l173
+  1145                           ;vzm_ob.c: 600: {
+  1146  06AA  300A               	movlw	10
+  1147  06AB  0230               	subwf	_cnt_vr2,w
+  1148  06AC  1803               	btfsc	3,0
+  1149  06AD  0008               	return
+  1150                           ;vzm_ob.c: 602: {
+  1151  06AE  0AB0               	incf	_cnt_vr2
+  1152                           ;vzm_ob.c: 604: if(cnt_vr2==10) bVR2=1;
+  1153  06AF  0830               	movf	_cnt_vr2,w
+  1154  06B0  3A0A               	xorlw	10
+  1155  06B1  1903               	btfsc	3,2
+  1156  06B2  14A1               	bsf	_bVR2/(0+8),_bVR2& (0+7)
+  1157                           ;vzm_ob.c: 605: }
+  1158                           ;vzm_ob.c: 607: }
+  1159                           ;vzm_ob.c: 608: else
+  1160  06B3  0008               	return
+  1161  06B4                     l173
+  1162                           ;vzm_ob.c: 609: {
+  1163  06B4  08B0               	movf	_cnt_vr2
+  1164  06B5  1D03               	btfss	3,2
+  1165                           ;vzm_ob.c: 611: {
+  1166  06B6  0BB0               	decfsz	_cnt_vr2
+  1167                           ;vzm_ob.c: 613: if(cnt_vr2==0) bVR2=0;
+  1168  06B7  0008               	return
+  1169  06B8  10A1               	bcf	_bVR2/(0+8),_bVR2& (0+7)
+  1170                           ;vzm_ob.c: 614: }
+  1171                           ;vzm_ob.c: 616: }
+  1172                           ;vzm_ob.c: 617: }
+  1173  06B9  0008               	return
+  1174                           
+  1175                           	psect	text9
+  1176                           ;vzm_ob.c: 620: void err_drv(void)
+  1177                           ;vzm_ob.c: 621: {
+  1178  04E6                     _err_drv
+  1179                           ;vzm_ob.c: 628: }
+  1180  04E6  0183               	clrf	3	;select bank 0
+  1181  04E7  0008               	return
+  1182                           
+  1183                           	psect	text10
+  1184                           ;vzm_ob.c: 631: void prog_drv(void)
+  1185                           ;vzm_ob.c: 632: {
+  1186  0516                     _prog_drv
+  1187                           ;vzm_ob.c: 633: if((!(in_word&(1<<10)))&&(in_wo
+      +                          rd&(1<<8))&&(in_word&(1<<9)))
+  1188  0516  0183               	clrf	3	;select bank 0
+  1189  0517  1D46               	btfss	_in_word+1,2
+  1190  0518  1C46               	btfss	_in_word+1,0
+  1191  0519  2D1E               	goto	l181
+  1192  051A  1CC6               	btfss	_in_word+1,1
+  1193  051B  2D1E               	goto	l181
+  1194                           ;vzm_ob.c: 634: {
+  1195  051C  01CF               	clrf	_prog
+  1196                           ;vzm_ob.c: 636: }
+  1197  051D  0008               	return
+  1198  051E                     l181
+  1199  051E  1C46               	btfss	_in_word+1,0
+  1200  051F  1D46               	btfss	_in_word+1,2
+  1201  0520  2D26               	goto	l183
+  1202  0521  1CC6               	btfss	_in_word+1,1
+  1203  0522  2D26               	goto	l183
+  1204                           ;vzm_ob.c: 638: {
+  1205  0523  01CF               	clrf	_prog
+  1206  0524  0ACF               	incf	_prog
+  1207                           ;vzm_ob.c: 640: }
+  1208  0525  0008               	return
+  1209  0526                     l183
+  1210  0526  1CC6               	btfss	_in_word+1,1
+  1211  0527  1C46               	btfss	_in_word+1,0
+  1212  0528  2D2E               	goto	l185
+  1213  0529  1D46               	btfss	_in_word+1,2
+  1214  052A  2D2E               	goto	l185
+  1215                           ;vzm_ob.c: 642: {
+  1216  052B  3002               	movlw	2
+  1217  052C  00CF               	movwf	_prog
+  1218                           ;vzm_ob.c: 644: }
+  1219  052D  0008               	return
+  1220  052E                     l185
+  1221  052E  3003               	movlw	3
+  1222  052F  00CF               	movwf	_prog
+  1223                           ;vzm_ob.c: 646: }
+  1224  0530  0008               	return
+  1225                           
+  1226                           	psect	text11
+  1227                           ;vzm_ob.c: 653: void but_drv(void)
+  1228                           ;vzm_ob.c: 654: {
+  1229  0531                     _but_drv
+  1230                           ;vzm_ob.c: 655: if(!(in_word&(1<<6)))
+  1231  0531  0183               	clrf	3	;select bank 0
+  1232  0532  1B45               	btfsc	_in_word,6
+  1233  0533  2D3F               	goto	l188
+  1234                           ;vzm_ob.c: 656: {
+  1235  0534  3003               	movlw	3
+  1236  0535  0227               	subwf	_cnt_but_START,w
+  1237  0536  1803               	btfsc	3,0
+  1238  0537  2D40               	goto	l191
+  1239                           ;vzm_ob.c: 658: {
+  1240  0538  0AA7               	incf	_cnt_but_START
+  1241                           ;vzm_ob.c: 660: if(cnt_but_START>=3)
+  1242  0539  3003               	movlw	3
+  1243  053A  0227               	subwf	_cnt_but_START,w
+  1244  053B  1C03               	btfss	3,0
+  1245  053C  2D40               	goto	l191
+  1246                           ;vzm_ob.c: 661: {
+  1247  053D  1620               	bsf	_bON_START/(0+8),_bON_START& (0+7)
+  1248                           ;vzm_ob.c: 663: }
+  1249                           ;vzm_ob.c: 665: }
+  1250                           ;vzm_ob.c: 666: else
+  1251  053E  2D40               	goto	l191
+  1252  053F                     l188
+  1253                           ;vzm_ob.c: 667: {
+  1254  053F  01A7               	clrf	_cnt_but_START
+  1255  0540                     l191
+  1256                           ;vzm_ob.c: 669: }
+  1257                           ;vzm_ob.c: 671: if(!(in_word&(1<<5)))
+  1258  0540  1AC5               	btfsc	_in_word,5
+  1259  0541  2D4C               	goto	l192
+  1260                           ;vzm_ob.c: 672: {
+  1261  0542  3003               	movlw	3
+  1262  0543  0228               	subwf	_cnt_but_STOP,w
+  1263  0544  1803               	btfsc	3,0
+  1264  0545  0008               	return
+  1265                           ;vzm_ob.c: 674: {
+  1266  0546  0AA8               	incf	_cnt_but_STOP
+  1267                           ;vzm_ob.c: 676: if(cnt_but_STOP>=3)
+  1268  0547  3003               	movlw	3
+  1269  0548  0228               	subwf	_cnt_but_STOP,w
+  1270  0549  1803               	btfsc	3,0
+  1271                           ;vzm_ob.c: 677: {
+  1272  054A  16A0               	bsf	_bON_STOP/(0+8),_bON_STOP& (0+7)
+  1273                           ;vzm_ob.c: 679: }
+  1274                           ;vzm_ob.c: 681: }
+  1275                           ;vzm_ob.c: 682: else
+  1276  054B  0008               	return
+  1277  054C                     l192
+  1278                           ;vzm_ob.c: 683: {
+  1279  054C  01A8               	clrf	_cnt_but_STOP
+  1280                           ;vzm_ob.c: 685: }
+  1281                           ;vzm_ob.c: 732: }
+  1282  054D  0008               	return
+  1283                           
+  1284                           	psect	text12
+  1285                           ;vzm_ob.c: 737: void but_an(void)
+  1286                           ;vzm_ob.c: 738: {
+  1287  04FF                     _but_an
+  1288                           ;vzm_ob.c: 739: if(bON_START)
+  1289  04FF  0183               	clrf	3	;select bank 0
+  1290  0500  1E20               	btfss	_bON_START/(0+8),_bON_START& (0+7)
+  1291  0501  2D0E               	goto	l197
+  1292                           ;vzm_ob.c: 740: {
+  1293  0502  08CE               	movf	_step_main
+  1294  0503  1D03               	btfss	3,2
+  1295  0504  2D0E               	goto	l197
+  1296  0505  08CD               	movf	_step2
+  1297  0506  1D03               	btfss	3,2
+  1298  0507  2D0E               	goto	l197
+  1299  0508  08CD               	movf	_step2
+  1300  0509  1903               	btfsc	3,2
+  1301  050A  1820               	btfsc	_bERR/(0+8),_bERR& (0+7)
+  1302  050B  2D0E               	goto	l197
+  1303                           ;vzm_ob.c: 742: {
+  1304  050C  01CE               	clrf	_step_main
+  1305  050D  0ACE               	incf	_step_main
+  1306                           ;vzm_ob.c: 744: }
+  1307  050E                     l197
+  1308                           ;vzm_ob.c: 746: if(bON_STOP)
+  1309  050E  1EA0               	btfss	_bON_STOP/(0+8),_bON_STOP& (0+7)
+  1310  050F  2D13               	goto	l199
+  1311                           ;vzm_ob.c: 747: {
+  1312  0510  01CE               	clrf	_step_main
+  1313                           ;vzm_ob.c: 749: step1=sOFF;
+  1314  0511  01CC               	clrf	_step1
+  1315                           ;vzm_ob.c: 750: step2=sOFF;
+  1316  0512  01CD               	clrf	_step2
+  1317  0513                     l199
+  1318                           ;vzm_ob.c: 751: }
+  1319  0513  1220               	bcf	_bON_START/(0+8),_bON_START& (0+7)
+  1320                           ;vzm_ob.c: 773: bON_STOP=0;
+  1321  0514  12A0               	bcf	_bON_STOP/(0+8),_bON_STOP& (0+7)
+  1322                           ;vzm_ob.c: 774: }
+  1323  0515  0008               	return
+  1324                           
+  1325                           	psect	text13
+  1326                           ;vzm_ob.c: 777: void t0_init(void)
+  1327                           ;vzm_ob.c: 778: {
+  1328  04E8                     _t0_init
+  1329                           ;vzm_ob.c: 779: OPTION=0x07;
+  1330  04E8  3007               	movlw	7
+  1331  04E9  1683               	bsf	3,5
+  1332  04EA  1303               	bcf	3,6	;carry unused
+  1333  04EB  0081               	movwf	1
+  1334                           ;vzm_ob.c: 780: T0IE=1;
+  1335  04EC  168B               	bsf	11,5
+  1336                           ;vzm_ob.c: 781: PEIE=1;
+  1337  04ED  170B               	bsf	11,6
+  1338                           ;vzm_ob.c: 784: TMR0=-100;
+  1339  04EE  309C               	movlw	-100
+  1340  04EF  1283               	bcf	3,5
+  1341  04F0  0081               	movwf	1	;volatile
+  1342                           ;vzm_ob.c: 785: }
+  1343  04F1  0008               	return
+  1344                           
+  1345                           	psect	intcode
+  1346                           ;vzm_ob.c: 793: void interrupt isr(void)
+  1347                           ;vzm_ob.c: 794: {
+  1348  0008                     _isr
+  1349  0008                     int_func
+  1350                           ;vzm_ob.c: 796: (GIE = 0);
+  1351  0008  138B               	bcf	11,7
+  1352                           ;vzm_ob.c: 798: if(T0IF)
+  1353  0009  1D0B               	btfss	11,2
+  1354  000A  281C               	goto	l202
+  1355                           ;vzm_ob.c: 799: {
+  1356  000B  24E8               	call	_t0_init
+  1357                           ;vzm_ob.c: 801: T0IF=0;
+  1358  000C  110B               	bcf	11,2
+  1359                           ;vzm_ob.c: 802: bit_100Hz=1;
+  1360  000D  1521               	bsf	_bit_100Hz/(0+8),_bit_100Hz& (0+7)
+  1361                           ;vzm_ob.c: 803: if((++cnt0)==10)
+  1362  000E  0AA5               	incf	_cnt0
+  1363  000F  0825               	movf	_cnt0,w
+  1364  0010  3A0A               	xorlw	10
+  1365  0011  1D03               	btfss	3,2
+  1366  0012  281C               	goto	l202
+  1367                           ;vzm_ob.c: 804: {
+  1368  0013  01A5               	clrf	_cnt0
+  1369                           ;vzm_ob.c: 806: bit_10Hz=1;
+  1370  0014  15A1               	bsf	_bit_10Hz/(0+8),_bit_10Hz& (0+7)
+  1371                           ;vzm_ob.c: 807: if(++cnt1==10)
+  1372  0015  0AA6               	incf	_cnt1
+  1373  0016  0826               	movf	_cnt1,w
+  1374  0017  3A0A               	xorlw	10
+  1375  0018  1D03               	btfss	3,2
+  1376  0019  281C               	goto	l202
+  1377                           ;vzm_ob.c: 808: {
+  1378  001A  01A6               	clrf	_cnt1
+  1379                           ;vzm_ob.c: 810: bit_1Hz=1;
+  1380  001B  1621               	bsf	_bit_1Hz/(0+8),_bit_1Hz& (0+7)
+  1381                           ;vzm_ob.c: 811: }
+  1382                           ;vzm_ob.c: 813: }
+  1383  001C                     l202
+  1384                           ;vzm_ob.c: 815: (GIE = 1);
+  1385  001C  178B               	bsf	11,7
+  1386                           ;vzm_ob.c: 816: }
+  1387  001D  1303               	bcf	3,6	;carry unused
+  1388  001E  1283               	bcf	3,5
+  1389                           
+  1390                           	psect	intsave_0
+  1391  0071                     saved_w
+  1392  0071                     	ds	1
+  1393                           
+  1394                           	psect	intret
+  1395  001F                     int_restore
+  1396  001F  0852               	movf	saved_status,w
+  1397  0020  0083               	movwf	3
+  1398  0021  0EF1               	swapf	saved_w
+  1399  0022  0E71               	swapf	saved_w,w
+  1400  0023  0009               	retfie
+  1401                           
+  1402                           	psect	intentry
+  1403  0004                     int_entry
+  1404  0004  00F1               	movwf	saved_w
+  1405  0005  0803               	movf	3,w
+  1406  0006  0183               	clrf	3
+  1407  0007  00D2               	movwf	saved_status
+  1408                           
+  1409                           	psect	intsave
+  1410  0052                     saved_status
+  1411  0052                     	ds	1
+  1412                           
+  1413                           	psect	text15
+  1414                           ;vzm_ob.c: 823: void main(void)
+  1415                           ;vzm_ob.c: 824: {
+  1416  0573                     _main
+  1417                           ;vzm_ob.c: 826: t0_init();
+  1418  0573  24E8               	call	_t0_init
+  1419                           ;vzm_ob.c: 830: PEIE=1;
+  1420  0574  170B               	bsf	11,6
+  1421                           ;vzm_ob.c: 838: TRISB=0x00;
+  1422  0575  1683               	bsf	3,5
+  1423  0576  0186               	clrf	6	;volatile
+  1424                           ;vzm_ob.c: 839: PORTB=0x00;
+  1425  0577  1283               	bcf	3,5
+  1426  0578  0186               	clrf	6	;volatile
+  1427                           ;vzm_ob.c: 842: TRISC4=0;
+  1428  0579  1683               	bsf	3,5
+  1429  057A  1207               	bcf	7,4
+  1430                           ;vzm_ob.c: 843: PORTC&=~(1<<4);
+  1431  057B  1283               	bcf	3,5
+  1432  057C  1207               	bcf	7,4	;volatile
+  1433                           ;vzm_ob.c: 844: TRISC5=0;
+  1434  057D  1683               	bsf	3,5
+  1435  057E  1287               	bcf	7,5
+  1436                           ;vzm_ob.c: 845: PORTC&=~(1<<5);
+  1437  057F  1283               	bcf	3,5
+  1438  0580  1287               	bcf	7,5	;volatile
+  1439                           ;vzm_ob.c: 846: (GIE = 1);
+  1440  0581  178B               	bsf	11,7
+  1441  0582                     l207
+  1442                           ;vzm_ob.c: 847: while (1)
+  1443                           ;vzm_ob.c: 848: {
+  1444  0582  1D21               	btfss	_bit_100Hz/(0+8),_bit_100Hz& (0+7)
+  1445  0583  2D8E               	goto	l209
+  1446                           ;vzm_ob.c: 850: {
+  1447  0584  1121               	bcf	_bit_100Hz/(0+8),_bit_100Hz& (0+7)
+  1448                           ;vzm_ob.c: 853: in_read();
+  1449  0585  254E               	call	_in_read
+  1450                           ;vzm_ob.c: 855: mdvr_drv();
+  1451  0586  265B               	call	_mdvr_drv
+  1452                           ;vzm_ob.c: 856: step_main_contr();
+  1453  0587  278E               	call	_step_main_contr
+  1454                           ;vzm_ob.c: 857: step1_contr();
+  1455  0588  26BA               	call	_step1_contr
+  1456                           ;vzm_ob.c: 858: step2_contr();
+  1457  0589  2724               	call	_step2_contr
+  1458                           ;vzm_ob.c: 859: but_drv();
+  1459  058A  2531               	call	_but_drv
+  1460                           ;vzm_ob.c: 860: but_an();
+  1461  058B  24FF               	call	_but_an
+  1462                           ;vzm_ob.c: 861: tumbler_drv();
+  1463  058C  2608               	call	_tumbler_drv
+  1464                           ;vzm_ob.c: 862: od_drv();
+  1465  058D  25CF               	call	_od_drv
+  1466  058E                     l209
+  1467                           ;vzm_ob.c: 863: }
+  1468  058E  1DA1               	btfss	_bit_10Hz/(0+8),_bit_10Hz& (0+7)
+  1469  058F  2D94               	goto	l210
+  1470                           ;vzm_ob.c: 865: {
+  1471  0590  11A1               	bcf	_bit_10Hz/(0+8),_bit_10Hz& (0+7)
+  1472                           ;vzm_ob.c: 867: led_out();
+  1473  0591  2598               	call	_led_out
+  1474                           ;vzm_ob.c: 868: err_drv();
+  1475                           ;vzm_ob.c: 628: }
+  1476  0592  0183               	clrf	3	;select bank 0
+  1477                           ;vzm_ob.c: 869: prog_drv();
+  1478  0593  2516               	call	_prog_drv
+  1479  0594                     l210
+  1480                           ;vzm_ob.c: 870: }
+  1481  0594  1E21               	btfss	_bit_1Hz/(0+8),_bit_1Hz& (0+7)
+  1482  0595  2D82               	goto	l207
+  1483                           ;vzm_ob.c: 872: {
+  1484  0596  1221               	bcf	_bit_1Hz/(0+8),_bit_1Hz& (0+7)
+  1485                           ;vzm_ob.c: 878: }
+  1486  0597  2D82               	goto	l207
+  1487                           
+  1488                           	psect	text16
+  1489  0000                     
+  1490  0000                     
+  1491  0000                     
+  1492  0000                     
+  1493  0000                     
+  1494  0000                     
+  1495  0000                     
+  1496  0000                     
+  1497  0000                     
+  1498  0000                     
+  1499  0000                     
+  1500  0000                     
+  1501  0000                     
+  1502  0000                     
+  1503  0000                     
+  1504  0000                     
+  1505  0000                     
+  1506  0000                     
+  1507  0000                     
+  1508  0000                     
+  1509  0000                     
+  1510  0000                     
+  1511  0000                     
+  1512  0000                     
+  1513  0000                     
+  1514  0000                     
+  1515  0000                     
+  1516  0000                     
+  1517  0000                     
+  1518  0000                     
+  1519  0000                     
+  1520  0000                     
+  1521  0000                     
+  1522  0000                     
+  1523  0000                     
+  1524  0000                     
+  1525  0000                     
+  1526  0000                     
+  1527  0000                     
+  1528  0000                     
+  1529  0000                     
+  1530  0000                     
+  1531  0000                     
+  1532  0000                     
+  1533  0000                     
+  1534  0000                     
+  1535  0000                     
+  1536  0000                     
+  1537  0000                     
+  1538  0000                     
+  1539  0000                     
+  1540  0000                     
+  1541  0000                     
+  1542  0000                     
+  1543  0000                     
+  1544  0000                     
+  1545  0000                     
+  1546  0000                     
+  1547  0000                     
+  1548  0000                     
+  1549  0000                     
+  1550  0000                     
+  1551  0000                     
+  1552  0000                     
+  1553  0000                     
+  1554  0000                     
+  1555  0000                     
+  1556  0000                     
+  1557  0000                     
+  1558  0000                     
+  1559  0000                     
+  1560  0000                     
+  1561  0000                     
+  1562  0000                     
+  1563  0000                     
+  1564  0000                     
+  1565  0000                     
+  1566  0000                     
+  1567  0000                     
+  1568  0000                     
+  1569  0000                     
+  1570  0000                     
+  1571  0000                     
+  1572  0000                     
+  1573  0000                     
+  1574  0000                     
+  1575  0000                     
+  1576  0000                     
+  1577  0000                     
+  1578  0000                     
+  1579  0000                     
+  1580  0000                     
+  1581  0000                     
+  1582  0000                     
+  1583  0000                     
+  1584  0000                     
+  1585  0000                     
+  1586  0000                     
+  1587  0000                     
+  1588  0000                     
+  1589  0000                     
+  1590  0000                     
+  1591  0000                     
+  1592  0000                     
+  1593  0000                     
+  1594  0000                     
+  1595  0000                     
+  1596  0000                     
+  1597  0000                     
+  1598  0000                     
+  1599  0000                     
+  1600  0000                     
+  1601  0000                     
+  1602  0000                     
+  1603  0000                     
+  1604  0000                     
+  1605  0000                     
+  1606  0000                     
+  1607  0000                     
+  1608  0000                     
+  1609  0000                     
+  1610  0000                     
+  1611  0000                     
+  1612  0000                     
+  1613  0000                     
+  1614  0000                     
+  1615  0000                     
+  1616  0000                     
+  1617  0000                     
+  1618  0000                     
+  1619  0000                     
+  1620  0000                     
+  1621  0000                     
+  1622  0000                     
+  1623  0000                     
+  1624  0000                     
+  1625  0000                     
+  1626  0000                     
+  1627  0000                     
+  1628  0000                     
+  1629                           
+  1630                           	psect	rbit_0
+  1631  0100                     _bERR
+  1632  0100                     	ds	1
+  1633  0101                     _bMD
+  1634  0101                     	ds	1
+  1635  0102                     _bMD1
+  1636  0102                     	ds	1
+  1637  0103                     _bMD2
+  1638  0103                     	ds	1
+  1639  0104                     _bON_START
+  1640  0104                     	ds	1
+  1641  0105                     _bON_STOP
+  1642  0105                     	ds	1
+  1643  0106                     _bPP1
+  1644  0106                     	ds	1
+  1645  0107                     _bPP2
+  1646  0107                     	ds	1
+  1647  0108                     _bVR1
+  1648  0108                     	ds	1
+  1649  0109                     _bVR2
+  1650  0109                     	ds	1
+  1651  010A                     _bit_100Hz
+  1652  010A                     	ds	1
+  1653  010B                     _bit_10Hz
+  1654  010B                     	ds	1
+  1655  010C                     _bit_1Hz
+  1656  010C                     	ds	1
+  1657  010D                     _l_but
+  1658  010D                     	ds	1
+  1659  010E                     _n_but
+  1660  010E                     	ds	1
+  1661  010F                     _speed
+  1662  010F                     	ds	1
+  1663  0000                     
+  1664  0000                     
+  1665  0000                     
+  1666  0000                     
+  1667  0000                     
+  1668  0000                     
+  1669  0000                     
+  1670  0000                     
+  1671  0000                     
+  1672  0000                     
+  1673  0000                     
+  1674  0000                     
+  1675  0000                     
+  1676  0000                     
+  1677  0000                     
+  1678  0000                     
+  1679  0000                     
+  1680  0000                     
+  1681  0000                     
+  1682  0000                     
+  1683  0000                     
+  1684  0000                     
+  1685  0000                     
+  1686  0000                     
+  1687  0000                     
+  1688  0000                     
+  1689  0000                     
+  1690  0000                     
+  1691  0000                     
+  1692  0000                     
+  1693  0000                     
+  1694  0000                     
+  1695  0000                     
+  1696  0000                     
+  1697  0000                     
+  1698  0000                     
+  1699  0000                     
+  1700  0000                     
+  1701  0000                     
+  1702  0000                     
+  1703  0000                     
+  1704  0000                     
+  1705  0000                     
+  1706                           
+  1707                           	psect	rbss_0
+  1708  0022                     _but0_cnt
+  1709  0022                     	ds	1
+  1710  0023                     _but1_cnt
+  1711  0023                     	ds	1
+  1712  0024                     _but_onL_temp
+  1713  0024                     	ds	1
+  1714  0025                     _cnt0
+  1715  0025                     	ds	1
+  1716  0026                     _cnt1
+  1717  0026                     	ds	1
+  1718  0027                     _cnt_but_START
+  1719  0027                     	ds	1
+  1720  0028                     _cnt_but_STOP
+  1721  0028                     	ds	1
+  1722  0029                     _cnt_del1
+  1723  0029                     	ds	1
+  1724  002A                     _cnt_del2
+  1725  002A                     	ds	1
+  1726  002B                     _cnt_del_main
+  1727  002B                     	ds	1
+  1728  002C                     _cnt_md
+  1729  002C                     	ds	1
+  1730  002D                     _cnt_md1
+  1731  002D                     	ds	1
+  1732  002E                     _cnt_md2
+  1733  002E                     	ds	1
+  1734  002F                     _cnt_vr1
+  1735  002F                     	ds	1
+  1736  0030                     _cnt_vr2
+  1737  0030                     	ds	1
+  1738  0031                     _loop_stat
+  1739  0031                     	ds	1
+  1740  0032                     _mode1
+  1741  0032                     	ds	1
+  1742  0033                     _mode2
+  1743  0033                     	ds	1
+  1744  0034                     _od1
+  1745  0034                     	ds	1
+  1746  0035                     _od1_cnt
+  1747  0035                     	ds	1
+  1748  0036                     _od2
+  1749  0036                     	ds	1
+  1750  0037                     _od2_cnt
+  1751  0037                     	ds	1
+  1752  0038                     _sw1_cnt
+  1753  0038                     	ds	1
+  1754  0039                     _sw2_cnt
+  1755  0039                     	ds	1
+  1756  003A                     _sw_loop_cnt
+  1757  003A                     	ds	1
+  1758  003B                     _temp
+  1759  003B                     	ds	1
+  1760  003C                     _temper
+  1761  003C                     	ds	1
+  1762  003D                     _vol_i
+  1763  003D                     	ds	1
+  1764  003E                     _vol_l
+  1765  003E                     	ds	1
+  1766  003F                     _but
+  1767  003F                     	ds	2
+  1768  0041                     _but_n
+  1769  0041                     	ds	2
+  1770  0043                     _but_s
+  1771  0043                     	ds	2
+  1772  0045                     _in_word
+  1773  0045                     	ds	2
+  1774                           
+  1775                           	psect	temp
+  1776  0070                     btemp
+  1777  0070                     	ds	1
+
+
+HI-TECH Software PICC Macro Assembler V8.05PL2
+Symbol Table                                          Thu Oct  4 02:15:27 2007
+
+       ?a_DelayMs 0047                 l4 04F4                 l7 04F6  
+               l9 04F8          _but0_cnt 0022          _but1_cnt 0023  
+ _step_main_contr 078E                l12 0555                l21 0612  
+              l31 0630                l23 0616                l16 0562  
+              l33 0637                l25 061F                l34 063E  
+              l18 0568                l51 05EF                l27 0623  
+              l19 0569                l60 07A4                l52 05F6  
+              l36 0645                l45 05DC                l37 064C  
+              l29 062C                l54 05FD                l63 07AD  
+              l55 0604                l39 0653                l80 07F2  
+              l72 07D4                l81 07F3                l73 07CC  
+              l49 05E8                l90 06D5                l82 07FA  
+              l74 07D1                l66 07BA                l59 07EB  
+              l93 06DE                l85 06C2                l69 07C3  
+              l78 07EA                l87 071F                l96 06EB  
+              l88 06CB                l99 06F7          _cnt_del1 0029  
+        _cnt_del2 002A       _step1_contr 06BA       _step2_contr 0724  
+             l102 0703               l105 070F               l210 0594  
+             l202 001C               l122 0748               l114 072C  
+             l131 076D               l116 0789               l108 0719  
+             l125 0755               l117 0735               l134 0779  
+             l207 0582               l143 05AA               l119 073F  
+             l152 066F               l144 05AB               l128 0761  
+             l209 058E               l161 068F               l145 05B1  
+             l137 0783               l170 06A8               l146 05BC  
+             l155 067C               l147 05C7               l164 0695  
+             l181 051E               l173 06B4               l149 0669  
+             l158 0682               l191 0540               l183 0526  
+             l167 06A2               l192 054C               l185 052E  
+             l188 053F               l197 050E               l199 0513  
+             u400 07A2               u360 079C               u530 07DE  
+             u630 06C1               u570 07E4               u840 072B  
+             _bMD 0101               _od1 0034               _od2 0036  
+             _but 003F               _isr 0008          _mdvr_drv 065B  
+       ?a_led_out 0047         ?a_in_read 0047              u1240 05C6  
+            u1170 05BB          _prog_drv 0516            _cnt_md 002C  
+          _but_an 04FF            _od_drv 05CF              _bMD1 0102  
+            _bMD2 0103              _bERR 0100              _bPP1 0106  
+            _bPP2 0107              _bVR1 0108              _bVR2 0109  
+         _DelayMs 04F2              _cnt0 0025              _cnt1 0026  
+          _temper 003C              _main 0573              _temp 003B  
+            _prog 004F              btemp 0070      _cnt_del_main 002B  
+            start 0024     ?a_step1_contr 0047            saved_w 0071  
+   ?a_step2_contr 0047         clear_bit0 0028      _cnt_but_STOP 0028  
+         _t0_init 04E8         _bON_START 0104         _loop_stat 0031  
+        int_entry 0004           _od1_cnt 0035           _od2_cnt 0037  
+         _bit_1Hz 010C       _sw_loop_cnt 003A           _cnt_md1 002D  
+         _cnt_md2 002E           _cnt_vr1 002F           _cnt_vr2 0030  
+         _led_out 0598           _in_read 054E           _but_drv 0531  
+         _err_drv 04E6           _sw1_cnt 0038           _sw2_cnt 0039  
+         _in_word 0045         _step_main 004E             _l_but 010D  
+           _n_but 010E             _but_n 0041             _but_s 0043  
+           _mode1 0032             _mode2 0033             _speed 010F  
+           _step1 004C             _step2 004D             _vol_i 003D  
+           _vol_l 003E       saved_status 0052       _tumbler_drv 0608  
+           status 0003          _bON_STOP 0105         copy_bank0 002C  
+         int_func 0008        clear_bank0 0024     _cnt_but_START 0027  
+       _bit_100Hz 010A        int_restore 001F          _bit_10Hz 010B  
+    _but_onL_temp 0024        used_btemp0 0001  

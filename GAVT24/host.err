@@ -1,0 +1,15 @@
+Creating   'host.eep'
+Creating   'host.obj'
+Creating   'host.lst'
+
+Assembling 'host.asm'
+Including  'host.vec'
+Including  'host.inc'
+
+Program memory usage:
+Code             : 2228 words
+Constants (dw/db):   20 words
+Unused           :    0 words
+Total            : 2248 words
+
+Assembly complete with no errors.

@@ -1,0 +1,928 @@
+     1: #define RX_BUFFER_SIZE 12
+     2: #define TX_BUFFER_SIZE 12
+     3: 
+     4: #define XTAL_FREQ 4MHZ
+     5: #include <pic.h>
+     6: #include "delay.h"
+     7: 
+     8: #include "sci.c"
+     9: #include "Cmd.c"
+    10: 
+    11: #define but_mask        0b1111111111111010
+    12: #define but_on          3
+    13: #define but_onL 10
+    14: #define no_but          0b1111111111111111
+    15: 
+    16: #define led_NET  3
+    17: #define led_WORK 2
+    18: #define led_ERR  1
+    19: 
+    20: #define PP1     4
+    21: #define PP2     3
+    22: #define PP3     2
+    23: #define PP4     1
+    24: #define PP5     0
+    25: #define PP6     5
+    26: #define PP7     1
+    27: #define NET     5
+    28: #define NET_REZ 7
+    29: 
+    30: #define MD1     15
+    31: #define MD2     14
+    32: #define MD3     12
+    33: #define VR      13
+    34: 
+    35: //#define VR    0  кнопка старт
+    36: //#define VR    2  кнопка стоп
+    37: 
+    38: #define PROG1   10
+    39: #define PROG2   8
+    40: #define PROG3   9
+    41: 
+    42: //#define DELAY 10
+    43: #define DELAY1 14
+    44: #define DELAY2 18
+    45: bank1 char rx_buffer[RX_BUFFER_SIZE];
+    46: bank1 volatile unsigned char rx_wr_index,rx_rd_index,rx_counter,rx_cnt;
+    47: //bit rx_buffer_overflow;
+    48: bank1 char tx_buffer[TX_BUFFER_SIZE];
+    49:  volatile unsigned char tx_wr_index,tx_rd_index,tx_counter;
+    50: 
+    51: char UIB[10]={0,0,0,0,0,0,0,0,0,0};
+    52: char ccc=128;
+    53: 
+    54: __CONFIG (0x3d7a);
+    55: 
+    56: 
+    57: //char adc_cnt;
+    58: //char tmr1_init;
+    59: bit bit_100Hz;
+    60: bit bit_10Hz;
+    61: bit bit_1Hz;
+    62: bit bVR;
+    63: bit bMD1;
+    64: bit bMD2;
+    65: bit bMD3;
+    66: 
+    67: bit bERR;
+    68: bit bRXIN;
+    69: /*bit bV1;
+    70: bit bV0;*/
+    71: 
+    72: unsigned int in_word;
+    73: 
+    74: 
+    75: 
+    76: unsigned but_n;
+    77: unsigned but_s;
+    78: unsigned but/*,but_but*/;
+    79: char enum{sOFF,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16}step=sOFF;
+    80: char enum{p1,p2,p3,pOFF}prog=p1;
+    81: char but0_cnt,but1_cnt;
+    82: char but_onL_temp;
+    83: signed int cnt_del=0;
+    84: 
+    85: char cnt_md1,cnt_md2,cnt_md3,cnt_vr;
+    86: 
+    87: 
+    88: bit l_but;              //идет длинное нажатие на кнопку
+    89: bit n_but;          //произошло нажатие
+    90: bit speed;              //разрешение ускорения перебора
+    91: 
+    92: 
+    93: 
+    94: 
+    95: char cnt0,cnt1,temper,temp,vol_l,vol_i;
+    96: char cnt_but_START,cnt_but_STOP;
+    97: 
+    98: bit bON_START,bON_STOP;
+    99: 
+   100: //**********************************************
+   101: //Задержки
+   102: void DelayMs(unsigned char cnt)
+   103: {
+   104: unsigned char   i;
+   105:         do {
+   106:                 i = 4;
+   107:                 do {
+   108:                         DelayUs(250);
+   109:                 } while(--i);
+   110:         } while(--cnt);
+   111: 
+   112: }
+   113: 
+   114: //-----------------------------------------------
+   115: void eeprom_write(unsigned char addr, unsigned char value)
+   116: {
+   117: EEPROM_WRITE(addr,value);
+   118: }
+   119: 
+   120: //-----------------------------------------------
+   121: unsigned char eeprom_read(unsigned char addr)
+   122: {
+   123: return EEPROM_READ(addr);
+   124: }
+   125: 
+   126: 
+   127: //-----------------------------------------------
+   128: void in_read(void)
+   129: {
+   130: char i,temp;
+   131: unsigned int tempUI;
+   132: TRISA&=0xf0;
+   133: TRISA4=1;
+   134: 
+   135: for(i=0;i<16;i++)
+   136:         {
+   137:         temp=PORTA;
+   138:         temp&=0xf0;
+   139:         temp+=i;
+   140:         PORTA=temp;
+   141:         tempUI<<=1;
+   142:         DelayUs(200);
+   143:         if(RA4)tempUI|=0x0001;
+   144:         else tempUI&=0xfffe;
+   145:         }
+   146: in_word=tempUI;
+   147: }
+   148: 
+   149: //-----------------------------------------------
+   150: void sci_init(void)
+   151: {
+   152:         BRGH = 1;       /* high baud rate */
+   153: //      SPBRG = 129;    /* set the baud rate 9600*/
+   154: //      SPBRG = 64;     /* set the baud rate 19200*/
+   155:         SPBRG = 25;     /* set the baud rate 9600@4000000*/
+   156: //      SPBRG = 12;     /* set the baud rate 38400*/
+   157: //      SPBRG = 8;      /* set the baud rate 57600*/
+   158: //      SPBRG = 6;      /* set the baud rate 76800*/
+   159:         SYNC = 0;       /* asynchronous */
+   160:         SPEN = 1;       /* enable serial port pins */
+   161:         TRISC6=1;
+   162:         TRISC7=1;
+   163:         CREN = 1;       /* enable reception */
+   164: //      SREN = 0;       /* no effect */
+   165:         TXIE = 0;       /* enable tx interrupts */
+   166:         RCIE = 1;       /* enable rx interrupts */
+   167:         TX9  = 0;       /* 9-bit transmission */
+   168:         RX9  = 0;       /* 9-bit reception */
+   169:         TXEN = 1;       /* enable the transmitter */
+   170:         GIE=1;
+   171:         PEIE=1;
+   172: 
+   173: }
+   174: 
+   175: //-----------------------------------------------
+   176: void puts(char* ptr,char len)
+   177: {
+   178: char i,n;
+   179: 
+   180: for(i=0;i<len;i++)
+   181:         {
+   182:         tx_buffer[tx_wr_index]=ptr[i];
+   183:         if(++tx_wr_index>=TX_BUFFER_SIZE) tx_wr_index=0;
+   184:         }
+   185: 
+   186: TXIE=1;
+   187: }
+   188: 
+   189: //-----------------------------------------------
+   190: void OUT (char num,char data0,char data1,char data2,char data3,char data4,char data5)
+   191: {
+   192: 
+   193: char i,t=0;
+   194: char UOB[8];
+   195: 
+   196: UOB[0]=data0;
+   197: UOB[1]=data1;
+   198: UOB[2]=data2;
+   199: UOB[3]=data3;
+   200: UOB[4]=data4;
+   201: UOB[5]=data5;
+   202: for (i=0;i<num;i++)
+   203:         {
+   204:         t^=UOB[i];
+   205:         }
+   206: UOB[num]=num;
+   207: t^=UOB[num];
+   208: UOB[num+1]=t;
+   209: UOB[num+2]=END;
+   210: 
+   211: 
+   212: puts(UOB,num+3);
+   213: 
+   214: 
+   215: }
+   216: //-----------------------------------------------
+   217: void step_contr(void)
+   218: {
+   219: if(prog==p1)
+   220:         {
+   221:         if(step==s1)
+   222:                 {
+   223:           if(!bMD1)goto step_contr_end;
+   224: 
+   225:                 step=s2;
+   226:                 }
+   227: 
+   228:         else if(step==s2)
+   229:                 {
+   230:           if(!bVR)goto step_contr_end;
+   231:           cnt_del=50;
+   232:                 step=s3;
+   233:                 }
+   234: 
+   235: 
+   236:         else    if(step==s3)
+   237:                 {
+   238:                 cnt_del--;
+   239:                 if(cnt_del==0)
+   240:                         {
+   241:                         step=s4;
+   242:                         }
+   243:           }
+   244:         else if(step==s4)
+   245:                 {
+   246:           if(!bMD2)goto step_contr_end;
+   247:           if(!bMD3)goto step_contr_end;
+   248:                 cnt_del=eeprom_read(DELAY1)*10U;
+   249:                 step=s5;
+   250:                 }
+   251: 
+   252:         else if(step==s5)
+   253:                 {
+   254:                 cnt_del--;
+   255:                 if(cnt_del==0)
+   256:                         {
+   257:                         step=s6;
+   258:                         cnt_del=20;
+   259:                         }
+   260:                 }
+   261: 
+   262:         else if(step==s6)
+   263:                 {
+   264:                 cnt_del--;
+   265:                 if(cnt_del==0)
+   266:                         {
+   267:                         step=sOFF;
+   268:                         }
+   269:                 }
+   270: 
+   271:         }
+   272: 
+   273: if(prog==p2)
+   274:         {
+   275:         if(step==s1)
+   276:                 {
+   277:           if(!bMD1)goto step_contr_end;
+   278: 
+   279:                 step=s2;
+   280:                 }
+   281: 
+   282:         else if(step==s2)
+   283:                 {
+   284:           if(!bVR)goto step_contr_end;
+   285:           cnt_del=50;
+   286:                 step=s3;
+   287:                 }
+   288: 
+   289: 
+   290:         else    if(step==s3)
+   291:                 {
+   292:                 cnt_del--;
+   293:                 if(cnt_del==0)
+   294:                         {
+   295:                         step=s4;
+   296:                         cnt_del=eeprom_read(DELAY1)*10U;
+   297:                         }
+   298:           }
+   299:         else if(step==s4)
+   300:                 {
+   301:                 cnt_del--;
+   302:                 if(cnt_del==0)
+   303:                         {
+   304:                         step=s5;
+   305:                         cnt_del=20;
+   306:                         }
+   307:                 }
+   308: 
+   309:         else if(step==s5)
+   310:                 {
+   311:                 cnt_del--;
+   312:                 if(cnt_del==0)
+   313:                         {
+   314:                         step=s6;
+   315:                         cnt_del=eeprom_read(DELAY2)*10U;
+   316:                         }
+   317:                 }
+   318: 
+   319:         else if(step==s6)
+   320:                 {
+   321:                 cnt_del--;
+   322:                 if(cnt_del==0)
+   323:                         {
+   324:                         step=sOFF;
+   325:                         }
+   326:                 }
+   327:         }
+   328: 
+   329: 
+   330: step_contr_end:
+   331: asm("nop");
+   332: }
+   333: 
+   334: //-----------------------------------------------
+   335: void out_out(void)
+   336: {
+   337: char temp=0;
+   338: TRISB=0x00;
+   339: if(prog==p1)
+   340:         {
+   341:         if(step==sOFF)
+   342:                 {
+   343:                 temp=0;
+   344:                 }
+   345: 
+   346:         else    if(step==s1)
+   347:                 {
+   348:                 temp|=(1<<PP1);
+   349:                 }
+   350: 
+   351:         else if(step==s2)
+   352:                 {
+   353:                 temp|=(1<<PP1)|(1<<PP2)|(1<<PP3);
+   354:                 }
+   355: 
+   356:         else if(step==s3)
+   357:                 {
+   358:                 temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4);
+   359:                 }
+   360: 
+   361:         else if((step==s4))
+   362:                 {
+   363:                 temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<PP5);
+   364:                 }
+   365: 
+   366:         else if((step==s5))
+   367:                 {
+   368:                 temp|=(1<<PP1)|(1<<PP3)|(1<<PP5);
+   369:                 }
+   370: 
+   371:         else if(step==s6)
+   372:                 {
+   373:           temp|=(1<<PP1);
+   374:                 }
+   375: 
+   376:         }
+   377: 
+   378: if(prog==p2)
+   379:         {
+   380:         if(step==sOFF)
+   381:                 {
+   382:                 temp=0;
+   383:                 }
+   384: 
+   385:         else    if(step==s1)
+   386:                 {
+   387:                 temp|=(1<<PP1);
+   388:                 }
+   389: 
+   390:         else if(step==s2)
+   391:                 {
+   392:                 temp|=(1<<PP1)|(1<<PP2)|(1<<PP3);
+   393:                 }
+   394: 
+   395:         else if(step==s3)
+   396:                 {
+   397:                 temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4);
+   398:                 }
+   399: 
+   400:         else if((step==s4))
+   401:                 {
+   402:                 temp|=(1<<PP1)|(1<<PP3)|(1<<PP4);
+   403:                 }
+   404: 
+   405:         else if(step==s5)
+   406:                 {
+   407:                 temp|=(1<<PP1)|(1<<PP4);
+   408:                 }
+   409: 
+   410:         else if(step==s6)
+   411:                 {
+   412:                 temp|=(1<<PP4);
+   413:                 }
+   414: 
+   415:         }
+   416: 
+   417: 
+   418: PORTB=temp;
+   419: 
+   420: }
+   421: 
+   422: //-----------------------------------------------
+   423: void led_out(void)
+   424: {
+   425: char temp=0;
+   426: TRISC=0xF0;
+   427: 
+   428: temp&=~(1<<led_NET);
+   429: 
+   430: if(step!=sOFF)
+   431:         {
+   432:         temp&=~(1<<led_WORK);
+   433:         }
+   434: else temp|=(1<<led_WORK);
+   435: 
+   436: 
+   437: if(step==sOFF)
+   438:         {
+   439:         if(bERR)
+   440:                 {
+   441:                 temp&=~(1<<led_ERR);
+   442:                 }
+   443:         else
+   444:                 {
+   445:                 temp|=(1<<led_ERR);
+   446:                 }
+   447: 
+   448:         }
+   449: else temp|=(1<<led_ERR);
+   450: 
+   451: 
+   452: 
+   453: PORTC=(PORTC|0b00001111)&temp;
+   454: }
+   455: 
+   456: //-----------------------------------------------
+   457: void mdvr_drv(void)
+   458: {
+   459: if(!(in_word&(1<<MD1)))
+   460:         {
+   461:         if(cnt_md1<10)
+   462:                 {
+   463:                 cnt_md1++;
+   464:                 if(cnt_md1==10) bMD1=1;
+   465:                 }
+   466: 
+   467:         }
+   468: else
+   469:         {
+   470:         if(cnt_md1)
+   471:                 {
+   472:                 cnt_md1--;
+   473:                 if(cnt_md1==0) bMD1=0;
+   474:                 }
+   475: 
+   476:         }
+   477: 
+   478: if(!(in_word&(1<<MD2)))
+   479:         {
+   480:         if(cnt_md2<10)
+   481:                 {
+   482:                 cnt_md2++;
+   483:                 if(cnt_md2==10) bMD2=1;
+   484:                 }
+   485: 
+   486:         }
+   487: else
+   488:         {
+   489:         if(cnt_md2)
+   490:                 {
+   491:                 cnt_md2--;
+   492:                 if(cnt_md2==0) bMD2=0;
+   493:                 }
+   494: 
+   495:         }
+   496: 
+   497: if(!(in_word&(1<<MD3)))
+   498:         {
+   499:         if(cnt_md3<10)
+   500:                 {
+   501:                 cnt_md3++;
+   502:                 if(cnt_md3==10) bMD3=1;
+   503:                 }
+   504: 
+   505:         }
+   506: else
+   507:         {
+   508:         if(cnt_md3)
+   509:                 {
+   510:                 cnt_md3--;
+   511:                 if(cnt_md3==0) bMD3=0;
+   512:                 }
+   513: 
+   514:         }
+   515: 
+   516: if(!(in_word&(1<<VR)))
+   517:         {
+   518:         if(cnt_vr<10)
+   519:                 {
+   520:                 cnt_vr++;
+   521:                 if(cnt_vr==10) bVR=1;
+   522:                 }
+   523: 
+   524:         }
+   525: else
+   526:         {
+   527:         if(cnt_vr)
+   528:                 {
+   529:                 cnt_vr--;
+   530:                 if(cnt_vr==0) bVR=0;
+   531:                 }
+   532: 
+   533:         }
+   534: }
+   535: 
+   536: //-----------------------------------------------
+   537: void err_drv(void)
+   538: {
+   539: if(step==sOFF)
+   540:         {
+   541:         if((bMD1)||(bMD2)||(bVR)) bERR=1;
+   542:         else bERR=0;
+   543:         }
+   544: else bERR=0;
+   545: }
+   546: 
+   547: //-----------------------------------------------
+   548: void prog_drv(void)
+   549: {
+   550: if((!(in_word&(1<<PROG1)))&&(in_word&(1<<PROG2))&&(in_word&(1<<PROG3)))
+   551:         {
+   552:         prog=p1;
+   553:         }
+   554: else if((!(in_word&(1<<PROG2)))&&(in_word&(1<<PROG1))&&(in_word&(1<<PROG3)))
+   555:         {
+   556:         prog=p2;
+   557:         }
+   558: 
+   559: else prog=pOFF;
+   560: }
+   561: 
+   562: //-----------------------------------------------
+   563: // Подпрограмма драйва до 16 входов
+   564: // различает короткое и длинное нажатие,
+   565: // срабатывает на отпускание кнопки, возможность
+   566: // ускорения перебора при длинном нажатии...
+   567: void but_drv(void)
+   568: {
+   569: if(!(in_word&0x0001))
+   570:         {
+   571:         if(cnt_but_START<but_on)
+   572:                 {
+   573:                 cnt_but_START++;
+   574:                 if(cnt_but_START>=but_on)
+   575:                         {
+   576:                         bON_START=1;
+   577:                         }
+   578:                 }
+   579:         }
+   580: else
+   581:         {
+   582:      cnt_but_START=0;
+   583:         }
+   584: 
+   585: if(!(in_word&0x0004))
+   586:         {
+   587:         if(cnt_but_STOP<but_on)
+   588:                 {
+   589:                 cnt_but_STOP++;
+   590:                 if(cnt_but_STOP>=but_on)
+   591:                         {
+   592:                         bON_STOP=1;
+   593:                         }
+   594:                 }
+   595:         }
+   596: else
+   597:         {
+   598:      cnt_but_STOP=0;
+   599:         }
+   600: /*but_n=in_word|but_mask;
+   601: if(but_n==no_but||but_n!=but_s)
+   602:         {
+   603:         speed=0;
+   604:         n_but=0;
+   605:         but=no_but;
+   606:         if (((but0_cnt>=but_on)||(but1_cnt!=0))&&(!l_but))
+   607:                 {
+   608:              n_but=1;
+   609:           but=but_s;
+   610:           }
+   611:         if (but1_cnt>=but_onL_temp)
+   612:                 {
+   613:              n_but=1;
+   614:           but=but_s&0b01111111;
+   615:           }
+   616:         l_but=0;
+   617:         but_onL_temp=but_onL;
+   618:         but0_cnt=0;
+   619:         but1_cnt=0;
+   620:      goto but_drv_out;
+   621:         }
+   622: if(but_n==but_s)
+   623:         {
+   624:         but0_cnt++;
+   625:         if(but0_cnt>=but_on)
+   626:                 {
+   627:                 but0_cnt=0;
+   628:                 but1_cnt++;
+   629:                 if(but1_cnt>=but_onL_temp)
+   630:                         {
+   631:                         but=but_s&0b01111111;
+   632:                         but1_cnt=0;
+   633:                         n_but=1;
+   634:                         l_but=1;
+   635:                         if(speed)
+   636:                                 {
+   637:                                 but_onL_temp=but_onL_temp=2;
+   638:                                 if(but_onL_temp<=2) but_onL_temp=2;
+   639:                                 }
+   640:                         }
+   641:                 }
+   642:         }
+   643: but_drv_out:
+   644: but_s=but_n;
+   645: */
+   646: }
+   647: 
+   648: #define butSTART 0b1111111111111110
+   649: #define butSTOP  0b1111111111111011
+   650: //-----------------------------------------------
+   651: void but_an(void)
+   652: {
+   653: if(bON_START)
+   654:         {
+   655:         if((step==sOFF)&&(!bERR))
+   656:                 {
+   657:                 step=s1;
+   658:                 if(prog==p1) cnt_del=50;
+   659:                 else if(prog==p2) cnt_del=50;
+   660:                 else if(prog==p3) cnt_del=50;
+   661: 
+   662:                 }
+   663:         }
+   664: if(bON_STOP)
+   665:         {
+   666:         step=sOFF;
+   667: 
+   668:         }
+   669: //if (!n_but) goto but_an_end;
+   670: /*
+   671: if(but==butSTART)
+   672:         {
+   673:         if(step==sOFF)
+   674:                 {
+   675:                 step=s1;
+   676:                 if(prog==p1) cnt_del=50;
+   677:                 else if(prog==p2) cnt_del=50;
+   678:                 else if(prog==p3) cnt_del=50;
+   679:                 }
+   680:         }
+   681: else if(but==butSTOP)
+   682:         {
+   683:         step=sOFF;
+   684:         }
+   685: 
+   686: but_an_end:
+   687: asm("nop");
+   688: */
+   689: bON_START=0;
+   690: bON_STOP=0;
+   691: }
+   692: 
+   693: //-----------------------------------------------
+   694: void t0_init(void)
+   695: {
+   696: OPTION=0x07;
+   697: T0IE=1;
+   698: PEIE=1;
+   699: TMR0=-40;
+   700: }
+   701: 
+   702: //-----------------------------------------------
+   703: char index_offset (signed char index,signed char offset)
+   704: {
+   705: index=index+offset;
+   706: if(index>=RX_BUFFER_SIZE) index-=RX_BUFFER_SIZE;
+   707: if(index<0) index+=RX_BUFFER_SIZE;
+   708: return index;
+   709: }
+   710: 
+   711: //-----------------------------------------------
+   712: char control_check(char index)
+   713: {
+   714: char i=0,ii=0,iii;
+   715: 
+   716: 
+   717: if(rx_buffer[index]!=END) goto error_cc;
+   718: 
+   719: ii=rx_buffer[index_offset(index,-2)];
+   720: iii=0;
+   721: for(i=0;i<=ii;i++)
+   722:         {
+   723:         iii^=rx_buffer[index_offset(index,-2-ii+i)];
+   724:         }
+   725: if (iii!=rx_buffer[index_offset(index,-1)]) goto error_cc;
+   726: 
+   727: 
+   728: success_cc:
+   729: return 1;
+   730: goto end_cc;
+   731: error_cc:
+   732: return 0;
+   733: goto end_cc;
+   734: 
+   735: end_cc:
+   736: asm("nop");
+   737: }
+   738: 
+   739: //-----------------------------------------------
+   740: void UART_IN_AN(void)
+   741: {
+   742: char temp;
+   743: 
+   744: if((UIB[0]==CMND)&&(UIB[1]==5)&&(UIB[2]==6))
+   745:         {
+   746:         temp=eeprom_read(DELAY1);
+   747:         temp++;
+   748:         eeprom_write(DELAY1,temp);
+   749:         }
+   750: else if((UIB[0]==CMND)&&(UIB[1]==7)&&(UIB[2]==8))
+   751:         {
+   752:         temp=eeprom_read(DELAY1);
+   753:         temp--;
+   754:         eeprom_write(DELAY1,temp);
+   755:         }
+   756: else if((UIB[0]==CMND)&&(UIB[1]==9)&&(UIB[2]==10))
+   757:         {
+   758:         temp=eeprom_read(DELAY2);
+   759:         temp++;
+   760:         eeprom_write(DELAY2,temp);
+   761:         }
+   762: else if((UIB[0]==CMND)&&(UIB[1]==11)&&(UIB[2]==12))
+   763:         {
+   764:         temp=eeprom_read(DELAY2);
+   765:         temp--;
+   766:         eeprom_write(DELAY2,temp);
+   767:         }
+   768: }
+   769: 
+   770: //-----------------------------------------------
+   771: void UART_IN(void)
+   772: {
+   773: //static char flag;
+   774: char temp,i,count,index;
+   775: //int temp_int;
+   776: di();
+   777: count=rx_counter;
+   778: index=rx_wr_index;
+   779: ei();
+   780: if(count&&(rx_buffer[index_offset(index,-1)])==END)
+   781:         {
+   782:      temp=rx_buffer[index_offset(index,-3)];
+   783:         if(temp<10)
+   784:                 {
+   785:                 if(control_check(index_offset(index,-1)))
+   786:                         {
+   787:                         rx_rd_index=index_offset(index,-3-temp);
+   788:                         for(i=0;i<temp;i++)
+   789:                                 {
+   790:                                 UIB[i]=rx_buffer[index_offset(rx_rd_index,i)];
+   791:                                 }
+   792:                         rx_rd_index=index;
+   793:                         rx_counter-=count;
+   794:                         UART_IN_AN();
+   795:                         }
+   796:                 }
+   797: 
+   798:         }
+   799: //UART_IN_end:
+   800: //ei();
+   801: }
+   802: 
+   803: //***********************************************
+   804: //***********************************************
+   805: //***********************************************
+   806: //***********************************************
+   807: void interrupt isr(void)
+   808: {
+   809: 
+   810: di();
+   811: 
+   812: if(T0IF)
+   813:         {
+   814:         t0_init();
+   815:         T0IF=0;
+   816:         bit_100Hz=1;
+   817:         if((++cnt0)==10)
+   818:                 {
+   819:                 cnt0=0;
+   820:                 bit_10Hz=1;
+   821:                 if(++cnt1==10)
+   822:                         {
+   823:                         cnt1=0;
+   824:                         bit_1Hz=1;
+   825:                         }
+   826:                 }
+   827:         }
+   828: if(RCIF)
+   829:         {
+   830:         rx_buffer[rx_wr_index] = sci_GetByte();
+   831:         bRXIN=1;
+   832:         if(++rx_wr_index>=RX_BUFFER_SIZE) rx_wr_index=0;
+   833:         if(++rx_counter>=RX_BUFFER_SIZE)
+   834:                 {
+   835:                 rx_wr_index=0;
+   836:                 rx_rd_index=0;
+   837:                 rx_counter=0;
+   838:                 }
+   839: 
+   840:         }
+   841: 
+   842: if(TXIF && TXIE)
+   843:         {
+   844:         char* ptr;
+   845:         if(tx_rd_index!=tx_wr_index)
+   846:                 {
+   847:                 ptr=tx_buffer;
+   848:                 ptr+=tx_rd_index;
+   849:                 sci_PutByte(*ptr);
+   850:                 tx_rd_index++;
+   851:                 if(tx_rd_index==TX_BUFFER_SIZE)
+   852:                         {
+   853:                         tx_rd_index=0;
+   854:                         }
+   855:                 }
+   856:         else TXIE=0;
+   857:         }
+   858: 
+   859: ei();
+   860: }
+   861: 
+   862: 
+   863: //===============================================
+   864: //===============================================
+   865: //===============================================
+   866: //===============================================
+   867: void main(void)
+   868: {
+   869: 
+   870: t0_init();
+   871: 
+   872: 
+   873: ei();
+   874: PEIE=1;
+   875: 
+   876: di();
+   877: 
+   878: 
+   879: 
+   880: ei();
+   881: 
+   882: TRISB=0x00;
+   883: PORTB=0x00;
+   884: PORTC|=(1<<led_ERR);
+   885: sci_init();
+   886: 
+   887: 
+   888: while (1)
+   889:         {
+   890:         if(bRXIN)
+   891:                 {
+   892:                 bRXIN=0;
+   893:                 UART_IN();
+   894:                 }
+   895:         if(bit_100Hz)
+   896:                 {
+   897:                 bit_100Hz=0;
+   898: 
+   899:           in_read();
+   900:           step_contr();
+   901:           mdvr_drv();
+   902:                 but_drv();
+   903:                 but_an();
+   904:                 }
+   905:         if(bit_10Hz)
+   906:                 {
+   907:                 bit_10Hz=0;
+   908:           out_out();
+   909:                 led_out();
+   910:                 err_drv();
+   911:           prog_drv();
+   912: 
+   913:                 OUT(3,CMND,eeprom_read(DELAY1),eeprom_read(DELAY2),0,0,0);
+   914: 
+   915:                 }
+   916:         if(bit_1Hz)
+   917:                 {
+   918:                 bit_1Hz=0;
+   919: 
+   920: 
+   921: 
+   922: 
+   923:                 }
+   924: 
+   925: 
+   926:         }
+   927: }
+   928: 

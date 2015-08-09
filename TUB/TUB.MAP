@@ -1,0 +1,93 @@
+CodeVisionAVR C Compiler V1.24.1d Standard
+(C) Copyright 1998-2004 Pavel Haiduc, HP InfoTech s.r.l.
+http://www.hpinfotech.ro
+e-mail:office@hpinfotech.ro
+
+File: E:\Users\Pal\Cvproects\GAVT\TUB\tub.c
+Global variables memory map:
+
+Variable                          Address   Size
+*ptr_ram                             260h      2
+*ptr_ram_int                         262h      2
+*ptr_flash                           264h      2
+*ptr_eeprom_int                      266h      2
+*adc_out                             268h      2
+b100Hz                               R2.0    1/8
+b10Hz                                R2.1    1/8
+b5Hz                                 R2.2    1/8
+b2Hz                                 R2.3    1/8
+b1Hz                                 R2.4    1/8
+l_but                                R2.5    1/8
+n_but                                R2.6    1/8
+speed                                R2.7    1/8
+zero_on                              R3.0    1/8
+bit_minus                            R3.1    1/8
+bAB                                  R3.2    1/8
+bAN                                  R3.3    1/8
+bAS1                                 R3.4    1/8
+bAS2                                 R3.5    1/8
+bFL_                                 R3.6    1/8
+bFL__                                R3.7    1/8
+bI                                   R4.0    1/8
+ind                                    R6      1
+but                                    R7      1
+parol                                26Ah      3
+dig                                  26Dh      5
+adc_cnt                                R8      1
+adc_cnt1                               R9      1
+adc_bank                             272h     80
+adc_bank_                            2C2h     20
+tst_state                            2D6h     10
+sub_ind                               R10      1
+sub_ind1                              R11      1
+index_set                             R12      1
+cnt_ibat                              R13      1
+cnt_ubat                              R14      1
+Fnet                                 2E0h      2
+bFF                                  R4.1    1/8
+bFF_                                 R4.2    1/8
+Hz_out                               2E2h      2
+Hz_cnt                               2E4h      2
+t0cnt0_                              2E6h      1
+cnt_vz_sec                           2E7h      4
+cnt_vz_sec_                          2EBh      4
+zar_cnt                              2EFh      2
+cnt_ind                              2F1h      1
+sound_pic                            2F2h      1
+sound_tic                            2F3h      1
+sound_cnt                            2F4h      1
+av_beep                              2F5h      2
+av_rele                              2F7h      2
+av_stat                              2F9h      2
+lcd_buffer                           2FBh     40
+dumm2                                323h     40
+cnt_alias_blok                       34Bh      1
+star_cnt                             34Ch      1
+retind                               34Dh      1
+retsub                               34Eh      1
+retindsec                            34Fh      1
+retcnt                               350h      2
+retcntsec                            352h      2
+bmm_cnt                              354h      1
+bmp_cnt                              355h      1
+bS                                   R4.3    1/8
+nakal_cnt                            356h      2
+Un                                   358h      2
+In                                   35Ah      2
+wrk_state                            35Ch      1
+wrk_cnt                              35Dh      2
+but_n_G1                             35Fh      1
+but_s_G1                             360h      1
+but0_cnt_G1                          361h      1
+but1_cnt_G1                          362h      1
+but_onL_temp_G1                      363h      1
+t0cnt0_S21                           364h      1
+t0cnt1_S21                           365h      1
+t0cnt2_S21                           366h      1
+t0cnt3_S21                           367h      1
+t0cnt4_S21                           368h      1
+t0cnt6_S21                           369h      1
+_base_y                              36Ah      4
+_lcd_x                               36Eh      1
+_lcd_y                               36Fh      1
+_lcd_maxx                            370h      1

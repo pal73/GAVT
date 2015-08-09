@@ -1,0 +1,16 @@
+Creating   'ind3.eep'
+Creating   'ind3.obj'
+Creating   'ind3.lst'
+
+Assembling 'ind3.asm'
+Including  'ind3.vec'
+Including  'ind3.inc'
+
+Program memory usage:
+Code             :  841 words
+Constants (dw/db):   10 words
+Unused           :    0 words
+Total            :  851 words
+
+Assembly complete with no errors.
+Deleting   'ind3.eep'

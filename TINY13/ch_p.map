@@ -1,0 +1,24 @@
+CodeVisionAVR C Compiler V1.24.1d Standard
+(C) Copyright 1998-2004 Pavel Haiduc, HP InfoTech s.r.l.
+http://www.hpinfotech.ro
+e-mail:office@hpinfotech.ro
+
+File: E:\Users\Pal\Cvproects\GAVT\TINY13\ch_p.c
+Global variables memory map:
+
+Variable                          Address   Size
+cnt_imp                                R4      1
+one_cnt                             R5,R6      2
+zero_cnt                            R7,R8      2
+bIN_OLD                              R2.0    1/8
+bREADY                               R2.1    1/8
+out_cnt                            R9,R10      2
+out_out_cnt                       R11,R12      2
+opto_err_cnt                      R13,R14      2
+bOPTO_ERR                            R2.2    1/8
+stat                                  70h      1
+t0_cnt0                               71h      1
+val_cnt                               72h      2
+metka_cnt                             74h      2
+pause_cnt                             76h      4
+wrk_cnt                               7Ah      4

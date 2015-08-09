@@ -1,0 +1,15 @@
+Creating   'a_kl.eep'
+Creating   'a_kl.obj'
+Creating   'a_kl.lst'
+
+Assembling 'a_kl.asm'
+Including  'a_kl.vec'
+Including  'a_kl.inc'
+
+Program memory usage:
+Code             : 5518 words
+Constants (dw/db):  352 words
+Unused           :    0 words
+Total            : 5870 words
+
+Assembly complete with no errors.

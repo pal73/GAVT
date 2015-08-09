@@ -1,0 +1,12 @@
+Creating   'mns48_.eep'
+Creating   'mns48_.obj'
+Creating   'mns48_.lst'
+
+Assembling 'mns48_.asm'
+Including  'mns48_.vec'
+Including  'mns48_.inc'
+mns48_.asm(1598) : mns48_.asm(1782) : mns48_.asm(1792) : mns48_.asm(1799) : mns48_.asm(1919) : mns48_.asm(1941) : mns48_.asm(1976) : mns48_.asm(1983) : mns48_.asm(1990) : mns48_.asm(2075) : mns48_.asm(2082) : mns48_.asm(2091) : mns48_.asm(2098) : mns48_.asm(2114) : mns48_.asm(2121) : mns48_.asm(2128) : mns48_.asm(2311) : 
+Assembly complete with 17 errors
+
+Deleting   'mns48_.eep'
+Deleting   'mns48_.obj'

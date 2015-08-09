@@ -1,0 +1,741 @@
+     1: #define XTAL_FREQ 4MHZ
+     2: #include <pic.h>
+     3: #include "delay.h"
+     4: 
+     5: #define but_mask        0b1111111111111010
+     6: #define but_on          3
+     7: #define but_onL 10
+     8: #define no_but          0b1111111111111111
+     9: 
+    10: #define led_NET  3
+    11: #define led_WORK 2
+    12: #define led_ERR  1
+    13: 
+    14: #define PP1     4
+    15: //#define PP2   3
+    16: //#define PP3   2
+    17: #define PP4     1
+    18: #define PP5     0
+    19: #define PP6     5
+    20: #define PP7     1
+    21: #define NET     5
+    22: #define NET_REZ 7
+    23: 
+    24: #define MD1     15
+    25: #define MD2     14
+    26: #define VR      13
+    27: 
+    28: //#define VR    0  кнопка старт
+    29: //#define VR    2  кнопка стоп
+    30: 
+    31: #define PROG1   10
+    32: #define PROG2   8
+    33: #define PROG3   9
+    34: 
+    35: 
+    36: 
+    37: __CONFIG (0x3d7a);
+    38: 
+    39: 
+    40: //char adc_cnt;
+    41: //char tmr1_init;
+    42: bit bit_100Hz;
+    43: bit bit_10Hz;
+    44: bit bit_1Hz;
+    45: bit bVR;
+    46: bit bMD1;
+    47: bit bMD2;
+    48: bit bERR;
+    49: /*bit bV1;
+    50: bit bV0;*/
+    51: 
+    52: unsigned int in_word;
+    53: 
+    54: 
+    55: 
+    56: unsigned but_n;
+    57: unsigned but_s;
+    58: unsigned but/*,but_but*/;
+    59: char enum{sOFF,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16}step=sOFF;
+    60: char enum{p1,p2,p3,pOFF}prog=p1;
+    61: char but0_cnt,but1_cnt;
+    62: char but_onL_temp;
+    63: signed char cnt_del=0;
+    64: 
+    65: char cnt_md1,cnt_md2,cnt_vr;
+    66: 
+    67: 
+    68: bit l_but;              //идет длинное нажатие на кнопку
+    69: bit n_but;          //произошло нажатие
+    70: bit speed;              //разрешение ускорения перебора
+    71: 
+    72: 
+    73: 
+    74: 
+    75: char cnt0,cnt1,temper,temp,vol_l,vol_i;
+    76: char cnt_but_START,cnt_but_STOP;
+    77: 
+    78: bit bON_START,bON_STOP;
+    79: 
+    80: //**********************************************
+    81: //Задержки
+    82: void DelayMs(unsigned char cnt)
+    83: {
+    84: unsigned char   i;
+    85:         do {
+    86:                 i = 4;
+    87:                 do {
+    88:                         DelayUs(250);
+    89:                 } while(--i);
+    90:         } while(--cnt);
+    91: 
+    92: }
+    93: 
+    94: 
+    95: 
+    96: //-----------------------------------------------
+    97: void in_read(void)
+    98: {
+    99: char i,temp;
+   100: unsigned int tempUI;
+   101: TRISA&=0xf0;
+   102: TRISA4=1;
+   103: 
+   104: for(i=0;i<16;i++)
+   105:         {
+   106:         temp=PORTA;
+   107:         temp&=0xf0;
+   108:         temp+=i;
+   109:         PORTA=temp;
+   110:         tempUI<<=1;
+   111:         DelayUs(200);
+   112:         if(RA4)tempUI|=0x0001;
+   113:         else tempUI&=0xfffe;
+   114:         }
+   115: in_word=tempUI;
+   116: }
+   117: 
+   118: //-----------------------------------------------
+   119: void step_contr(void)
+   120: {
+   121: if(prog==p1)
+   122:         {
+   123:         if(step==s1)
+   124:                 {
+   125:                 cnt_del--;
+   126:                 if(cnt_del==0)
+   127:                         {
+   128:                         cnt_del=30;
+   129:                         step=s3;
+   130:                         }
+   131:                 }
+   132: 
+   133:         else if(step==s3)
+   134:                 {
+   135:                 cnt_del--;
+   136:                 if(cnt_del==0)
+   137:                         {
+   138:                         step=s4;
+   139:                         }
+   140:           }
+   141:         else if(step==s4)
+   142:                 {
+   143:           if(!bMD1)goto step_contr_end;
+   144: 
+   145:                 cnt_del=30;
+   146:                 step=s5;
+   147:                 }
+   148:         else if(step==s5)
+   149:                 {
+   150:                 cnt_del--;
+   151:                 if(cnt_del==0)
+   152:                         {
+   153:                         step=s6;
+   154:                         }
+   155:                 }
+   156:         else if(step==s6)
+   157:                 {
+   158:                 if(!bMD2)goto step_contr_end;
+   159:           cnt_del=30;
+   160:                 step=s7;
+   161:                 }
+   162:         else if(step==s7)
+   163:                 {
+   164:                 cnt_del--;
+   165:                 if(cnt_del==0)
+   166:                         {
+   167:                         step=s9;
+   168:                         cnt_del=100;
+   169:                         }
+   170:                 }
+   171: 
+   172:         else if(step==s9)
+   173:                 {
+   174:                 cnt_del--;
+   175:                 if(cnt_del==0)
+   176:                         {
+   177:                         step=sOFF;
+   178:                         }
+   179:                 }
+   180: 
+   181:         }
+   182: 
+   183: if(prog==p2)
+   184:         {
+   185: 
+   186:         if(step==s1)
+   187:                 {
+   188:                 cnt_del--;
+   189:                 if(cnt_del==0)
+   190:                         {
+   191:                         cnt_del=30;
+   192:                         step=s3;
+   193:                         }
+   194:                 }
+   195: 
+   196:         else if(step==s3)
+   197:                 {
+   198:                 cnt_del--;
+   199:                 if(cnt_del==0)
+   200:                         {
+   201:                         step=s4;
+   202:                         }
+   203:                 }
+   204: 
+   205:         else if(step==s4)
+   206:                 {
+   207:           if(!bMD1)goto step_contr_end;
+   208:                 cnt_del=30;
+   209:                 step=s5;
+   210:                 }
+   211: 
+   212:         else if(step==s5)
+   213:                 {
+   214:                 cnt_del--;
+   215:                 if(cnt_del==0)
+   216:                         {
+   217:                         step=s7;
+   218:                         cnt_del=100;
+   219:                         }
+   220:                 }
+   221: 
+   222: 
+   223:         else if(step==s7)
+   224:                 {
+   225:                 cnt_del--;
+   226:                 if(cnt_del==0)
+   227:                         {
+   228:                         step=sOFF;
+   229:                         }
+   230:                 }
+   231: 
+   232:         }
+   233: 
+   234: if(prog==p3)
+   235:         {
+   236: 
+   237:         if(step==s1)
+   238:                 {
+   239:                 cnt_del--;
+   240:                 if(cnt_del==0)
+   241:                         {
+   242:                      step=s4;
+   243:                         }
+   244:                 }
+   245: 
+   246:         else if(step==s4)
+   247:                 {
+   248:           if(!bMD1)goto step_contr_end;
+   249:           if(!bMD2)goto step_contr_end;
+   250:                 cnt_del=100;
+   251:                 step=s5;
+   252:                 }
+   253: 
+   254:         else if(step==s5)
+   255:                 {
+   256:                 cnt_del--;
+   257:                 if(cnt_del==0)
+   258:                         {
+   259:                         step=s6;
+   260:                         cnt_del=30;
+   261:                         }
+   262:                 }
+   263: 
+   264:         else if(step==s6)
+   265:                 {
+   266:                 cnt_del--;
+   267:                 if(cnt_del==0)
+   268:                         {
+   269:                         step=sOFF;
+   270:                         }
+   271:                 }
+   272:         }
+   273: step_contr_end:
+   274: asm("nop");
+   275: }
+   276: 
+   277: //-----------------------------------------------
+   278: void out_out(void)
+   279: {
+   280: char temp=0;
+   281: TRISB=0x00;
+   282: if(prog==p1)
+   283:         {
+   284:         if(step==sOFF)
+   285:                 {
+   286:                 temp=0;
+   287:                 }
+   288: 
+   289:         else    if(step==s1)
+   290:                 {
+   291:                 temp|=(1<<PP1);
+   292:                 }
+   293: 
+   294:         else if(step==s3)
+   295:                 {
+   296:                 temp|=(1<<PP1)|(1<<NET)|(1<<NET_REZ);
+   297:                 }
+   298: 
+   299:         else if((step==s4)||(step==s5))
+   300:                 {
+   301:                 temp|=(1<<PP1)|(1<<PP4)|(1<<NET)|(1<<NET_REZ);
+   302:                 }
+   303: 
+   304:         else if((step==s6)||(step==s7))
+   305:                 {
+   306:                 temp|=(1<<PP1)|(1<<PP5)|(1<<NET)|(1<<NET_REZ);
+   307:                 }
+   308: 
+   309:         else if(step==s9)
+   310:                 {
+   311:                 temp|=(1<<PP1);
+   312:                 }
+   313: 
+   314:         }
+   315: 
+   316: if(prog==p2)
+   317:         {
+   318:         if(step==sOFF)
+   319:                 {
+   320:                 temp=0;
+   321:                 }
+   322: 
+   323:         else    if(step==s1)
+   324:                 {
+   325:                 temp|=(1<<PP1);
+   326:                 }
+   327: 
+   328:         else if(step==s3)
+   329:                 {
+   330:                 temp|=(1<<PP1)|(1<<NET)|(1<<NET_REZ);
+   331:                 }
+   332: 
+   333:         else if((step==s4)||(step==s5))
+   334:                 {
+   335:                 temp|=(1<<PP1)|(1<<PP4)|(1<<NET)|(1<<NET_REZ);
+   336:                 }
+   337: 
+   338:         else if(step==s7)
+   339:                 {
+   340:                 temp|=(1<<PP1);
+   341:                 }
+   342: 
+   343: 
+   344:         }
+   345: 
+   346: if(prog==p3)
+   347:         {
+   348:         if(step==sOFF)
+   349:                 {
+   350:                 temp=0;
+   351:                 }
+   352: 
+   353:         else    if(step==s1)
+   354:                 {
+   355:                 temp|=(1<<PP1);
+   356:                 }
+   357: 
+   358: 
+   359:         else if(step==s4)
+   360:                 {
+   361:           temp|=(1<<PP1)|(1<<PP4)|(1<<PP5);
+   362:                 }
+   363: 
+   364:         else if(step==s5)
+   365:                 {
+   366:                 temp|=(1<<PP1)|(1<<PP4)|(1<<PP5);
+   367:                 }
+   368: 
+   369:         else if(step==s6)
+   370:                 {
+   371:                 temp|=(1<<PP4)|(1<<PP5);
+   372:                 }
+   373:         }
+   374: PORTB=temp;
+   375: 
+   376: }
+   377: 
+   378: //-----------------------------------------------
+   379: void led_out(void)
+   380: {
+   381: char temp=0;
+   382: TRISC=0xF0;
+   383: 
+   384: temp&=~(1<<led_NET);
+   385: 
+   386: if(step!=sOFF)
+   387:         {
+   388:         temp&=~(1<<led_WORK);
+   389:         }
+   390: else temp|=(1<<led_WORK);
+   391: 
+   392: 
+   393: if(step==sOFF)
+   394:         {
+   395:         if(bERR)
+   396:                 {
+   397:                 temp&=~(1<<led_ERR);
+   398:                 }
+   399:         else
+   400:                 {
+   401:                 temp|=(1<<led_ERR);
+   402:                 }
+   403: 
+   404:         }
+   405: else temp|=(1<<led_ERR);
+   406: 
+   407: 
+   408: 
+   409: PORTC=(PORTC|0b00001111)&temp;
+   410: }
+   411: 
+   412: //-----------------------------------------------
+   413: void mdvr_drv(void)
+   414: {
+   415: if(!(in_word&(1<<MD1)))
+   416:         {
+   417:         if(cnt_md1<10)
+   418:                 {
+   419:                 cnt_md1++;
+   420:                 if(cnt_md1==10) bMD1=1;
+   421:                 }
+   422: 
+   423:         }
+   424: else
+   425:         {
+   426:         if(cnt_md1)
+   427:                 {
+   428:                 cnt_md1--;
+   429:                 if(cnt_md1==0) bMD1=0;
+   430:                 }
+   431: 
+   432:         }
+   433: 
+   434: if(!(in_word&(1<<MD2)))
+   435:         {
+   436:         if(cnt_md2<10)
+   437:                 {
+   438:                 cnt_md2++;
+   439:                 if(cnt_md2==10) bMD2=1;
+   440:                 }
+   441: 
+   442:         }
+   443: else
+   444:         {
+   445:         if(cnt_md2)
+   446:                 {
+   447:                 cnt_md2--;
+   448:                 if(cnt_md2==0) bMD2=0;
+   449:                 }
+   450: 
+   451:         }
+   452: 
+   453: if(!(in_word&(1<<VR)))
+   454:         {
+   455:         if(cnt_vr<10)
+   456:                 {
+   457:                 cnt_vr++;
+   458:                 if(cnt_vr==10) bVR=1;
+   459:                 }
+   460: 
+   461:         }
+   462: else
+   463:         {
+   464:         if(cnt_vr)
+   465:                 {
+   466:                 cnt_vr--;
+   467:                 if(cnt_vr==0) bVR=0;
+   468:                 }
+   469: 
+   470:         }
+   471: }
+   472: 
+   473: //-----------------------------------------------
+   474: void err_drv(void)
+   475: {
+   476: if(step==sOFF)
+   477:         {
+   478:         if((bMD1)||(bMD2)||(bVR)) bERR=1;
+   479:         else bERR=0;
+   480:         }
+   481: else bERR=0;
+   482: }
+   483: 
+   484: //-----------------------------------------------
+   485: void prog_drv(void)
+   486: {
+   487: if((!(in_word&(1<<PROG1)))&&(in_word&(1<<PROG2))&&(in_word&(1<<PROG3)))
+   488:         {
+   489:         prog=p1;
+   490:         }
+   491: else if((!(in_word&(1<<PROG2)))&&(in_word&(1<<PROG1))&&(in_word&(1<<PROG3)))
+   492:         {
+   493:         prog=p2;
+   494:         }
+   495: else if((!(in_word&(1<<PROG3)))&&(in_word&(1<<PROG2))&&(in_word&(1<<PROG1)))
+   496:         {
+   497:         prog=p3;
+   498:         }
+   499: else prog=pOFF;
+   500: }
+   501: 
+   502: //-----------------------------------------------
+   503: // Подпрограмма драйва до 16 входов
+   504: // различает короткое и длинное нажатие,
+   505: // срабатывает на отпускание кнопки, возможность
+   506: // ускорения перебора при длинном нажатии...
+   507: void but_drv(void)
+   508: {
+   509: if(!(in_word&0x0001))
+   510:         {
+   511:         if(cnt_but_START<but_on)
+   512:                 {
+   513:                 cnt_but_START++;
+   514:                 if(cnt_but_START>=but_on)
+   515:                         {
+   516:                         bON_START=1;
+   517:                         }
+   518:                 }
+   519:         }
+   520: else
+   521:         {
+   522:      cnt_but_START=0;
+   523:         }
+   524: 
+   525: if(!(in_word&0x0004))
+   526:         {
+   527:         if(cnt_but_STOP<but_on)
+   528:                 {
+   529:                 cnt_but_STOP++;
+   530:                 if(cnt_but_STOP>=but_on)
+   531:                         {
+   532:                         bON_STOP=1;
+   533:                         }
+   534:                 }
+   535:         }
+   536: else
+   537:         {
+   538:      cnt_but_STOP=0;
+   539:         }
+   540: /*but_n=in_word|but_mask;
+   541: if(but_n==no_but||but_n!=but_s)
+   542:         {
+   543:         speed=0;
+   544:         n_but=0;
+   545:         but=no_but;
+   546:         if (((but0_cnt>=but_on)||(but1_cnt!=0))&&(!l_but))
+   547:                 {
+   548:              n_but=1;
+   549:           but=but_s;
+   550:           }
+   551:         if (but1_cnt>=but_onL_temp)
+   552:                 {
+   553:              n_but=1;
+   554:           but=but_s&0b01111111;
+   555:           }
+   556:         l_but=0;
+   557:         but_onL_temp=but_onL;
+   558:         but0_cnt=0;
+   559:         but1_cnt=0;
+   560:      goto but_drv_out;
+   561:         }
+   562: if(but_n==but_s)
+   563:         {
+   564:         but0_cnt++;
+   565:         if(but0_cnt>=but_on)
+   566:                 {
+   567:                 but0_cnt=0;
+   568:                 but1_cnt++;
+   569:                 if(but1_cnt>=but_onL_temp)
+   570:                         {
+   571:                         but=but_s&0b01111111;
+   572:                         but1_cnt=0;
+   573:                         n_but=1;
+   574:                         l_but=1;
+   575:                         if(speed)
+   576:                                 {
+   577:                                 but_onL_temp=but_onL_temp=2;
+   578:                                 if(but_onL_temp<=2) but_onL_temp=2;
+   579:                                 }
+   580:                         }
+   581:                 }
+   582:         }
+   583: but_drv_out:
+   584: but_s=but_n;
+   585: */
+   586: }
+   587: 
+   588: #define butSTART 0b1111111111111110
+   589: #define butSTOP  0b1111111111111011
+   590: //-----------------------------------------------
+   591: void but_an(void)
+   592: {
+   593: if(bON_START)
+   594:         {
+   595:         if((step==sOFF)&&(!bERR))
+   596:                 {
+   597:                 step=s1;
+   598:                 if(prog==p1) cnt_del=70;
+   599:                 else if(prog==p2) cnt_del=70;
+   600:                 else if(prog==p3) cnt_del=70;
+   601: 
+   602:                 }
+   603:         }
+   604: if(bON_STOP)
+   605:         {
+   606:         step=sOFF;
+   607: 
+   608:         }
+   609: //if (!n_but) goto but_an_end;
+   610: /*
+   611: if(but==butSTART)
+   612:         {
+   613:         if(step==sOFF)
+   614:                 {
+   615:                 step=s1;
+   616:                 if(prog==p1) cnt_del=50;
+   617:                 else if(prog==p2) cnt_del=50;
+   618:                 else if(prog==p3) cnt_del=50;
+   619:                 }
+   620:         }
+   621: else if(but==butSTOP)
+   622:         {
+   623:         step=sOFF;
+   624:         }
+   625: 
+   626: but_an_end:
+   627: asm("nop");
+   628: */
+   629: bON_START=0;
+   630: bON_STOP=0;
+   631: }
+   632: 
+   633: //-----------------------------------------------
+   634: void t0_init(void)
+   635: {
+   636: OPTION=0x07;
+   637: T0IE=1;
+   638: PEIE=1;
+   639: TMR0=-40;
+   640: }
+   641: 
+   642: 
+   643: 
+   644: //***********************************************
+   645: //***********************************************
+   646: //***********************************************
+   647: //***********************************************
+   648: void interrupt isr(void)
+   649: {
+   650: 
+   651: di();
+   652: 
+   653: if(T0IF)
+   654:         {
+   655:         t0_init();
+   656:         T0IF=0;
+   657:         bit_100Hz=1;
+   658:         if((++cnt0)==10)
+   659:                 {
+   660:                 cnt0=0;
+   661:                 bit_10Hz=1;
+   662:                 if(++cnt1==10)
+   663:                         {
+   664:                         cnt1=0;
+   665:                         bit_1Hz=1;
+   666:                         }
+   667:                 }
+   668:         }
+   669: 
+   670: ei();
+   671: }
+   672: 
+   673: 
+   674: //===============================================
+   675: //===============================================
+   676: //===============================================
+   677: //===============================================
+   678: void main(void)
+   679: {
+   680: 
+   681: t0_init();
+   682: 
+   683: 
+   684: ei();
+   685: PEIE=1;
+   686: 
+   687: di();
+   688: 
+   689: 
+   690: 
+   691: ei();
+   692: 
+   693: TRISB=0x00;
+   694: PORTB=0x00;
+   695: PORTC|=(1<<led_ERR);
+   696: //
+   697: 
+   698: while (1)
+   699:         {
+   700:         if(bit_100Hz)
+   701:                 {
+   702:                 bit_100Hz=0;
+   703:         //      PORTC^=0x0f;
+   704:         //      PORTB^=0b01100000;
+   705: 
+   706:           in_read();
+   707:           step_contr();
+   708:           mdvr_drv();
+   709:                 but_drv();
+   710:                 but_an();
+   711:                 }
+   712:         if(bit_10Hz)
+   713:                 {
+   714:                 bit_10Hz=0;
+   715:           out_out();
+   716:                 led_out();
+   717:                 err_drv();
+   718:           prog_drv();
+   719:            //   TRISC=0;
+   720:            //   if(bVR) PORTB^=(1<<NET);
+   721:         //  PORTC^=0xff;
+   722: 
+   723:                 }
+   724:         if(bit_1Hz)
+   725:                 {
+   726:                 bit_1Hz=0;
+   727:                 di();
+   728:         //      PORTB^=0xff;
+   729: /*              if(prog==p1) PORTB^=(1<<PP1);
+   730:                 else if(prog==p2) PORTB^=(1<<PP2);
+   731:                 else if(prog==p3) PORTB^=(1<<PP3); */
+   732:                 ei();
+   733: 
+   734: 
+   735: 
+   736:                 }
+   737: 
+   738: 
+   739:         }
+   740: }
+   741: 

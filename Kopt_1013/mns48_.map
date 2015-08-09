@@ -1,0 +1,55 @@
+CodeVisionAVR C Compiler V1.24.1d Standard
+(C) Copyright 1998-2004 Pavel Haiduc, HP InfoTech s.r.l.
+http://www.hpinfotech.ro
+e-mail:office@hpinfotech.ro
+
+File: C:\Users\Pal\CVproects\MNSmini\mns48_.c
+Global variables memory map:
+
+Variable                          Address   Size
+bT0                              GPIOR0.0    1/8
+b100Hz                           GPIOR0.1    1/8
+b10Hz                            GPIOR0.2    1/8
+b5Hz                             GPIOR0.3    1/8
+b2Hz                             GPIOR0.4    1/8
+b1Hz                             GPIOR0.5    1/8
+t0_cnt0                                R5      1
+t0_cnt1                                R6      1
+t0_cnt2                                R7      1
+t0_cnt3                                R8      1
+bankA                              R9,R10      2
+bankB                             R11,R12      2
+bankC                             R13,R14      2
+adc_bankU                            180h    150
+adc_bankU_                           216h      6
+del_cnt                              21Ch      2
+flags                                21Eh      1
+deltas                               21Fh      1
+adc_cntA                             220h      1
+adc_cntB                             221h      1
+adc_cntC                             222h      1
+bA_                              GPIOR0.6    1/8
+bB_                              GPIOR0.7    1/8
+bC_                              GPIOR1.0    1/8
+bA                               GPIOR1.1    1/8
+bB                               GPIOR1.2    1/8
+bC                               GPIOR1.3    1/8
+adc_data                             223h      2
+cnt_x                                225h      1
+cher                                 226h      3
+cher_cnt                             229h      2
+pcnt                                 22Bh      3
+bPER                             GPIOR1.4    1/8
+bPER_                            GPIOR1.5    1/8
+bCHER_                           GPIOR1.6    1/8
+bNN                              GPIOR1.7    1/8
+bNN_                             GPIOR2.0    1/8
+ind                                  22Eh      1
+bFl                              GPIOR2.1    1/8
+cnt_butS                             22Fh      1
+cnt_butR                             230h      1
+butR                             GPIOR2.2    1/8
+butS                             GPIOR2.3    1/8
+per_cnt                              231h      1
+nn_cnt                               232h      1
+input_index_SD                       233h      1

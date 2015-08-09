@@ -1,0 +1,15 @@
+Creating   'tub.eep'
+Creating   'tub.obj'
+Creating   'tub.lst'
+
+Assembling 'tub.asm'
+Including  'tub.vec'
+Including  'tub.inc'
+
+Program memory usage:
+Code             : 3162 words
+Constants (dw/db):  217 words
+Unused           :    0 words
+Total            : 3379 words
+
+Assembly complete with no errors.

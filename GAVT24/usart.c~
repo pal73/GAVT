@@ -1,0 +1,150 @@
+extern void out_usart0 (char num,char data0,char data1,char data2,char data3,char data4,char data5,char data6,char data7,char data8);
+extern void out_usart1 (char num,char data0,char data1,char data2,char data3,char data4,char data5,char data6,char data7,char data8);
+extern int plazma;
+#define RXB8 1
+#define TXB8 0
+#define UPE 2
+#define OVR 3
+#define FE 4
+#define UDRE 5
+#define RXC 7
+
+#define FRAMING_ERROR (1<<FE)
+#define PARITY_ERROR (1<<UPE)
+#define DATA_OVERRUN (1<<OVR)
+#define DATA_REGISTER_EMPTY (1<<UDRE)
+#define RX_COMPLETE (1<<RXC)
+
+
+// USART0 Receiver buffer
+#define RX_BUFFER_SIZE0 256
+bit bRXIN0;
+char UIB0[10]={0,0,0,0,0,0,0,0,0,0};
+char flag0;
+// This flag is set on USART0 Receiver buffer overflow
+//extern char uart_plazma;
+
+
+
+// USART1 Receiver buffer
+#define RX_BUFFER_SIZE1 64
+bit bRXIN1;
+char UIB1[10]={0,0,0,0,0,0,0,0,0,0};
+char flag1;
+char rx_buffer1[RX_BUFFER_SIZE1];
+unsigned char rx_wr_index1,rx_rd_index1,rx_counter1;
+// This flag is set on USART Receiver buffer overflow
+bit rx_buffer_overflow1;
+
+// USART1 Receiver interrupt service routine
+#pragma savereg-
+interrupt [USART1_RXC] void uart1_rx_isr(void)
+{
+
+char status,data;
+
+#asm
+    push r26
+    push r27
+    push r30
+    push r31
+    in   r26,sreg
+    push r26
+#endasm
+//OUT(1,5,0,0,0,0,0);
+status=UCSR1A;
+data=UDR1;
+if ((status & (FRAMING_ERROR | PARITY_ERROR | DATA_OVERRUN))==0)
+   {
+   rx_buffer1[rx_wr_index1]=data;
+   bRXIN1=1; 
+   
+   if (++rx_wr_index1 == RX_BUFFER_SIZE1) rx_wr_index1=0;
+   if (++rx_counter1 == RX_BUFFER_SIZE1)
+      {
+      rx_counter1=0;
+      rx_buffer_overflow1=1;
+      };
+   };
+#asm
+    pop  r26
+    out  sreg,r26
+    pop  r31
+    pop  r30
+    pop  r27
+    pop  r26
+#endasm
+}
+#pragma savereg+
+
+#ifndef _DEBUG_TERMINAL_IO_
+// Get a character from the USART Receiver buffer
+#define _ALTERNATE_GETCHAR_
+#pragma used+
+char getchar1(void)
+{
+char data;
+while (rx_counter1==0);
+data=rx_buffer1[rx_rd_index1];
+if (++rx_rd_index1 == RX_BUFFER_SIZE1) rx_rd_index1=0;
+#asm("cli")
+--rx_counter1;
+#asm("sei")
+return data;
+}
+#pragma used-
+#endif
+
+// USART1 Transmitter buffer
+#define TX_BUFFER_SIZE1 32
+char tx_buffer1[TX_BUFFER_SIZE1];
+unsigned char tx_wr_index1,tx_rd_index1,tx_counter1;
+
+// USART1 Transmitter interrupt service routine
+#pragma savereg-
+interrupt [USART1_TXC] void uart1_tx_isr(void)
+{
+#asm
+    push r26
+    push r27
+    push r30
+    push r31
+    in   r26,sreg
+    push r26
+#endasm
+if (tx_counter1)
+   {
+   --tx_counter1;
+   UDR1=tx_buffer1[tx_rd_index1];
+   if (++tx_rd_index1 == TX_BUFFER_SIZE1) tx_rd_index1=0;
+   };
+#asm
+    pop  r26
+    out  sreg,r26
+    pop  r31
+    pop  r30
+    pop  r27
+    pop  r26
+#endasm
+}
+#pragma savereg+
+
+#ifndef _DEBUG_TERMINAL_IO_
+// Write a character to the USART Transmitter buffer
+#define _ALTERNATE_PUTCHAR_
+#pragma used+
+void putchar1(char c)
+{
+while (tx_counter1 == TX_BUFFER_SIZE1);
+#asm("cli")
+if (tx_counter1 || ((UCSR1A & DATA_REGISTER_EMPTY)==0))
+   {
+   tx_buffer1[tx_wr_index1]=c;
+   if (++tx_wr_index1 == TX_BUFFER_SIZE1) tx_wr_index1=0;
+   ++tx_counter1;
+   }
+else UDR1=c;
+#asm("sei")
+}
+#pragma used-
+#endif

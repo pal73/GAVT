@@ -1,0 +1,59 @@
+CodeVisionAVR C Compiler V1.24.1d Standard
+(C) Copyright 1998-2004 Pavel Haiduc, HP InfoTech s.r.l.
+http://www.hpinfotech.ro
+e-mail:office@hpinfotech.ro
+
+File: E:\Users\Pal\Cvproects\GAVT\Kopt_1013\mns48.c
+Global variables memory map:
+
+Variable                          Address   Size
+bT0                              GPIOR0.0    1/8
+b100Hz                           GPIOR0.1    1/8
+b10Hz                            GPIOR0.2    1/8
+b5Hz                             GPIOR0.3    1/8
+b2Hz                             GPIOR0.4    1/8
+b1Hz                             GPIOR0.5    1/8
+bFl                              GPIOR0.6    1/8
+butR                             GPIOR0.7    1/8
+butS                                   R6      1
+bNN                                    R7      1
+bNN_                                   R8      1
+bPER                                   R9      1
+bPER_                                 R10      1
+bCHER_                                R11      1
+t0_cnt0                               R12      1
+t0_cnt1                               R13      1
+t0_cnt2                               R14      1
+t0_cnt3                              180h      1
+t0_cnt4                              181h      1
+cnt_butS                             182h      1
+cnt_butR                             183h      1
+ind                                  184h      1
+del_cnt                              185h      2
+pcnt                                 187h      3
+adc_bankU                            18Ah    150
+ADCU                                 220h      2
+adc_bankU_                           222h      6
+per_cnt                              228h      1
+flags                                229h      1
+nn_cnt                               22Ah      1
+deltas                               22Bh      1
+adc_data                             22Ch      2
+bA_                                  22Eh      1
+bB_                                  22Fh      1
+bC_                                  230h      1
+bA                                   231h      1
+bB                                   232h      1
+bC                                   233h      1
+cnt_x                                234h      1
+bankA                                235h      2
+bankB                                237h      2
+bankC                                239h      2
+adc_cntA                             23Bh      1
+adc_cntB                             23Ch      1
+adc_cntC                             23Dh      1
+proc_cnt_l                           23Eh      2
+proc_cnt_h                           240h      2
+kl1_stat                             242h      1
+kl2_stat                             243h      1
+input_index_S7                       244h      1

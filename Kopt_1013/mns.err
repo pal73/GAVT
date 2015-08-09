@@ -1,0 +1,15 @@
+Creating   'mns.eep'
+Creating   'mns.obj'
+Creating   'mns.lst'
+
+Assembling 'mns.asm'
+Including  'mns.vec'
+Including  'mns.inc'
+
+Program memory usage:
+Code             : 1385 words
+Constants (dw/db):   18 words
+Unused           :    0 words
+Total            : 1403 words
+
+Assembly complete with no errors.

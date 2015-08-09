@@ -1,0 +1,28 @@
+CodeVisionAVR C Compiler V1.24.1d Standard
+(C) Copyright 1998-2004 Pavel Haiduc, HP InfoTech s.r.l.
+http://www.hpinfotech.ro
+e-mail:office@hpinfotech.ro
+
+File: E:\Users\Pal\Cvproects\GAVT\GAVT9_2REL\gavt9_t13.c
+Global variables memory map:
+
+Variable                          Address   Size
+t0_cnt0                                R4      1
+t0_cnt1                                R5      1
+t0_cnt2                                R6      1
+t0_cnt3                                R7      1
+t0_cnt4                                R8      1
+t0_cnt5                                R9      1
+t0_cnt6                               R10      1
+b200Hz                               R2.0    1/8
+b100Hz                               R2.1    1/8
+b10Hz                                R2.2    1/8
+b5Hz                                 R2.3    1/8
+b2Hz                                 R2.4    1/8
+b1Hz                                 R2.5    1/8
+zero_on                              R2.6    1/8
+bFl                                  R2.7    1/8
+bT                                   R3.0    1/8
+bFl_                                 R3.1    1/8
+in_cnt                            R11,R12      2
+main_cnt                          R13,R14      2

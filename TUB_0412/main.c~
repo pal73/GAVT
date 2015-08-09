@@ -1,0 +1,512 @@
+
+#define inSTART	5
+#define inSTOP		6
+
+
+#define PP1	PORTB.3
+#define PP2	PORTB.2
+#define TENPL	PORTD.5
+#define TENMI	PORTD.4
+
+
+bit b600Hz;
+
+bit b100Hz;
+bit b10Hz;
+char t0_cnt0,t0_cnt1,t0_cnt2,t0_cnt3;
+
+
+bit bZ;    
+char but;
+static char but_onL_temp;
+bit l_but;		//идет длинное нажатие на кнопку
+bit n_but;          //произошло нажатие
+bit speed;		//разрешение ускорения перебора 
+bit bFL2; 
+bit bFL5;
+
+enum {p1=1,p2=2,p3=3,p4=4}prog;
+enum{sOFF=0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16,s54,s55,s100}step=sOFF;
+
+char in_word=0xff,in_word_old,in_word_new,in_word_cnt;
+bit bERR;
+signed short cnt_del=0;
+signed short adc_del=0;
+
+char cnt_stop,cnt_start;
+bit bSTOP,bSTART;
+
+#include <mega16.h>
+//#include <mega8535.h>  
+/*
+//-----------------------------------------------
+void adc_drv(void)
+{
+adc_del=100;
+}
+
+
+/*
+//-----------------------------------------------
+void adc_hndl(void)
+{
+char i,j;
+int temp_UI;
+for(i=0;i<8;i++)
+	{  
+	temp_UI=0;
+	for(j=0;j<16;j++)
+		{
+		temp_UI+=adc_buff[i,j];
+		}
+	adc_buff_[i]=temp_UI>>4;	
+	}
+
+for(i=0;i<4;i++)
+	{  
+	temp_UI=0;
+	for(j=0;j<16;j++)
+		{
+		temp_UI+=curr_ch_buff[i,j];
+		}
+	curr_ch_buff_[i]=temp_UI>>1;
+	
+	//curr_ch_buff_[0]=58;	
+	}	
+plazma_int[0]=adc_buff_[PTR_IN_TEMPER[0]];
+plazma_int[1]=adc_buff_[PTR_IN_TEMPER[1]];
+plazma_int[2]=adc_buff_[PTR_IN_VL[0]];
+plazma_int[3]=adc_buff_[PTR_IN_VL[1]];	
+}*/
+
+//-----------------------------------------------
+#define ADC_VREF_TYPE 0x40
+// Read the AD conversion result
+unsigned int read_adc(unsigned char adc_input)
+{
+ADMUX=adc_input|ADC_VREF_TYPE;
+// Start the AD conversion
+ADCSRA|=0x40;
+// Wait for the AD conversion to complete
+while ((ADCSRA & 0x10)==0);
+ADCSRA|=0x10;
+return ADCW;
+}
+
+
+/*
+void adc_drv(void)
+{ 
+unsigned self_adcw,temp_UI;
+char temp;
+             
+self_adcw=ADCW;
+
+if(adc_cnt_main<4)
+	{
+	if(self_adcw<self_min)self_min=self_adcw; 
+	if(self_adcw>self_max)self_max=self_adcw;
+	
+	self_cnt++;
+	if(self_cnt>=30)
+		{
+		curr_ch_buff[adc_cnt_main,adc_cnt_main1[adc_cnt_main]]=self_max-self_min;
+		if(adc_cnt_main==0)
+			{
+		    //	plazma_int[0]=self_max;
+		    //	plazma_int[1]=self_min;
+			}
+		
+		adc_cnt_main1[adc_cnt_main]++;
+		if(adc_cnt_main1[adc_cnt_main]>=16)adc_cnt_main1[adc_cnt_main]=0;
+		adc_cnt_main++;
+		if(adc_cnt_main<4)
+			{
+			curr_buff=0;
+			self_cnt=0;
+		    //	self_cnt_zero_for=0;
+			self_cnt_not_zero=0;
+			self_cnt_zero_after=0;
+			self_min=1023;
+			self_max=0;			
+			} 			
+ 
+						
+	 	}  		
+	}
+else if(adc_cnt_main==4)
+	{
+	adc_buff[adc_ch,adc_ch_cnt]=self_adcw;
+	
+	adc_ch++;
+	if(adc_ch>=8)
+		{
+		adc_ch=0;
+		
+		adc_cnt_main=5;
+		
+		curr_buff=0;
+		self_cnt=0;
+		//self_cnt_zero_for=0;
+		self_cnt_not_zero=0;
+		self_cnt_zero_after=0;         
+		
+		adc_ch_cnt++;
+		if(adc_ch_cnt>=16)adc_ch_cnt=0;
+		}
+	}
+
+else if(adc_cnt_main==5)
+	{
+	adc_cnt_main=6;
+	curr_buff=0;
+	self_cnt=0;
+    //	self_cnt_zero_for=0;
+	self_cnt_not_zero=0;
+	self_cnt_zero_after=0;
+	self_min=1023;
+	self_max=0;
+	}
+else if(adc_cnt_main==6)
+	{
+	adc_cnt_main=0;
+	curr_buff=0;
+	self_cnt=0;
+    //	self_cnt_zero_for=0;
+	self_cnt_not_zero=0;
+	self_cnt_zero_after=0;
+	self_min=1023;
+	self_max=0;
+	}	
+				     
+DDRB|=0b11000000;
+DDRD.5=1;
+PORTB=(PORTB&0x3f)|(adc_ch<<6); 
+PORTD.5=adc_ch>>2; 
+
+ADCSRA=0x86;
+ADMUX=ADMUX_CONST[adc_cnt_main];
+ADCSRA|=0x40;
+
+adc_del=100;	
+}*/ 
+
+
+//-----------------------------------------------
+void in_drv(void)
+{
+char i,temp;
+unsigned int tempUI;
+DDRA&=~((1<<5)|(1<<6));
+PORTA|=((1<<5)|(1<<6));
+in_word_new=PINA;
+if(in_word_old==in_word_new)
+	{
+	if(in_word_cnt<10)
+		{
+		in_word_cnt++;
+		if(in_word_cnt>=10)
+			{
+			in_word=in_word_old;
+			}
+		}
+	}
+else in_word_cnt=0;
+
+
+in_word_old=in_word_new;
+}   
+
+
+
+//-----------------------------------------------
+void in_an(void)
+{
+if(!(in_word&(1<<inSTOP)))
+	{
+	if(cnt_stop<10)
+		{
+		cnt_stop++;
+		if(cnt_stop==10) bSTOP=1;
+		}
+
+	}
+else
+	{
+	if(cnt_stop)
+		{
+		cnt_stop--;
+		//if(cnt_stop==0) bSTOP=0;
+		}
+
+	}
+
+if(!(in_word&(1<<inSTART)))
+	{
+	if(cnt_start<10)
+		{
+		cnt_start++;
+		if(cnt_start==10) bSTART=1;
+		}
+
+	}
+else
+	{
+	if(cnt_start)
+		{
+		cnt_start--;
+	    //	if(cnt_start==0) bSTART=0;
+		}
+
+	}
+} 
+
+
+//-----------------------------------------------
+void step_contr(void)
+{
+DDRB.2=1;
+DDRB.3=1;
+DDRD.4=1;
+DDRD.5=1;
+
+if(bSTOP)
+	{
+	step=sOFF;
+	} 
+	
+if(step==sOFF)
+	{
+	PP1=1;
+	PP2=1;
+	TENPL=0;
+	TENMI=1;
+	
+	if(bSTART) 
+		{
+		step=s1;
+		cnt_del=50;
+		}
+	}
+
+else if(step==s1)
+	{
+	PP1=0;
+	PP2=1;
+	TENPL=0;
+	TENMI=1;
+	
+	cnt_del--;
+	if(cnt_del==0)
+		{
+		step=s2;
+		}
+	}
+
+
+else if(step==s2)
+	{
+	PP1=0;
+	PP2=1;
+	TENPL=0;
+	TENMI=1;
+
+     if(!bSTART)goto step_contr_end;
+     step=s3;
+     cnt_del=adc_del;
+	}
+	
+else if(step==s3)
+	{
+	PP1=0;
+	PP2=0;
+	TENPL=1;
+	TENMI=0;
+	cnt_del--;	
+	if(cnt_del==0)
+		{
+		step=sOFF;
+		}
+     }     
+  
+
+step_contr_end:
+bSTART=0;
+bSTOP=0;
+}
+
+//-----------------------------------------------
+void but_an(void)
+{
+
+if(!(in_word&0x01))
+	{
+	#ifdef TVIST_SKO
+	if((step==sOFF)&&(!bERR))
+		{
+		step=s1;
+		if(prog==p2) cnt_del=70;
+		else if(prog==p3) cnt_del=100;
+		}
+	#endif
+	#ifdef DV3KL2MD
+	if((step==sOFF)&&(!bERR))
+		{
+		step=s1;
+		cnt_del=70;
+		}
+	#endif	
+	#ifndef TVIST_SKO
+	if((step==sOFF)&&(!bERR))
+		{
+		step=s1;
+		if(prog==p1) cnt_del=50;
+		else if(prog==p2) cnt_del=50;
+		else if(prog==p3) cnt_del=50;
+          #ifdef P380_MINI
+  		cnt_del=100;
+  		#endif
+		}
+	#endif
+	}
+if(!(in_word&0x02))
+	{
+	step=sOFF;
+
+	}
+
+if (!n_but) goto but_an_end;
+
+
+but_an_end:
+n_but=0;
+}
+
+
+//***********************************************
+//***********************************************
+//***********************************************
+//***********************************************
+interrupt [TIM0_OVF] void timer0_ovf_isr(void)
+{
+TCCR0=0x02;
+TCNT0=-208;
+OCR0=0x00; 
+
+
+b600Hz=1;
+
+if(++t0_cnt0>=6)
+	{
+	t0_cnt0=0;
+	b100Hz=1;
+	}
+
+if(++t0_cnt1>=60)
+	{
+	t0_cnt1=0;
+	b10Hz=1;
+	
+	if(++t0_cnt2>=2)
+		{
+		t0_cnt2=0;
+		bFL5=!bFL5;
+		}
+		
+	if(++t0_cnt3>=5)
+		{
+		t0_cnt3=0;
+		bFL2=!bFL2;
+		}		
+	}
+}
+
+//===============================================
+//===============================================
+//===============================================
+//===============================================
+
+void main(void)
+{
+
+PORTA=0xff;
+DDRA=0x00;
+
+PORTB=0xff;
+DDRB=0xFF;
+
+PORTC=0x00;
+DDRC=0x00;
+
+
+PORTD=0x00;
+DDRD=0x00;
+
+
+TCCR0=0x02;
+TCNT0=-208;
+OCR0=0x00;
+
+TCCR1A=0x00;
+TCCR1B=0x00;
+TCNT1H=0x00;
+TCNT1L=0x00;
+ICR1H=0x00;
+ICR1L=0x00;
+OCR1AH=0x00;
+OCR1AL=0x00;
+OCR1BH=0x00;
+OCR1BL=0x00;
+
+
+ASSR=0x00;
+TCCR2=0x00;
+TCNT2=0x00;
+OCR2=0x00;
+
+MCUCR=0x00;
+MCUCSR=0x00;
+
+TIMSK=0x01;
+
+ACSR=0x80;
+SFIOR=0x00;
+
+#asm("sei") 
+PORTB=0xFF;
+DDRB=0xFF;
+
+DDRA.7=0;
+PORTA.7=0;
+ADCSRA=0x83;
+SFIOR&=0x0F;
+
+while (1)
+      {
+      if(b600Hz)
+		{
+		b600Hz=0; 
+          
+		}         
+      if(b100Hz)
+		{        
+		b100Hz=0; 
+	    	in_drv();
+          in_an();
+          step_contr();
+		}   
+	if(b10Hz)
+		{
+		b10Hz=0;
+		//adc_drv();
+		
+		adc_del=read_adc(7)+100;
+		
+		DDRC.6=1;
+		DDRC.7=1;
+		PORTC.7=1;
+		PORTC.6=!PORTC.6;
+          }
+
+      };
+}

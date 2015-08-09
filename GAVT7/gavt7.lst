@@ -1,0 +1,490 @@
+     1: #define XTAL_FREQ 4MHZ
+     2: #include <pic.h>
+     3: #include "delay.h"
+     4: 
+     5: #define but_mask        0b1111111111111010
+     6: #define but_on          3
+     7: #define but_onL 10
+     8: #define no_but          0b1111111111111111
+     9: 
+    10: #define led_NET  3
+    11: #define led_WORK 2
+    12: #define led_ERR  1
+    13: 
+    14: #define PP1     4
+    15: #define PP2     3
+    16: #define PP3     2
+    17: #define PP4     1
+    18: #define PP5     0
+    19: #define PP6     5
+    20: #define PP7     1
+    21: #define NET     5
+    22: #define NET_REZ 7
+    23: 
+    24: #define MD1     15
+    25: #define MD2     14
+    26: #define VR      13
+    27: 
+    28: //#define VR    0  кнопка старт
+    29: //#define VR    2  кнопка стоп
+    30: 
+    31: #define PROG1   10
+    32: #define PROG2   8
+    33: #define PROG3   9
+    34: 
+    35: 
+    36: 
+    37: 
+    38: __CONFIG (0x3d7a);
+    39: 
+    40: 
+    41: //char adc_cnt;
+    42: //char tmr1_init;
+    43: bit bit_100Hz;
+    44: bit bit_10Hz;
+    45: bit bit_1Hz;
+    46: bit bVR;
+    47: bit bMD1;
+    48: bit bMD2;
+    49: bit bERR;
+    50: /*bit bV1;
+    51: bit bV0;*/
+    52: 
+    53: unsigned int in_word;
+    54: 
+    55: 
+    56: 
+    57: unsigned but_n;
+    58: unsigned but_s;
+    59: unsigned but/*,but_but*/;
+    60: char enum{sOFF,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16}step=sOFF;
+    61: char enum{p1,p2,p3,pOFF}prog=p1;
+    62: char but0_cnt,but1_cnt;
+    63: char but_onL_temp;
+    64: signed char cnt_del=0;
+    65: 
+    66: char cnt_md1,cnt_md2,cnt_vr;
+    67: 
+    68: 
+    69: bit l_but;              //идет длинное нажатие на кнопку
+    70: bit n_but;          //произошло нажатие
+    71: bit speed;              //разрешение ускорения перебора
+    72: 
+    73: 
+    74: 
+    75: 
+    76: char cnt0,cnt1,temper,temp,vol_l,vol_i;
+    77: char cnt_but_START,cnt_but_STOP;
+    78: 
+    79: bit bON_START,bON_STOP;
+    80: 
+    81: //**********************************************
+    82: //Задержки
+    83: void DelayMs(unsigned char cnt)
+    84: {
+    85: unsigned char   i;
+    86:         do {
+    87:                 i = 4;
+    88:                 do {
+    89:                         DelayUs(250);
+    90:                 } while(--i);
+    91:         } while(--cnt);
+    92: 
+    93: }
+    94: 
+    95: 
+    96: 
+    97: //-----------------------------------------------
+    98: void in_read(void)
+    99: {
+   100: char i,temp;
+   101: unsigned int tempUI;
+   102: TRISA&=0xf0;
+   103: TRISA4=1;
+   104: 
+   105: for(i=0;i<16;i++)
+   106:         {
+   107:         temp=PORTA;
+   108:         temp&=0xf0;
+   109:         temp+=i;
+   110:         PORTA=temp;
+   111:         tempUI<<=1;
+   112:         DelayUs(200);
+   113:         if(RA4)tempUI|=0x0001;
+   114:         else tempUI&=0xfffe;
+   115:         }
+   116: in_word=tempUI;
+   117: }
+   118: 
+   119: //-----------------------------------------------
+   120: void step_contr(void)
+   121: {
+   122: char temp=0;
+   123: TRISB=0x00;
+   124: if(step==sOFF)
+   125:         {
+   126:         temp=0;
+   127:         }
+   128: 
+   129: if(prog==p1)
+   130:         {
+   131:         if(step==s1)
+   132:                 {
+   133:                 temp|=(1<<PP1);
+   134: 
+   135:                 cnt_del--;
+   136:                 if(cnt_del==0)
+   137:                         {
+   138:                         step=s2;
+   139:                         }
+   140:                 }
+   141: 
+   142:         else if(step==s2)
+   143:                 {
+   144:                 temp|=(1<<PP1)|(1<<PP2);
+   145: 
+   146:                 if(!bMD1)goto step_contr_end;
+   147: 
+   148:                 cnt_del=10;
+   149:                 step=s3;
+   150:                 }
+   151: 
+   152:         else if(step==s3)
+   153:                 {
+   154:                 temp|=(1<<PP1);
+   155:                 cnt_del--;
+   156:                 if(cnt_del==0)
+   157:                         {
+   158:                         step=s4;
+   159:                         }
+   160:                 }
+   161: 
+   162:         else if(step==s4)
+   163:                 {
+   164:                 temp|=(1<<PP1)|(1<<PP3);
+   165: 
+   166:                 if(!bMD2)goto step_contr_end;
+   167: 
+   168: 
+   169:                 step=sOFF;
+   170:                 }
+   171:         }
+   172: 
+   173: if(prog==p2)
+   174:         {
+   175: 
+   176:         if(step==s1)
+   177:                 {
+   178:                 temp|=(1<<PP1);
+   179: 
+   180:                 cnt_del--;
+   181:                 if(cnt_del==0)
+   182:                         {
+   183:                         step=s2;
+   184:                         }
+   185:                 }
+   186: 
+   187:         else if(step==s2)
+   188:                 {
+   189:                 temp|=(1<<PP1)|(1<<PP2);
+   190: 
+   191:                 if(!bMD1)goto step_contr_end;
+   192: 
+   193:                 step=sOFF;
+   194:                 }
+   195:         }
+   196: 
+   197: 
+   198: step_contr_end:
+   199: 
+   200: 
+   201: 
+   202: PORTB=temp;
+   203: }
+   204: 
+   205: //-----------------------------------------------
+   206: void led_out(void)
+   207: {
+   208: char temp=0;
+   209: TRISC=0xF0;
+   210: 
+   211: temp&=~(1<<led_NET);
+   212: 
+   213: if(step!=sOFF)
+   214:         {
+   215:         temp&=~(1<<led_WORK);
+   216:         }
+   217: else temp|=(1<<led_WORK);
+   218: 
+   219: 
+   220: if(step==sOFF)
+   221:         {
+   222:         if(bERR)
+   223: //if(!(in_word&(1<<6)))
+   224:                 {
+   225:                 temp&=~(1<<led_ERR);
+   226:                 }
+   227:         else
+   228:                 {
+   229:                 temp|=(1<<led_ERR);
+   230:                 }
+   231: 
+   232:         }
+   233: else temp|=(1<<led_ERR);
+   234: 
+   235: 
+   236: 
+   237: PORTC=(PORTC|0b00001111)&temp;
+   238: }
+   239: 
+   240: //-----------------------------------------------
+   241: void mdvr_drv(void)
+   242: {
+   243: if(!(in_word&(1<<MD1)))
+   244:         {
+   245:         if(cnt_md1<10)
+   246:                 {
+   247:                 cnt_md1++;
+   248:                 if(cnt_md1==10) bMD1=1;
+   249:                 }
+   250: 
+   251:         }
+   252: else
+   253:         {
+   254:         if(cnt_md1)
+   255:                 {
+   256:                 cnt_md1--;
+   257:                 if(cnt_md1==0) bMD1=0;
+   258:                 }
+   259: 
+   260:         }
+   261: 
+   262: if(!(in_word&(1<<MD2)))
+   263:         {
+   264:         if(cnt_md2<10)
+   265:                 {
+   266:                 cnt_md2++;
+   267:                 if(cnt_md2==10) bMD2=1;
+   268:                 }
+   269: 
+   270:         }
+   271: else
+   272:         {
+   273:         if(cnt_md2)
+   274:                 {
+   275:                 cnt_md2--;
+   276:                 if(cnt_md2==0) bMD2=0;
+   277:                 }
+   278: 
+   279:         }
+   280: 
+   281: if(!(in_word&(1<<VR)))
+   282:         {
+   283:         if(cnt_vr<10)
+   284:                 {
+   285:                 cnt_vr++;
+   286:                 if(cnt_vr==10) bVR=1;
+   287:                 }
+   288: 
+   289:         }
+   290: else
+   291:         {
+   292:         if(cnt_vr)
+   293:                 {
+   294:                 cnt_vr--;
+   295:                 if(cnt_vr==0) bVR=0;
+   296:                 }
+   297: 
+   298:         }
+   299: }
+   300: 
+   301: //-----------------------------------------------
+   302: void err_drv(void)
+   303: {
+   304: if(step==sOFF)
+   305:         {
+   306:         if((bMD1)||(bMD2)||(bVR)) bERR=1;
+   307:         else bERR=0;
+   308:         }
+   309: else bERR=0;
+   310: }
+   311: 
+   312: //-----------------------------------------------
+   313: void prog_drv(void)
+   314: {
+   315: if(!(in_word&(1<<PROG1)))
+   316:         {
+   317:         prog=p1;
+   318:         }
+   319: else if((in_word&(1<<PROG2)))
+   320:         {
+   321:         prog=p2;
+   322:         }
+   323: 
+   324: else prog=pOFF;
+   325: }
+   326: 
+   327: //-----------------------------------------------
+   328: // Подпрограмма драйва до 16 входов
+   329: // различает короткое и длинное нажатие,
+   330: // срабатывает на отпускание кнопки, возможность
+   331: // ускорения перебора при длинном нажатии...
+   332: void but_drv(void)
+   333: {
+   334: if(!(in_word&0x0001))
+   335:         {
+   336:         if(cnt_but_START<but_on)
+   337:                 {
+   338:                 cnt_but_START++;
+   339:                 if(cnt_but_START>=but_on)
+   340:                         {
+   341:                         bON_START=1;
+   342:                         }
+   343:                 }
+   344:         }
+   345: else
+   346:         {
+   347:      cnt_but_START=0;
+   348:         }
+   349: 
+   350: if(!(in_word&0x0004))
+   351:         {
+   352:         if(cnt_but_STOP<but_on)
+   353:                 {
+   354:                 cnt_but_STOP++;
+   355:                 if(cnt_but_STOP>=but_on)
+   356:                         {
+   357:                         bON_STOP=1;
+   358:                         }
+   359:                 }
+   360:         }
+   361: else
+   362:         {
+   363:      cnt_but_STOP=0;
+   364:         }
+   365: 
+   366: }
+   367: 
+   368: #define butSTART 0b1111111111111110
+   369: #define butSTOP  0b1111111111111011
+   370: //-----------------------------------------------
+   371: void but_an(void)
+   372: {
+   373: if(bON_START)
+   374:         {
+   375:         if((step==sOFF)&&(!bERR))
+   376:                 {
+   377:                 step=s1;
+   378:                 if(prog==p1) cnt_del=30;
+   379:                 else if(prog==p2) cnt_del=30;
+   380: 
+   381: 
+   382:                 }
+   383:         }
+   384: if(bON_STOP)
+   385:         {
+   386:         step=sOFF;
+   387: 
+   388:         }
+   389: 
+   390: bON_START=0;
+   391: bON_STOP=0;
+   392: }
+   393: 
+   394: //-----------------------------------------------
+   395: void t0_init(void)
+   396: {
+   397: OPTION=0x07;
+   398: T0IE=1;
+   399: PEIE=1;
+   400: TMR0=-40;
+   401: }
+   402: 
+   403: 
+   404: 
+   405: //***********************************************
+   406: //***********************************************
+   407: //***********************************************
+   408: //***********************************************
+   409: void interrupt isr(void)
+   410: {
+   411: 
+   412: di();
+   413: 
+   414: if(T0IF)
+   415:         {
+   416:         t0_init();
+   417:         T0IF=0;
+   418:         bit_100Hz=1;
+   419:         if((++cnt0)==10)
+   420:                 {
+   421:                 cnt0=0;
+   422:                 bit_10Hz=1;
+   423:                 if(++cnt1==10)
+   424:                         {
+   425:                         cnt1=0;
+   426:                         bit_1Hz=1;
+   427:                         }
+   428:                 }
+   429:         }
+   430: 
+   431: ei();
+   432: }
+   433: 
+   434: 
+   435: //===============================================
+   436: //===============================================
+   437: //===============================================
+   438: //===============================================
+   439: void main(void)
+   440: {
+   441: 
+   442: t0_init();
+   443: 
+   444: 
+   445: ei();
+   446: PEIE=1;
+   447: 
+   448: di();
+   449: 
+   450: 
+   451: 
+   452: ei();
+   453: 
+   454: TRISB=0x00;
+   455: PORTB=0x00;
+   456: PORTC|=(1<<led_ERR);
+   457: //
+   458: 
+   459: while (1)
+   460:         {
+   461:         if(bit_100Hz)
+   462:                 {
+   463:                 bit_100Hz=0;
+   464: 
+   465: 
+   466:                 in_read();
+   467:                 step_contr();
+   468:                 mdvr_drv();
+   469:                 but_drv();
+   470:                 but_an();
+   471:                 }
+   472:         if(bit_10Hz)
+   473:                 {
+   474:                 bit_10Hz=0;
+   475: 
+   476:                 led_out();
+   477:                 err_drv();
+   478:                 prog_drv();
+   479: 
+   480: 
+   481:                 }
+   482:         if(bit_1Hz)
+   483:                 {
+   484:                 bit_1Hz=0;
+   485:                 }
+   486: 
+   487: 
+   488:         }
+   489: }
+   490: 

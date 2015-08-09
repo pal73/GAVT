@@ -1,0 +1,15 @@
+Creating   'slave.eep'
+Creating   'slave.obj'
+Creating   'slave.lst'
+
+Assembling 'slave.asm'
+Including  'slave.vec'
+Including  'slave.inc'
+
+Program memory usage:
+Code             : 1220 words
+Constants (dw/db):    7 words
+Unused           :    0 words
+Total            : 1227 words
+
+Assembly complete with no errors.

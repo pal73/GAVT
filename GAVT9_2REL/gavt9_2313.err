@@ -1,0 +1,15 @@
+Creating   'gavt9_2313.eep'
+Creating   'gavt9_2313.obj'
+Creating   'gavt9_2313.lst'
+
+Assembling 'gavt9_2313.asm'
+Including  'gavt9_2313.vec'
+Including  'gavt9_2313.inc'
+
+Program memory usage:
+Code             :  269 words
+Constants (dw/db):   10 words
+Unused           :    0 words
+Total            :  279 words
+
+Assembly complete with no errors.

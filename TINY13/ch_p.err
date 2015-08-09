@@ -1,0 +1,16 @@
+Creating   'ch_p.eep'
+Creating   'ch_p.obj'
+Creating   'ch_p.lst'
+
+Assembling 'ch_p.asm'
+Including  'ch_p.vec'
+Including  'ch_p.inc'
+
+Program memory usage:
+Code             :  187 words
+Constants (dw/db):    1 words
+Unused           :    0 words
+Total            :  188 words
+
+Assembly complete with no errors.
+Deleting   'ch_p.eep'

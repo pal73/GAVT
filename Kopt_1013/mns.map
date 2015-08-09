@@ -1,0 +1,59 @@
+CodeVisionAVR C Compiler V1.24.1d Standard
+(C) Copyright 1998-2004 Pavel Haiduc, HP InfoTech s.r.l.
+http://www.hpinfotech.ro
+e-mail:office@hpinfotech.ro
+
+File: C:\Users\Pal\CVproects\MNSmini\mns.c
+Global variables memory map:
+
+Variable                          Address   Size
+bT0                                  R2.0    1/8
+b100Hz                               R2.1    1/8
+b10Hz                                R2.2    1/8
+b5Hz                                 R2.3    1/8
+b2Hz                                 R2.4    1/8
+b1Hz                                 R2.5    1/8
+n_but                                R2.6    1/8
+t0_cnt0                                R5      1
+t0_cnt1                                R6      1
+t0_cnt2                                R7      1
+t0_cnt3                                R8      1
+t0_cnt4                                R9      1
+bankA                             R10,R11      2
+bankB                             R12,R13      2
+bankC                                160h      2
+adc_bankU                            162h    150
+ADCU                                 1F8h      2
+adc_bankU_                           1FAh      6
+del_cnt                              200h      2
+flags                                 R14      1
+deltas                               202h      1
+adc_cntA                             203h      1
+adc_cntB                             204h      1
+adc_cntC                             205h      1
+bA_                                  R2.7    1/8
+bB_                                  R3.0    1/8
+bC_                                  R3.1    1/8
+bA                                   R3.2    1/8
+bB                                   R3.3    1/8
+bC                                   R3.4    1/8
+adc_data                             206h      2
+cnt_x                                208h      1
+cher                                 209h      3
+cher_cnt                             20Ch      2
+reset_cnt                            20Eh      1
+pcnt                                 20Fh      3
+bPER                                 R3.5    1/8
+bPER_                                R3.6    1/8
+bCHER_                               R3.7    1/8
+bNN                                  R4.0    1/8
+bNN_                                 R4.1    1/8
+ind                                  212h      1
+bFl                                  R4.2    1/8
+cnt_butS                             213h      1
+cnt_butR                             214h      1
+butR                                 R4.3    1/8
+butS                                 R4.4    1/8
+per_cnt                              215h      1
+nn_cnt                               216h      1
+input_index_S12                      217h      1

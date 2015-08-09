@@ -1,0 +1,15 @@
+Creating   'GAVT9.eep'
+Creating   'GAVT9.obj'
+Creating   'GAVT9.lst'
+
+Assembling 'GAVT9.asm'
+Including  'GAVT9.vec'
+Including  'GAVT9.inc'
+
+Program memory usage:
+Code             :  286 words
+Constants (dw/db):    1 words
+Unused           :    0 words
+Total            :  287 words
+
+Assembly complete with no errors.

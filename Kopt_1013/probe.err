@@ -1,0 +1,16 @@
+Creating   'probe.eep'
+Creating   'probe.obj'
+Creating   'probe.lst'
+
+Assembling 'probe.asm'
+Including  'probe.vec'
+Including  'probe.inc'
+
+Program memory usage:
+Code             :  145 words
+Constants (dw/db):    1 words
+Unused           :    0 words
+Total            :  146 words
+
+Assembly complete with no errors.
+Deleting   'probe.eep'

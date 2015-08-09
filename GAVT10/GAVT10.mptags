@@ -1,0 +1,144 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.5.4	//
+!_TAG_REVISION_NAME	MCHPTags	//
+!_TAG_REVISION_VERSION	6.0.1	//
+BIG_CAM	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	58;"	d	line:58	file:
+DelayMs	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	112;"	f	line:112	signature:(unsigned char cnt)
+MD1::0	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	32;"	d	line:32	file:
+MD2::15	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	34;"	d	line:34	file:
+MD::13	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	30;"	d	line:30	file:
+OD1::7	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	194;"	d	line:194	file:
+OD2::6	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	195;"	d	line:195	file:
+PP1::4	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	17;"	d	line:17	file:
+PP1_1::7	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	19;"	d	line:19	file:
+PP1_2::6	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	20;"	d	line:20	file:
+PP1_3::5	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	21;"	d	line:21	file:
+PP1_4::4	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	22;"	d	line:22	file:
+PP2::3	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	18;"	d	line:18	file:
+PP2_1::0	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	23;"	d	line:23	file:
+PP2_2::1	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	24;"	d	line:24	file:
+PP2_3::2	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	25;"	d	line:25	file:
+PP2_4::3	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	26;"	d	line:26	file:
+PROG1::10	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	53;"	d	line:53	file:
+PROG2::8	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	55;"	d	line:55	file:
+PROG3::9	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	56;"	d	line:56	file:
+START::6	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	28;"	d	line:28	file:
+STOP::5	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	29;"	d	line:29	file:
+VR1::2	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	33;"	d	line:33	file:
+VR2::14	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	35;"	d	line:35	file:
+XTAL_FREQ::4MHZ	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	1;"	d	line:1	file:
+bERR	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	71;"	v	line:71
+bMD	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	70;"	v	line:70
+bMD1	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	70;"	v	line:70
+bMD2	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	70;"	v	line:70
+bON_START	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	101;"	v	line:101
+bON_STOP	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	101;"	v	line:101
+bPP1	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	14;"	v	line:14
+bPP2	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	15;"	v	line:15
+bVR1	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	69;"	v	line:69
+bVR2	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	69;"	v	line:69
+bit_100Hz	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	66;"	v	line:66
+bit_10Hz	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	67;"	v	line:67
+bit_1Hz	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	68;"	v	line:68
+but	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	81;"	v	line:81
+but0_cnt	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	84;"	v	line:84
+but1_cnt	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	84;"	v	line:84
+butSTART::0b1111111111111110	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	734;"	d	line:734	file:
+butSTOP::0b1111111111111011	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	735;"	d	line:735	file:
+but_an	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	737;"	f	line:737	signature:(void)
+but_drv	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	653;"	f	line:653	signature:(void)
+but_mask::0b1111111111111010	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	5;"	d	line:5	file:
+but_n	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	79;"	v	line:79
+but_on::3	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	6;"	d	line:6	file:
+but_onL::10	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	7;"	d	line:7	file:
+but_onL_temp	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	85;"	v	line:85
+but_s	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	80;"	v	line:80
+cnt0	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	98;"	v	line:98
+cnt1	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	98;"	v	line:98
+cnt_but_START	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	99;"	v	line:99
+cnt_but_STOP	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	99;"	v	line:99
+cnt_del1	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	86;"	v	line:86
+cnt_del2	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	86;"	v	line:86
+cnt_del_main	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	86;"	v	line:86
+cnt_md	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	88;"	v	line:88
+cnt_md1	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	88;"	v	line:88
+cnt_md2	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	88;"	v	line:88
+cnt_vr1	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	88;"	v	line:88
+cnt_vr2	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	88;"	v	line:88
+err_drv	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	620;"	f	line:620	signature:(void)
+i	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	114;"	l	line:114
+i	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	129;"	l	line:129
+in_read	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	127;"	f	line:127	signature:(void)
+in_word	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	75;"	v	line:75
+isr	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	793;"	f	line:793	signature:(void)
+l_but	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	91;"	v	line:91
+led_ERR::1	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	12;"	d	line:12	file:
+led_NET::3	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	10;"	d	line:10	file:
+led_WORK::2	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	11;"	d	line:11	file:
+led_out	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	487;"	f	line:487	signature:(void)
+loop_stat	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	104;"	v	line:104
+lsOFF	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	104;"	e	line:104	file:
+lsON	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	104;"	e	line:104	file:
+mOFF	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	105;"	e	line:105	file:
+mON	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	105;"	e	line:105	file:
+main	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	823;"	f	line:823	signature:(void)
+mdvr_drv	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	521;"	f	line:521	signature:(void)
+mode1	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	105;"	v	line:105
+mode2	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	105;"	v	line:105
+n_but	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	92;"	v	line:92
+no_but::0b1111111111111111	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	8;"	d	line:8	file:
+od1	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	107;"	v	line:107
+od1_cnt	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	106;"	v	line:106
+od2	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	107;"	v	line:107
+od2_cnt	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	106;"	v	line:106
+odOFF	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	107;"	e	line:107	file:
+odON	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	107;"	e	line:107	file:
+od_drv	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	192;"	f	line:192	signature:(void)
+p1	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	83;"	e	line:83	file:
+p2	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	83;"	e	line:83	file:
+p3	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	83;"	e	line:83	file:
+pOFF	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	83;"	e	line:83	file:
+prog	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	83;"	v	line:83
+prog_drv	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	631;"	f	line:631	signature:(void)
+s1	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	82;"	e	line:82	file:
+s10	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	82;"	e	line:82	file:
+s11	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	82;"	e	line:82	file:
+s12	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	82;"	e	line:82	file:
+s13	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	82;"	e	line:82	file:
+s14	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	82;"	e	line:82	file:
+s15	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	82;"	e	line:82	file:
+s16	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	82;"	e	line:82	file:
+s2	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	82;"	e	line:82	file:
+s3	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	82;"	e	line:82	file:
+s4	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	82;"	e	line:82	file:
+s5	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	82;"	e	line:82	file:
+s6	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	82;"	e	line:82	file:
+s7	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	82;"	e	line:82	file:
+s8	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	82;"	e	line:82	file:
+s9	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	82;"	e	line:82	file:
+sOFF	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	82;"	e	line:82	file:
+speed	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	93;"	v	line:93
+step1	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	82;"	v	line:82
+step1_contr	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	295;"	f	line:295	signature:(void)
+step2	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	82;"	v	line:82
+step2_contr	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	390;"	f	line:390	signature:(void)
+step_main	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	82;"	v	line:82
+step_main_contr	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	225;"	f	line:225	signature:(void)
+sw1_cnt	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	103;"	v	line:103
+sw2_cnt	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	103;"	v	line:103
+sw_loop_cnt	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	103;"	v	line:103
+t0_init	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	777;"	f	line:777	signature:(void)
+temp	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	129;"	l	line:129
+temp	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	297;"	l	line:297
+temp	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	392;"	l	line:392
+temp	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	489;"	l	line:489
+temp	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	98;"	v	line:98
+tempUI	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	130;"	l	line:130
+temper	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	98;"	v	line:98
+tumbler_drv	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	150;"	f	line:150	signature:(void)
+vol_i	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	98;"	v	line:98
+vol_l	E:\Users\Pal\Cvproects\GAVT\GAVT10\vzm_ob.c	98;"	v	line:98

@@ -1,0 +1,163 @@
+//Программа для платы индикации "Пакетик полуавтомат"(3 задержки)
+
+#include <90s2313.h>
+#include <delay.h>
+#include <stdio.h>
+
+
+
+#define but_on	 25
+#define on	 0
+#define off	 1
+
+
+bit b100Hz;
+bit b10Hz;
+bit b5Hz;
+bit b1Hz;
+bit bFL;
+bit bZ;
+bit speed=0;
+
+char t0_cnt,t0_cnt0,t0_cnt1,t0_cnt2,t0_cnt3;
+char ind_cnt;
+char ind_out[5];
+char dig[4];
+flash char STROB[]={0b11111011,0b11110111,0b11101111,0b11011111,0b10111111,0b11111111};
+flash char DIGISYM[]={0b01001000,0b01111011,0b00101100,0b00101001,0b00011011,0b10001001,0b10001000,0b01101011,0b00001000,0b00001001,0b11111111};								
+						
+
+char but_pr_LD_if,but_pr_LD_get,but_pr_imp_v,delay,but_pr_CAN_vozb;
+bit n_but_LD_if,n_but_LD_get,n_but_imp_v,delay_on,n_but_CAN_vozb;
+int cnt;
+int ccc1,ccc2,ccc3;
+
+char but_cnt0,but_cnt1,but_cnt01;
+bit b0,b0L,b1,b1L,b01,b01L;
+
+int in_cnt,main_cnt;
+//-----------------------------------------------
+void t0_init(void)
+{
+TCCR0=0x03;
+TCNT0=-62;
+} 
+
+//-----------------------------------------------
+void port_init(void)
+{
+PORTB=0x1B;
+DDRB=0x1F;
+
+
+PORTD=0x7B;
+DDRD=0x6F;
+} 
+
+
+//***********************************************
+//***********************************************
+//***********************************************
+//***********************************************
+interrupt [TIM0_OVF] void timer0_ovf_isr(void)
+{
+t0_init();
+if(++t0_cnt>=20) 
+	{
+	t0_cnt=0;
+	b100Hz=1;
+	if(++t0_cnt0>=10)
+		{
+		t0_cnt0=0;
+		b10Hz=1;
+
+		} 
+	if(++t0_cnt1>=20)
+		{
+		t0_cnt1=0;
+		b5Hz=1;
+     	bFL=!bFL;
+		}
+	if(++t0_cnt2>=100)
+		{
+		t0_cnt2=0;
+		b1Hz=1;
+	     }
+	}		
+
+}
+
+//===============================================
+//===============================================
+//===============================================
+//===============================================
+void main(void)
+{
+
+t0_init();
+
+main_cnt=30;
+
+#asm("sei")
+
+
+while (1)
+	{
+	if(b100Hz)
+		{
+		b100Hz=0;
+
+		if(!PIND.6)
+			{
+			if(in_cnt<5)
+				{
+				in_cnt++;
+				if(in_cnt==5)
+					{
+					main_cnt=0;
+					}          
+				}
+			}
+		else
+			{
+			in_cnt=0;
+			}			
+			
+			
+		DDRD.6=0;
+		PORTD.6=1; 
+
+		}             
+	if(b10Hz)
+		{
+		b10Hz=0; 
+		
+		DDRD|=0b00110000;
+          if(main_cnt<30)main_cnt++;
+          if((main_cnt>0)&&(main_cnt<=13))
+          	{
+          	PORTD.5=1;
+          	}
+          else PORTD.5=0;
+          
+          if((main_cnt>5)&&(main_cnt<=13))
+          	{
+          	PORTD.4=1;
+          	}
+          else PORTD.4=0;          	
+          
+		}
+	if(b5Hz)
+		{
+		b5Hz=0;
+		} 
+    	if(b1Hz)
+		{
+		b1Hz=0;
+
+	DDRD|=0b00110000;
+	PORTD.5=!PORTD.5;
+		}
+     #asm("wdr")	
+	}
+}
