@@ -1,8 +1,8 @@
-	.DEF _t0_cnt0=R4
-	.DEF _t0_cnt1=R5
-	.DEF _t0_cnt2=R6
-	.DEF _t0_cnt3=R7
-	.DEF _ind_cnt=R8
+	.DEF _t0_cnt0=R6
+	.DEF _t0_cnt1=R7
+	.DEF _t0_cnt2=R8
+	.DEF _t0_cnt3=R9
+	.DEF _ind_cnt=R10
 _IND_STROB:
 	.DB  0xBF,0xDF,0xEF,0xF7,0x7F
 _DIGISYM:
@@ -10,12 +10,10 @@ _DIGISYM:
 	.DB  0x80,0x90,0xFF
 _3:
 	.DB  0x55,0x55,0x55,0x55,0x55
-	.DEF _but=R9
-	.DEF _prog=R10
-	.DEF _step=R11
-	.DEF _ind=R12
-	.DEF _sub_ind=R13
-	.DEF _in_word=R14
+	.DEF _but=R11
+	.DEF _prog=R12
+	.DEF _step=R13
+	.DEF _ind=R14
 
 __GLOBAL_INI_TBL:
 	.DW  0x05

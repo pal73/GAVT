@@ -5,7 +5,7 @@
 #define LED_PROG1	4 
 #define LED_ERROR	0 
 #define LED_WRK	6
-#define LED_VACUUM	7
+#define LED_LOOP_AUTO	7
 
 #define GAVT3
 
@@ -17,6 +17,14 @@
 //#define I380_WI
 //#define I220_WI
 #define DV3KL2MD
+
+#define BD1	7
+#define BD2	4
+#define DM	1
+#define START	0
+#define STOP	2
+#define MD1	3
+#define MD2	5
 
 #define MD1	2
 #define MD2	3
@@ -113,7 +121,7 @@ bit n_but;          //произошло нажатие
 bit speed;		//разрешение ускорения перебора 
 bit bFL2; 
 bit bFL5;
-eeprom enum{evmON=0x55,evmOFF=0xaa}ee_vacuum_mode;
+eeprom enum{elmAUTO=0x55,elmMNL=0xaa}ee_loop_mode;
 eeprom char ee_program[2];
 enum {p1=1,p2=2,p3=3,p4=4}prog;
 enum{sOFF=0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16,s54,s55,s100}step=sOFF;
@@ -123,16 +131,22 @@ char in_word,in_word_old,in_word_new,in_word_cnt;
 bit bERR;
 signed int cnt_del=0;
 
-char bVR;
-char bMD1;
-bit bMD2;
-bit bMD3;
-char cnt_md1,cnt_md2,cnt_vr,cnt_md3;
+bit bMD1,bMD2,bBD1,bBD2,bDM,bSTART,bSTOP;
+
+char cnt_md1,cnt_md2,cnt_bd1,cnt_bd2,cnt_dm,cnt_start,cnt_stop;
 
 eeprom unsigned ee_delay[4,2];
 eeprom char ee_vr_log;
 #include <mega16.h>
-//#include <mega8535.h>
+//#include <mega8535.h>  
+
+bit bPP1,bPP2,bPP3,bPP4,bPP5,bPP6,bPP7,bPP8;
+
+enum{sOFF=0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16,s54,s55,s100}payka_step=sOFF,main_loop_step=sOFF;
+enum{cmdOFF=0,cmdSTART,cmdSTOP}payka_cmd=cmdOFF,main_loop_cmd;
+signed short payka_cnt_del;
+eeprom signed short ee_temp1,ee_temp2;
+
 //-----------------------------------------------
 void prog_drv(void)
 {
@@ -201,7 +215,6 @@ else in_word_cnt=0;
 in_word_old=in_word_new;
 }   
 
-#ifdef TVIST_SKO
 //-----------------------------------------------
 void err_drv(void)
 {
@@ -215,23 +228,15 @@ if(step==sOFF)
 	}
 else bERR=0;
 }
-#endif  
+  
 
-#ifndef TVIST_SKO
 //-----------------------------------------------
-void err_drv(void)
+void in_an(void)
 {
-if(step==sOFF)
-	{
-	if((bMD1)||(bMD2)||(bVR)||(bMD3)) bERR=1;
-	else bERR=0;
-	}
-else bERR=0;
-}
-#endif
-//-----------------------------------------------
-void mdvr_drv(void)
-{
+DDRA=0x00;
+PORTA=0xff;
+in_word=PINA;
+
 if(!(in_word&(1<<MD1)))
 	{
 	if(cnt_md1<10)
@@ -270,547 +275,168 @@ else
 
 	}
 
-if(!(in_word&(1<<MD3)))
+if(!(in_word&(1<<BD1)))
 	{
-	if(cnt_md3<10)
+	if(cnt_bd1<10)
 		{
-		cnt_md3++;
-		if(cnt_md3==10) bMD3=1;
+		cnt_bd1++;
+		if(cnt_bd1==10) bBD1=1;
 		}
 
 	}
 else
 	{
-	if(cnt_md3)
+	if(cnt_bd1)
 		{
-		cnt_md3--;
-		if(cnt_md3==0) bMD3=0;
+		cnt_bd1--;
+		if(cnt_bd1==0) bBD1=0;
 		}
 
 	}
 
-if(((!(in_word&(1<<VR)))&&(ee_vr_log)) || (((in_word&(1<<VR)))&&(!ee_vr_log)))
+if(!(in_word&(1<<BD2)))
 	{
-	if(cnt_vr<10)
+	if(cnt_bd2<10)
 		{
-		cnt_vr++;
-		if(cnt_vr==10) bVR=1;
+		cnt_bd2++;
+		if(cnt_bd2==10) bBD2=1;
 		}
 
 	}
 else
 	{
-	if(cnt_vr)
+	if(cnt_bd2)
 		{
-		cnt_vr--;
-		if(cnt_vr==0) bVR=0;
+		cnt_bd2--;
+		if(cnt_bd2==0) bBD2=0;
 		}
 
 	}
+
+if(!(in_word&(1<<DM)))
+	{
+	if(cnt_dm<10)
+		{
+		cnt_dm++;
+		if(cnt_dm==10) bDM=1;
+		}
+	}
+else
+	{
+	if(cnt_dm)
+		{
+		cnt_dm--;
+		if(cnt_dm==0) bDM=0;
+		}
+	}
+
+if(!(in_word&(1<<START)))
+	{
+	if(cnt_start<10)
+		{
+		cnt_start++;
+		if(cnt_start==10) 
+			{
+			bSTART=1;
+			main_loop_cmd==cmdSTART;
+			}
+		}
+	}
+else
+	{
+	if(cnt_start)
+		{
+		cnt_start--;
+		if(cnt_start==0) bSTART=0;
+		}
+	} 
+
+if(!(in_word&(1<<STOP)))
+	{
+	if(cnt_stop<10)
+		{
+		cnt_stop++;
+		if(cnt_stop==10) bSTOP=1;
+		}
+	}
+else
+	{
+	if(cnt_stop)
+		{
+		cnt_stop--;
+		if(cnt_stop==0) bSTOP=0;
+		}
+	} 
 } 
 
-#ifdef DV3KL2MD
 //-----------------------------------------------
-void step_contr(void)
+void main_loop_hndl(void)
 {
-char temp=0;
-DDRB=0xFF;
-
-if(step==sOFF)
+if(main_loop_cmd==cmdSTART)
 	{
-	temp=0;
-	}
-
-else if(step==s1)
-	{
-	temp|=(1<<PP1);
-
-	cnt_del--;
-	if(cnt_del==0)
-		{
-		step=s2;
-		cnt_del=20;
-		}
-	}
-
-
-else if(step==s2)
-	{
-	temp|=(1<<PP1)|(1<<DV);
-
-	cnt_del--;
-	if(cnt_del==0)
-		{
-		step=s3;
-		}
-	}
 	
-else if(step==s3)
+	}                      
+else if(main_loop_cmd==cmdSTOP)
 	{
-	temp|=(1<<PP1)|(1<<PP2)|(1<<DV);
-     if(!bMD1)goto step_contr_end;
-     step=s4;
-     }     
-else if(step==s4)
-	{          
-     temp|=(1<<PP1)|(1<<PP3)|(1<<DV);
-     if(!bMD2)goto step_contr_end;
-     step=s5;
-     cnt_del=50;
-     } 
-else if(step==s5)
-	{
-	temp|=(1<<PP1)|(1<<PP3)|(1<<DV);
 
-	cnt_del--;
-	if(cnt_del==0)
-		{
-		step=s6;
-		cnt_del=50;
-		}
-	}         
-/*else if(step==s6)
-	{
-	temp|=(1<<PP1)|(1<<DV);
-
-	cnt_del--;
-	if(cnt_del==0)
-		{
-		step=s6;
-		cnt_del=70;
-		}
-	}*/     
-else if(step==s6)
-		{
-	temp|=(1<<PP1);
-	cnt_del--;
-	if(cnt_del==0)
-		{
-		step=sOFF;
-          }     
-     }     
-
-step_contr_end:
-
-PORTB=~temp;
+	}
+	 
 }
-#endif
 
-#ifdef P380_MINI
 //-----------------------------------------------
-void step_contr(void)
+void payka_hndl(void)
 {
-char temp=0;
-DDRB=0xFF;
-
-if(step==sOFF)
+if(payka_cmd==cmdSTART)
 	{
-	temp=0;
-	}
-
-else if(step==s1)
+	payka_step=s1;
+	payka_cnt_del=ee_temp1;
+	payka_cmd=cmdOFF;
+	}                      
+else if(payka_cmd==cmdSTOP)
 	{
-	temp|=(1<<PP1);
-
-	cnt_del--;
-	if(cnt_del==0)
-		{
-		step=s2;
-		}
-	}
-
-else if(step==s2)
-	{
-	temp|=(1<<PP1)|(1<<PP2)|(1<<DV);
-     if(!bMD1)goto step_contr_end;
-     step=s3;
-     }     
-else if(step==s3)
-	{          
-     temp|=(1<<PP1)|(1<<PP3)|(1<<DV);
-     if(!bMD2)goto step_contr_end;
-     step=s4;
-     cnt_del=50;
-     }
-else if(step==s4)
-		{
-	temp|=(1<<PP1);
-	cnt_del--;
-	if(cnt_del==0)
-		{
-		step=sOFF;
-          }     
-     }     
-
-step_contr_end:
-
-PORTB=~temp;
-}
-#endif
-
-#ifdef P380
-//-----------------------------------------------
-void step_contr(void)
-{
-char temp=0;
-DDRB=0xFF;
-
-if(step==sOFF)
-	{
-	temp=0;
-	}
-
-else if(prog==p1)
-	{
-	if(step==s1)
-		{
-		temp|=(1<<PP1)|(1<<PP2);
-
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			if(ee_vacuum_mode==evmOFF)
-				{
-				goto lbl_0001;
-				}
-			else step=s2;
-			}
-		}
-
-	else if(step==s2)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3);
-
-          if(!bVR)goto step_contr_end;
-lbl_0001:
-#ifndef BIG_CAM
-		cnt_del=30;
-#endif
-
-#ifdef BIG_CAM
-		cnt_del=100;
-#endif
-		step=s3;
-		}
-
-	else if(step==s3)
-		{
-		temp|=(1<<PP1)|(1<<PP3)|(1<<DV);
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=s4;
-			}
-          }
-	else if(step==s4)
-		{
-		temp|=(1<<PP1)|(1<<PP3)|(1<<PP4)|(1<<DV);
-
-          if(!bMD1)goto step_contr_end;
-
-		cnt_del=40;
-		step=s5;
-		}
-	else if(step==s5)
-		{
-		temp|=(1<<PP1)|(1<<PP3)|(1<<PP4)|(1<<DV);
-
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=s6;
-			}
-		}
-	else if(step==s6)
-		{
-		temp|=(1<<PP1)|(1<<PP3)|(1<<PP5)|(1<<DV);
-
-         	if(!bMD2)goto step_contr_end;
-          cnt_del=40;
-		//step=s7;
+	payka_step=sOFF;
+	payka_cmd=cmdOFF;
+	} 
 		
-          step=s55;
-          cnt_del=40;
-		}
-	else if(step==s55)
-		{
-		temp|=(1<<PP1)|(1<<PP3)|(1<<PP5)|(1<<DV);
-          cnt_del--;
-          if(cnt_del==0)
-			{
-          	step=s7;
-          	cnt_del=20;
-			}
-         		
-		}
-	else if(step==s7)
-		{
-		temp|=(1<<PP1)|(1<<PP3)|(1<<PP5)|(1<<DV);
-
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=s8;
-			cnt_del=30;
-			}
-		}
-	else if(step==s8)
-		{
-		temp|=(1<<PP1)|(1<<PP3);
-
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=s9;
-#ifndef BIG_CAM
-		cnt_del=150;
-#endif
-
-#ifdef BIG_CAM
-		cnt_del=200;
-#endif
-			}
-		}
-	else if(step==s9)
-		{
-		temp|=(1<<PP1)|(1<<PP2);
-
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=s10;
-			cnt_del=30;
-			}
-		}
-	else if(step==s10)
-		{
-		temp|=(1<<PP2);
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=sOFF;
-			}
-		}
-	}
-
-if(prog==p2)
+if(payka_step==sOFF)
 	{
-
-	if(step==s1)
-		{
-		temp|=(1<<PP1)|(1<<PP2);
-
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			if(ee_vacuum_mode==evmOFF)
-				{
-				goto lbl_0002;
-				}
-			else step=s2;
-			}
-		}
-
-	else if(step==s2)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3);
-
-          if(!bVR)goto step_contr_end;
-lbl_0002:
-#ifndef BIG_CAM
-		cnt_del=30;
-#endif
-
-#ifdef BIG_CAM
-		cnt_del=100;
-#endif
-		step=s3;
-		}
-
-	else if(step==s3)
-		{
-		temp|=(1<<PP1)|(1<<PP3)|(1<<DV);
-
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=s4;
-			}
-		}
-
-	else if(step==s4)
-		{
-		temp|=(1<<PP1)|(1<<PP3)|(1<<PP4)|(1<<DV);
-
-          if(!bMD1)goto step_contr_end;
-         	cnt_del=30;
-		step=s5;
-		}
-
-	else if(step==s5)
-		{
-		temp|=(1<<PP1)|(1<<PP3)|(1<<PP4)|(1<<DV);
-
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=s6;
-			cnt_del=30;
-			}
-		}
-
-	else if(step==s6)
-		{
-		temp|=(1<<PP1)|(1<<PP3);
-
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=s7;
-#ifndef BIG_CAM
-		cnt_del=150;
-#endif
-
-#ifdef BIG_CAM
-		cnt_del=200;
-#endif
-			}
-		}
-
-	else if(step==s7)
-		{
-		temp|=(1<<PP1)|(1<<PP2);
-
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=s8;
-			cnt_del=30;
-			}
-		}
-	else if(step==s8)
-		{
-		temp|=(1<<PP2);
-
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=sOFF;
-			}
-		}
-	}
-
-if(prog==p3)
+	bPP6=0;
+	bPP7=0;
+	}      
+else if(payka_step==s1)
 	{
-
-	if(step==s1)
+	bPP6=1;
+	bPP7=0;
+	payka_cnt_del--;
+	if(payka_cnt_del==0)
 		{
-		temp|=(1<<PP1)|(1<<PP2);
-
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			if(ee_vacuum_mode==evmOFF)
-				{
-				goto lbl_0003;
-				}
-			else step=s2;
-			}
-		}
-
-	else if(step==s2)
+		payka_step=s2;
+		payka_cnt_del=20;
+		}                	
+	}	
+else if(payka_step==s2)
+	{
+	bPP6=0;
+	bPP7=0;
+	payka_cnt_del--;
+	if(payka_cnt_del==0)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3);
-
-          if(!bVR)goto step_contr_end;
-lbl_0003:
-#ifndef BIG_CAM
-		cnt_del=80;
-#endif
-
-#ifdef BIG_CAM
-		cnt_del=100;
-#endif
-		step=s3;
-		}
-
-	else if(step==s3)
+		payka_step=s3;
+		payka_cnt_del=ee_temp2;
+		}                	
+	}		  
+else if(payka_step==s3)
+	{
+	bPP6=0;
+	bPP7=1;
+	payka_cnt_del--;
+	if(payka_cnt_del==0)
 		{
-		temp|=(1<<PP1)|(1<<PP3);
-
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=s4;
-			cnt_del=120;
-			}
-		}
-
-	else if(step==s4)
-		{
-		temp|=(1<<PP1)|(1<<PP3)|(1<<PP4)|(1<<PP5);
-
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=s5;
-
-		
-#ifndef BIG_CAM
-		cnt_del=150;
-#endif
-
-#ifdef BIG_CAM
-		cnt_del=200;
-#endif
-	//	step=s5;
-	}
-		}
-
-	else if(step==s5)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4)|(1<<PP5);
-
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=s6;
-			cnt_del=30;
-			}
-		}
-
-	else if(step==s6)
-		{
-		temp|=(1<<PP2)|(1<<PP4)|(1<<PP5);
-
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=s7;
-			cnt_del=30;
-			}
-		}
-
-	else if(step==s7)
-		{
-		temp|=(1<<PP2);
-
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=sOFF;
-			}
-		}
-
-	}
-step_contr_end:
-
-if(ee_vacuum_mode==evmOFF) temp&=~(1<<PP3);
-
-PORTB=~temp;
+		payka_step=sOFF;
+		}                	
+	}			
 }
-#endif
-#ifdef I380
+
 //-----------------------------------------------
 void step_contr(void)
 {
@@ -826,17 +452,17 @@ else if(prog==p1)
 		temp|=(1<<PP1);
           if(!bMD1)goto step_contr_end;
 
-			if(ee_vacuum_mode==evmOFF)
+			//if(ee_vacuum_mode==evmOFF)
 				{
-				goto lbl_0001;
+				//goto lbl_0001;
 				}
-			else step=s2;
+			//else step=s2;
 		}
 
 	else if(step==s2)
 		{
 		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3);
-          if(!bVR)goto step_contr_end;
+ //         if(!bVR)goto step_contr_end;
 lbl_0001:
 
           step=s100;
@@ -881,7 +507,7 @@ lbl_0001:
 	else if(step==s6)
 		{
 		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV)|(1<<PP7);
-          if(!bMD3)goto step_contr_end;
+ //         if(!bMD3)goto step_contr_end;
           step=s7;
           cnt_del=20;
 		}
@@ -924,11 +550,11 @@ else if(prog==p2)  //ско
 		temp|=(1<<PP1);
           if(!bMD1)goto step_contr_end;
 
-			if(ee_vacuum_mode==evmOFF)
+		/*	if(ee_vacuum_mode==evmOFF)
 				{
 				goto lbl_0002;
 				}
-			else step=s2;
+			else step=s2; */
 
           //step=s2;
 		}
@@ -936,7 +562,7 @@ else if(prog==p2)  //ско
 	else if(step==s2)
 		{
 		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3);
-          if(!bVR)goto step_contr_end;
+ //         if(!bVR)goto step_contr_end;
 
 lbl_0002:
           step=s100;
@@ -1006,11 +632,11 @@ else if(prog==p3)   //твист
 		temp|=(1<<PP1);
           if(!bMD1)goto step_contr_end;
 
-			if(ee_vacuum_mode==evmOFF)
+		/*	if(ee_vacuum_mode==evmOFF)
 				{
 				goto lbl_0003;
 				}
-			else step=s2;
+			else step=s2;*/
 
           //step=s2;
 		}
@@ -1018,7 +644,7 @@ else if(prog==p3)   //твист
 	else if(step==s2)
 		{
 		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3);
-          if(!bVR)goto step_contr_end;
+ //         if(!bVR)goto step_contr_end;
 lbl_0003:
           cnt_del=50;
 		step=s3;
@@ -1076,18 +702,18 @@ else if(prog==p4)      //замок
 		temp|=(1<<PP1);
           if(!bMD1)goto step_contr_end;
 
-			if(ee_vacuum_mode==evmOFF)
+		 /*	if(ee_vacuum_mode==evmOFF)
 				{
 				goto lbl_0004;
 				}
-			else step=s2;
+			else step=s2;*/
           //step=s2;
 		}
 
 	else if(step==s2)
 		{
 		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3);
-          if(!bVR)goto step_contr_end;
+ //         if(!bVR)goto step_contr_end;
 lbl_0004:
           step=s3;
 		cnt_del=50;
@@ -1140,788 +766,13 @@ lbl_0004:
 	
 step_contr_end:
 
-if(ee_vacuum_mode==evmOFF) temp&=~(1<<PP3);
+//if(ee_vacuum_mode==evmOFF) temp&=~(1<<PP3);
 
 PORTB=~temp;
 //PORTB=0x55;
 }
-#endif
 
-#ifdef I220_WI
-//-----------------------------------------------
-void step_contr(void)
-{
-char temp=0;
-DDRB=0xFF;
 
-if(step==sOFF)goto step_contr_end;
-
-else if(prog==p3)   //твист
-	{
-	if(step==s1)
-		{
-		temp|=(1<<PP1);
-          if(!bMD1)goto step_contr_end;
-
-			if(ee_vacuum_mode==evmOFF)
-				{
-				goto lbl_0003;
-				}
-			else step=s2;
-
-          //step=s2;
-		}
-
-	else if(step==s2)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3);
-          if(!bVR)goto step_contr_end;
-lbl_0003:
-          cnt_del=50;
-		step=s3;
-		}
-
-
-	else	if(step==s3)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4);
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			cnt_del=90;
-			step=s4;
-			}
-          }
-	else if(step==s4)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<PP5)|(1<<PP7);
-		cnt_del--;
- 		if(cnt_del==0)
-			{
-			cnt_del=130;
-			step=s5;
-			}
-		}
-
-	else if(step==s5)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP5)|(1<<PP7);
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=s6;
-			cnt_del=20;
-			}
-		}
-
-	else if(step==s6)
-		{
-		temp|=(1<<PP1);
-  		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=sOFF;
-			}
-		}
-
-	}
-
-else if(prog==p4)      //замок
-	{
-	if(step==s1)
-		{
-		temp|=(1<<PP1);
-          if(!bMD1)goto step_contr_end;
-
-			if(ee_vacuum_mode==evmOFF)
-				{
-				goto lbl_0004;
-				}
-			else step=s2;
-          //step=s2;
-		}
-
-	else if(step==s2)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3);
-          if(!bVR)goto step_contr_end;
-lbl_0004:
-          step=s3;
-		cnt_del=50;
-          }
-
-	else if(step==s3)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4);
-          cnt_del--;
-          if(cnt_del==0)
-			{
-          	step=s4;
-			cnt_del=120;
-			}
-          }
-
-   	else if(step==s4)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4);
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=s5;
-			cnt_del=30;
-			}
-		}
-
-	else if(step==s5)
-		{
-		temp|=(1<<PP1)|(1<<PP4);
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=s6;
-			cnt_del=120;
-			}
-		}
-
-	else if(step==s6)
-		{
-		temp|=(1<<PP4);
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=sOFF;
-			}
-		}
-
-	}
-	
-step_contr_end:
-
-if(ee_vacuum_mode==evmOFF) temp&=~(1<<PP3);
-
-PORTB=~temp;
-//PORTB=0x55;
-}
-#endif 
-
-#ifdef I380_WI
-//-----------------------------------------------
-void step_contr(void)
-{
-char temp=0;
-DDRB=0xFF;
-
-if(step==sOFF)goto step_contr_end;
-
-else if(prog==p1)
-	{
-	if(step==s1)    //жесть
-		{
-		temp|=(1<<PP1);
-          if(!bMD1)goto step_contr_end;
-
-			if(ee_vacuum_mode==evmOFF)
-				{
-				goto lbl_0001;
-				}
-			else step=s2;
-		}
-
-	else if(step==s2)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3);
-          if(!bVR)goto step_contr_end;
-lbl_0001:
-
-          step=s100;
-		cnt_del=40;
-          }
-	else if(step==s100)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4);
-          cnt_del--;
-          if(cnt_del==0)
-			{
-          	step=s3;
-          	cnt_del=50;
-			}
-		}
-
-	else if(step==s3)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV);
-          cnt_del--;
-          if(cnt_del==0)
-			{
-          	step=s4;
-			}
-		}
-	else if(step==s4)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<PP5)|(1<<DV);
-          if(!bMD2)goto step_contr_end;
-          step=s54;
-          cnt_del=20;
-		}
-	else if(step==s54)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<PP5)|(1<<DV);
-          cnt_del--;
-          if(cnt_del==0)
-			{
-          	step=s5;
-          	cnt_del=20;
-			}
-          }
-
-	else if(step==s5)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV);
-          cnt_del--;
-          if(cnt_del==0)
-			{
-          	step=s6;
-			}
-          }
-	else if(step==s6)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV)|(1<<PP7);
-          if(!bMD3)goto step_contr_end;
-          step=s55;
-          cnt_del=40;
-		}
-	else if(step==s55)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV)|(1<<PP7);
-          cnt_del--;
-          if(cnt_del==0)
-			{
-          	step=s7;
-          	cnt_del=20;
-			}
-          }
-	else if(step==s7)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV);
-          cnt_del--;
-          if(cnt_del==0)
-			{
-          	step=s8;
-          	cnt_del=130;
-			}
-          }
-	else if(step==s8)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4);
-          cnt_del--;
-          if(cnt_del==0)
-			{
-          	step=s9;
-          	cnt_del=20;
-			}
-          }
-	else if(step==s9)
-		{
-		temp|=(1<<PP1);
-          cnt_del--;
-          if(cnt_del==0)
-			{
-          	step=sOFF;
-          	}
-          }
-	}
-
-else if(prog==p2)  //ско
-	{
-	if(step==s1)
-		{
-		temp|=(1<<PP1);
-          if(!bMD1)goto step_contr_end;
-
-			if(ee_vacuum_mode==evmOFF)
-				{
-				goto lbl_0002;
-				}
-			else step=s2;
-
-          //step=s2;
-		}
-
-	else if(step==s2)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3);
-          if(!bVR)goto step_contr_end;
-
-lbl_0002:
-          step=s100;
-		cnt_del=40;
-          }
-	else if(step==s100)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4);
-          cnt_del--;
-          if(cnt_del==0)
-			{
-          	step=s3;
-          	cnt_del=50;
-			}
-		}
-	else if(step==s3)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV);
-          cnt_del--;
-          if(cnt_del==0)
-			{
-          	step=s4;
-			}
-		}
-	else if(step==s4)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<PP5)|(1<<DV);
-          if(!bMD2)goto step_contr_end;
-          step=s5;
-          cnt_del=20;
-		}
-	else if(step==s5)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV);
-          cnt_del--;
-          if(cnt_del==0)
-			{
-          	step=s6;
-          	cnt_del=130;
-			}
-          }
-	else if(step==s6)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4);
-          cnt_del--;
-          if(cnt_del==0)
-			{
-          	step=s7;
-          	cnt_del=20;
-			}
-          }
-	else if(step==s7)
-		{
-		temp|=(1<<PP1);
-          cnt_del--;
-          if(cnt_del==0)
-			{
-          	step=sOFF;
-          	}
-          }
-	}
-
-else if(prog==p3)   //твист
-	{
-	if(step==s1)
-		{
-		temp|=(1<<PP1);
-          if(!bMD1)goto step_contr_end;
-
-			if(ee_vacuum_mode==evmOFF)
-				{
-				goto lbl_0003;
-				}
-			else step=s2;
-
-          //step=s2;
-		}
-
-	else if(step==s2)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3);
-          if(!bVR)goto step_contr_end;
-lbl_0003:
-          cnt_del=50;
-		step=s3;
-		}
-
-
-	else	if(step==s3)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4);
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			cnt_del=90;
-			step=s4;
-			}
-          }
-	else if(step==s4)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<PP5)|(1<<PP7);
-		cnt_del--;
- 		if(cnt_del==0)
-			{
-			cnt_del=130;
-			step=s5;
-			}
-		}
-
-	else if(step==s5)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP5)|(1<<PP7);
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=s6;
-			cnt_del=20;
-			}
-		}
-
-	else if(step==s6)
-		{
-		temp|=(1<<PP1);
-  		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=sOFF;
-			}
-		}
-
-	}
-
-else if(prog==p4)      //замок
-	{
-	if(step==s1)
-		{
-		temp|=(1<<PP1);
-          if(!bMD1)goto step_contr_end;
-
-			if(ee_vacuum_mode==evmOFF)
-				{
-				goto lbl_0004;
-				}
-			else step=s2;
-          //step=s2;
-		}
-
-	else if(step==s2)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3);
-          if(!bVR)goto step_contr_end;
-lbl_0004:
-          step=s3;
-		cnt_del=50;
-          }
-
-	else if(step==s3)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4);
-          cnt_del--;
-          if(cnt_del==0)
-			{
-          	step=s4;
-			cnt_del=120U;
-			}
-          }
-
-   	else if(step==s4)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4);
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=s5;
-			cnt_del=30;
-			}
-		}
-
-	else if(step==s5)
-		{
-		temp|=(1<<PP1)|(1<<PP4);
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=s6;
-			cnt_del=120U;
-			}
-		}
-
-	else if(step==s6)
-		{
-		temp|=(1<<PP4);
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=sOFF;
-			}
-		}
-
-	}
-	
-step_contr_end:
-
-if(ee_vacuum_mode==evmOFF) temp&=~(1<<PP3);
-
-PORTB=~temp;
-//PORTB=0x55;
-}
-#endif
-
-#ifdef I220
-//-----------------------------------------------
-void step_contr(void)
-{
-char temp=0;
-DDRB=0xFF;
-
-if(step==sOFF)goto step_contr_end;
-
-else if(prog==p3)   //твист
-	{
-	if(step==s1)
-		{
-		temp|=(1<<PP1);
-          if(!bMD1)goto step_contr_end;
-
-			if(ee_vacuum_mode==evmOFF)
-				{
-				goto lbl_0003;
-				}
-			else step=s2;
-
-          //step=s2;
-		}
-
-	else if(step==s2)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3);
-          if(!bVR)goto step_contr_end;
-lbl_0003:
-          cnt_del=50;
-		step=s3;
-		}
-
-
-	else	if(step==s3)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4);
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			cnt_del=ee_delay[prog,0]*10U;
-			step=s4;
-			}
-          }
-	else if(step==s4)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<PP5)|(1<<PP7);
-		cnt_del--;
- 		if(cnt_del==0)
-			{
-			cnt_del=ee_delay[prog,1]*10U;
-			step=s5;
-			}
-		}
-
-	else if(step==s5)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP5)|(1<<PP7);
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=s6;
-			cnt_del=20;
-			}
-		}
-
-	else if(step==s6)
-		{
-		temp|=(1<<PP1);
-  		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=sOFF;
-			}
-		}
-
-	}
-
-else if(prog==p4)      //замок
-	{
-	if(step==s1)
-		{
-		temp|=(1<<PP1);
-          if(!bMD1)goto step_contr_end;
-
-			if(ee_vacuum_mode==evmOFF)
-				{
-				goto lbl_0004;
-				}
-			else step=s2;
-          //step=s2;
-		}
-
-	else if(step==s2)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3);
-          if(!bVR)goto step_contr_end;
-lbl_0004:
-          step=s3;
-		cnt_del=50;
-          }
-
-	else if(step==s3)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4);
-          cnt_del--;
-          if(cnt_del==0)
-			{
-          	step=s4;
-			cnt_del=ee_delay[prog,0]*10U;
-			}
-          }
-
-   	else if(step==s4)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4);
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=s5;
-			cnt_del=30;
-			}
-		}
-
-	else if(step==s5)
-		{
-		temp|=(1<<PP1)|(1<<PP4);
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=s6;
-			cnt_del=ee_delay[prog,1]*10U;
-			}
-		}
-
-	else if(step==s6)
-		{
-		temp|=(1<<PP4);
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=sOFF;
-			}
-		}
-
-	}
-	
-step_contr_end:
-
-if(ee_vacuum_mode==evmOFF) temp&=~(1<<PP3);
-
-PORTB=~temp;
-//PORTB=0x55;
-}
-#endif 
-
-#ifdef TVIST_SKO
-//-----------------------------------------------
-void step_contr(void)
-{
-char temp=0;
-DDRB=0xFF;
-
-if(step==sOFF)
-	{
-	temp=0;
-	}
-
-if(prog==p2) //СКО
-	{
-	if(step==s1)
-		{
-		temp|=(1<<PP1);
-
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=s2;
-			cnt_del=30;
-			}
-		}
-
-	else if(step==s2)
-		{
-		temp|=(1<<PP1)|(1<<DV);
-
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=s3;
-			}
-		}
-
-
-	else if(step==s3)
-		{
-		temp|=(1<<PP1)|(1<<DV)|(1<<PP2);
-
-               	if(bMD1)//goto step_contr_end;
-               		{  
-               		cnt_del=100;
-	       		step=s4;
-	       		}
-	       	}
-
-	else if(step==s4)
-		{
-		temp|=(1<<PP1);
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=sOFF;
-			}
-		}
-
-	}
-
-if(prog==p3)
-	{
-	if(step==s1)
-		{
-		temp|=(1<<PP1);
-
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=s2;
-			cnt_del=100;
-			}
-		}
-
-	else if(step==s2)
-		{
-		temp|=(1<<PP1)|(1<<PP2);
-
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=s3;
-			cnt_del=50;
-			}
-		}
-
-
-	else if(step==s3)
-		{
-		temp|=(1<<PP2);
-	
-		cnt_del--;
-		if(cnt_del==0)
-			{
-			step=sOFF;
-			}
-               	}
-	}
-step_contr_end:
-
-PORTB=~temp;
-}
-#endif
 //-----------------------------------------------
 void bin2bcd_int(unsigned int in)
 {
@@ -1972,7 +823,7 @@ bcd2ind(s);
 //-----------------------------------------------
 void ind_hndl(void)
 {
-int2ind(in_word,1);
+int2ind(bDM,0);
 //int2ind(ee_delay[prog,sub_ind],1);  
 //ind_out[0]=0xff;//DIGISYM[0];
 //ind_out[1]=0xff;//DIGISYM[1];
@@ -2019,8 +870,8 @@ else ind_out[4]|=(1<<LED_ERROR);
 		} */
 
 //if(bERR)ind_out[4]&=~(1<<LED_ERROR);
-if(ee_vacuum_mode==evmON)ind_out[4]&=~(1<<LED_VACUUM);
-else ind_out[4]|=(1<<LED_VACUUM);
+if(ee_loop_mode==elmAUTO)ind_out[4]&=~(1<<LED_LOOP_AUTO);
+else ind_out[4]|=(1<<LED_LOOP_AUTO);
 
 if(prog==p1) ind_out[4]&=~(1<<LED_PROG1);
 else if(prog==p2) ind_out[4]&=~(1<<LED_PROG2);
@@ -2131,7 +982,7 @@ but_dir&=but_mask;
 //-----------------------------------------------
 void but_an(void)
 {
-
+/*
 if(!(in_word&0x01))
 	{
 	#ifdef TVIST_SKO
@@ -2166,14 +1017,14 @@ if(!(in_word&0x02))
 	{
 	step=sOFF;
 
-	}
+	} */
 
 if (!n_but) goto but_an_end;
 
 if(but==butV_)
 	{
-	if(ee_vacuum_mode==evmON)ee_vacuum_mode=evmOFF;
-	else ee_vacuum_mode=evmON;
+	if(ee_loop_mode!=elmAUTO)ee_loop_mode=elmAUTO;
+	else ee_loop_mode=elmMNL;
 	}
 
 if(but==butVP_)
@@ -2365,20 +1216,27 @@ ind=iMn;
 prog_drv();
 ind_hndl();
 led_hndl();
+
+ee_temp1=10;
+ee_temp2=10;
 while (1)
       {
       if(b600Hz)
 		{
 		b600Hz=0; 
+          in_an();
           
 		}         
       if(b100Hz)
 		{        
 		b100Hz=0; 
 		but_an();
-	    	in_drv();
-          mdvr_drv();
+	    	//in_drv();
+          ind_hndl();
           step_contr();
+          
+          main_loop_hndl();
+          payka_hndl();
 		}   
 	if(b10Hz)
 		{
@@ -2386,7 +1244,7 @@ while (1)
 		prog_drv();
 		err_drv();
 		
-    	     ind_hndl();
+    	     
           led_hndl();
           
           }
