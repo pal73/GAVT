@@ -18,6 +18,14 @@
 //#define I220_WI
 #define DV3KL2MD
 
+#define BD1	7
+#define BD2	4
+#define DM	1
+#define START	0
+#define STOP	2
+#define MD1	3
+#define MD2	5
+
 #define MD1	2
 #define MD2	3
 #define VR	4
@@ -1972,7 +1980,8 @@ bcd2ind(s);
 //-----------------------------------------------
 void ind_hndl(void)
 {
-int2ind(ee_delay[prog,sub_ind],1);  
+int2ind(in_word,1);
+//int2ind(ee_delay[prog,sub_ind],1);  
 //ind_out[0]=0xff;//DIGISYM[0];
 //ind_out[1]=0xff;//DIGISYM[1];
 //ind_out[2]=DIGISYM[2];//0xff;

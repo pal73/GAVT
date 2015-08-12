@@ -78,12 +78,12 @@
 
 #ifdef DV3KL2MD
 
-#define PP1	3
-#define PP2	2
-#define PP3	1
+#define PP1	6
+#define PP2	7
+#define PP3	3
 //#define PP4	4
 //#define PP5	3
-#define DV	0 
+#define DV	2 
 
 #define MINPROG 2
 #define MAXPROG 3
@@ -1972,7 +1972,8 @@ bcd2ind(s);
 //-----------------------------------------------
 void ind_hndl(void)
 {
-int2ind(ee_delay[prog,sub_ind],1);  
+int2ind(in_word,1);
+//int2ind(ee_delay[prog,sub_ind],1);  
 //ind_out[0]=0xff;//DIGISYM[0];
 //ind_out[1]=0xff;//DIGISYM[1];
 //ind_out[2]=DIGISYM[2];//0xff;
