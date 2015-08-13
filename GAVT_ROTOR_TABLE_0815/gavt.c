@@ -142,10 +142,12 @@ eeprom char ee_vr_log;
 
 bit bPP1,bPP2,bPP3,bPP4,bPP5,bPP6,bPP7,bPP8;
 
-enum{sOFF=0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16,s54,s55,s100}payka_step=sOFF,main_loop_step=sOFF;
-enum{cmdOFF=0,cmdSTART,cmdSTOP}payka_cmd=cmdOFF,main_loop_cmd;
-signed short payka_cnt_del;
+enum{sOFF=0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16,s54,s55,s100}payka_step=sOFF,napoln_step=sOFF,main_loop_step=sOFF;
+enum{cmdOFF=0,cmdSTART,cmdSTOP}payka_cmd=cmdOFF,napoln_cmd=cmdOFF,main_loop_cmd=cmdOFF;
+signed short payka_cnt_del,napoln_cnt_del;
 eeprom signed short ee_temp1,ee_temp2;
+
+bit bPAYKA_COMPLETE=0,bNAPOLN_COMPLETE=0;
 
 //-----------------------------------------------
 void prog_drv(void)
@@ -391,6 +393,7 @@ if(payka_cmd==cmdSTART)
 	{
 	payka_step=s1;
 	payka_cnt_del=ee_temp1;
+	bPAYKA_COMPLETE=0;
 	payka_cmd=cmdOFF;
 	}                      
 else if(payka_cmd==cmdSTOP)
@@ -434,10 +437,65 @@ else if(payka_step==s3)
 	if(payka_cnt_del==0)
 		{
 		payka_step=sOFF;
+		bPAYKA_COMPLETE=1;
 		}                	
 	}			
 }
 
+//-----------------------------------------------
+void napoln_hndl(void)
+{
+if(napoln_cmd==cmdSTART)
+	{
+	napoln_step=s1;
+	napoln_cnt_del=0;
+	bNAPOLN_COMPLETE=0;
+	
+	napoln_cmd=cmdOFF;
+	}                      
+else if(napoln_cmd==cmdSTOP)
+	{
+	napoln_step=sOFF;
+	napoln_cmd=cmdOFF;
+	} 
+		
+if(napoln_step==sOFF)
+	{
+	bPP4=0;
+	bPP5=0;
+	}      
+else if(napoln_step==s1)
+	{
+	bPP4=0;
+	bPP5=0;
+	if(BD2)
+		{
+		napoln_step=s2;
+		napoln_cnt_del=20;
+		}
+	}	
+else if(napoln_step==s2)
+	{
+	bPP4=1;
+	bPP5=0;
+	napoln_cnt_del--;
+	if(napoln_cnt_del==0)
+		{
+		napoln_step=s3;
+		}                	
+	}		  
+else if(napoln_step==s3)
+	{
+	bPP4=1;
+	bPP5=1;
+	napoln_cnt_del--;
+	if(bMD2)
+		{
+		napoln_step=sOFF;
+		bNAPOLN_COMPLETE=1;
+		}                	
+	}			
+}
 //-----------------------------------------------
 void step_contr(void)
 {
