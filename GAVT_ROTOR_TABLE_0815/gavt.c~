@@ -1,7 +1,5 @@
 #define LED_POW_ON	5
-#define LED_PROG4	1
-
-
+#define LED_MAIN_LOOP	1
 #define LED_ORIENT	4
 #define LED_NAPOLN	2 
 #define LED_PAYKA	3
@@ -76,11 +74,7 @@ bit bPP1,bPP2,bPP3,bPP4,bPP5,bPP6,bPP7,bPP8;
 
 enum{sOFF=0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16,s54,s55,s100}payka_step=sOFF,napoln_step=sOFF,orient_step=sOFF,main_loop_step=sOFF;
 enum{cmdOFF=0,cmdSTART,cmdSTOP}payka_cmd=cmdOFF,napoln_cmd=cmdOFF,orient_cmd=cmdOFF,main_loop_cmd=cmdOFF;
-<<<<<<< HEAD
-signed short payka_cnt_del,napoln_cnt_del,orient_cnt_del;
-=======
 signed short payka_cnt_del,napoln_cnt_del,orient_cnt_del,main_loop_cnt_del;
->>>>>>> 06450accce680fafcab2b6926894ae44785803e1
 eeprom signed short ee_temp1,ee_temp2;
 
 bit bPAYKA_COMPLETE=0,bNAPOLN_COMPLETE=0,bORIENT_COMPLETE=0;
@@ -322,16 +316,33 @@ if(main_loop_cmd==cmdSTART)
 	orient_cmd=cmdSTOP;
 	napoln_cmd=cmdSTOP;
 	payka_cmd=cmdSTOP;
-	main_loop_cmd=cmdOFF;
-	main_loop_step=s1;
-	main_loop_cnt_del=20;
+	main_loop_cmd=cmdOFF; 
+	
+	if(ee_prog==EE_PROG_ONLY_ORIENT)
+		{
+		orient_cmd=cmdSTART;
+		}  
+	else if(ee_prog==EE_PROG_ONLY_NAPOLN)
+		{
+		napoln_cmd=cmdSTART;
+		}   
+	else if(ee_prog==EE_PROG_ONLY_PAYKA)
+		{
+		payka_cmd=cmdSTART;
+		}
+	else if((ee_prog==EE_PROG_ONLY_MAIN_LOOP)||(ee_prog==EE_PROG_FULL))
+		{
+		main_loop_step=s1;
+		main_loop_cnt_del=20;
+		}						
+
 	}                      
 else if(main_loop_cmd==cmdSTOP)
 	{
 	orient_cmd=cmdSTOP;
 	napoln_cmd=cmdSTOP;
 	payka_cmd=cmdSTOP;
-	main_loop_cmd=cmdSTOP;
+	main_loop_step=sOFF;
 	}
 
 if(main_loop_step==sOFF)
@@ -355,7 +366,7 @@ else if(main_loop_step==s2)
 	bPP2=1;              
 	if(bMD1)
 		{
-		main_loop_step=s2;
+		main_loop_step=s3;
 		main_loop_cnt_del=20;
 		}
 	} 
@@ -366,10 +377,14 @@ else if(main_loop_step==s3)
 	main_loop_cnt_del--;
 	if(main_loop_cnt_del==0)
 		{
-		if(ee_prog=EE_PROG_ONLY_MAIN_LOOP)main_loop_step=sOFF;
-		else if(ee_prog=EE_PROG_FULL)
+		if(ee_prog==EE_PROG_ONLY_MAIN_LOOP)
 			{
-			orient_cmd=cmsSTART;
+			if(ee_loop_mode==elmAUTO)main_loop_cmd=cmdSTART;
+			else main_loop_step=sOFF;
+			}
+		else if(ee_prog==EE_PROG_FULL)
+			{
+			orient_cmd=cmdSTART;
 			napoln_cmd=cmdSTART;
 			payka_cmd=cmdSTART;
 			main_loop_step=s4;
@@ -377,10 +392,12 @@ else if(main_loop_step==s3)
 		}
 	}				        
 else if(main_loop_step==s4)
-	{                    
+	{
+	bPP1=0;
+	bPP2=0;                    
 	if(bORIENT_COMPLETE && bNAPOLN_COMPLETE && bPAYKA_COMPLETE)
 		{
-		if(ee_loop_mode==elmAUTO)main_loop_step==s1;
+		if(ee_loop_mode==elmAUTO)main_loop_cmd==cmdSTART;
 		else main_loop_step==sOFF;
 		}
 	
@@ -490,7 +507,7 @@ else if(napoln_step==s3)
 	{
 	bPP4=1;
 	bPP5=1;
-	napoln_cnt_del--;
+	//napoln_cnt_del--;
 	if(bMD2)
 		{
 		napoln_step=sOFF;
@@ -519,16 +536,26 @@ else if(orient_cmd==cmdSTOP)
 if(orient_step==sOFF)
 	{
 	bPP3=0;
-	}      
+	} 
+	
 else if(orient_step==s1)
 	{
-	bPP3=1;
-	if(!bDM)
+	bPP3=0;
+	if(bBD1)
 		{
 		orient_step=s2;
 		}
 	}	
+		     
 else if(orient_step==s2)
+	{
+	bPP3=1;
+	if(!bDM)
+		{
+		orient_step=s3;
+		}
+	}	
+else if(orient_step==s3)
 	{
 	bPP3=1;
 	if(bDM)
@@ -1045,7 +1072,8 @@ else if(prog==p4) ind_out[4]&=~(1<<LED_PROG4); */
 	} */
 if(orient_step!=sOFF)ind_out[4]&=~(1<<LED_ORIENT);
 if(napoln_step!=sOFF)ind_out[4]&=~(1<<LED_NAPOLN);
-if(payka_step!=sOFF)ind_out[4]&=~(1<<LED_PAYKA);	
+if(payka_step!=sOFF)ind_out[4]&=~(1<<LED_PAYKA);
+if(main_loop_step!=sOFF)ind_out[4]&=~(1<<LED_MAIN_LOOP);	
 }
 
 //-----------------------------------------------
@@ -1144,7 +1172,7 @@ void but_an(void)
 
 if(bSTART)
 	{   
-	if(ee_prog==EE_PROG_FULL)
+/*	if(ee_prog==EE_PROG_FULL)
 		{
 		}
 	else if(ee_prog==EE_PROG_ONLY_ORIENT)
@@ -1161,8 +1189,14 @@ if(bSTART)
 		}
 	else if(ee_prog==EE_PROG_ONLY_MAIN_LOOP)
 		{
-		orient_cmd=cmdSTART;
-		}				
+		main_loop_cmd=cmdSTART;
+		//main_loop_del_cnt=20;
+		}  */
+		
+		
+		main_loop_cmd=cmdSTART;
+		
+						
 	}
 	
 bSTART=0;	

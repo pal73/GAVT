@@ -72,10 +72,7 @@ main_loop_cmd                        183h      1
 payka_cnt_del                        184h      2
 napoln_cnt_del                       186h      2
 orient_cnt_del                       188h      2
-<<<<<<< HEAD
-=======
 main_loop_cnt_del                    18Ah      2
->>>>>>> 06450accce680fafcab2b6926894ae44785803e1
 bPAYKA_COMPLETE                      R5.1    1/8
 bNAPOLN_COMPLETE                     R5.2    1/8
 bORIENT_COMPLETE                     R5.3    1/8
