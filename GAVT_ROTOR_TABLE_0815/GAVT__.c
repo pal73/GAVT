@@ -1,22 +1,16 @@
 #define LED_POW_ON	5
 #define LED_PROG4	1
-#define LED_PROG2	2
-#define LED_PROG3	3
-#define LED_PROG1	4 
+
+
+#define LED_ORIENT	4
+#define LED_NAPOLN	2 
+#define LED_PAYKA	3
 #define LED_ERROR	0 
 #define LED_WRK	6
 #define LED_LOOP_AUTO	7
 
-#define GAVT3
 
-//#define P380
-//#define I380
-//#define I220
-//#define P380_MINI
-//#define TVIST_SKO
-//#define I380_WI
-//#define I220_WI
-#define DV3KL2MD
+
 
 #define BD1	7
 #define BD2	4
@@ -26,77 +20,15 @@
 #define MD1	3
 #define MD2	5
 
-#define MD1	2
-#define MD2	3
-#define VR	4
-#define MD3	5
 
 #define PP1	6
 #define PP2	7
 #define PP3	5
 #define PP4	4
-#define PP5	3
-#define DV	0 
+#define PP5	3 
+#define PP6	2
+#define PP7	1
 
-#define PP7	2
-
-#ifdef P380_MINI
-#define MINPROG 1
-#define MAXPROG 1 
-#ifdef GAVT3
-#define DV	2
-#endif
-#define PP3	3
-#endif 
-
-#ifdef P380
-#define MINPROG 1
-#define MAXPROG 3 
-#ifdef GAVT3
-#define DV	2
-#endif
-#endif 
-
-#ifdef I380
-#define MINPROG 1
-#define MAXPROG 4
-#endif
-
-#ifdef I380_WI
-#define MINPROG 1
-#define MAXPROG 4
-#endif
-
-#ifdef I220
-#define MINPROG 3
-#define MAXPROG 4
-#endif
-
-
-#ifdef I220_WI
-#define MINPROG 3
-#define MAXPROG 4
-#endif
-
-#ifdef TVIST_SKO
-#define MINPROG 2
-#define MAXPROG 3
-#define DV	2
-#endif
-
-#ifdef DV3KL2MD
-
-#define PP1	6
-#define PP2	7
-#define PP3	3
-//#define PP4	4
-//#define PP5	3
-#define DV	2 
-
-#define MINPROG 2
-#define MAXPROG 3
-
-#endif
 
 bit b600Hz;
 
@@ -122,10 +54,10 @@ bit speed;		//разрешение ускорения перебора
 bit bFL2; 
 bit bFL5;
 eeprom enum{elmAUTO=0x55,elmMNL=0xaa}ee_loop_mode;
-eeprom char ee_program[2];
+//eeprom char ee_program[2];
 enum {p1=1,p2=2,p3=3,p4=4}prog;
 enum{sOFF=0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16,s54,s55,s100}step=sOFF;
-enum {iMn,iPr_sel,iVr} ind;
+enum {iMn,iPr_sel,iSet} ind;
 char sub_ind;
 char in_word,in_word_old,in_word_new,in_word_cnt;
 bit bERR;
@@ -135,28 +67,35 @@ bit bMD1,bMD2,bBD1,bBD2,bDM,bSTART,bSTOP;
 
 char cnt_md1,cnt_md2,cnt_bd1,cnt_bd2,cnt_dm,cnt_start,cnt_stop;
 
-eeprom unsigned ee_delay[4,2];
-eeprom char ee_vr_log;
+//eeprom unsigned ee_delay[4,2];
+//eeprom char ee_vr_log;
 #include <mega16.h>
 //#include <mega8535.h>  
 
 bit bPP1,bPP2,bPP3,bPP4,bPP5,bPP6,bPP7,bPP8;
 
-enum{sOFF=0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16,s54,s55,s100}payka_step=sOFF,napoln_step=sOFF,main_loop_step=sOFF;
-enum{cmdOFF=0,cmdSTART,cmdSTOP}payka_cmd=cmdOFF,napoln_cmd=cmdOFF,main_loop_cmd=cmdOFF;
-signed short payka_cnt_del,napoln_cnt_del;
+enum{sOFF=0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16,s54,s55,s100}payka_step=sOFF,napoln_step=sOFF,orient_step=sOFF,main_loop_step=sOFF;
+enum{cmdOFF=0,cmdSTART,cmdSTOP}payka_cmd=cmdOFF,napoln_cmd=cmdOFF,orient_cmd=cmdOFF,main_loop_cmd=cmdOFF;
+signed short payka_cnt_del,napoln_cnt_del,orient_cnt_del,main_loop_cnt_del;
 eeprom signed short ee_temp1,ee_temp2;
 
-bit bPAYKA_COMPLETE=0,bNAPOLN_COMPLETE=0;
+bit bPAYKA_COMPLETE=0,bNAPOLN_COMPLETE=0,bORIENT_COMPLETE=0;
+eeprom signed int ee_prog;
+
+#define EE_PROG_FULL		0
+#define EE_PROG_ONLY_ORIENT 	1
+#define EE_PROG_ONLY_NAPOLN	2
+#define EE_PROG_ONLY_PAYKA	3
+#define EE_PROG_ONLY_MAIN_LOOP 	4
 
 //-----------------------------------------------
 void prog_drv(void)
 {
 char temp,temp1,temp2;
 
-temp=ee_program[0];
-temp1=ee_program[1];
-temp2=ee_program[2];
+///temp=ee_program[0];
+///temp1=ee_program[1];
+///temp2=ee_program[2];
 
 if((temp==temp1)&&(temp==temp2))
 	{
@@ -175,19 +114,19 @@ else if((temp!=temp1)&&(temp1==temp2))
 	}
 else if((temp!=temp1)&&(temp!=temp2))
 	{
-	temp=MINPROG;
-	temp1=MINPROG;
-	temp2=MINPROG;
+////	temp=MINPROG;
+////	temp1=MINPROG;
+////	temp2=MINPROG;
 	}
 
-if(!((temp<=MAXPROG)&&(temp>=MINPROG)))
-	{
-	temp=MINPROG;
-	}
+////if(!((temp<=MAXPROG)&&(temp>=MINPROG)))
+////	{
+////	temp=MINPROG;
+////	}
 
-if(temp!=ee_program[0])ee_program[0]=temp;
-if(temp!=ee_program[1])ee_program[1]=temp;
-if(temp!=ee_program[2])ee_program[2]=temp;
+///if(temp!=ee_program[0])ee_program[0]=temp;
+///if(temp!=ee_program[1])ee_program[1]=temp;
+///if(temp!=ee_program[2])ee_program[2]=temp;
 
 prog=temp;
 }
@@ -376,13 +315,72 @@ void main_loop_hndl(void)
 {
 if(main_loop_cmd==cmdSTART)
 	{
-	payka_cmd=cmdSTART;
+	orient_cmd=cmdSTOP;
+	napoln_cmd=cmdSTOP;
+	payka_cmd=cmdSTOP;
 	main_loop_cmd=cmdOFF;
+	main_loop_step=s1;
+	main_loop_cnt_del=20;
 	}                      
 else if(main_loop_cmd==cmdSTOP)
 	{
-
+	orient_cmd=cmdSTOP;
+	napoln_cmd=cmdSTOP;
+	payka_cmd=cmdSTOP;
+	main_loop_cmd=cmdSTOP;
 	}
+
+if(main_loop_step==sOFF)
+	{
+	bPP1=0;
+	bPP2=0;              
+	}
+else if(main_loop_step==s1)
+	{
+	bPP1=1;
+	bPP2=0;              
+	main_loop_cnt_del--;
+	if(main_loop_cnt_del==0)
+		{
+		main_loop_step=s2;
+		}
+	}
+else if(main_loop_step==s2)
+	{
+	bPP1=1;
+	bPP2=1;              
+	if(bMD1)
+		{
+		main_loop_step=s2;
+		main_loop_cnt_del=20;
+		}
+	} 
+else if(main_loop_step==s3)
+	{
+	bPP1=0;
+	bPP2=1;              
+	main_loop_cnt_del--;
+	if(main_loop_cnt_del==0)
+		{
+		if(ee_prog=EE_PROG_ONLY_MAIN_LOOP)main_loop_step=sOFF;
+		else if(ee_prog=EE_PROG_FULL)
+			{
+			orient_cmd=cmdSTART;
+			napoln_cmd=cmdSTART;
+			payka_cmd=cmdSTART;
+			main_loop_step=s4;
+			}
+		}
+	}				        
+else if(main_loop_step==s4)
+	{                    
+	if(bORIENT_COMPLETE && bNAPOLN_COMPLETE && bPAYKA_COMPLETE)
+		{
+		if(ee_loop_mode==elmAUTO)main_loop_step==s1;
+		else main_loop_step==sOFF;
+		}
+	
+	}	
 	 
 }
 
@@ -392,7 +390,7 @@ void payka_hndl(void)
 if(payka_cmd==cmdSTART)
 	{
 	payka_step=s1;
-	payka_cnt_del=ee_temp1;
+	payka_cnt_del=ee_temp1*10;
 	bPAYKA_COMPLETE=0;
 	payka_cmd=cmdOFF;
 	}                      
@@ -426,7 +424,7 @@ else if(payka_step==s2)
 	if(payka_cnt_del==0)
 		{
 		payka_step=s3;
-		payka_cnt_del=ee_temp2;
+		payka_cnt_del=ee_temp2*10;
 		}                	
 	}		  
 else if(payka_step==s3)
@@ -468,7 +466,7 @@ else if(napoln_step==s1)
 	{
 	bPP4=0;
 	bPP5=0;
-	if(BD2)
+	if(bBD2)
 		{
 		napoln_step=s2;
 		napoln_cnt_del=20;
@@ -496,6 +494,65 @@ else if(napoln_step==s3)
 		}                	
 	}			
 }
+
+//-----------------------------------------------
+void orient_hndl(void)
+{
+if(orient_cmd==cmdSTART)
+	{
+	orient_step=s1;
+	orient_cnt_del=0;
+	bORIENT_COMPLETE=0;
+	
+	orient_cmd=cmdOFF;
+	}                      
+else if(orient_cmd==cmdSTOP)
+	{
+	orient_step=sOFF;
+	orient_cmd=cmdOFF;
+	} 
+		
+if(orient_step==sOFF)
+	{
+	bPP3=0;
+	}      
+else if(orient_step==s1)
+	{
+	bPP3=1;
+	if(!bDM)
+		{
+		orient_step=s2;
+		}
+	}	
+else if(orient_step==s2)
+	{
+	bPP3=1;
+	if(bDM)
+		{
+		orient_step=sOFF;
+		bORIENT_COMPLETE=1;
+		}               	
+	}		  
+}
+
+//-----------------------------------------------
+void out_drv(void)
+{
+char temp=0;
+DDRB=0xFF;
+
+if(bPP1) temp|=(1<<PP1);
+if(bPP2) temp|=(1<<PP2);
+if(bPP3) temp|=(1<<PP3);
+if(bPP4) temp|=(1<<PP4);
+if(bPP5) temp|=(1<<PP5);
+if(bPP6) temp|=(1<<PP6);
+if(bPP7) temp|=(1<<PP7);
+
+PORTB=~temp;
+//PORTB=0x55;
+}
+
 //-----------------------------------------------
 void step_contr(void)
 {
@@ -540,7 +597,7 @@ lbl_0001:
 
 	else if(step==s3)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4);
           cnt_del--;
           if(cnt_del==0)
 			{
@@ -549,14 +606,14 @@ lbl_0001:
 		}
 	else if(step==s4)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<PP5)|(1<<DV);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<PP5);
           if(!bMD2)goto step_contr_end;
           step=s5;
           cnt_del=20;
 		}
 	else if(step==s5)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4);
           cnt_del--;
           if(cnt_del==0)
 			{
@@ -565,7 +622,7 @@ lbl_0001:
           }
 	else if(step==s6)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV)|(1<<PP7);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<PP7);
  //         if(!bMD3)goto step_contr_end;
           step=s7;
           cnt_del=20;
@@ -573,12 +630,12 @@ lbl_0001:
 
 	else if(step==s7)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4);
           cnt_del--;
           if(cnt_del==0)
 			{
           	step=s8;
-          	cnt_del=ee_delay[prog,0]*10U;;
+          	//cnt_del=ee_delay[prog,0]*10U;;
 			}
           }
 	else if(step==s8)
@@ -639,7 +696,7 @@ lbl_0002:
 		}
 	else if(step==s3)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4);
           cnt_del--;
           if(cnt_del==0)
 			{
@@ -648,19 +705,19 @@ lbl_0002:
 		}
 	else if(step==s4)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<PP5)|(1<<DV);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<PP5);
           if(!bMD2)goto step_contr_end;
           step=s5;
           cnt_del=20;
 		}
 	else if(step==s5)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4);
           cnt_del--;
           if(cnt_del==0)
 			{
           	step=s6;
-          	cnt_del=ee_delay[prog,0]*10U;
+          	//cnt_del=ee_delay[prog,0]*10U;
 			}
           }
 	else if(step==s6)
@@ -716,7 +773,7 @@ lbl_0003:
 		cnt_del--;
 		if(cnt_del==0)
 			{
-			cnt_del=ee_delay[prog,0]*10U;
+			//cnt_del=ee_delay[prog,0]*10U;
 			step=s4;
 			}
           }
@@ -726,7 +783,7 @@ lbl_0003:
 		cnt_del--;
  		if(cnt_del==0)
 			{
-			cnt_del=ee_delay[prog,1]*10U;
+		    //	cnt_del=ee_delay[prog,1]*10U;
 			step=s5;
 			}
 		}
@@ -785,7 +842,7 @@ lbl_0004:
           if(cnt_del==0)
 			{
           	step=s4;
-			cnt_del=ee_delay[prog,0]*10U;
+			//cnt_del=ee_delay[prog,0]*10U;
 			}
           }
 
@@ -807,7 +864,7 @@ lbl_0004:
 		if(cnt_del==0)
 			{
 			step=s6;
-			cnt_del=ee_delay[prog,1]*10U;
+			//cnt_del=ee_delay[prog,1]*10U;
 			}
 		}
 
@@ -882,14 +939,50 @@ bcd2ind(s);
 //-----------------------------------------------
 void ind_hndl(void)
 {
-int2ind(bDM,0);
-//int2ind(ee_delay[prog,sub_ind],1);  
-//ind_out[0]=0xff;//DIGISYM[0];
-//ind_out[1]=0xff;//DIGISYM[1];
-//ind_out[2]=DIGISYM[2];//0xff;
-//ind_out[0]=DIGISYM[7]; 
+if(ind==iMn)
+	{
+	if(ee_prog==EE_PROG_FULL)
+		{
+		}
+	else if(ee_prog==EE_PROG_ONLY_ORIENT)
+		{
+		int2ind(orient_step,0);
+		}
+	else if(ee_prog==EE_PROG_ONLY_NAPOLN)
+		{
+		int2ind(napoln_step,0);                              
+		}			                
+	else if(ee_prog==EE_PROG_ONLY_PAYKA)
+		{
+		int2ind(payka_step,0);
+		}
+	else if(ee_prog==EE_PROG_ONLY_MAIN_LOOP)
+		{
+		int2ind(main_loop_step,0);
+		}			
+	
+	//int2ind(bDM,0);
+	//int2ind(in_word,0);
+	//int2ind(cnt_dm,0);
+	
+	//int2ind(bDM,0);
+	//int2ind(ee_delay[prog,sub_ind],1);  
+	//ind_out[0]=0xff;//DIGISYM[0];
+	//ind_out[1]=0xff;//DIGISYM[1];
+	//ind_out[2]=DIGISYM[2];//0xff;
+	//ind_out[0]=DIGISYM[7]; 
 
-ind_out[0]=DIGISYM[sub_ind+1];
+	//ind_out[0]=DIGISYM[sub_ind+1];
+	}
+else if(ind==iSet)
+	{
+     if(sub_ind==0)int2ind(ee_prog,0);
+	else if(sub_ind==1)int2ind(ee_temp1,1);
+	else if(sub_ind==2)int2ind(ee_temp2,1);
+		
+	if(bFL5)ind_out[0]=DIGISYM[sub_ind+1];
+	else    ind_out[0]=DIGISYM[10];
+	}
 }
 
 //-----------------------------------------------
@@ -932,20 +1025,23 @@ else ind_out[4]|=(1<<LED_ERROR);
 if(ee_loop_mode==elmAUTO)ind_out[4]&=~(1<<LED_LOOP_AUTO);
 else ind_out[4]|=(1<<LED_LOOP_AUTO);
 
-if(prog==p1) ind_out[4]&=~(1<<LED_PROG1);
+/*if(prog==p1) ind_out[4]&=~(1<<LED_PROG1);
 else if(prog==p2) ind_out[4]&=~(1<<LED_PROG2);
 else if(prog==p3) ind_out[4]&=~(1<<LED_PROG3);
-else if(prog==p4) ind_out[4]&=~(1<<LED_PROG4);
+else if(prog==p4) ind_out[4]&=~(1<<LED_PROG4); */
 
-if(ind==iPr_sel)
+/*if(ind==iPr_sel)
 	{
 	if(bFL5)ind_out[4]|=(1<<LED_PROG1)|(1<<LED_PROG2)|(1<<LED_PROG3)|(1<<LED_PROG4);
-	} 
+	}*/ 
 	 
-if(ind==iVr)
+/*if(ind==iVr)
 	{
 	if(bFL5)ind_out[4]|=(1<<LED_POW_ON);
-	}	
+	} */
+if(orient_step!=sOFF)ind_out[4]&=~(1<<LED_ORIENT);
+if(napoln_step!=sOFF)ind_out[4]&=~(1<<LED_NAPOLN);
+if(payka_step!=sOFF)ind_out[4]&=~(1<<LED_PAYKA);	
 }
 
 //-----------------------------------------------
@@ -1041,6 +1137,44 @@ but_dir&=but_mask;
 //-----------------------------------------------
 void but_an(void)
 {
+
+if(bSTART)
+	{   
+	if(ee_prog==EE_PROG_FULL)
+		{
+		}
+	else if(ee_prog==EE_PROG_ONLY_ORIENT)
+		{
+		orient_cmd=cmdSTART;
+		}
+	else if(ee_prog==EE_PROG_ONLY_NAPOLN)
+		{
+		napoln_cmd=cmdSTART;                              
+		}			                
+	else if(ee_prog==EE_PROG_ONLY_PAYKA)
+		{
+		payka_cmd=cmdSTART;
+		}
+	else if(ee_prog==EE_PROG_ONLY_MAIN_LOOP)
+		{
+		orient_cmd=cmdSTART;
+		}				
+	}
+	
+bSTART=0;	
+
+if(bSTOP)
+	{   
+	orient_cmd=cmdSTOP;
+	napoln_cmd=cmdSTOP;
+	payka_cmd=cmdSTOP;
+	main_loop_cmd=cmdSTOP;
+		
+	}
+	
+bSTOP=0;	
+
+
 /*
 if(!(in_word&0x01))
 	{
@@ -1086,13 +1220,79 @@ if(but==butV_)
 	else ee_loop_mode=elmMNL;
 	}
 
-if(but==butVP_)
+
+if(ind==iMn)
 	{
-	if(ind!=iVr)ind=iVr;
-	else ind=iMn;
+	if(but==butP_)
+		{
+		ind=iSet;
+		sub_ind=0;
+		}
 	}
 
+else if(ind==iSet)
+	{
+	if(but==butP_)
+		{
+		ind=iMn;
+		sub_ind=0;
+		}      
+	else if(but==butP)
+		{
+		sub_ind++;
+		if(sub_ind==5)sub_ind=0;
+		}
+	else if (sub_ind==0)
+		{
+		if(but==butR)ee_prog++;
+		else if(but==butL)ee_prog--;
+		if(ee_prog>5)ee_prog=0;
+		if(ee_prog<0)ee_prog=5;
+		}
+	else if (sub_ind==1)
+		{             
+		if((but==butR)||(but==butR_))	
+			{  
+			speed=1;
+			ee_temp1++;
+			if(ee_temp1>900)ee_temp1=900;
+			}   
 	
+    		else if((but==butL)||(but==butL_))	
+			{  
+    	    		speed=1;
+    			ee_temp1--;
+    			if(ee_temp1<0)ee_temp1=0;
+    			}				
+		}   
+	else if (sub_ind==2)
+		{             
+		if((but==butR)||(but==butR_))	
+			{  
+			speed=1;
+			ee_temp2++;
+			if(ee_temp2>900)ee_temp2=900;
+			}   
+	
+    		else if((but==butL)||(but==butL_))	
+			{  
+    	    		speed=1;
+    			ee_temp2--;
+    			if(ee_temp2<0)ee_temp1=0;
+    			}				
+		}							
+	}
+
+
+
+
+if(but==butVP_)
+	{
+	//if(ind!=iVr)ind=iVr;
+	//else ind=iMn;
+	}
+
+/*	
 if(ind==iMn)
 	{
 	if(but==butP_)ind=iPr_sel;
@@ -1108,13 +1308,13 @@ if(ind==iMn)
 	if((but==butR)||(but==butR_))	
 		{  
 		speed=1;
-		ee_delay[prog,sub_ind]++;
+		//ee_delay[prog,sub_ind]++;
 		}   
 	
 	else if((but==butL)||(but==butL_))	
 		{  
     		speed=1;
-    		ee_delay[prog,sub_ind]--;
+    		//ee_delay[prog,sub_ind]--;
     		}		
 	} 
 	
@@ -1124,39 +1324,39 @@ else if(ind==iPr_sel)
 	if(but==butP)
 		{
 		prog++;
-		if(prog>MAXPROG)prog=MINPROG;
-		ee_program[0]=prog;
-		ee_program[1]=prog;
-		ee_program[2]=prog;
+////		if(prog>MAXPROG)prog=MINPROG;
+		//ee_program[0]=prog;
+		//ee_program[1]=prog;
+		//ee_program[2]=prog;
 		}
 	
 	if(but==butR)
 		{
 		prog++;
-		if(prog>MAXPROG)prog=MINPROG;
-		ee_program[0]=prog;
-		ee_program[1]=prog;
-		ee_program[2]=prog;
+////		if(prog>MAXPROG)prog=MINPROG;
+		//ee_program[0]=prog;
+		//ee_program[1]=prog;
+		//ee_program[2]=prog;
 		}
 
 	if(but==butL)
 		{
 		prog--;
-		if(prog>MAXPROG)prog=MINPROG;
-		ee_program[0]=prog;
-		ee_program[1]=prog;
-		ee_program[2]=prog;
+////		if(prog>MAXPROG)prog=MINPROG;
+		//ee_program[0]=prog;
+		//ee_program[1]=prog;
+		//ee_program[2]=prog;
 		}	
 	} 
 
-else if(ind==iVr)
+/*else if(ind==iVr)
 	{
 	if(but==butP_)
 		{
-		if(ee_vr_log)ee_vr_log=0;
-		else ee_vr_log=1;
+	    ///	if(ee_vr_log)ee_vr_log=0;
+	    ///	else ee_vr_log=1;
 		}	
-	} 	
+	}*/ 	
 
 but_an_end:
 n_but=0;
@@ -1276,8 +1476,7 @@ prog_drv();
 ind_hndl();
 led_hndl();
 
-ee_temp1=10;
-ee_temp2=10;
+
 while (1)
       {
       if(b600Hz)
@@ -1296,6 +1495,9 @@ while (1)
           
           main_loop_hndl();
           payka_hndl();
+          napoln_hndl();
+          orient_hndl();
+          out_drv();
 		}   
 	if(b10Hz)
 		{
