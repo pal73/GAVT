@@ -10,6 +10,7 @@ Height0=337
 Width0=489
 Active0=0
 State0=0
+<<<<<<< HEAD
 OF1=gavt.c
 Top1=-30
 Left1=-4
@@ -28,6 +29,26 @@ Row2=84
 Collumn2=42
 Active2=0
 State2=0
+=======
+OF1=gavt_sn001_090920.c
+Top1=314
+Left1=595
+Height1=341
+Width1=489
+Row1=0
+Collumn1=0
+Active1=0
+State1=0
+OF2=GAVT.c
+Top2=-34
+Left2=-4
+Height2=900
+Width2=1431
+Row2=367
+Collumn2=17
+Active2=1
+State2=2
+>>>>>>> 06450accce680fafcab2b6926894ae44785803e1
 OF3=e:\users\pal\cvproects\gavt\gavt1\vzm_ob.c
 Top3=42
 Left3=815
@@ -88,7 +109,11 @@ EnhancedCoreInstructions=1
 StackEndMarkers=0
 Warnings=1
 DebugBootLoader=0
+<<<<<<< HEAD
 Build=376
+=======
+Build=280
+>>>>>>> 06450accce680fafcab2b6926894ae44785803e1
 UseEEPROMLocation0=1
 AutomaticRegisterAllocation=1
 IncludePath0=

@@ -76,7 +76,11 @@ bit bPP1,bPP2,bPP3,bPP4,bPP5,bPP6,bPP7,bPP8;
 
 enum{sOFF=0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16,s54,s55,s100}payka_step=sOFF,napoln_step=sOFF,orient_step=sOFF,main_loop_step=sOFF;
 enum{cmdOFF=0,cmdSTART,cmdSTOP}payka_cmd=cmdOFF,napoln_cmd=cmdOFF,orient_cmd=cmdOFF,main_loop_cmd=cmdOFF;
+<<<<<<< HEAD
 signed short payka_cnt_del,napoln_cnt_del,orient_cnt_del;
+=======
+signed short payka_cnt_del,napoln_cnt_del,orient_cnt_del,main_loop_cnt_del;
+>>>>>>> 06450accce680fafcab2b6926894ae44785803e1
 eeprom signed short ee_temp1,ee_temp2;
 
 bit bPAYKA_COMPLETE=0,bNAPOLN_COMPLETE=0,bORIENT_COMPLETE=0;
@@ -315,13 +319,72 @@ void main_loop_hndl(void)
 {
 if(main_loop_cmd==cmdSTART)
 	{
-	payka_cmd=cmdSTART;
+	orient_cmd=cmdSTOP;
+	napoln_cmd=cmdSTOP;
+	payka_cmd=cmdSTOP;
 	main_loop_cmd=cmdOFF;
+	main_loop_step=s1;
+	main_loop_cnt_del=20;
 	}                      
 else if(main_loop_cmd==cmdSTOP)
 	{
-
+	orient_cmd=cmdSTOP;
+	napoln_cmd=cmdSTOP;
+	payka_cmd=cmdSTOP;
+	main_loop_cmd=cmdSTOP;
 	}
+
+if(main_loop_step==sOFF)
+	{
+	bPP1=0;
+	bPP2=0;              
+	}
+else if(main_loop_step==s1)
+	{
+	bPP1=1;
+	bPP2=0;              
+	main_loop_cnt_del--;
+	if(main_loop_cnt_del==0)
+		{
+		main_loop_step=s2;
+		}
+	}
+else if(main_loop_step==s2)
+	{
+	bPP1=1;
+	bPP2=1;              
+	if(bMD1)
+		{
+		main_loop_step=s2;
+		main_loop_cnt_del=20;
+		}
+	} 
+else if(main_loop_step==s3)
+	{
+	bPP1=0;
+	bPP2=1;              
+	main_loop_cnt_del--;
+	if(main_loop_cnt_del==0)
+		{
+		if(ee_prog=EE_PROG_ONLY_MAIN_LOOP)main_loop_step=sOFF;
+		else if(ee_prog=EE_PROG_FULL)
+			{
+			orient_cmd=cmdSTART;
+			napoln_cmd=cmdSTART;
+			payka_cmd=cmdSTART;
+			main_loop_step=s4;
+			}
+		}
+	}				        
+else if(main_loop_step==s4)
+	{                    
+	if(bORIENT_COMPLETE && bNAPOLN_COMPLETE && bPAYKA_COMPLETE)
+		{
+		if(ee_loop_mode==elmAUTO)main_loop_step==s1;
+		else main_loop_step==sOFF;
+		}
+	
+	}	
 	 
 }
 
