@@ -80,6 +80,8 @@ eeprom signed short ee_temp1,ee_temp2;
 bit bPAYKA_COMPLETE=0,bNAPOLN_COMPLETE=0,bORIENT_COMPLETE=0;
 eeprom signed int ee_prog;
 
+eeprom signed short ee_temp3,ee_temp4;
+
 #define EE_PROG_FULL		0
 #define EE_PROG_ONLY_ORIENT 	1
 #define EE_PROG_ONLY_NAPOLN	2
@@ -254,10 +256,10 @@ else
 
 if(!(in_word&(1<<DM)))
 	{
-	if(cnt_dm<10)
+	if(cnt_dm<5)
 		{
 		cnt_dm++;
-		if(cnt_dm==10) bDM=1;
+		if(cnt_dm==5) bDM=1;
 		}
 	}
 else
@@ -411,7 +413,7 @@ void payka_hndl(void)
 if(payka_cmd==cmdSTART)
 	{
 	payka_step=s1;
-	payka_cnt_del=ee_temp1*10;
+	payka_cnt_del=ee_temp2*10;
 	bPAYKA_COMPLETE=0;
 	payka_cmd=cmdOFF;
 	}                      
@@ -434,7 +436,7 @@ else if(payka_step==s1)
 	if(payka_cnt_del==0)
 		{
 		payka_step=s2;
-		payka_cnt_del=20;
+		payka_cnt_del=ee_temp3*10;
 		}                	
 	}	
 else if(payka_step==s2)
@@ -445,7 +447,7 @@ else if(payka_step==s2)
 	if(payka_cnt_del==0)
 		{
 		payka_step=s3;
-		payka_cnt_del=ee_temp2*10;
+		payka_cnt_del=ee_temp4*10;
 		}                	
 	}		  
 else if(payka_step==s3)
@@ -490,7 +492,7 @@ else if(napoln_step==s1)
 	if(bBD2)
 		{
 		napoln_step=s2;
-		napoln_cnt_del=20;
+		napoln_cnt_del=ee_temp1*10;
 		}
 	}	
 else if(napoln_step==s2)
@@ -1010,6 +1012,8 @@ else if(ind==iSet)
      if(sub_ind==0)int2ind(ee_prog,0);
 	else if(sub_ind==1)int2ind(ee_temp1,1);
 	else if(sub_ind==2)int2ind(ee_temp2,1);
+	else if(sub_ind==3)int2ind(ee_temp3,1);
+	else if(sub_ind==4)int2ind(ee_temp4,1);
 		
 	if(bFL5)ind_out[0]=DIGISYM[sub_ind+1];
 	else    ind_out[0]=DIGISYM[10];
@@ -1316,9 +1320,41 @@ else if(ind==iSet)
 			{  
     	    		speed=1;
     			ee_temp2--;
-    			if(ee_temp2<0)ee_temp1=0;
+    			if(ee_temp2<0)ee_temp2=0;
     			}				
-		}							
+		}
+	else if (sub_ind==3)
+		{             
+		if((but==butR)||(but==butR_))	
+			{  
+			speed=1;
+			ee_temp3++;
+			if(ee_temp3>900)ee_temp3=900;
+			}   
+	
+    		else if((but==butL)||(but==butL_))	
+			{  
+    	    		speed=1;
+    			ee_temp3--;
+    			if(ee_temp3<0)ee_temp3=0;
+    			}				
+		}		
+	else if (sub_ind==4)
+		{             
+		if((but==butR)||(but==butR_))	
+			{  
+			speed=1;
+			ee_temp4++;
+			if(ee_temp4>900)ee_temp4=900;
+			}   
+	
+    		else if((but==butL)||(but==butL_))	
+			{  
+    	    		speed=1;
+    			ee_temp4--;
+    			if(ee_temp4<0)ee_temp4=0;
+    			}				
+		}													
 	}
 
 
