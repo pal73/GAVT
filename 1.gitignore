@@ -1,4 +1,4 @@
-.c~
-.cof
-.rom
-.vec
+*.c~
+*.cof
+*.rom
+*.vec
