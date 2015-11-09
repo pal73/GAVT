@@ -865,10 +865,12 @@ __GLOBAL_INI_END:
 ;      30 short time_stamp;
 ;      31 short rele_cnt;
 ;      32 short in_cnt;
-;      33 
-;      34 // Timer 0 overflow interrupt service routine
-;      35 interrupt [TIM0_OVF] void timer0_ovf_isr(void)
-;      36 {
+;      33 bit bIN;
+;      34 bit bIN_OLD;
+;      35 
+;      36 // Timer 0 overflow interrupt service routine
+;      37 interrupt [TIM0_OVF] void timer0_ovf_isr(void)
+;      38 {
 
 	.CSEG
 _timer0_ovf_isr:
@@ -876,166 +878,166 @@ _timer0_ovf_isr:
 	ST   -Y,R31
 	IN   R30,SREG
 	ST   -Y,R30
-;      37 TCNT0=-50;
+;      39 TCNT0=-50;
 	LDI  R30,LOW(206)
 	OUT  0x32,R30
-;      38 t0_cnt0++;
+;      40 t0_cnt0++;
 	__GETW1R 4,5
 	ADIW R30,1
 	__PUTW1R 4,5
-;      39 
-;      40 b10Hz=1;
+;      41 
+;      42 b10Hz=1;
 	SET
 	BLD  R2,1
-;      41 
-;      42 if(t0_cnt0>10)
+;      43 
+;      44 if(t0_cnt0>10)
 	LDI  R30,LOW(10)
 	LDI  R31,HIGH(10)
 	CP   R30,R4
 	CPC  R31,R5
 	BRGE _0x3
-;      43 	{
-;      44 	t0_cnt0=0;
+;      45 	{
+;      46 	t0_cnt0=0;
 	CLR  R4
 	CLR  R5
-;      45 	b1Hz=1;
+;      47 	b1Hz=1;
 	SET
 	BLD  R2,0
-;      46 	}
-;      47 
-;      48 }
+;      48 	}
+;      49 
+;      50 }
 _0x3:
 	LD   R30,Y+
 	OUT  SREG,R30
 	LD   R31,Y+
 	LD   R30,Y+
 	RETI
-;      49 
-;      50 #define ADC_VREF_TYPE 0x00
-;      51 // Read the AD conversion result
-;      52 unsigned int read_adc(unsigned char adc_input)
-;      53 {
+;      51 
+;      52 #define ADC_VREF_TYPE 0x00
+;      53 // Read the AD conversion result
+;      54 unsigned int read_adc(unsigned char adc_input)
+;      55 {
 _read_adc:
-;      54 ADMUX=adc_input|ADC_VREF_TYPE;
+;      56 ADMUX=adc_input|ADC_VREF_TYPE;
 	LD   R30,Y
 	OUT  0x7,R30
-;      55 // Start the AD conversion
-;      56 ADCSRA|=0x40;
+;      57 // Start the AD conversion
+;      58 ADCSRA|=0x40;
 	SBI  0x6,6
-;      57 // Wait for the AD conversion to complete
-;      58 while ((ADCSRA & 0x10)==0);
+;      59 // Wait for the AD conversion to complete
+;      60 while ((ADCSRA & 0x10)==0);
 _0x4:
 	SBIS 0x6,4
 	RJMP _0x4
-;      59 ADCSRA|=0x10;
+;      61 ADCSRA|=0x10;
 	SBI  0x6,4
-;      60 return ADCW;
+;      62 return ADCW;
 	IN   R30,0x4
 	IN   R31,0x4+1
 	ADIW R28,1
 	RET
-;      61 }
-;      62 
-;      63 // Declare your global variables here
+;      63 }
 ;      64 
-;      65 void main(void)
-;      66 {
+;      65 // Declare your global variables here
+;      66 
+;      67 void main(void)
+;      68 {
 _main:
-;      67 // Declare your local variables here
-;      68 
-;      69 // Crystal Oscillator division factor: 1
-;      70 CLKPR=0x80;
+;      69 // Declare your local variables here
+;      70 
+;      71 // Crystal Oscillator division factor: 1
+;      72 CLKPR=0x80;
 	LDI  R30,LOW(128)
 	RCALL SUBOPT_0x0
-;      71 CLKPR=0x00;
+;      73 CLKPR=0x00;
 	RCALL SUBOPT_0x0
-;      72 
-;      73 // Input/Output Ports initialization
-;      74 // Port B initialization
-;      75 // Func5=In Func4=In Func3=In Func2=In Func1=In Func0=Out 
-;      76 // State5=T State4=T State3=T State2=T State1=T State0=0 
-;      77 PORTB=0x00;
+;      74 
+;      75 // Input/Output Ports initialization
+;      76 // Port B initialization
+;      77 // Func5=In Func4=In Func3=In Func2=In Func1=In Func0=Out 
+;      78 // State5=T State4=T State3=T State2=T State1=T State0=0 
+;      79 PORTB=0x00;
 	OUT  0x18,R30
-;      78 DDRB=0x01;
+;      80 DDRB=0x01;
 	LDI  R30,LOW(1)
 	OUT  0x17,R30
-;      79 
-;      80 // Timer/Counter 0 initialization
-;      81 // Clock source: System Clock
-;      82 // Clock value: 0,500 kHz
-;      83 // Mode: Normal top=FFh
-;      84 // OC0A output: Disconnected
-;      85 // OC0B output: Disconnected
-;      86 TCCR0A=0x00;
+;      81 
+;      82 // Timer/Counter 0 initialization
+;      83 // Clock source: System Clock
+;      84 // Clock value: 0,500 kHz
+;      85 // Mode: Normal top=FFh
+;      86 // OC0A output: Disconnected
+;      87 // OC0B output: Disconnected
+;      88 TCCR0A=0x00;
 	LDI  R30,LOW(0)
 	OUT  0x2F,R30
-;      87 TCCR0B=0x04;
+;      89 TCCR0B=0x04;
 	LDI  R30,LOW(4)
 	OUT  0x33,R30
-;      88 TCNT0=0x00;
+;      90 TCNT0=0x00;
 	LDI  R30,LOW(0)
 	OUT  0x32,R30
-;      89 OCR0A=0x00;
+;      91 OCR0A=0x00;
 	OUT  0x36,R30
-;      90 OCR0B=0x00;
+;      92 OCR0B=0x00;
 	OUT  0x29,R30
-;      91 
-;      92 // External Interrupt(s) initialization
-;      93 // INT0: Off
-;      94 // Interrupt on any change on pins PCINT0-5: Off
-;      95 GIMSK=0x00;
+;      93 
+;      94 // External Interrupt(s) initialization
+;      95 // INT0: Off
+;      96 // Interrupt on any change on pins PCINT0-5: Off
+;      97 GIMSK=0x00;
 	OUT  0x3B,R30
-;      96 MCUCR=0x00;
+;      98 MCUCR=0x00;
 	OUT  0x35,R30
-;      97 
-;      98 // Timer/Counter 0 Interrupt(s) initialization
-;      99 TIMSK0=0x02;
+;      99 
+;     100 // Timer/Counter 0 Interrupt(s) initialization
+;     101 TIMSK0=0x02;
 	LDI  R30,LOW(2)
 	OUT  0x39,R30
-;     100 
-;     101 // Analog Comparator initialization
-;     102 // Analog Comparator: Off
-;     103 // Analog Comparator Output: Off
-;     104 ACSR=0x80;
+;     102 
+;     103 // Analog Comparator initialization
+;     104 // Analog Comparator: Off
+;     105 // Analog Comparator Output: Off
+;     106 ACSR=0x80;
 	LDI  R30,LOW(128)
 	OUT  0x8,R30
-;     105 ADCSRB=0x00;
+;     107 ADCSRB=0x00;
 	LDI  R30,LOW(0)
 	OUT  0x3,R30
-;     106 
-;     107 // ADC initialization
-;     108 // ADC Clock frequency: 32,000 kHz
-;     109 // ADC Bandgap Voltage Reference: Off
-;     110 // ADC Auto Trigger Source: Free Running
-;     111 // Digital input buffers on ADC0: On, ADC1: On, ADC2: On, ADC3: On,
-;     112 // ADC4: On
-;     113 DIDR0=0x00;
+;     108 
+;     109 // ADC initialization
+;     110 // ADC Clock frequency: 32,000 kHz
+;     111 // ADC Bandgap Voltage Reference: Off
+;     112 // ADC Auto Trigger Source: Free Running
+;     113 // Digital input buffers on ADC0: On, ADC1: On, ADC2: On, ADC3: On,
+;     114 // ADC4: On
+;     115 DIDR0=0x00;
 	OUT  0x14,R30
-;     114 ADMUX=ADC_VREF_TYPE;
+;     116 ADMUX=ADC_VREF_TYPE;
 	OUT  0x7,R30
-;     115 ADCSRA=0x82;
+;     117 ADCSRA=0x82;
 	LDI  R30,LOW(130)
 	OUT  0x6,R30
-;     116 ADCSRB&=0xF8;
+;     118 ADCSRB&=0xF8;
 	IN   R30,0x3
 	ANDI R30,LOW(0xF8)
 	OUT  0x3,R30
-;     117 
-;     118 // Global enable interrupts
-;     119 #asm("sei")
+;     119 
+;     120 // Global enable interrupts
+;     121 #asm("sei")
 	sei
-;     120 
-;     121 while (1)
+;     122 
+;     123 while (1)
 _0x7:
-;     122       {
-;     123       if(b10Hz)
+;     124       {
+;     125       if(b10Hz)
 	SBRS R2,1
 	RJMP _0xA
-;     124       	{
-;     125       	b10Hz=0;
+;     126       	{
+;     127       	b10Hz=0;
 	CLT
 	BLD  R2,1
-;     126       	time_stamp=((read_adc(3)-350)/15)+5; 
+;     128       	time_stamp=((read_adc(3)-350)/15)+5; 
 	LDI  R30,LOW(3)
 	ST   -Y,R30
 	RCALL _read_adc
@@ -1048,15 +1050,15 @@ _0x7:
 	RCALL __DIVW21U
 	ADIW R30,5
 	__PUTW1R 8,9
-;     127       //	time_stamp=10;
-;     128       	/*time_cnt++;
-;     129       	if(time_cnt>time_stamp)
-;     130       		{
-;     131       		time_cnt=0;
-;     132       		PORTB.0=!PORTB.0;
-;     133       		}*/
-;     134       		
-;     135       	if((rele_cnt)&&(rele_cnt<time_stamp))
+;     129       //	time_stamp=10;
+;     130       	/*time_cnt++;
+;     131       	if(time_cnt>time_stamp)
+;     132       		{
+;     133       		time_cnt=0;
+;     134       		PORTB.0=!PORTB.0;
+;     135       		}*/
+;     136       		
+;     137       	if((rele_cnt)&&(rele_cnt<time_stamp))
 	MOV  R0,R10
 	OR   R0,R11
 	BREQ _0xC
@@ -1065,20 +1067,20 @@ _0x7:
 _0xC:
 	RJMP _0xB
 _0xD:
-;     136       		{
-;     137       		rele_cnt++;
+;     138       		{
+;     139       		rele_cnt++;
 	__GETW1R 10,11
 	ADIW R30,1
 	__PUTW1R 10,11
-;     138       		if(rele_cnt>=time_stamp)rele_cnt=0;
+;     140       		if(rele_cnt>=time_stamp)rele_cnt=0;
 	__CPWRR 10,11,8,9
 	BRLT _0xE
 	CLR  R10
 	CLR  R11
-;     139       		}	                                          
+;     141       		}	                                          
 _0xE:
-;     140       		
-;     141       	if((rele_cnt>=5)&&(rele_cnt<=time_stamp)) PORTB.0=1;
+;     142       		
+;     143       	if((rele_cnt>=5)&&(rele_cnt<=time_stamp)) PORTB.0=1;
 _0xB:
 	LDI  R30,LOW(5)
 	LDI  R31,HIGH(5)
@@ -1091,84 +1093,123 @@ _0x10:
 	RJMP _0xF
 _0x11:
 	SBI  0x18,0
-;     142       	else 							  PORTB.0=0;
+;     144       	else 							  PORTB.0=0;
 	RJMP _0x12
 _0xF:
 	CBI  0x18,0
 _0x12:
-;     143       		
-;     144       	}
-;     145       if(b1Hz)
+;     145       		
+;     146       	}
+;     147       if(b1Hz)
 _0xA:
 	SBRS R2,0
 	RJMP _0x13
-;     146       	{
-;     147       	b1Hz=0;
+;     148       	{
+;     149       	b1Hz=0;
 	CLT
 	BLD  R2,0
-;     148       	//
-;     149 
-;     150       	}
-;     151       if(PINB.1)
+;     150       	//
+;     151 
+;     152       	}
+;     153       if(PINB.1)
 _0x13:
 	SBIS 0x16,1
 	RJMP _0x14
-;     152       	{        
-;     153       	if(in_cnt<200)
-	RCALL SUBOPT_0x1
+;     154       	{ 
+;     155       	if(in_cnt<200)in_cnt++;
+	LDI  R30,LOW(200)
+	LDI  R31,HIGH(200)
+	CP   R12,R30
+	CPC  R13,R31
 	BRGE _0x15
-;     154       		{
-;     155       		in_cnt++;
 	__GETW1R 12,13
 	ADIW R30,1
 	__PUTW1R 12,13
-;     156       		if(in_cnt>=200)
-	RCALL SUBOPT_0x1
-	BRLT _0x16
-;     157       			{
-;     158       			if(rele_cnt==0)
+;     156       	}
+_0x15:
+;     157       else
+	RJMP _0x16
+_0x14:
+;     158       	{
+;     159       	if(in_cnt)in_cnt--;
+	MOV  R0,R12
+	OR   R0,R13
+	BREQ _0x17
+	__GETW1R 12,13
+	SBIW R30,1
+	__PUTW1R 12,13
+;     160       	} 
+_0x17:
+_0x16:
+;     161       if(in_cnt>=199)bIN=1;
+	LDI  R30,LOW(199)
+	LDI  R31,HIGH(199)
+	CP   R12,R30
+	CPC  R13,R31
+	BRLT _0x18
+	SET
+	BLD  R2,2
+;     162       if(in_cnt<=1)bIN=0;
+_0x18:
+	LDI  R30,LOW(1)
+	LDI  R31,HIGH(1)
+	CP   R30,R12
+	CPC  R31,R13
+	BRLT _0x19
+	CLT
+	BLD  R2,2
+;     163       
+;     164       if(bIN && !bIN_OLD)
+_0x19:
+	SBRS R2,2
+	RJMP _0x1B
+	SBRS R2,3
+	RJMP _0x1C
+_0x1B:
+	RJMP _0x1A
+_0x1C:
+;     165       	{
+;     166       	if(rele_cnt==0)
 	MOV  R0,R10
 	OR   R0,R11
-	BRNE _0x17
-;     159       				{
-;     160       				rele_cnt=1;
+	BRNE _0x1D
+;     167       		{
+;     168       		rele_cnt=1;
 	LDI  R30,LOW(1)
 	LDI  R31,HIGH(1)
 	__PUTW1R 10,11
-;     161       				}
-;     162       			}
-_0x17:
-;     163       		}
-_0x16:
-;     164       	}
-_0x15:
-;     165       else 
-	RJMP _0x18
-_0x14:
-;     166       	{
-;     167       	in_cnt=0;
-	CLR  R12
-	CLR  R13
-;     168       	}		
-_0x18:
-;     169       };
+;     169       		}
+;     170       	}
+_0x1D:
+;     171       bIN_OLD=bIN;		 	
+_0x1A:
+	BST  R2,2
+	BLD  R2,3
+;     172       	
+;     173       	       
+;     174 /*      	if(in_cnt<200)
+;     175       		{
+;     176       		in_cnt++;
+;     177       		if(in_cnt>=200)
+;     178       			{
+;     179 
+;     180       			}
+;     181       		}*/
+;     182    /*   	}
+;     183       else 
+;     184       	{
+;     185       	in_cnt=0;
+;     186       	} */		
+;     187       };
 	RJMP _0x7
-;     170 }
-_0x19:
-	RJMP _0x19
+;     188 }
+_0x1E:
+	RJMP _0x1E
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES
 SUBOPT_0x0:
 	OUT  0x26,R30
 	LDI  R30,LOW(0)
-	RET
-
-;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES
-SUBOPT_0x1:
-	LDI  R30,LOW(200)
-	LDI  R31,HIGH(200)
-	CP   R12,R30
-	CPC  R13,R31
 	RET
 
 __DIVW21U:

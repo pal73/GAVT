@@ -12,12 +12,12 @@ Width0=489
 Active0=0
 State0=0
 OF1=main.c
-Top1=-30
+Top1=-34
 Left1=-4
-Height1=900
-Width1=1467
-Row1=125
-Collumn1=39
+Height1=648
+Width1=1431
+Row1=33
+Collumn1=12
 Active1=1
 State1=2
 [Compiler]
@@ -47,7 +47,7 @@ EnhancedCoreInstructions=0
 StackEndMarkers=0
 Warnings=1
 DebugBootLoader=0
-Build=16
+Build=19
 UseEEPROMLocation0=1
 [DefinedSymbols]
 Count=0

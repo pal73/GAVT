@@ -7,10 +7,10 @@ Including  'main.vec'
 Including  'main.inc'
 
 Program memory usage:
-Code             :  237 words
+Code             :  260 words
 Constants (dw/db):    1 words
 Unused           :    0 words
-Total            :  238 words
+Total            :  261 words
 
 Assembly complete with no errors.
 Deleting   'main.eep'

@@ -30,6 +30,8 @@ short time_cnt;
 short time_stamp;
 short rele_cnt;
 short in_cnt;
+bit bIN;
+bit bIN_OLD;
 
 // Timer 0 overflow interrupt service routine
 interrupt [TIM0_OVF] void timer0_ovf_isr(void)
@@ -149,22 +151,38 @@ while (1)
 
       	}
       if(PINB.1)
-      	{        
-      	if(in_cnt<200)
+      	{ 
+      	if(in_cnt<200)in_cnt++;
+      	}
+      else
+      	{
+      	if(in_cnt)in_cnt--;
+      	} 
+      if(in_cnt>=199)bIN=1;
+      if(in_cnt<=1)bIN=0;
+      
+      if(bIN && !bIN_OLD)
+      	{
+      	if(rele_cnt==0)
+      		{
+      		rele_cnt=1;
+      		}
+      	}
+      bIN_OLD=bIN;		 	
+      	
+      	       
+/*      	if(in_cnt<200)
       		{
       		in_cnt++;
       		if(in_cnt>=200)
       			{
-      			if(rele_cnt==0)
-      				{
-      				rele_cnt=1;
-      				}
+
       			}
-      		}
-      	}
+      		}*/
+   /*   	}
       else 
       	{
       	in_cnt=0;
-      	}		
+      	} */		
       };
 }
