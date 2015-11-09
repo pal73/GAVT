@@ -14,5 +14,5 @@ time_cnt                            R6,R7      2
 time_stamp                          R8,R9      2
 rele_cnt                          R10,R11      2
 in_cnt                            R12,R13      2
-bIN                                  R2.2    1/8
-bIN_OLD                              R2.3    1/8
+bIN                                   R14      1
+bIN_OLD                               70h      1

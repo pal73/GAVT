@@ -865,8 +865,10 @@ __GLOBAL_INI_END:
 ;      30 short time_stamp;
 ;      31 short rele_cnt;
 ;      32 short in_cnt;
-;      33 bit bIN;
-;      34 bit bIN_OLD;
+;      33 char bIN;
+;      34 char bIN_OLD;
+_bIN_OLD:
+	.BYTE 0x1
 ;      35 
 ;      36 // Timer 0 overflow interrupt service routine
 ;      37 interrupt [TIM0_OVF] void timer0_ovf_isr(void)
@@ -1037,7 +1039,37 @@ _0x7:
 ;     127       	b10Hz=0;
 	CLT
 	BLD  R2,1
-;     128       	time_stamp=((read_adc(3)-350)/15)+5; 
+;     128       	
+;     129       	
+;     130       if((bIN) && (!bIN_OLD))
+	TST  R14
+	BREQ _0xC
+	LDS  R30,_bIN_OLD
+	CPI  R30,0
+	BREQ _0xD
+_0xC:
+	RJMP _0xB
+_0xD:
+;     131       	{
+;     132       	if(rele_cnt==0)
+	MOV  R0,R10
+	OR   R0,R11
+	BRNE _0xE
+;     133       		{
+;     134       		rele_cnt=1;
+	LDI  R30,LOW(1)
+	LDI  R31,HIGH(1)
+	__PUTW1R 10,11
+;     135       		}
+;     136       	}
+_0xE:
+;     137       bIN_OLD=bIN;      	
+_0xB:
+	STS  _bIN_OLD,R14
+;     138       	
+;     139       	
+;     140       	
+;     141       	time_stamp=((read_adc(3)-350)/15)+5; 
 	LDI  R30,LOW(3)
 	ST   -Y,R30
 	RCALL _read_adc
@@ -1050,159 +1082,137 @@ _0x7:
 	RCALL __DIVW21U
 	ADIW R30,5
 	__PUTW1R 8,9
-;     129       //	time_stamp=10;
-;     130       	/*time_cnt++;
-;     131       	if(time_cnt>time_stamp)
-;     132       		{
-;     133       		time_cnt=0;
-;     134       		PORTB.0=!PORTB.0;
-;     135       		}*/
-;     136       		
-;     137       	if((rele_cnt)&&(rele_cnt<time_stamp))
+;     142       //	time_stamp=10;
+;     143       	/*time_cnt++;
+;     144       	if(time_cnt>time_stamp)
+;     145       		{
+;     146       		time_cnt=0;
+;     147       		PORTB.0=!PORTB.0;
+;     148       		}*/
+;     149       		
+;     150       	if((rele_cnt)&&(rele_cnt<time_stamp))
 	MOV  R0,R10
 	OR   R0,R11
-	BREQ _0xC
+	BREQ _0x10
 	__CPWRR 10,11,8,9
-	BRLT _0xD
-_0xC:
-	RJMP _0xB
-_0xD:
-;     138       		{
-;     139       		rele_cnt++;
+	BRLT _0x11
+_0x10:
+	RJMP _0xF
+_0x11:
+;     151       		{
+;     152       		rele_cnt++;
 	__GETW1R 10,11
 	ADIW R30,1
 	__PUTW1R 10,11
-;     140       		if(rele_cnt>=time_stamp)rele_cnt=0;
+;     153       		if(rele_cnt>=time_stamp)rele_cnt=0;
 	__CPWRR 10,11,8,9
-	BRLT _0xE
+	BRLT _0x12
 	CLR  R10
 	CLR  R11
-;     141       		}	                                          
-_0xE:
-;     142       		
-;     143       	if((rele_cnt>=5)&&(rele_cnt<=time_stamp)) PORTB.0=1;
-_0xB:
+;     154       		}	                                          
+_0x12:
+;     155       		
+;     156       	if((rele_cnt>=5)&&(rele_cnt<=time_stamp)) PORTB.0=1;
+_0xF:
 	LDI  R30,LOW(5)
 	LDI  R31,HIGH(5)
 	CP   R10,R30
 	CPC  R11,R31
-	BRLT _0x10
+	BRLT _0x14
 	__CPWRR 8,9,10,11
-	BRGE _0x11
-_0x10:
-	RJMP _0xF
-_0x11:
+	BRGE _0x15
+_0x14:
+	RJMP _0x13
+_0x15:
 	SBI  0x18,0
-;     144       	else 							  PORTB.0=0;
-	RJMP _0x12
-_0xF:
+;     157       	else 							  PORTB.0=0;
+	RJMP _0x16
+_0x13:
 	CBI  0x18,0
-_0x12:
-;     145       		
-;     146       	}
-;     147       if(b1Hz)
+_0x16:
+;     158       	
+;     159       //	if(!bIN_OLD&&bIN) 					PORTB.0=1;
+;     160         //	else 							  PORTB.0=0;
+;     161       		
+;     162       	}
+;     163       if(b1Hz)
 _0xA:
 	SBRS R2,0
-	RJMP _0x13
-;     148       	{
-;     149       	b1Hz=0;
+	RJMP _0x17
+;     164       	{
+;     165       	b1Hz=0;
 	CLT
 	BLD  R2,0
-;     150       	//
-;     151 
-;     152       	}
-;     153       if(PINB.1)
-_0x13:
+;     166       	//
+;     167 
+;     168       	}
+;     169       if(PINB.1)
+_0x17:
 	SBIS 0x16,1
-	RJMP _0x14
-;     154       	{ 
-;     155       	if(in_cnt<200)in_cnt++;
+	RJMP _0x18
+;     170       	{ 
+;     171       	if(in_cnt<200)in_cnt++;
 	LDI  R30,LOW(200)
 	LDI  R31,HIGH(200)
 	CP   R12,R30
 	CPC  R13,R31
-	BRGE _0x15
+	BRGE _0x19
 	__GETW1R 12,13
 	ADIW R30,1
 	__PUTW1R 12,13
-;     156       	}
-_0x15:
-;     157       else
-	RJMP _0x16
-_0x14:
-;     158       	{
-;     159       	if(in_cnt)in_cnt--;
+;     172       	}
+_0x19:
+;     173       else
+	RJMP _0x1A
+_0x18:
+;     174       	{
+;     175       	if(in_cnt)in_cnt--;
 	MOV  R0,R12
 	OR   R0,R13
-	BREQ _0x17
+	BREQ _0x1B
 	__GETW1R 12,13
 	SBIW R30,1
 	__PUTW1R 12,13
-;     160       	} 
-_0x17:
-_0x16:
-;     161       if(in_cnt>=199)bIN=1;
+;     176       	} 
+_0x1B:
+_0x1A:
+;     177       if(in_cnt>=199)bIN=1;
 	LDI  R30,LOW(199)
 	LDI  R31,HIGH(199)
 	CP   R12,R30
 	CPC  R13,R31
-	BRLT _0x18
-	SET
-	BLD  R2,2
-;     162       if(in_cnt<=1)bIN=0;
-_0x18:
+	BRLT _0x1C
+	LDI  R30,LOW(1)
+	MOV  R14,R30
+;     178       if(in_cnt<=1)bIN=0;
+_0x1C:
 	LDI  R30,LOW(1)
 	LDI  R31,HIGH(1)
 	CP   R30,R12
 	CPC  R31,R13
-	BRLT _0x19
-	CLT
-	BLD  R2,2
-;     163       
-;     164       if(bIN && !bIN_OLD)
-_0x19:
-	SBRS R2,2
-	RJMP _0x1B
-	SBRS R2,3
-	RJMP _0x1C
-_0x1B:
-	RJMP _0x1A
-_0x1C:
-;     165       	{
-;     166       	if(rele_cnt==0)
-	MOV  R0,R10
-	OR   R0,R11
-	BRNE _0x1D
-;     167       		{
-;     168       		rele_cnt=1;
-	LDI  R30,LOW(1)
-	LDI  R31,HIGH(1)
-	__PUTW1R 10,11
-;     169       		}
-;     170       	}
+	BRLT _0x1D
+	CLR  R14
+;     179       
+;     180 		 	
+;     181       	
+;     182       	       
+;     183 /*      	if(in_cnt<200)
+;     184       		{
+;     185       		in_cnt++;
+;     186       		if(in_cnt>=200)
+;     187       			{
+;     188 
+;     189       			}
+;     190       		}*/
+;     191    /*   	}
+;     192       else 
+;     193       	{
+;     194       	in_cnt=0;
+;     195       	} */		
+;     196       };
 _0x1D:
-;     171       bIN_OLD=bIN;		 	
-_0x1A:
-	BST  R2,2
-	BLD  R2,3
-;     172       	
-;     173       	       
-;     174 /*      	if(in_cnt<200)
-;     175       		{
-;     176       		in_cnt++;
-;     177       		if(in_cnt>=200)
-;     178       			{
-;     179 
-;     180       			}
-;     181       		}*/
-;     182    /*   	}
-;     183       else 
-;     184       	{
-;     185       	in_cnt=0;
-;     186       	} */		
-;     187       };
 	RJMP _0x7
-;     188 }
+;     197 }
 _0x1E:
 	RJMP _0x1E
 

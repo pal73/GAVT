@@ -30,8 +30,8 @@ short time_cnt;
 short time_stamp;
 short rele_cnt;
 short in_cnt;
-bit bIN;
-bit bIN_OLD;
+char bIN;
+char bIN_OLD;
 
 // Timer 0 overflow interrupt service routine
 interrupt [TIM0_OVF] void timer0_ovf_isr(void)
@@ -125,6 +125,19 @@ while (1)
       if(b10Hz)
       	{
       	b10Hz=0;
+      	
+      	
+      if((bIN) && (!bIN_OLD))
+      	{
+      	if(rele_cnt==0)
+      		{
+      		rele_cnt=1;
+      		}
+      	}
+      bIN_OLD=bIN;      	
+      	
+      	
+      	
       	time_stamp=((read_adc(3)-350)/15)+5; 
       //	time_stamp=10;
       	/*time_cnt++;
@@ -142,6 +155,9 @@ while (1)
       		
       	if((rele_cnt>=5)&&(rele_cnt<=time_stamp)) PORTB.0=1;
       	else 							  PORTB.0=0;
+      	
+      //	if(!bIN_OLD&&bIN) 					PORTB.0=1;
+        //	else 							  PORTB.0=0;
       		
       	}
       if(b1Hz)
@@ -161,14 +177,7 @@ while (1)
       if(in_cnt>=199)bIN=1;
       if(in_cnt<=1)bIN=0;
       
-      if(bIN && !bIN_OLD)
-      	{
-      	if(rele_cnt==0)
-      		{
-      		rele_cnt=1;
-      		}
-      	}
-      bIN_OLD=bIN;		 	
+		 	
       	
       	       
 /*      	if(in_cnt<200)
