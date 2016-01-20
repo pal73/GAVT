@@ -77,7 +77,17 @@ eeprom signed short ee_temp3,ee_temp4;
 #define EE_PROG_ONLY_ORIENT 	1
 #define EE_PROG_ONLY_NAPOLN	2
 #define EE_PROG_ONLY_PAYKA	3
-#define EE_PROG_ONLY_MAIN_LOOP 	4
+#define EE_PROG_ONLY_MAIN_LOOP 	4 
+
+short time_cnt;
+short adc_output;
+
+#define FIRST_ADC_INPUT 4
+#define LAST_ADC_INPUT 4
+unsigned int adc_data[LAST_ADC_INPUT-FIRST_ADC_INPUT+1];
+#define ADC_VREF_TYPE 0x40
+// ADC interrupt service routine
+// with auto input scanning
 
 //-----------------------------------------------
 void prog_drv(void)
@@ -236,15 +246,28 @@ DDRB=0xFF;
 
 if(ee_prog==p1)
 	{
-     if(bSW1&&bSW2)
+     if(bSW1&&(step==sOFF))
      	{
      	step=s1;
      	bPP1=1;
-     	}
-     else 
+     	bPP2=1;
+     	time_cnt=adc_output/30;
+     	}              
+     else if(step==s1)
+     	{
+     	if(time_cnt==0)
+     		{
+     		step=s2;
+     		bPP1=1;
+     		bPP2=0;
+     		}
+     	}	
+     
+     if(!bSW1&&(step!=sOFF)) 
      	{
      	step=sOFF;
      	bPP1=0;
+     	bPP2=0;
      	}
 	}
 
@@ -602,6 +625,19 @@ if(++t0_cnt1>=60)
 	}
 }
 
+//***********************************************
+interrupt [ADC_INT] void adc_isr(void)
+{
+register static unsigned char input_index=0;
+// Read the AD conversion result
+adc_output=ADCW;
+// Select next ADC input
+
+ADMUX=(FIRST_ADC_INPUT|ADC_VREF_TYPE);
+
+
+}
+
 //===============================================
 //===============================================
 //===============================================
@@ -653,6 +689,19 @@ TIMSK=0x01;
 ACSR=0x80;
 SFIOR=0x00;
 
+
+
+// ADC initialization
+// ADC Clock frequency: 125,000 kHz
+// ADC Voltage Reference: AVCC pin
+// ADC High Speed Mode: Off
+// ADC Auto Trigger Source: Timer0 Overflow
+ADMUX=FIRST_ADC_INPUT|ADC_VREF_TYPE;
+ADCSRA=0xCB;
+SFIOR&=0x0F;
+
+
+
 #asm("sei") 
 PORTB=0xFF;
 DDRB=0xFF;
@@ -688,9 +737,9 @@ while (1)
 		prog_drv();
 		err_drv();
 		
-    	     
+    	     if(time_cnt)time_cnt=0;
           led_hndl();
-          
+          ADCSRA|=0x40;
           }
 
       };

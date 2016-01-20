@@ -65,3 +65,7 @@ main_loop_cnt_del                    184h      2
 bPAYKA_COMPLETE                      R4.4    1/8
 bNAPOLN_COMPLETE                     R4.5    1/8
 bORIENT_COMPLETE                     R4.6    1/8
+time_cnt                             186h      2
+adc_output                           188h      2
+adc_data                             18Ah      2
+input_index_S10                      18Ch      1

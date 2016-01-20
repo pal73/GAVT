@@ -2,7 +2,7 @@
 Toolset=AVR
 FormatVersion=2
 Files=1
-OpenedFiles=2
+OpenedFiles=3
 TerminalState=-1
 Top0=341
 Left0=595
@@ -28,10 +28,10 @@ State2=0
 OF1=gavt_sn001_090920.c
 Top1=314
 Left1=595
-Height1=341
-Width1=489
-Row1=0
-Collumn1=0
+Height1=648
+Width1=1431
+Row1=741
+Collumn1=23
 Active1=0
 State1=0
 OF2=GAVT.c
@@ -44,13 +44,13 @@ Collumn2=17
 Active2=1
 State2=2
 >>>>>>> 06450accce680fafcab2b6926894ae44785803e1
-OF3=e:\users\pal\cvproects\gavt\gavt1\vzm_ob.c
-Top3=42
-Left3=815
-Height3=783
-Width3=498
-Row3=858
-Collumn3=2
+OF3=untitled.c
+Top3=314
+Left3=595
+Height3=341
+Width3=489
+Row3=2
+Collumn3=0
 Active3=0
 State3=0
 OF4=gavt.asm
@@ -106,7 +106,7 @@ Warnings=1
 DebugBootLoader=0
 <<<<<<< HEAD
 =======
-Build=280
+Build=285
 >>>>>>> 06450accce680fafcab2b6926894ae44785803e1
 UseEEPROMLocation0=1
 AutomaticRegisterAllocation=1
