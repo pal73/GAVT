@@ -236,8 +236,16 @@ DDRB=0xFF;
 
 if(ee_prog==p1)
 	{
-     if(bSW1&&bSW2)step=s1;
-     else step=sOFF;
+     if(bSW1&&bSW2)
+     	{
+     	step=s1;
+     	bPP1=1;
+     	}
+     else 
+     	{
+     	step=sOFF;
+     	bPP1=0;
+     	}
 	}
 
 else if(ee_prog==p2)  //ско
@@ -418,6 +426,11 @@ if(ee_prog==p1) ind_out[4]&=~(1<<LED_PROG1);
 else if(ee_prog==p2) ind_out[4]&=~(1<<LED_PROG2);
 else if(ee_prog==p3) ind_out[4]&=~(1<<LED_PROG3);
 else if(ee_prog==p4) ind_out[4]&=~(1<<LED_PROG4);	
+
+if(ind==iPr_sel)
+	{
+	if(bFL5)ind_out[4]|=(1<<LED_PROG1)|(1<<LED_PROG2)|(1<<LED_PROG3)|(1<<LED_PROG4);
+	} 
 }
 
 //-----------------------------------------------
@@ -513,6 +526,7 @@ but_dir&=but_mask;
 //-----------------------------------------------
 void but_an(void)
 {
+if (!n_but) goto but_an_end;
 
 if(ind==iMn)
 	{
@@ -660,7 +674,7 @@ while (1)
 		{        
 		b100Hz=0; 
 		but_an();
-	    	//in_drv();
+	    	in_drv();
           ind_hndl();
           step_contr();
           

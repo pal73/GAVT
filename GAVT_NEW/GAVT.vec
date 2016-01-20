@@ -9,9 +9,9 @@
 	JMP  0
 	JMP  0
 	JMP  0
+	JMP  0
+	JMP  0
 	JMP  _timer0_ovf_isr
-	JMP  0
-	JMP  0
 	JMP  0
 	JMP  0
 	JMP  0
