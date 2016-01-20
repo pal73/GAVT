@@ -14,9 +14,9 @@
 //#define I220
 //#define P380_MINI
 //#define TVIST_SKO
-//#define I380_WI
+#define I380_WI
 //#define I220_WI
-#define DV3KL2MD
+//#define DV3KL2MD
 
 #define MD1	2
 #define MD2	3
@@ -131,8 +131,9 @@ char cnt_md1,cnt_md2,cnt_vr,cnt_md3;
 
 eeprom unsigned ee_delay[4,2];
 eeprom char ee_vr_log;
-#include <mega16.h>
+//#include <mega16.h>
 //#include <mega8535.h>
+#include <mega32.h>
 //-----------------------------------------------
 void prog_drv(void)
 {

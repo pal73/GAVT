@@ -78,12 +78,12 @@
 
 #ifdef DV3KL2MD
 
-#define PP1	3
-#define PP2	2
-#define PP3	1
+#define PP1	6
+#define PP2	7
+#define PP3	3
 //#define PP4	4
 //#define PP5	3
-#define DV	0 
+#define DV	2 
 
 #define MINPROG 2
 #define MAXPROG 3
