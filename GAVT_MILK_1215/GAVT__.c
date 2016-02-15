@@ -82,8 +82,8 @@ eeprom signed short ee_temp3,ee_temp4;
 short time_cnt;
 short adc_output;
 
-#define FIRST_ADC_INPUT 4
-#define LAST_ADC_INPUT 4
+#define FIRST_ADC_INPUT 2
+#define LAST_ADC_INPUT 2
 unsigned int adc_data[LAST_ADC_INPUT-FIRST_ADC_INPUT+1];
 #define ADC_VREF_TYPE 0x40
 // ADC interrupt service routine
@@ -251,7 +251,7 @@ if(ee_prog==p1)
      	step=s1;
      	bPP1=1;
      	bPP2=1;
-     	time_cnt=adc_output/30;
+     	time_cnt=adc_output/15;
      	}              
      else if(step==s1)
      	{
@@ -737,7 +737,7 @@ while (1)
 		prog_drv();
 		err_drv();
 		
-    	     if(time_cnt)time_cnt=0;
+    	     if(time_cnt)time_cnt--;
           led_hndl();
           ADCSRA|=0x40;
           }

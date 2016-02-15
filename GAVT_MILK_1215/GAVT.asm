@@ -1058,8 +1058,8 @@ _time_cnt:
 _adc_output:
 	.BYTE 0x2
 ;      84 
-;      85 #define FIRST_ADC_INPUT 4
-;      86 #define LAST_ADC_INPUT 4
+;      85 #define FIRST_ADC_INPUT 2
+;      86 #define LAST_ADC_INPUT 2
 ;      87 unsigned int adc_data[LAST_ADC_INPUT-FIRST_ADC_INPUT+1];
 _adc_data:
 	.BYTE 0x2
@@ -1455,11 +1455,11 @@ _0x30:
 ;     253      	bPP2=1;
 	SET
 	BLD  R3,5
-;     254      	time_cnt=adc_output/30;
+;     254      	time_cnt=adc_output/15;
 	LDS  R26,_adc_output
 	LDS  R27,_adc_output+1
-	LDI  R30,LOW(30)
-	LDI  R31,HIGH(30)
+	LDI  R30,LOW(15)
+	LDI  R31,HIGH(15)
 	CALL __DIVW21
 	STS  _time_cnt,R30
 	STS  _time_cnt+1,R31
@@ -2583,7 +2583,7 @@ _input_index_S10:
 ;     634 // Select next ADC input
 ;     635 
 ;     636 ADMUX=(FIRST_ADC_INPUT|ADC_VREF_TYPE);
-	LDI  R30,LOW(68)
+	LDI  R30,LOW(66)
 	OUT  0x7,R30
 ;     637 
 ;     638 
@@ -2686,7 +2686,7 @@ _main:
 ;     697 // ADC High Speed Mode: Off
 ;     698 // ADC Auto Trigger Source: Timer0 Overflow
 ;     699 ADMUX=FIRST_ADC_INPUT|ADC_VREF_TYPE;
-	LDI  R30,LOW(68)
+	LDI  R30,LOW(66)
 	OUT  0x7,R30
 ;     700 ADCSRA=0xCB;
 	LDI  R30,LOW(203)
@@ -2763,14 +2763,14 @@ _0x94:
 ;     738 		err_drv();
 	CALL _err_drv
 ;     739 		
-;     740     	     if(time_cnt)time_cnt=0;
+;     740     	     if(time_cnt)time_cnt--;
 	LDS  R30,_time_cnt
 	LDS  R31,_time_cnt+1
 	SBIW R30,0
 	BREQ _0x96
-	LDI  R30,0
+	SBIW R30,1
 	STS  _time_cnt,R30
-	STS  _time_cnt+1,R30
+	STS  _time_cnt+1,R31
 ;     741           led_hndl();
 _0x96:
 	CALL _led_hndl

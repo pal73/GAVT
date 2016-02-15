@@ -1,5 +1,5 @@
 
-AVRASM ver. 1.52  GAVT.asm Wed Jan 20 17:35:47 2016
+AVRASM ver. 1.52  GAVT.asm Wed Jan 20 21:38:06 2016
 
 
          ;CodeVisionAVR C Compiler V1.24.1d Standard
@@ -1131,8 +1131,8 @@ AVRASM ver. 1.52  GAVT.asm Wed Jan 20 17:35:47 2016
           _adc_output:
 000188      	.BYTE 0x2
          ;      84 
-         ;      85 #define FIRST_ADC_INPUT 4
-         ;      86 #define LAST_ADC_INPUT 4
+         ;      85 #define FIRST_ADC_INPUT 2
+         ;      86 #define LAST_ADC_INPUT 2
          ;      87 unsigned int adc_data[LAST_ADC_INPUT-FIRST_ADC_INPUT+1];
           _adc_data:
 00018a      	.BYTE 0x2
@@ -1528,11 +1528,11 @@ AVRASM ver. 1.52  GAVT.asm Wed Jan 20 17:35:47 2016
          ;     253      	bPP2=1;
 000131 9468      	SET
 000132 f835      	BLD  R3,5
-         ;     254      	time_cnt=adc_output/30;
+         ;     254      	time_cnt=adc_output/15;
 000133 91a0 0188 	LDS  R26,_adc_output
 000135 91b0 0189 	LDS  R27,_adc_output+1
-000137 e1ee      	LDI  R30,LOW(30)
-000138 e0f0      	LDI  R31,HIGH(30)
+000137 e0ef      	LDI  R30,LOW(15)
+000138 e0f0      	LDI  R31,HIGH(15)
 000139 940e 04cc 	CALL __DIVW21
 00013b 93e0 0186 	STS  _time_cnt,R30
 00013d 93f0 0187 	STS  _time_cnt+1,R31
@@ -2656,7 +2656,7 @@ AVRASM ver. 1.52  GAVT.asm Wed Jan 20 17:35:47 2016
          ;     634 // Select next ADC input
          ;     635 
          ;     636 ADMUX=(FIRST_ADC_INPUT|ADC_VREF_TYPE);
-00040d e4e4      	LDI  R30,LOW(68)
+00040d e4e2      	LDI  R30,LOW(66)
 00040e b9e7      	OUT  0x7,R30
          ;     637 
          ;     638 
@@ -2759,7 +2759,7 @@ AVRASM ver. 1.52  GAVT.asm Wed Jan 20 17:35:47 2016
          ;     697 // ADC High Speed Mode: Off
          ;     698 // ADC Auto Trigger Source: Timer0 Overflow
          ;     699 ADMUX=FIRST_ADC_INPUT|ADC_VREF_TYPE;
-000434 e4e4      	LDI  R30,LOW(68)
+000434 e4e2      	LDI  R30,LOW(66)
 000435 b9e7      	OUT  0x7,R30
          ;     700 ADCSRA=0xCB;
 000436 eceb      	LDI  R30,LOW(203)
@@ -2836,14 +2836,14 @@ AVRASM ver. 1.52  GAVT.asm Wed Jan 20 17:35:47 2016
          ;     738 		err_drv();
 00045f 940e 00b5 	CALL _err_drv
          ;     739 		
-         ;     740     	     if(time_cnt)time_cnt=0;
+         ;     740     	     if(time_cnt)time_cnt--;
 000461 91e0 0186 	LDS  R30,_time_cnt
 000463 91f0 0187 	LDS  R31,_time_cnt+1
 000465 9730      	SBIW R30,0
 000466 f029      	BREQ _0x96
-000467 e0e0      	LDI  R30,0
+000467 9731      	SBIW R30,1
 000468 93e0 0186 	STS  _time_cnt,R30
-00046a 93e0 0187 	STS  _time_cnt+1,R30
+00046a 93f0 0187 	STS  _time_cnt+1,R31
          ;     741           led_hndl();
           _0x96:
 00046c 940e 027c 	CALL _led_hndl
