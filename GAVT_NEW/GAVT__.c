@@ -9,12 +9,12 @@
 
 #define GAVT3
 
-//#define P380
+#define P380
 //#define I380
 //#define I220
 //#define P380_MINI
 //#define TVIST_SKO
-#define I380_WI
+//#define I380_WI
 //#define I220_WI
 //#define DV3KL2MD
 
