@@ -571,7 +571,7 @@ else if(orient_step==s3)
 //-----------------------------------------------
 void out_drv(void)
 {
-char temp=0;
+char temp=0x80;
 DDRB=0xFF;
 
 if(bPP1) temp|=(1<<PP1);
@@ -582,7 +582,7 @@ if(bPP5) temp|=(1<<PP5);
 if(bPP6) temp|=(1<<PP6);
 if(bPP7) temp|=(1<<PP7);
 
-PORTB=~temp;
+PORTB=(PORTB|0xfE)&~temp;
 //PORTB=0x55;
 }
 
@@ -1463,6 +1463,7 @@ TCCR0=0x02;
 TCNT0=-208;
 OCR0=0x00; 
 
+if(bPP3)PORTB.0=!PORTB.0;
 
 b600Hz=1;
 ind_drv();

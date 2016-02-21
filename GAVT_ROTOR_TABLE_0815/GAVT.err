@@ -7,9 +7,9 @@ Including  'GAVT.vec'
 Including  'GAVT.inc'
 
 Program memory usage:
-Code             : 2541 words
+Code             : 2552 words
 Constants (dw/db):   16 words
 Unused           :    0 words
-Total            : 2557 words
+Total            : 2568 words
 
 Assembly complete with no errors.

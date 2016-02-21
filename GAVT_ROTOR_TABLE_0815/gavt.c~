@@ -413,7 +413,7 @@ void payka_hndl(void)
 if(payka_cmd==cmdSTART)
 	{
 	payka_step=s1;
-	payka_cnt_del=ee_temp1*10;
+	payka_cnt_del=ee_temp2*10;
 	bPAYKA_COMPLETE=0;
 	payka_cmd=cmdOFF;
 	}                      
@@ -436,7 +436,7 @@ else if(payka_step==s1)
 	if(payka_cnt_del==0)
 		{
 		payka_step=s2;
-		payka_cnt_del=20;
+		payka_cnt_del=ee_temp3*10;
 		}                	
 	}	
 else if(payka_step==s2)
@@ -447,7 +447,7 @@ else if(payka_step==s2)
 	if(payka_cnt_del==0)
 		{
 		payka_step=s3;
-		payka_cnt_del=ee_temp2*10;
+		payka_cnt_del=ee_temp4*10;
 		}                	
 	}		  
 else if(payka_step==s3)
@@ -492,7 +492,7 @@ else if(napoln_step==s1)
 	if(bBD2)
 		{
 		napoln_step=s2;
-		napoln_cnt_del=20;
+		napoln_cnt_del=ee_temp1*10;
 		}
 	}	
 else if(napoln_step==s2)
@@ -571,7 +571,7 @@ else if(orient_step==s3)
 //-----------------------------------------------
 void out_drv(void)
 {
-char temp=0;
+char temp=0x80;
 DDRB=0xFF;
 
 if(bPP1) temp|=(1<<PP1);
@@ -582,7 +582,7 @@ if(bPP5) temp|=(1<<PP5);
 if(bPP6) temp|=(1<<PP6);
 if(bPP7) temp|=(1<<PP7);
 
-PORTB=~temp;
+PORTB=(PORTB|0xfE)&~temp;
 //PORTB=0x55;
 }
 
@@ -1463,6 +1463,7 @@ TCCR0=0x02;
 TCNT0=-208;
 OCR0=0x00; 
 
+/*if(bPP3)*/PORTB.0=!PORTB.0;
 
 b600Hz=1;
 ind_drv();
