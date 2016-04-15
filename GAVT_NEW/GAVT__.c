@@ -14,7 +14,7 @@
 //#define I220
 //#define P380_MINI
 //#define TVIST_SKO
-#define I380_WI
+//#define I380_WI
 //#define I220_WI
 //#define DV3KL2MD 
 #define  I380_WI_GAZ
@@ -23,6 +23,7 @@
 #define MD2	3
 #define VR	4
 #define MD3	5
+#define VR2	7
 
 #define PP1	6
 #define PP2	7
@@ -96,17 +97,17 @@
 
 #define PP1	6
 #define PP2	7
-#define PP3	3
+#define PP3	5
 #define PP4	4
 #define PP5	3
-#define PP6	3
-#define PP7	3
-#define PP8	3
+#define PP6	2
+#define PP7	1
+#define PP8	0
 
-#define DV	2 
+#define DV	8 
 
 #define MINPROG 1
-#define MAXPROG 3
+#define MAXPROG 4
 
 #endif
 
@@ -147,7 +148,8 @@ char bVR;
 char bMD1;
 bit bMD2;
 bit bMD3;
-char cnt_md1,cnt_md2,cnt_vr,cnt_md3;
+bit bVR2;
+char cnt_md1,cnt_md2,cnt_vr,cnt_md3,cnt_vr2;
 
 eeprom unsigned ee_delay[4,2];
 eeprom char ee_vr_log;
@@ -236,9 +238,20 @@ if(step==sOFF)
 	}
 else bERR=0;
 }
-#endif  
+#else  
+#ifdef I380_WI_GAZ
+//-----------------------------------------------
+void err_drv(void)
+{
+if(step==sOFF)
+	{
+	if((bMD1)||(bMD2)||(bVR)||(bMD3)||(bVR2)) bERR=1;
+	else bERR=0;
+	}
+else bERR=0;
+}
+#else 
 
-#ifndef TVIST_SKO
 //-----------------------------------------------
 void err_drv(void)
 {
@@ -250,6 +263,8 @@ if(step==sOFF)
 else bERR=0;
 }
 #endif
+#endif
+
 //-----------------------------------------------
 void mdvr_drv(void)
 {
@@ -310,7 +325,7 @@ else
 
 	}
 
-if(((!(in_word&(1<<VR)))&&(ee_vr_log)) || (((in_word&(1<<VR)))&&(!ee_vr_log)))
+if(((!(in_word&(1<<VR)))/*&&(ee_vr_log)*/) /*|| (((in_word&(1<<VR)))&&(!ee_vr_log))*/)
 	{
 	if(cnt_vr<10)
 		{
@@ -328,6 +343,25 @@ else
 		}
 
 	}
+	
+if(((!(in_word&(1<<VR2)))/*&&(ee_vr_log)*/) /*|| (((in_word&(1<<VR2)))&&(!ee_vr_log))*/)
+	{
+	if(cnt_vr2<10)
+		{
+		cnt_vr2++;
+		if(cnt_vr2==10) bVR2=1;
+		}
+
+	}
+else
+	{
+	if(cnt_vr2)
+		{
+		cnt_vr2--;
+		if(cnt_vr2==0) bVR2=0;
+		}
+
+	}	
 } 
 
 #ifdef DV3KL2MD
@@ -1948,7 +1982,7 @@ PORTB=~temp;
 //-----------------------------------------------
 void step_contr(void)
 {
-char temp=0;
+short temp=0;
 DDRB=0xFF;
 
 if(step==sOFF)goto step_contr_end;
@@ -1969,90 +2003,60 @@ else if(prog==p1)
 
 	else if(step==s2)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP7);
           if(!bVR)goto step_contr_end;
 lbl_0001:
 
-          step=s100;
-		cnt_del=40;
+          step=s3;
+		cnt_del=10;
           }
-	else if(step==s100)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4);
-          cnt_del--;
-          if(cnt_del==0)
-			{
-          	step=s3;
-          	cnt_del=50;
-			}
-		}
-
 	else if(step==s3)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3);
           cnt_del--;
           if(cnt_del==0)
 			{
           	step=s4;
 			}
 		}
+	
 	else if(step==s4)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<PP5)|(1<<DV);
-          if(!bMD2)goto step_contr_end;
-          step=s54;
-          cnt_del=20;
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP8);
+          if(bVR2)goto step_contr_end;
+          step=s5;
+          cnt_del=40;
 		}
-	else if(step==s54)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<PP5)|(1<<DV);
-          cnt_del--;
-          if(cnt_del==0)
-			{
-          	step=s5;
-          	cnt_del=20;
-			}
-          }
-
+		
 	else if(step==s5)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4);
           cnt_del--;
           if(cnt_del==0)
 			{
           	step=s6;
+          	cnt_del=50;
 			}
-          }
+		}  
 	else if(step==s6)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV)|(1<<PP7);
-          if(!bMD3)goto step_contr_end;
-          step=s55;
-          cnt_del=40;
-		}
-	else if(step==s55)
-		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV)|(1<<PP7);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4)|(1<<DV);
           cnt_del--;
           if(cnt_del==0)
 			{
           	step=s7;
-          	cnt_del=20;
 			}
-          }
+		}		
 	else if(step==s7)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV);
-          cnt_del--;
-          if(cnt_del==0)
-			{
-          	step=s8;
-          	cnt_del=130;
-			}
-          }
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4)|(1<<PP5)|(1<<DV);
+          if(!bMD2)goto step_contr_end;
+          step=s8;
+          cnt_del=30;
+		}
 	else if(step==s8)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4)|(1<<PP5)|(1<<DV);
           cnt_del--;
           if(cnt_del==0)
 			{
@@ -2060,7 +2064,54 @@ lbl_0001:
           	cnt_del=20;
 			}
           }
+
 	else if(step==s9)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4)|(1<<DV);
+          cnt_del--;
+          if(cnt_del==0)
+			{
+          	step=s10;
+			}
+          }
+	else if(step==s10)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4)|(1<<DV)|(1<<PP6);
+          if(!bMD3)goto step_contr_end;
+          step=s11;
+          cnt_del=40;
+		}
+	else if(step==s11)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4)|(1<<DV)|(1<<PP6);
+          cnt_del--;
+          if(cnt_del==0)
+			{
+          	step=s12;
+          	cnt_del=20;
+			}
+          }
+	else if(step==s12)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP7);
+          cnt_del--;
+          if(cnt_del==0)
+			{
+          	step=s13;
+          	cnt_del=130;
+			}
+          }
+	else if(step==s13)
+		{
+		temp|=(1<<PP1)|(1<<PP2);
+          cnt_del--;
+          if(cnt_del==0)
+			{
+          	step=s14;
+          	cnt_del=20;
+			}
+          }
+	else if(step==s14)
 		{
 		temp|=(1<<PP1);
           cnt_del--;
@@ -2296,8 +2347,15 @@ step_contr_end:
 
 if(ee_vacuum_mode==evmOFF) temp&=~(1<<PP3);
 
-PORTB=~temp;
+//temp=0;
+//temp|=(1<<DV);
+
+PORTB=~((char)temp);
 //PORTB=0x55;
+
+DDRD.1=1;
+if(temp&(1<<DV))PORTD.1=0;
+else PORTD.1=1;
 }
 #endif
 
@@ -2740,6 +2798,9 @@ SFIOR=0x00;
 #asm("sei") 
 PORTB=0xFF;
 DDRB=0xFF;
+DDRD.1=1;
+PORTD.1=1;  
+
 ind=iMn;
 prog_drv();
 ind_hndl();
