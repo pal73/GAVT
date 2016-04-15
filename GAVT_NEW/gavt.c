@@ -9,14 +9,15 @@
 
 #define GAVT3
 
-#define P380
+//#define P380
 //#define I380
 //#define I220
 //#define P380_MINI
 //#define TVIST_SKO
 //#define I380_WI
 //#define I220_WI
-//#define DV3KL2MD
+//#define DV3KL2MD 
+#define  I380_WI_GAZ
 
 #define MD1	2
 #define MD2	3
@@ -86,6 +87,25 @@
 #define DV	2 
 
 #define MINPROG 2
+#define MAXPROG 3
+
+#endif
+       
+
+#ifdef I380_WI_GAZ
+
+#define PP1	6
+#define PP2	7
+#define PP3	3
+#define PP4	4
+#define PP5	3
+#define PP6	3
+#define PP7	3
+#define PP8	3
+
+#define DV	2 
+
+#define MINPROG 1
 #define MAXPROG 3
 
 #endif
@@ -1923,6 +1943,382 @@ step_contr_end:
 PORTB=~temp;
 }
 #endif
+
+#ifdef I380_WI_GAZ
+//-----------------------------------------------
+void step_contr(void)
+{
+short temp=0;
+DDRB=0xFF;
+
+if(step==sOFF)goto step_contr_end;
+
+else if(prog==p1)
+	{
+	if(step==s1)    //жесть
+		{
+		temp|=(1<<PP1);
+          if(!bMD1)goto step_contr_end;
+
+			if(ee_vacuum_mode==evmOFF)
+				{
+				goto lbl_0001;
+				}
+			else step=s2;
+		}
+
+	else if(step==s2)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP7);
+          if(!bVR)goto step_contr_end;
+lbl_0001:
+
+          step=s3;
+		cnt_del=10;
+          }
+	else if(step==s3)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3);
+          cnt_del--;
+          if(cnt_del==0)
+			{
+          	step=s4;
+			}
+		}
+	
+	else if(step==s4)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP8);
+          if(bVR2)goto step_contr_end;
+          step=s5;
+          cnt_del=40;
+		}
+		
+	else if(step==s5)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4);
+          cnt_del--;
+          if(cnt_del==0)
+			{
+          	step=s6;
+          	cnt_del=50;
+			}
+		}  
+	else if(step==s6)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4)|(1<<PP5);
+          cnt_del--;
+          if(cnt_del==0)
+			{
+          	step=s7;
+			}
+		}		
+	else if(step==s7)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4)|(1<<PP5)|(1<<DV);
+          if(!bMD2)goto step_contr_end;
+          step=s8;
+          cnt_del=30;
+		}
+	else if(step==s8)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4)|(1<<PP5)|(1<<DV);
+          cnt_del--;
+          if(cnt_del==0)
+			{
+          	step=s9;
+          	cnt_del=20;
+			}
+          }
+
+	else if(step==s9)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4)|(1<<DV);
+          cnt_del--;
+          if(cnt_del==0)
+			{
+          	step=s6;
+			}
+          }
+	else if(step==s10)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4)|(1<<DV)|(1<<PP6);
+          if(!bMD3)goto step_contr_end;
+          step=s11;
+          cnt_del=40;
+		}
+	else if(step==s11)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4)|(1<<DV)|(1<<PP6);
+          cnt_del--;
+          if(cnt_del==0)
+			{
+          	step=s12;
+          	cnt_del=20;
+			}
+          }
+	else if(step==s12)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP7);
+          cnt_del--;
+          if(cnt_del==0)
+			{
+          	step=s13;
+          	cnt_del=130;
+			}
+          }
+	else if(step==s13)
+		{
+		temp|=(1<<PP1)|(1<<PP2);
+          cnt_del--;
+          if(cnt_del==0)
+			{
+          	step=s14;
+          	cnt_del=20;
+			}
+          }
+	else if(step==s14)
+		{
+		temp|=(1<<PP1);
+          cnt_del--;
+          if(cnt_del==0)
+			{
+          	step=sOFF;
+          	}
+          }
+	}
+
+else if(prog==p2)  //ско
+	{
+	if(step==s1)
+		{
+		temp|=(1<<PP1);
+          if(!bMD1)goto step_contr_end;
+
+			if(ee_vacuum_mode==evmOFF)
+				{
+				goto lbl_0002;
+				}
+			else step=s2;
+
+          //step=s2;
+		}
+
+	else if(step==s2)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3);
+          if(!bVR)goto step_contr_end;
+
+lbl_0002:
+          step=s100;
+		cnt_del=40;
+          }
+	else if(step==s100)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4);
+          cnt_del--;
+          if(cnt_del==0)
+			{
+          	step=s3;
+          	cnt_del=50;
+			}
+		}
+	else if(step==s3)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV);
+          cnt_del--;
+          if(cnt_del==0)
+			{
+          	step=s4;
+			}
+		}
+	else if(step==s4)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<PP5)|(1<<DV);
+          if(!bMD2)goto step_contr_end;
+          step=s5;
+          cnt_del=20;
+		}
+	else if(step==s5)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV);
+          cnt_del--;
+          if(cnt_del==0)
+			{
+          	step=s6;
+          	cnt_del=130;
+			}
+          }
+	else if(step==s6)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4);
+          cnt_del--;
+          if(cnt_del==0)
+			{
+          	step=s7;
+          	cnt_del=20;
+			}
+          }
+	else if(step==s7)
+		{
+		temp|=(1<<PP1);
+          cnt_del--;
+          if(cnt_del==0)
+			{
+          	step=sOFF;
+          	}
+          }
+	}
+
+else if(prog==p3)   //твист
+	{
+	if(step==s1)
+		{
+		temp|=(1<<PP1);
+          if(!bMD1)goto step_contr_end;
+
+			if(ee_vacuum_mode==evmOFF)
+				{
+				goto lbl_0003;
+				}
+			else step=s2;
+
+          //step=s2;
+		}
+
+	else if(step==s2)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3);
+          if(!bVR)goto step_contr_end;
+lbl_0003:
+          cnt_del=50;
+		step=s3;
+		}
+
+
+	else	if(step==s3)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4);
+		cnt_del--;
+		if(cnt_del==0)
+			{
+			cnt_del=90;
+			step=s4;
+			}
+          }
+	else if(step==s4)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<PP5)|(1<<PP7);
+		cnt_del--;
+ 		if(cnt_del==0)
+			{
+			cnt_del=130;
+			step=s5;
+			}
+		}
+
+	else if(step==s5)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP5)|(1<<PP7);
+		cnt_del--;
+		if(cnt_del==0)
+			{
+			step=s6;
+			cnt_del=20;
+			}
+		}
+
+	else if(step==s6)
+		{
+		temp|=(1<<PP1);
+  		cnt_del--;
+		if(cnt_del==0)
+			{
+			step=sOFF;
+			}
+		}
+
+	}
+
+else if(prog==p4)      //замок
+	{
+	if(step==s1)
+		{
+		temp|=(1<<PP1);
+          if(!bMD1)goto step_contr_end;
+
+			if(ee_vacuum_mode==evmOFF)
+				{
+				goto lbl_0004;
+				}
+			else step=s2;
+          //step=s2;
+		}
+
+	else if(step==s2)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3);
+          if(!bVR)goto step_contr_end;
+lbl_0004:
+          step=s3;
+		cnt_del=50;
+          }
+
+	else if(step==s3)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4);
+          cnt_del--;
+          if(cnt_del==0)
+			{
+          	step=s4;
+			cnt_del=120U;
+			}
+          }
+
+   	else if(step==s4)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4);
+		cnt_del--;
+		if(cnt_del==0)
+			{
+			step=s5;
+			cnt_del=30;
+			}
+		}
+
+	else if(step==s5)
+		{
+		temp|=(1<<PP1)|(1<<PP4);
+		cnt_del--;
+		if(cnt_del==0)
+			{
+			step=s6;
+			cnt_del=120U;
+			}
+		}
+
+	else if(step==s6)
+		{
+		temp|=(1<<PP4);
+		cnt_del--;
+		if(cnt_del==0)
+			{
+			step=sOFF;
+			}
+		}
+
+	}
+	
+step_contr_end:
+
+if(ee_vacuum_mode==evmOFF) temp&=~(1<<PP3);
+
+PORTB=~temp;
+//PORTB=0x55;
+}
+#endif
+
+
 //-----------------------------------------------
 void bin2bcd_int(unsigned int in)
 {
