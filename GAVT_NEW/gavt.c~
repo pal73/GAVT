@@ -2071,7 +2071,7 @@ lbl_0001:
           cnt_del--;
           if(cnt_del==0)
 			{
-          	step=s6;
+          	step=s10;
 			}
           }
 	else if(step==s10)
@@ -2122,9 +2122,10 @@ lbl_0001:
           }
 	}
 
-else if(prog==p2)  //ско
+ 
+else if(prog==p2)
 	{
-	if(step==s1)
+	if(step==s1)    //жесть без газа
 		{
 		temp|=(1<<PP1);
           if(!bMD1)goto step_contr_end;
@@ -2134,22 +2135,20 @@ else if(prog==p2)  //ско
 				goto lbl_0002;
 				}
 			else step=s2;
-
-          //step=s2;
 		}
 
 	else if(step==s2)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP7);
           if(!bVR)goto step_contr_end;
-
 lbl_0002:
+
           step=s100;
 		cnt_del=40;
           }
 	else if(step==s100)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<PP7);
           cnt_del--;
           if(cnt_del==0)
 			{
@@ -2157,9 +2156,10 @@ lbl_0002:
           	cnt_del=50;
 			}
 		}
+
 	else if(step==s3)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV)|(1<<PP7);
           cnt_del--;
           if(cnt_del==0)
 			{
@@ -2168,24 +2168,41 @@ lbl_0002:
 		}
 	else if(step==s4)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<PP5)|(1<<DV);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<PP5)|(1<<DV)|(1<<PP7);
           if(!bMD2)goto step_contr_end;
-          step=s5;
+          step=s54;
           cnt_del=20;
 		}
+	else if(step==s54)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<PP5)|(1<<DV)|(1<<PP7);
+          cnt_del--;
+          if(cnt_del==0)
+			{
+          	step=s5;
+          	cnt_del=20;
+			}
+          }
+
 	else if(step==s5)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<PP7)|(1<<DV);
           cnt_del--;
           if(cnt_del==0)
 			{
           	step=s6;
-          	cnt_del=130;
 			}
           }
 	else if(step==s6)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV)|(1<<PP6)|(1<<PP7);
+          if(!bMD3)goto step_contr_end;
+          step=s55;
+          cnt_del=40;
+		}
+	else if(step==s55)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV)|(1<<PP6)|(1<<PP7);
           cnt_del--;
           if(cnt_del==0)
 			{
@@ -2195,7 +2212,27 @@ lbl_0002:
           }
 	else if(step==s7)
 		{
-		temp|=(1<<PP1);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<DV)|(1<<PP7);
+          cnt_del--;
+          if(cnt_del==0)
+			{
+          	step=s8;
+          	cnt_del=160UL;
+			}
+          }
+	else if(step==s8)
+		{
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4)|(1<<PP7);
+          cnt_del--;
+          if(cnt_del==0)
+			{
+          	step=s9;
+          	cnt_del=20;
+			}
+          }
+	else if(step==s9)
+		{
+		temp|=(1<<PP1)|(1<<PP7);
           cnt_del--;
           if(cnt_del==0)
 			{
@@ -2222,7 +2259,7 @@ else if(prog==p3)   //твист
 
 	else if(step==s2)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP7);
           if(!bVR)goto step_contr_end;
 lbl_0003:
           cnt_del=50;
@@ -2232,7 +2269,7 @@ lbl_0003:
 
 	else	if(step==s3)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<PP7);
 		cnt_del--;
 		if(cnt_del==0)
 			{
@@ -2242,18 +2279,18 @@ lbl_0003:
           }
 	else if(step==s4)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<PP5)|(1<<PP7);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<PP5)|(1<<PP6)|(1<<PP7);
 		cnt_del--;
  		if(cnt_del==0)
 			{
-			cnt_del=130;
+			cnt_del=160UL;
 			step=s5;
 			}
 		}
 
 	else if(step==s5)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP5)|(1<<PP7);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP5)|(1<<PP6)|(1<<PP7);
 		cnt_del--;
 		if(cnt_del==0)
 			{
@@ -2264,7 +2301,7 @@ lbl_0003:
 
 	else if(step==s6)
 		{
-		temp|=(1<<PP1);
+		temp|=(1<<PP1)|(1<<PP7);
   		cnt_del--;
 		if(cnt_del==0)
 			{
@@ -2291,7 +2328,7 @@ else if(prog==p4)      //замок
 
 	else if(step==s2)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP7);
           if(!bVR)goto step_contr_end;
 lbl_0004:
           step=s3;
@@ -2300,18 +2337,18 @@ lbl_0004:
 
 	else if(step==s3)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP3)|(1<<PP4)|(1<<PP7);
           cnt_del--;
           if(cnt_del==0)
 			{
           	step=s4;
-			cnt_del=120U;
+			cnt_del=160U;
 			}
           }
 
    	else if(step==s4)
 		{
-		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4);
+		temp|=(1<<PP1)|(1<<PP2)|(1<<PP4)|(1<<PP7);
 		cnt_del--;
 		if(cnt_del==0)
 			{
@@ -2322,7 +2359,7 @@ lbl_0004:
 
 	else if(step==s5)
 		{
-		temp|=(1<<PP1)|(1<<PP4);
+		temp|=(1<<PP1)|(1<<PP4)|(1<<PP7);
 		cnt_del--;
 		if(cnt_del==0)
 			{
@@ -2345,7 +2382,11 @@ lbl_0004:
 	
 step_contr_end:
 
-if(ee_vacuum_mode==evmOFF) temp&=~(1<<PP3);
+if(ee_vacuum_mode==evmOFF)
+	{
+	temp&=~(1<<PP3);
+	temp&=~(1<<PP7);
+	}
 
 //temp=0;
 //temp|=(1<<DV);
