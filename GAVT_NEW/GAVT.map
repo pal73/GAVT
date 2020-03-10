@@ -3,7 +3,7 @@ CodeVisionAVR C Compiler V1.24.1d Standard
 http://www.hpinfotech.ro
 e-mail:office@hpinfotech.ro
 
-File: E:\Users\Pal\DEVICES\GAVT\GAVT_NEW\GAVT.c
+File: E:\DEVICES\GAVT\GAVT_NEW\GAVT.c
 Global variables memory map:
 
 Variable                          Address   Size
@@ -43,7 +43,9 @@ bVR                                  273h      1
 bMD1                                 274h      1
 bMD2                                 R3.2    1/8
 bMD3                                 R3.3    1/8
+bVR2                                 R3.4    1/8
 cnt_md1                              275h      1
 cnt_md2                              276h      1
 cnt_vr                               277h      1
 cnt_md3                              278h      1
+cnt_vr2                              279h      1
