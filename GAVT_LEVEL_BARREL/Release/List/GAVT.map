@@ -1,0 +1,63 @@
+RAM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+ind_out                                                                           0x0260       5
+dig                                                                               0x0265       4
+but_n                                                                             0x0269       1
+but_s                                                                             0x026A       1
+but0_cnt                                                                          0x026B       1
+but1_cnt                                                                          0x026C       1
+but_onL_temp                                                                      0x026D       1
+in_word                                                                           0x026E       1
+in_word_old                                                                       0x026F       1
+in_word_new                                                                       0x0270       1
+in_word_cnt                                                                       0x0271       1
+cnt_del                                                                           0x0272       2
+bKL_MAIN                                                                          0x0274       1
+bD1                                                                               0x0275       1
+cnt_d1                                                                            0x0276       1
+cnt_d2                                                                            0x0277       1
+cnt_kl_main                                                                       0x0278       1
+cnt_kl1                                                                           0x0279       1
+
+EEPROM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+ee_vacuum_mode                                                                    0x0000       1
+
+Register Allocation
+Variable                                                                          Register  Size
+------------------------------------------------------------------------------------------------
+b600Hz                                                                            R2.0      1bit
+b100Hz                                                                            R2.1      1bit
+b10Hz                                                                             R2.2      1bit
+t0_cnt0                                                                           R5           1
+t0_cnt1                                                                           R4           1
+t0_cnt2                                                                           R7           1
+t0_cnt3                                                                           R6           1
+ind_cnt                                                                           R9           1
+bZ                                                                                R2.3      1bit
+but                                                                               R8           1
+l_but                                                                             R2.4      1bit
+n_but                                                                             R2.5      1bit
+speed                                                                             R2.6      1bit
+bFL2                                                                              R2.7      1bit
+bFL5                                                                              R3.0      1bit
+prog                                                                              R11          1
+step                                                                              R10          1
+ind                                                                               R13          1
+sub_ind                                                                           R12          1
+bERR                                                                              R3.1      1bit
+bD2                                                                               R3.2      1bit
+bKL1                                                                              R3.3      1bit
+
+FLASH Allocation [words]
+Function                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+prog_drv                                                                          0x0006F      1
+in_drv                                                                            0x00070     42
+mdvr_drv                                                                          0x0009A    129
+step_contr                                                                        0x0011B    120
+led_hndl                                                                          0x00193    111
+timer0_ovf_isr                                                                    0x00202     37
+main                                                                              0x00227     64
