@@ -1,0 +1,15 @@
+Creating   'GAVT.eep'
+Creating   'GAVT.obj'
+Creating   'GAVT.lst'
+
+Assembling 'GAVT.asm'
+Including  'GAVT.vec'
+Including  'GAVT.inc'
+
+Program memory usage:
+Code             : 1950 words
+Constants (dw/db):   16 words
+Unused           :    0 words
+Total            : 1966 words
+
+Assembly complete with no errors.
