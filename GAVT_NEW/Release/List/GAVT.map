@@ -1,0 +1,76 @@
+RAM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+ind_out                                                                           0x0160       5
+dig                                                                               0x0165       4
+but_n                                                                             0x0169       1
+but_s                                                                             0x016A       1
+but0_cnt                                                                          0x016B       1
+but1_cnt                                                                          0x016C       1
+but_onL_temp                                                                      0x016D       1
+in_word                                                                           0x016E       1
+in_word_old                                                                       0x016F       1
+in_word_new                                                                       0x0170       1
+in_word_cnt                                                                       0x0171       1
+cnt_del                                                                           0x0172       2
+bVR                                                                               0x0174       1
+bMD1                                                                              0x0175       1
+cnt_md1                                                                           0x0176       1
+cnt_md2                                                                           0x0177       1
+cnt_vr                                                                            0x0178       1
+cnt_md3                                                                           0x0179       1
+cnt_vr2                                                                           0x017A       1
+
+EEPROM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+ee_vacuum_mode                                                                    0x0000       1
+ee_program                                                                        0x0001       2
+ee_delay                                                                          0x0003      16
+ee_vr_log                                                                         0x0013       1
+
+Register Allocation
+Variable                                                                          Register  Size
+------------------------------------------------------------------------------------------------
+b600Hz                                                                            R2.0      1bit
+b100Hz                                                                            R2.1      1bit
+b10Hz                                                                             R2.2      1bit
+t0_cnt0                                                                           R5           1
+t0_cnt1                                                                           R4           1
+t0_cnt2                                                                           R7           1
+t0_cnt3                                                                           R6           1
+ind_cnt                                                                           R9           1
+bZ                                                                                R2.3      1bit
+but                                                                               R8           1
+l_but                                                                             R2.4      1bit
+n_but                                                                             R2.5      1bit
+speed                                                                             R2.6      1bit
+bFL2                                                                              R2.7      1bit
+bFL5                                                                              R3.0      1bit
+prog                                                                              R11          1
+step                                                                              R10          1
+ind                                                                               R13          1
+sub_ind                                                                           R12          1
+bERR                                                                              R3.1      1bit
+bMD2                                                                              R3.2      1bit
+bMD3                                                                              R3.3      1bit
+bVR2                                                                              R3.4      1bit
+
+FLASH Allocation [words]
+Function                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+prog_drv                                                                          0x00072     89
+in_drv                                                                            0x000CB     42
+err_drv                                                                           0x000F5     22
+mdvr_drv                                                                          0x0010B    160
+step_contr                                                                        0x001AB    270
+bin2bcd_int                                                                       0x002B9     31
+bcd2ind                                                                           0x002D8     72
+int2ind                                                                           0x00320      8
+ind_hndl                                                                          0x00328     13
+led_hndl                                                                          0x00335    111
+but_drv                                                                           0x003A4    122
+but_an                                                                            0x0041E    172
+ind_drv                                                                           0x004CA     35
+timer0_ovf_isr                                                                    0x004ED     59
+main                                                                              0x00528     68

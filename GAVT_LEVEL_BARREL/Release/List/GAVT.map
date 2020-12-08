@@ -19,11 +19,11 @@ cnt_d1                                                                          
 cnt_d2                                                                            0x0277       1
 cnt_kl_main                                                                       0x0278       1
 cnt_kl1                                                                           0x0279       1
+temp                                                                              0x027A       1
 
 EEPROM Allocation [bytes]
 Variable                                                                          Address   Size
 ------------------------------------------------------------------------------------------------
-ee_vacuum_mode                                                                    0x0000       1
 
 Register Allocation
 Variable                                                                          Register  Size
@@ -57,7 +57,7 @@ Function                                                                        
 prog_drv                                                                          0x0006F      1
 in_drv                                                                            0x00070     42
 mdvr_drv                                                                          0x0009A    129
-step_contr                                                                        0x0011B    120
-led_hndl                                                                          0x00193    111
-timer0_ovf_isr                                                                    0x00202     37
-main                                                                              0x00227     64
+step_contr                                                                        0x0011B    207
+led_hndl                                                                          0x001EA     15
+timer0_ovf_isr                                                                    0x001F9     37
+main                                                                              0x0021E     64

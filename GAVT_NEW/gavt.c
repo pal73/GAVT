@@ -9,7 +9,7 @@
 
 #define GAVT3
 
-//#define P380
+#define P380
 //#define I380
 //#define I220
 //#define P380_MINI
@@ -17,7 +17,7 @@
 //#define I380_WI
 //#define I220_WI
 //#define DV3KL2MD 
-#define  I380_WI_GAZ
+//#define  I380_WI_GAZ
 
 #define MD1	2
 #define MD2	3
@@ -151,11 +151,11 @@ bit bMD3;
 bit bVR2;
 char cnt_md1,cnt_md2,cnt_vr,cnt_md3,cnt_vr2;
 
-eeprom unsigned ee_delay[4,2];
+eeprom unsigned ee_delay[4][2];
 eeprom char ee_vr_log;
-//#include <mega16.h>
+#include <mega16.h>
 //#include <mega8535.h>
-#include <mega32.h>
+//#include <mega32.h>
 //-----------------------------------------------
 void prog_drv(void)
 {
@@ -2451,7 +2451,7 @@ bcd2ind(s);
 //-----------------------------------------------
 void ind_hndl(void)
 {
-int2ind(ee_delay[prog,sub_ind],1);  
+int2ind(ee_delay[prog][sub_ind],1);  
 //ind_out[0]=0xff;//DIGISYM[0];
 //ind_out[1]=0xff;//DIGISYM[1];
 //ind_out[2]=DIGISYM[2];//0xff;
@@ -2676,13 +2676,13 @@ if(ind==iMn)
 	if((but==butR)||(but==butR_))	
 		{  
 		speed=1;
-		ee_delay[prog,sub_ind]++;
+		ee_delay[prog][sub_ind]++;
 		}   
 	
 	else if((but==butL)||(but==butL_))	
 		{  
     		speed=1;
-    		ee_delay[prog,sub_ind]--;
+    		ee_delay[prog][sub_ind]--;
     		}		
 	} 
 	
