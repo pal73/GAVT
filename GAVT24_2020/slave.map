@@ -1,0 +1,88 @@
+CodeVisionAVR C Compiler V1.24.1d Standard
+(C) Copyright 1998-2004 Pavel Haiduc, HP InfoTech s.r.l.
+http://www.hpinfotech.ro
+e-mail:office@hpinfotech.ro
+
+File: E:\Users\Pal\Cvproects\GAVT\GAVT24\slave.c
+Global variables memory map:
+
+Variable                          Address   Size
+b600Hz                               R2.0    1/8
+b100Hz                               R2.1    1/8
+b10Hz                                R2.2    1/8
+t0_cnt0_                               R8      1
+t0_cnt0                                R9      1
+t0_cnt1                               R10      1
+t0_cnt2                               R11      1
+t0_cnt3                               R12      1
+ind_cnt                               R13      1
+ind_out                              160h      5
+dig                                  165h      4
+bZ                                   R2.3    1/8
+but                                   R14      1
+but_n_G1                             169h      1
+but_s_G1                             16Ah      1
+but0_cnt_G1                          16Bh      1
+but1_cnt_G1                          16Ch      1
+but_onL_temp_G1                      16Dh      1
+l_but                                R2.4    1/8
+n_but                                R2.5    1/8
+speed                                R2.6    1/8
+bFL2                                 R2.7    1/8
+bFL5                                 R3.0    1/8
+prog                                 16Eh      1
+step                                 16Fh      1
+sub_ind                              170h      1
+in_word                              171h      1
+in_word_old                          172h      1
+in_word_new                          173h      1
+in_word_cnt                          174h      1
+bERR                                 R3.1    1/8
+cnt_del                              175h      2
+cnt_md1                              177h      1
+cnt_md2                              178h      1
+cnt_vr1                              179h      1
+cnt_vr2                              17Ah      1
+opto_angle_old                       R3.2    1/8
+motor_state                          17Bh      1
+timer1_delay                         17Ch      2
+stop_cnt                             17Eh      1
+start_cnt                            17Fh      1
+cnt_net_drv                          180h      1
+cnt_drv                              181h      1
+cmnd_byte                            182h      1
+state_byte                           183h      1
+crc_byte                             184h      1
+step1                                185h      1
+step2                                186h      1
+mode1                                187h      1
+mode2                                188h      1
+cnt_del1                             189h      1
+cnt_del2                             18Ah      1
+bVR1                                 R3.3    1/8
+bVR2                                 R3.4    1/8
+bMD1                                 R3.5    1/8
+bMD2                                 R3.6    1/8
+out_stat                             18Bh      1
+out_stat1                            18Ch      1
+out_stat2                            18Dh      1
+cmnd_new                             18Eh      1
+cmnd_old                             18Fh      1
+cmnd                                 190h      1
+cmnd_cnt                             191h      1
+state_new                            192h      1
+state_old                            193h      1
+state                                194h      1
+state_cnt                            195h      1
+bRXIN                                R3.7    1/8
+UIB                                  196h     10
+flag                                 1A0h      1
+rx_buffer                            1A1h     50
+rx_wr_index                          1D3h      1
+rx_rd_index                          1D4h      1
+rx_counter                           1D5h      1
+rx_buffer_overflow                   R4.0    1/8
+tx_buffer                            1D6h    100
+tx_wr_index                          23Ah      1
+tx_rd_index                          23Bh      1
+tx_counter                           23Ch      1
