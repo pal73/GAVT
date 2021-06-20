@@ -1,16 +1,16 @@
 
-AVRASM ver. 2.1.30  E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm Tue Dec 08 16:12:20 2020
+AVRASM ver. 2.1.30  E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm Tue Dec 08 19:41:49 2020
 
-E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1088): warning: Register r6 already defined by the .DEF directive
-E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1089): warning: Register r5 already defined by the .DEF directive
-E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1090): warning: Register r8 already defined by the .DEF directive
-E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1091): warning: Register r7 already defined by the .DEF directive
-E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1092): warning: Register r10 already defined by the .DEF directive
-E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1093): warning: Register r9 already defined by the .DEF directive
-E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1094): warning: Register r12 already defined by the .DEF directive
-E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1095): warning: Register r11 already defined by the .DEF directive
-E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1096): warning: Register r14 already defined by the .DEF directive
-E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1097): warning: Register r13 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1088): warning: Register r6 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1089): warning: Register r5 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1090): warning: Register r8 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1091): warning: Register r7 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1092): warning: Register r10 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1093): warning: Register r9 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1094): warning: Register r12 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1095): warning: Register r11 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1096): warning: Register r14 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1097): warning: Register r13 already defined by the .DEF directive
                  
                  
                  ;CodeVisionAVR C Compiler V3.12 Advanced
@@ -1142,7 +1142,7 @@ E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1097): warning: Regi
                  _IND_STROB:
 00002a dfbf
 00002b f7ef
-E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1129): warning: .cseg .db misalignment - padding zero byte
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1129): warning: .cseg .db misalignment - padding zero byte
 00002c 007f      	.DB  0xBF,0xDF,0xEF,0xF7,0x7F
                  _DIGISYM:
 00002d f9c0
@@ -1150,7 +1150,7 @@ E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1129): warning: .cse
 00002f 9299
 000030 f882      	.DB  0xC0,0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8
 000031 9080
-E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1132): warning: .cseg .db misalignment - padding zero byte
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1132): warning: .cseg .db misalignment - padding zero byte
 000032 00ff      	.DB  0x80,0x90,0xFF
                  _tbl10_G100:
 000033 2710
@@ -1172,10 +1172,10 @@ E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1132): warning: .cse
                  _0x3:
 00003e 5555
 00003f 5555
-E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1145): warning: .cseg .db misalignment - padding zero byte
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1145): warning: .cseg .db misalignment - padding zero byte
 000040 0055      	.DB  0x55,0x55,0x55,0x55,0x55
                  _0x16:
-E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1147): warning: .cseg .db misalignment - padding zero byte
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1147): warning: .cseg .db misalignment - padding zero byte
 000041 00aa      	.DB  0xAA
                  
                  __GLOBAL_INI_TBL:
@@ -3451,7 +3451,7 @@ E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\HOST.asm(1147): warning: .cse
                  ; 0000 0476 //ind_out[0]=DIGISYM[7];
                  ; 0000 0477 
                  ; 0000 0478 //ind_out[0]=DIGISYM[sub_ind+1];
-                 ; 0000 0479 
+                 ; 0000 0479     //int2ind(but_n,0);
                  ; 0000 047A 	int2ind(step_main,0);
 0003ea 91e0 0285 	LDS  R30,_step_main
 0003ec e0f0      	LDI  R31,0

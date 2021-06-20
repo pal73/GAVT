@@ -3377,7 +3377,7 @@ _ind_hndl:
 ; 0000 0476 //ind_out[0]=DIGISYM[7];
 ; 0000 0477 
 ; 0000 0478 //ind_out[0]=DIGISYM[sub_ind+1];
-; 0000 0479 
+; 0000 0479     //int2ind(but_n,0);
 ; 0000 047A 	int2ind(step_main,0);
 	LDS  R30,_step_main
 	LDI  R31,0

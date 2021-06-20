@@ -71,6 +71,7 @@ char out_stat,out_stat1,out_stat2;
 char cmnd_new,cmnd_old,cmnd,cmnd_cnt; 
 char state_new,state_old,state,state_cnt;
 char tst_new,tst_old,tst,tst_cnt;
+char tst_out_cnt;
 
 #include <mega32.h>
 #include <stdio.h>
@@ -328,10 +329,10 @@ else if(step1==s9)
 if(mode1==mTST)
     {
     out_stat1=0;
-    if(tst_cnt==1)out_stat1|=(1<<PP1_1);
-    else if(tst_cnt==2)out_stat1|=(1<<PP1_2);
-    else if(tst_cnt==3)out_stat1|=(1<<PP1_3);
-    else if(tst_cnt==4)out_stat1|=(1<<PP1_4);
+    if(tst_out_cnt==1)out_stat1|=(1<<PP1_1);
+    else if(tst_out_cnt==2)out_stat1|=(1<<PP1_2);
+    else if(tst_out_cnt==3)out_stat1|=(1<<PP1_3);
+    else if(tst_out_cnt==4)out_stat1|=(1<<PP1_4);
     }
 }
 
@@ -428,10 +429,10 @@ else if(step2==s9)
 if(mode2==mTST)
     {
     out_stat2=0;
-    if(tst_cnt==1)out_stat2|=(1<<PP2_1);
-    else if(tst_cnt==2)out_stat2|=(1<<PP2_2);
-    else if(tst_cnt==3)out_stat2|=(1<<PP2_3);
-    else if(tst_cnt==4)out_stat2|=(1<<PP2_4);
+    if(tst_out_cnt==1)out_stat2|=(1<<PP2_1);
+    else if(tst_out_cnt==2)out_stat2|=(1<<PP2_2);
+    else if(tst_out_cnt==3)out_stat2|=(1<<PP2_3);
+    else if(tst_out_cnt==4)out_stat2|=(1<<PP2_4);
     }
 }
 
@@ -920,12 +921,12 @@ while (1)
 		{        
 		b100Hz=0; 
           
-          in_drv();
-          mdvr_drv();
-          step1_contr();
+        in_drv();
+        mdvr_drv();
+        step1_contr();
 		step2_contr();
-          out_drv();
-    		}   
+        out_drv();
+    	}   
 	if(b10Hz)
 		{
 		b10Hz=0;
@@ -936,13 +937,15 @@ while (1)
         if(step2!=sOFF) PORTD.2=0;   
         else PORTD.2=1;
         
-       
+        DDRC=0xFF;
+        
         }
 	if(b1Hz)
 		{
 		b1Hz=0;
         
-        if(++tst_cnt>=5)tst_cnt=0;
+        if(++tst_out_cnt>=5)tst_out_cnt=0;
+        PORTC.1=!PORTC.1;
         }
       };
 }

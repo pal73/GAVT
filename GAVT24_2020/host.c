@@ -1142,7 +1142,7 @@ if(ind==iMn)
 //ind_out[0]=DIGISYM[7]; 
 
 //ind_out[0]=DIGISYM[sub_ind+1];
-
+    //int2ind(but_n,0);
 	int2ind(step_main,0);
 	//int2ind(stop_cnt,0);
     //int2ind(in_word,0); 

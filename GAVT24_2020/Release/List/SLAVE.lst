@@ -1,14 +1,14 @@
 
-AVRASM ver. 2.1.30  E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm Tue Dec 08 16:03:34 2020
+AVRASM ver. 2.1.30  E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm Wed Dec 09 02:36:34 2020
 
-E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1088): warning: Register r7 already defined by the .DEF directive
-E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1089): warning: Register r6 already defined by the .DEF directive
-E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1090): warning: Register r9 already defined by the .DEF directive
-E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1091): warning: Register r8 already defined by the .DEF directive
-E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1092): warning: Register r11 already defined by the .DEF directive
-E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1093): warning: Register r10 already defined by the .DEF directive
-E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1094): warning: Register r13 already defined by the .DEF directive
-E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1095): warning: Register r12 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1088): warning: Register r7 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1089): warning: Register r6 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1090): warning: Register r9 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1091): warning: Register r8 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1092): warning: Register r11 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1093): warning: Register r10 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1094): warning: Register r13 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1095): warning: Register r12 already defined by the .DEF directive
                  
                  
                  ;CodeVisionAVR C Compiler V3.12 Advanced
@@ -1120,15 +1120,15 @@ E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1095): warning: Reg
 000008 940c 0000 	JMP  0x00
 00000a 940c 0000 	JMP  0x00
 00000c 940c 0000 	JMP  0x00
-00000e 940c 0496 	JMP  _timer1_compa_isr
+00000e 940c 049b 	JMP  _timer1_compa_isr
 000010 940c 0000 	JMP  0x00
 000012 940c 0000 	JMP  0x00
 000014 940c 0000 	JMP  0x00
-000016 940c 046d 	JMP  _timer0_ovf_isr
+000016 940c 0472 	JMP  _timer0_ovf_isr
 000018 940c 0000 	JMP  0x00
 00001a 940c 006c 	JMP  _uart_rx_isr
 00001c 940c 0000 	JMP  0x00
-00001e 940c 00b0 	JMP  _uart_tx_isr
+00001e 940c 00b5 	JMP  _uart_tx_isr
 000020 940c 0000 	JMP  0x00
 000022 940c 0000 	JMP  0x00
 000024 940c 0000 	JMP  0x00
@@ -1155,7 +1155,7 @@ E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1095): warning: Reg
                  _0x3:
 000035 5555
 000036 5555
-E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cseg .db misalignment - padding zero byte
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cseg .db misalignment - padding zero byte
 000037 0055      	.DB  0x55,0x55,0x55,0x55,0x55
                  
                  __GLOBAL_INI_TBL:
@@ -1236,7 +1236,7 @@ E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
 000068 e6c0      	LDI  R28,LOW(__SRAM_START+__DSTACK_SIZE)
 000069 e0d2      	LDI  R29,HIGH(__SRAM_START+__DSTACK_SIZE)
                  
-00006a 940c 0497 	JMP  _main
+00006a 940c 049c 	JMP  _main
                  
                  	.ESEG
                  	.ORG 0
@@ -1320,6 +1320,7 @@ E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ;char cmnd_new,cmnd_old,cmnd,cmnd_cnt;
                  ;char state_new,state_old,state,state_cnt;
                  ;char tst_new,tst_old,tst,tst_cnt;
+                 ;char tst_out_cnt;
                  ;
                  ;#include <mega32.h>
                  	#ifndef __SLEEP_DEFINED__
@@ -1364,7 +1365,7 @@ E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ;// USART Receiver interrupt service routine
                  ;#pragma savereg-
                  ;interrupt [USART_RXC] void uart_rx_isr(void)
-                 ; 0000 004D {
+                 ; 0000 004E {
                  
                  	.CSEG
                  _uart_rx_isr:
@@ -1385,10 +1386,11 @@ E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
 000074 b11b      	IN   R17,11
                  ;data=UDR;
 000075 b10c      	IN   R16,12
+                 ;//if(data==1)
                  ;if ((status & (FRAMING_ERROR | PARITY_ERROR | DATA_OVERRUN))==0)
 000076 2fe1      	MOV  R30,R17
 000077 71ec      	ANDI R30,LOW(0x1C)
-000078 f571      	BRNE _0x4
+000078 f599      	BRNE _0x4
                  ;   {
                  ;
                  ;   if((data&0b11111000)==0)rx_wr_index=0;
@@ -1396,70 +1398,78 @@ E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
 00007a 7fe8      	ANDI R30,LOW(0xF8)
 00007b f419      	BRNE _0x5
 00007c e0e0      	LDI  R30,LOW(0)
-00007d 93e0 02b8 	STS  _rx_wr_index,R30
+00007d 93e0 02b9 	STS  _rx_wr_index,R30
                  ;   rx_buffer[rx_wr_index]=data;
                  _0x5:
-00007f 91e0 02b8 	LDS  R30,_rx_wr_index
+00007f 91e0 02b9 	LDS  R30,_rx_wr_index
 000081 e0f0      	LDI  R31,0
-000082 57ea      	SUBI R30,LOW(-_rx_buffer)
+000082 57e9      	SUBI R30,LOW(-_rx_buffer)
 000083 4ffd      	SBCI R31,HIGH(-_rx_buffer)
 000084 8300      	ST   Z,R16
                  ;   if (++rx_wr_index >= HOST_MESS_LEN)
-000085 91a0 02b8 	LDS  R26,_rx_wr_index
+000085 91a0 02b9 	LDS  R26,_rx_wr_index
 000087 5faf      	SUBI R26,-LOW(1)
-000088 93a0 02b8 	STS  _rx_wr_index,R26
+000088 93a0 02b9 	STS  _rx_wr_index,R26
 00008a 30a5      	CPI  R26,LOW(0x5)
-00008b f0a0      	BRLO _0x6
+00008b f0c8      	BRLO _0x6
                  ;   	{
+                 ;    PORTC.0=!PORTC.0;
+00008c 9ba8      	SBIS 0x15,0
+00008d c002      	RJMP _0x7
+00008e 98a8      	CBI  0x15,0
+00008f c001      	RJMP _0x8
+                 _0x7:
+000090 9aa8      	SBI  0x15,0
+                 _0x8:
                  ;   	if((((rx_buffer[0]^rx_buffer[1])^(rx_buffer[2]^rx_buffer[3]^rx_buffer[4]))&0b01111111)==0)
                 +
-00008c 91e0 0287+LDS R30 , _rx_buffer + ( 1 )
+000091 91e0 0288+LDS R30 , _rx_buffer + ( 1 )
                  	__GETB1MN _rx_buffer,1
-00008e 91a0 0286 	LDS  R26,_rx_buffer
-000090 27ea      	EOR  R30,R26
-000091 2e0e      	MOV  R0,R30
+000093 91a0 0287 	LDS  R26,_rx_buffer
+000095 27ea      	EOR  R30,R26
+000096 2e0e      	MOV  R0,R30
                 +
-000092 91a0 0288+LDS R26 , _rx_buffer + ( 2 )
+000097 91a0 0289+LDS R26 , _rx_buffer + ( 2 )
                  	__GETB2MN _rx_buffer,2
                 +
-000094 91e0 0289+LDS R30 , _rx_buffer + ( 3 )
+000099 91e0 028a+LDS R30 , _rx_buffer + ( 3 )
                  	__GETB1MN _rx_buffer,3
-000096 27ae      	EOR  R26,R30
-                +
-000097 91e0 028a+LDS R30 , _rx_buffer + ( 4 )
-                 	__GETB1MN _rx_buffer,4
-000099 27ea      	EOR  R30,R26
-00009a 2da0      	MOV  R26,R0
 00009b 27ae      	EOR  R26,R30
-00009c 77af      	ANDI R26,LOW(0x7F)
-00009d f411      	BRNE _0x7
+                +
+00009c 91e0 028b+LDS R30 , _rx_buffer + ( 4 )
+                 	__GETB1MN _rx_buffer,4
+00009e 27ea      	EOR  R30,R26
+00009f 2da0      	MOV  R26,R0
+0000a0 27ae      	EOR  R26,R30
+0000a1 77af      	ANDI R26,LOW(0x7F)
+0000a2 f411      	BRNE _0x9
                  ;   		{
                  ;   		uart_in_an();
-00009e 940e 038d 	CALL _uart_in_an
+0000a3 940e 0392 	CALL _uart_in_an
                  ;   		}
                  ;     }
-                 _0x7:
+                 _0x9:
                  ;   if (rx_wr_index >= RX_BUFFER_SIZE) rx_wr_index=0;
                  _0x6:
-0000a0 91a0 02b8 	LDS  R26,_rx_wr_index
-0000a2 33a2      	CPI  R26,LOW(0x32)
-0000a3 f018      	BRLO _0x8
-0000a4 e0e0      	LDI  R30,LOW(0)
-0000a5 93e0 02b8 	STS  _rx_wr_index,R30
+0000a5 91a0 02b9 	LDS  R26,_rx_wr_index
+0000a7 33a2      	CPI  R26,LOW(0x32)
+0000a8 f018      	BRLO _0xA
+0000a9 e0e0      	LDI  R30,LOW(0)
+0000aa 93e0 02b9 	STS  _rx_wr_index,R30
                  ;   };
-                 _0x8:
+                 _0xA:
                  _0x4:
                  ;#asm
-0000a7 91af          pop  r26
-0000a8 bfaf          out  sreg,r26
-0000a9 91ff          pop  r31
-0000aa 91ef          pop  r30
-0000ab 91bf          pop  r27
 0000ac 91af          pop  r26
+0000ad bfaf          out  sreg,r26
+0000ae 91ff          pop  r31
+0000af 91ef          pop  r30
+0000b0 91bf          pop  r27
+0000b1 91af          pop  r26
                  ;}
-0000ad 9109      	LD   R16,Y+
-0000ae 9119      	LD   R17,Y+
-0000af 9518      	RETI
+0000b2 9109      	LD   R16,Y+
+0000b3 9119      	LD   R17,Y+
+0000b4 9518      	RETI
                  ; .FEND
                  ;#pragma savereg+
                  ;
@@ -1494,47 +1504,47 @@ E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  _uart_tx_isr:
                  ; .FSTART _uart_tx_isr
                  ;#asm
-0000b0 93af          push r26
-0000b1 93bf          push r27
-0000b2 93ef          push r30
-0000b3 93ff          push r31
-0000b4 b7af          in   r26,sreg
 0000b5 93af          push r26
+0000b6 93bf          push r27
+0000b7 93ef          push r30
+0000b8 93ff          push r31
+0000b9 b7af          in   r26,sreg
+0000ba 93af          push r26
                  ;if (tx_counter)
-0000b6 91e0 0321 	LDS  R30,_tx_counter
-0000b8 30e0      	CPI  R30,0
-0000b9 f0a1      	BREQ _0xD
+0000bb 91e0 0322 	LDS  R30,_tx_counter
+0000bd 30e0      	CPI  R30,0
+0000be f0a1      	BREQ _0xF
                  ;   {
                  ;   --tx_counter;
-0000ba 50e1      	SUBI R30,LOW(1)
-0000bb 93e0 0321 	STS  _tx_counter,R30
+0000bf 50e1      	SUBI R30,LOW(1)
+0000c0 93e0 0322 	STS  _tx_counter,R30
                  ;   UDR=tx_buffer[tx_rd_index];
-0000bd 91e0 0320 	LDS  R30,_tx_rd_index
-0000bf e0f0      	LDI  R31,0
-0000c0 54e5      	SUBI R30,LOW(-_tx_buffer)
-0000c1 4ffd      	SBCI R31,HIGH(-_tx_buffer)
-0000c2 81e0      	LD   R30,Z
-0000c3 b9ec      	OUT  0xC,R30
+0000c2 91e0 0321 	LDS  R30,_tx_rd_index
+0000c4 e0f0      	LDI  R31,0
+0000c5 54e4      	SUBI R30,LOW(-_tx_buffer)
+0000c6 4ffd      	SBCI R31,HIGH(-_tx_buffer)
+0000c7 81e0      	LD   R30,Z
+0000c8 b9ec      	OUT  0xC,R30
                  ;   if (++tx_rd_index == TX_BUFFER_SIZE) tx_rd_index=0;
-0000c4 91a0 0320 	LDS  R26,_tx_rd_index
-0000c6 5faf      	SUBI R26,-LOW(1)
-0000c7 93a0 0320 	STS  _tx_rd_index,R26
-0000c9 36a4      	CPI  R26,LOW(0x64)
-0000ca f419      	BRNE _0xE
-0000cb e0e0      	LDI  R30,LOW(0)
-0000cc 93e0 0320 	STS  _tx_rd_index,R30
+0000c9 91a0 0321 	LDS  R26,_tx_rd_index
+0000cb 5faf      	SUBI R26,-LOW(1)
+0000cc 93a0 0321 	STS  _tx_rd_index,R26
+0000ce 36a4      	CPI  R26,LOW(0x64)
+0000cf f419      	BRNE _0x10
+0000d0 e0e0      	LDI  R30,LOW(0)
+0000d1 93e0 0321 	STS  _tx_rd_index,R30
                  ;   };
-                 _0xE:
-                 _0xD:
+                 _0x10:
+                 _0xF:
                  ;#asm
-0000ce 91af          pop  r26
-0000cf bfaf          out  sreg,r26
-0000d0 91ff          pop  r31
-0000d1 91ef          pop  r30
-0000d2 91bf          pop  r27
 0000d3 91af          pop  r26
+0000d4 bfaf          out  sreg,r26
+0000d5 91ff          pop  r31
+0000d6 91ef          pop  r30
+0000d7 91bf          pop  r27
+0000d8 91af          pop  r26
                  ;}
-0000d4 9518      	RETI
+0000d9 9518      	RETI
                  ; .FEND
                  ;#pragma savereg+
                  ;
@@ -1547,54 +1557,54 @@ E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  _putchar:
                  ; .FSTART _putchar
                  ;while (tx_counter == TX_BUFFER_SIZE);
-0000d5 93aa      	ST   -Y,R26
+0000da 93aa      	ST   -Y,R26
                  ;	c -> Y+0
-                 _0xF:
-0000d6 91a0 0321 	LDS  R26,_tx_counter
-0000d8 36a4      	CPI  R26,LOW(0x64)
-0000d9 f3e1      	BREQ _0xF
+                 _0x11:
+0000db 91a0 0322 	LDS  R26,_tx_counter
+0000dd 36a4      	CPI  R26,LOW(0x64)
+0000de f3e1      	BREQ _0x11
                  ;#asm("cli")
-0000da 94f8      	cli
+0000df 94f8      	cli
                  ;if (tx_counter || ((UCSRA & DATA_REGISTER_EMPTY)==0))
-0000db 91e0 0321 	LDS  R30,_tx_counter
-0000dd 30e0      	CPI  R30,0
-0000de f411      	BRNE _0x13
-0000df 995d      	SBIC 0xB,5
-0000e0 c017      	RJMP _0x12
-                 _0x13:
+0000e0 91e0 0322 	LDS  R30,_tx_counter
+0000e2 30e0      	CPI  R30,0
+0000e3 f411      	BRNE _0x15
+0000e4 995d      	SBIC 0xB,5
+0000e5 c017      	RJMP _0x14
+                 _0x15:
                  ;   {
                  ;   tx_buffer[tx_wr_index]=c;
-0000e1 91e0 031f 	LDS  R30,_tx_wr_index
-0000e3 e0f0      	LDI  R31,0
-0000e4 54e5      	SUBI R30,LOW(-_tx_buffer)
-0000e5 4ffd      	SBCI R31,HIGH(-_tx_buffer)
-0000e6 81a8      	LD   R26,Y
-0000e7 83a0      	STD  Z+0,R26
+0000e6 91e0 0320 	LDS  R30,_tx_wr_index
+0000e8 e0f0      	LDI  R31,0
+0000e9 54e4      	SUBI R30,LOW(-_tx_buffer)
+0000ea 4ffd      	SBCI R31,HIGH(-_tx_buffer)
+0000eb 81a8      	LD   R26,Y
+0000ec 83a0      	STD  Z+0,R26
                  ;   if (++tx_wr_index == TX_BUFFER_SIZE) tx_wr_index=0;
-0000e8 91a0 031f 	LDS  R26,_tx_wr_index
-0000ea 5faf      	SUBI R26,-LOW(1)
-0000eb 93a0 031f 	STS  _tx_wr_index,R26
-0000ed 36a4      	CPI  R26,LOW(0x64)
-0000ee f419      	BRNE _0x15
-0000ef e0e0      	LDI  R30,LOW(0)
-0000f0 93e0 031f 	STS  _tx_wr_index,R30
+0000ed 91a0 0320 	LDS  R26,_tx_wr_index
+0000ef 5faf      	SUBI R26,-LOW(1)
+0000f0 93a0 0320 	STS  _tx_wr_index,R26
+0000f2 36a4      	CPI  R26,LOW(0x64)
+0000f3 f419      	BRNE _0x17
+0000f4 e0e0      	LDI  R30,LOW(0)
+0000f5 93e0 0320 	STS  _tx_wr_index,R30
                  ;   ++tx_counter;
-                 _0x15:
-0000f2 91e0 0321 	LDS  R30,_tx_counter
-0000f4 5fef      	SUBI R30,-LOW(1)
-0000f5 93e0 0321 	STS  _tx_counter,R30
+                 _0x17:
+0000f7 91e0 0322 	LDS  R30,_tx_counter
+0000f9 5fef      	SUBI R30,-LOW(1)
+0000fa 93e0 0322 	STS  _tx_counter,R30
                  ;   }
                  ;else UDR=c;
-0000f7 c002      	RJMP _0x16
-                 _0x12:
-0000f8 81e8      	LD   R30,Y
-0000f9 b9ec      	OUT  0xC,R30
+0000fc c002      	RJMP _0x18
+                 _0x14:
+0000fd 81e8      	LD   R30,Y
+0000fe b9ec      	OUT  0xC,R30
                  ;#asm("sei")
-                 _0x16:
-0000fa 9478      	sei
+                 _0x18:
+0000ff 9478      	sei
                  ;}
-0000fb 9621      	ADIW R28,1
-0000fc 9508      	RET
+000100 9621      	ADIW R28,1
+000101 9508      	RET
                  ; .FEND
                  ;#pragma used-
                  ;#endif
@@ -1602,40 +1612,40 @@ E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ;
                  ;//-----------------------------------------------
                  ;void out_drv(void)
-                 ; 0000 0052 {
+                 ; 0000 0053 {
                  _out_drv:
                  ; .FSTART _out_drv
-                 ; 0000 0053 DDRB=0xff;
-0000fd efef      	LDI  R30,LOW(255)
-0000fe bbe7      	OUT  0x17,R30
-                 ; 0000 0054 out_stat=out_stat1|out_stat2;
-0000ff 91e0 0279 	LDS  R30,_out_stat2
-000101 91a0 0278 	LDS  R26,_out_stat1
-000103 2bea      	OR   R30,R26
-000104 93e0 0277 	STS  _out_stat,R30
-                 ; 0000 0055 PORTB=~out_stat;
-000106 95e0      	COM  R30
-000107 bbe8      	OUT  0x18,R30
-                 ; 0000 0056 //PORTB=~step2;
-                 ; 0000 0057 }
-000108 9508      	RET
+                 ; 0000 0054 DDRB=0xff;
+000102 efef      	LDI  R30,LOW(255)
+000103 bbe7      	OUT  0x17,R30
+                 ; 0000 0055 out_stat=out_stat1|out_stat2;
+000104 91e0 0279 	LDS  R30,_out_stat2
+000106 91a0 0278 	LDS  R26,_out_stat1
+000108 2bea      	OR   R30,R26
+000109 93e0 0277 	STS  _out_stat,R30
+                 ; 0000 0056 PORTB=~out_stat;
+00010b 95e0      	COM  R30
+00010c bbe8      	OUT  0x18,R30
+                 ; 0000 0057 //PORTB=~step2;
+                 ; 0000 0058 }
+00010d 9508      	RET
                  ; .FEND
                  ;
                  ;
                  ;
                  ;//-----------------------------------------------
                  ;void out_usart (char num,char data0,char data1,char data2,char data3,char data4,char data5,char data6,char data7,char da ...
-                 ; 0000 005D {
+                 ; 0000 005E {
                  _out_usart:
                  ; .FSTART _out_usart
-                 ; 0000 005E char i,t=0;
-                 ; 0000 005F 
-                 ; 0000 0060 char UOB[12];
-                 ; 0000 0061 UOB[0]=data0;
-000109 93aa      	ST   -Y,R26
-00010a 972c      	SBIW R28,12
-00010b 931a      	ST   -Y,R17
-00010c 930a      	ST   -Y,R16
+                 ; 0000 005F char i,t=0;
+                 ; 0000 0060 
+                 ; 0000 0061 char UOB[12];
+                 ; 0000 0062 UOB[0]=data0;
+00010e 93aa      	ST   -Y,R26
+00010f 972c      	SBIW R28,12
+000110 931a      	ST   -Y,R17
+000111 930a      	ST   -Y,R16
                  ;	num -> Y+23
                  ;	data0 -> Y+22
                  ;	data1 -> Y+21
@@ -1649,1436 +1659,1436 @@ E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ;	i -> R17
                  ;	t -> R16
                  ;	UOB -> Y+2
-00010d e000      	LDI  R16,0
-00010e 89ee      	LDD  R30,Y+22
-00010f 83ea      	STD  Y+2,R30
-                 ; 0000 0062 UOB[1]=data1;
-000110 89ed      	LDD  R30,Y+21
-000111 83eb      	STD  Y+3,R30
-                 ; 0000 0063 UOB[2]=data2;
-000112 89ec      	LDD  R30,Y+20
-000113 83ec      	STD  Y+4,R30
-                 ; 0000 0064 UOB[3]=data3;
-000114 89eb      	LDD  R30,Y+19
-000115 83ed      	STD  Y+5,R30
-                 ; 0000 0065 UOB[4]=data4;
-000116 89ea      	LDD  R30,Y+18
-000117 83ee      	STD  Y+6,R30
-                 ; 0000 0066 UOB[5]=data5;
-000118 89e9      	LDD  R30,Y+17
-000119 83ef      	STD  Y+7,R30
-                 ; 0000 0067 UOB[6]=data6;
-00011a 89e8      	LDD  R30,Y+16
-00011b 87e8      	STD  Y+8,R30
-                 ; 0000 0068 UOB[7]=data7;
-00011c 85ef      	LDD  R30,Y+15
-00011d 87e9      	STD  Y+9,R30
-                 ; 0000 0069 UOB[8]=data8;
-00011e 85ee      	LDD  R30,Y+14
-00011f 87ea      	STD  Y+10,R30
-                 ; 0000 006A 
-                 ; 0000 006B for (i=0;i<num;i++)
-000120 e010      	LDI  R17,LOW(0)
-                 _0x18:
-000121 89ef      	LDD  R30,Y+23
-000122 171e      	CP   R17,R30
-000123 f450      	BRSH _0x19
-                 ; 0000 006C 	{
-                 ; 0000 006D 	putchar(UOB[i]);
-000124 2fe1      	MOV  R30,R17
-000125 e0f0      	LDI  R31,0
-000126 01de      	MOVW R26,R28
-000127 9612      	ADIW R26,2
-000128 0fae      	ADD  R26,R30
-000129 1fbf      	ADC  R27,R31
-00012a 91ac      	LD   R26,X
-00012b dfa9      	RCALL _putchar
-                 ; 0000 006E 	}
-00012c 5f1f      	SUBI R17,-1
-00012d cff3      	RJMP _0x18
-                 _0x19:
-                 ; 0000 006F }
-00012e 8119      	LDD  R17,Y+1
-00012f 8108      	LDD  R16,Y+0
-000130 9668      	ADIW R28,24
-000131 9508      	RET
+000112 e000      	LDI  R16,0
+000113 89ee      	LDD  R30,Y+22
+000114 83ea      	STD  Y+2,R30
+                 ; 0000 0063 UOB[1]=data1;
+000115 89ed      	LDD  R30,Y+21
+000116 83eb      	STD  Y+3,R30
+                 ; 0000 0064 UOB[2]=data2;
+000117 89ec      	LDD  R30,Y+20
+000118 83ec      	STD  Y+4,R30
+                 ; 0000 0065 UOB[3]=data3;
+000119 89eb      	LDD  R30,Y+19
+00011a 83ed      	STD  Y+5,R30
+                 ; 0000 0066 UOB[4]=data4;
+00011b 89ea      	LDD  R30,Y+18
+00011c 83ee      	STD  Y+6,R30
+                 ; 0000 0067 UOB[5]=data5;
+00011d 89e9      	LDD  R30,Y+17
+00011e 83ef      	STD  Y+7,R30
+                 ; 0000 0068 UOB[6]=data6;
+00011f 89e8      	LDD  R30,Y+16
+000120 87e8      	STD  Y+8,R30
+                 ; 0000 0069 UOB[7]=data7;
+000121 85ef      	LDD  R30,Y+15
+000122 87e9      	STD  Y+9,R30
+                 ; 0000 006A UOB[8]=data8;
+000123 85ee      	LDD  R30,Y+14
+000124 87ea      	STD  Y+10,R30
+                 ; 0000 006B 
+                 ; 0000 006C for (i=0;i<num;i++)
+000125 e010      	LDI  R17,LOW(0)
+                 _0x1A:
+000126 89ef      	LDD  R30,Y+23
+000127 171e      	CP   R17,R30
+000128 f450      	BRSH _0x1B
+                 ; 0000 006D 	{
+                 ; 0000 006E 	putchar(UOB[i]);
+000129 2fe1      	MOV  R30,R17
+00012a e0f0      	LDI  R31,0
+00012b 01de      	MOVW R26,R28
+00012c 9612      	ADIW R26,2
+00012d 0fae      	ADD  R26,R30
+00012e 1fbf      	ADC  R27,R31
+00012f 91ac      	LD   R26,X
+000130 dfa9      	RCALL _putchar
+                 ; 0000 006F 	}
+000131 5f1f      	SUBI R17,-1
+000132 cff3      	RJMP _0x1A
+                 _0x1B:
+                 ; 0000 0070 }
+000133 8119      	LDD  R17,Y+1
+000134 8108      	LDD  R16,Y+0
+000135 9668      	ADIW R28,24
+000136 9508      	RET
                  ; .FEND
                  ;
                  ;//-----------------------------------------------
                  ;void byte_drv(void)
-                 ; 0000 0073 {
-                 ; 0000 0074 cmnd_byte|=0x80;
-                 ; 0000 0075 state_byte=0xff;
-                 ; 0000 0076 
-                 ; 0000 0077 if(ch_on[0]!=coON)state_byte&=~(1<<0);
-                 ; 0000 0078 if(ch_on[1]!=coON)state_byte&=~(1<<1);
-                 ; 0000 0079 if(ch_on[2]!=coON)state_byte&=~(1<<2);
-                 ; 0000 007A if(ch_on[3]!=coON)state_byte&=~(1<<3);
-                 ; 0000 007B if(ch_on[4]!=coON)state_byte&=~(1<<4);
-                 ; 0000 007C if(ch_on[5]!=coON)state_byte&=~(1<<5);
-                 ; 0000 007D 
+                 ; 0000 0074 {
+                 ; 0000 0075 cmnd_byte|=0x80;
+                 ; 0000 0076 state_byte=0xff;
+                 ; 0000 0077 
+                 ; 0000 0078 if(ch_on[0]!=coON)state_byte&=~(1<<0);
+                 ; 0000 0079 if(ch_on[1]!=coON)state_byte&=~(1<<1);
+                 ; 0000 007A if(ch_on[2]!=coON)state_byte&=~(1<<2);
+                 ; 0000 007B if(ch_on[3]!=coON)state_byte&=~(1<<3);
+                 ; 0000 007C if(ch_on[4]!=coON)state_byte&=~(1<<4);
+                 ; 0000 007D if(ch_on[5]!=coON)state_byte&=~(1<<5);
                  ; 0000 007E 
-                 ; 0000 007F }
+                 ; 0000 007F 
+                 ; 0000 0080 }
                  ;
                  ;
                  ;//-----------------------------------------------
                  ;void in_drv(void)
-                 ; 0000 0084 {
+                 ; 0000 0085 {
                  _in_drv:
                  ; .FSTART _in_drv
-                 ; 0000 0085 char i,temp;
-                 ; 0000 0086 unsigned int tempUI;
-                 ; 0000 0087 DDRA&=0x33;
-000132 940e 053a 	CALL __SAVELOCR4
+                 ; 0000 0086 char i,temp;
+                 ; 0000 0087 unsigned int tempUI;
+                 ; 0000 0088 DDRA&=0x33;
+000137 940e 0546 	CALL __SAVELOCR4
                  ;	i -> R17
                  ;	temp -> R16
                  ;	tempUI -> R18,R19
-000134 b3ea      	IN   R30,0x1A
-000135 73e3      	ANDI R30,LOW(0x33)
-000136 bbea      	OUT  0x1A,R30
-                 ; 0000 0088 PORTA|=0xcc;
-000137 b3eb      	IN   R30,0x1B
-000138 6cec      	ORI  R30,LOW(0xCC)
-000139 bbeb      	OUT  0x1B,R30
-                 ; 0000 0089 in_word_new=PINA|0x33;
-00013a b3e9      	IN   R30,0x19
-00013b 63e3      	ORI  R30,LOW(0x33)
-00013c 93e0 0267 	STS  _in_word_new,R30
-                 ; 0000 008A if(in_word_old==in_word_new)
-00013e 91a0 0266 	LDS  R26,_in_word_old
-000140 17ea      	CP   R30,R26
-000141 f491      	BRNE _0x20
-                 ; 0000 008B 	{
-                 ; 0000 008C 	if(in_word_cnt<10)
-000142 91a0 0268 	LDS  R26,_in_word_cnt
-000144 30aa      	CPI  R26,LOW(0xA)
-000145 f468      	BRSH _0x21
-                 ; 0000 008D 		{
-                 ; 0000 008E 		in_word_cnt++;
-000146 91e0 0268 	LDS  R30,_in_word_cnt
-000148 5fef      	SUBI R30,-LOW(1)
-000149 93e0 0268 	STS  _in_word_cnt,R30
-                 ; 0000 008F 		if(in_word_cnt>=10)
-00014b 91a0 0268 	LDS  R26,_in_word_cnt
-00014d 30aa      	CPI  R26,LOW(0xA)
-00014e f020      	BRLO _0x22
-                 ; 0000 0090 			{
-                 ; 0000 0091 			in_word=in_word_old;
-00014f 91e0 0266 	LDS  R30,_in_word_old
-000151 93e0 0265 	STS  _in_word,R30
-                 ; 0000 0092 			}
-                 ; 0000 0093 		}
-                 _0x22:
-                 ; 0000 0094 	}
-                 _0x21:
-                 ; 0000 0095 else in_word_cnt=0;
-000153 c003      	RJMP _0x23
-                 _0x20:
-000154 e0e0      	LDI  R30,LOW(0)
-000155 93e0 0268 	STS  _in_word_cnt,R30
-                 ; 0000 0096 
-                 ; 0000 0097 
-                 ; 0000 0098 in_word_old=in_word_new;
+000139 b3ea      	IN   R30,0x1A
+00013a 73e3      	ANDI R30,LOW(0x33)
+00013b bbea      	OUT  0x1A,R30
+                 ; 0000 0089 PORTA|=0xcc;
+00013c b3eb      	IN   R30,0x1B
+00013d 6cec      	ORI  R30,LOW(0xCC)
+00013e bbeb      	OUT  0x1B,R30
+                 ; 0000 008A in_word_new=PINA|0x33;
+00013f b3e9      	IN   R30,0x19
+000140 63e3      	ORI  R30,LOW(0x33)
+000141 93e0 0267 	STS  _in_word_new,R30
+                 ; 0000 008B if(in_word_old==in_word_new)
+000143 91a0 0266 	LDS  R26,_in_word_old
+000145 17ea      	CP   R30,R26
+000146 f491      	BRNE _0x22
+                 ; 0000 008C 	{
+                 ; 0000 008D 	if(in_word_cnt<10)
+000147 91a0 0268 	LDS  R26,_in_word_cnt
+000149 30aa      	CPI  R26,LOW(0xA)
+00014a f468      	BRSH _0x23
+                 ; 0000 008E 		{
+                 ; 0000 008F 		in_word_cnt++;
+00014b 91e0 0268 	LDS  R30,_in_word_cnt
+00014d 5fef      	SUBI R30,-LOW(1)
+00014e 93e0 0268 	STS  _in_word_cnt,R30
+                 ; 0000 0090 		if(in_word_cnt>=10)
+000150 91a0 0268 	LDS  R26,_in_word_cnt
+000152 30aa      	CPI  R26,LOW(0xA)
+000153 f020      	BRLO _0x24
+                 ; 0000 0091 			{
+                 ; 0000 0092 			in_word=in_word_old;
+000154 91e0 0266 	LDS  R30,_in_word_old
+000156 93e0 0265 	STS  _in_word,R30
+                 ; 0000 0093 			}
+                 ; 0000 0094 		}
+                 _0x24:
+                 ; 0000 0095 	}
                  _0x23:
-000157 91e0 0267 	LDS  R30,_in_word_new
-000159 93e0 0266 	STS  _in_word_old,R30
-                 ; 0000 0099 }
-00015b 940e 053f 	CALL __LOADLOCR4
-00015d 9624      	ADIW R28,4
-00015e 9508      	RET
+                 ; 0000 0096 else in_word_cnt=0;
+000158 c003      	RJMP _0x25
+                 _0x22:
+000159 e0e0      	LDI  R30,LOW(0)
+00015a 93e0 0268 	STS  _in_word_cnt,R30
+                 ; 0000 0097 
+                 ; 0000 0098 
+                 ; 0000 0099 in_word_old=in_word_new;
+                 _0x25:
+00015c 91e0 0267 	LDS  R30,_in_word_new
+00015e 93e0 0266 	STS  _in_word_old,R30
+                 ; 0000 009A }
+000160 940e 054b 	CALL __LOADLOCR4
+000162 9624      	ADIW R28,4
+000163 9508      	RET
                  ; .FEND
                  ;
                  ;
                  ;
                  ;//-----------------------------------------------
                  ;void mdvr_drv(void)
-                 ; 0000 009F {
+                 ; 0000 00A0 {
                  _mdvr_drv:
                  ; .FSTART _mdvr_drv
-                 ; 0000 00A0 if(!(in_word&(1<<MD1)))
-00015f 91e0 0265 	LDS  R30,_in_word
-000161 70e8      	ANDI R30,LOW(0x8)
-000162 f481      	BRNE _0x24
-                 ; 0000 00A1 	{
-                 ; 0000 00A2 	if(cnt_md1<10)
-000163 91a0 0269 	LDS  R26,_cnt_md1
-000165 30aa      	CPI  R26,LOW(0xA)
-000166 f458      	BRSH _0x25
-                 ; 0000 00A3 		{
-                 ; 0000 00A4 		cnt_md1++;
-000167 91e0 0269 	LDS  R30,_cnt_md1
-000169 5fef      	SUBI R30,-LOW(1)
-00016a 93e0 0269 	STS  _cnt_md1,R30
-                 ; 0000 00A5 		if(cnt_md1==10) bMD1=1;
-00016c 91a0 0269 	LDS  R26,_cnt_md1
-00016e 30aa      	CPI  R26,LOW(0xA)
-00016f f411      	BRNE _0x26
-000170 9468      	SET
-000171 f836      	BLD  R3,6
-                 ; 0000 00A6 		}
-                 _0x26:
-                 ; 0000 00A7 
-                 ; 0000 00A8 	}
-                 _0x25:
-                 ; 0000 00A9 else
-000172 c00b      	RJMP _0x27
-                 _0x24:
-                 ; 0000 00AA 	{
-                 ; 0000 00AB 	if(cnt_md1)
-000173 91e0 0269 	LDS  R30,_cnt_md1
-000175 30e0      	CPI  R30,0
-000176 f039      	BREQ _0x28
-                 ; 0000 00AC 		{
-                 ; 0000 00AD 		cnt_md1--;
-000177 50e1      	SUBI R30,LOW(1)
-000178 93e0 0269 	STS  _cnt_md1,R30
-                 ; 0000 00AE 		if(cnt_md1==0) bMD1=0;
-00017a 30e0      	CPI  R30,0
-00017b f411      	BRNE _0x29
-00017c 94e8      	CLT
-00017d f836      	BLD  R3,6
-                 ; 0000 00AF 		}
-                 _0x29:
-                 ; 0000 00B0 
-                 ; 0000 00B1 	}
+                 ; 0000 00A1 if(!(in_word&(1<<MD1)))
+000164 91e0 0265 	LDS  R30,_in_word
+000166 70e8      	ANDI R30,LOW(0x8)
+000167 f481      	BRNE _0x26
+                 ; 0000 00A2 	{
+                 ; 0000 00A3 	if(cnt_md1<10)
+000168 91a0 0269 	LDS  R26,_cnt_md1
+00016a 30aa      	CPI  R26,LOW(0xA)
+00016b f458      	BRSH _0x27
+                 ; 0000 00A4 		{
+                 ; 0000 00A5 		cnt_md1++;
+00016c 91e0 0269 	LDS  R30,_cnt_md1
+00016e 5fef      	SUBI R30,-LOW(1)
+00016f 93e0 0269 	STS  _cnt_md1,R30
+                 ; 0000 00A6 		if(cnt_md1==10) bMD1=1;
+000171 91a0 0269 	LDS  R26,_cnt_md1
+000173 30aa      	CPI  R26,LOW(0xA)
+000174 f411      	BRNE _0x28
+000175 9468      	SET
+000176 f836      	BLD  R3,6
+                 ; 0000 00A7 		}
                  _0x28:
+                 ; 0000 00A8 
+                 ; 0000 00A9 	}
                  _0x27:
-                 ; 0000 00B2 
-                 ; 0000 00B3 if(!(in_word&(1<<MD2)))
-00017e 91e0 0265 	LDS  R30,_in_word
-000180 78e0      	ANDI R30,LOW(0x80)
-000181 f481      	BRNE _0x2A
-                 ; 0000 00B4 	{
-                 ; 0000 00B5 	if(cnt_md2<10)
-000182 91a0 026a 	LDS  R26,_cnt_md2
-000184 30aa      	CPI  R26,LOW(0xA)
-000185 f458      	BRSH _0x2B
-                 ; 0000 00B6 		{
-                 ; 0000 00B7 		cnt_md2++;
-000186 91e0 026a 	LDS  R30,_cnt_md2
-000188 5fef      	SUBI R30,-LOW(1)
-000189 93e0 026a 	STS  _cnt_md2,R30
-                 ; 0000 00B8 		if(cnt_md2==10) bMD2=1;
-00018b 91a0 026a 	LDS  R26,_cnt_md2
-00018d 30aa      	CPI  R26,LOW(0xA)
-00018e f411      	BRNE _0x2C
-00018f 9468      	SET
-000190 f837      	BLD  R3,7
-                 ; 0000 00B9 		}
-                 _0x2C:
-                 ; 0000 00BA 
-                 ; 0000 00BB 	}
+                 ; 0000 00AA else
+000177 c00b      	RJMP _0x29
+                 _0x26:
+                 ; 0000 00AB 	{
+                 ; 0000 00AC 	if(cnt_md1)
+000178 91e0 0269 	LDS  R30,_cnt_md1
+00017a 30e0      	CPI  R30,0
+00017b f039      	BREQ _0x2A
+                 ; 0000 00AD 		{
+                 ; 0000 00AE 		cnt_md1--;
+00017c 50e1      	SUBI R30,LOW(1)
+00017d 93e0 0269 	STS  _cnt_md1,R30
+                 ; 0000 00AF 		if(cnt_md1==0) bMD1=0;
+00017f 30e0      	CPI  R30,0
+000180 f411      	BRNE _0x2B
+000181 94e8      	CLT
+000182 f836      	BLD  R3,6
+                 ; 0000 00B0 		}
                  _0x2B:
-                 ; 0000 00BC else
-000191 c00b      	RJMP _0x2D
+                 ; 0000 00B1 
+                 ; 0000 00B2 	}
                  _0x2A:
-                 ; 0000 00BD 	{
-                 ; 0000 00BE 	if(cnt_md2)
-000192 91e0 026a 	LDS  R30,_cnt_md2
-000194 30e0      	CPI  R30,0
-000195 f039      	BREQ _0x2E
-                 ; 0000 00BF 		{
-                 ; 0000 00C0 		cnt_md2--;
-000196 50e1      	SUBI R30,LOW(1)
-000197 93e0 026a 	STS  _cnt_md2,R30
-                 ; 0000 00C1 		if(cnt_md2==0) bMD2=0;
-000199 30e0      	CPI  R30,0
-00019a f411      	BRNE _0x2F
-00019b 94e8      	CLT
-00019c f837      	BLD  R3,7
-                 ; 0000 00C2 		}
-                 _0x2F:
-                 ; 0000 00C3 
-                 ; 0000 00C4 	}
+                 _0x29:
+                 ; 0000 00B3 
+                 ; 0000 00B4 if(!(in_word&(1<<MD2)))
+000183 91e0 0265 	LDS  R30,_in_word
+000185 78e0      	ANDI R30,LOW(0x80)
+000186 f481      	BRNE _0x2C
+                 ; 0000 00B5 	{
+                 ; 0000 00B6 	if(cnt_md2<10)
+000187 91a0 026a 	LDS  R26,_cnt_md2
+000189 30aa      	CPI  R26,LOW(0xA)
+00018a f458      	BRSH _0x2D
+                 ; 0000 00B7 		{
+                 ; 0000 00B8 		cnt_md2++;
+00018b 91e0 026a 	LDS  R30,_cnt_md2
+00018d 5fef      	SUBI R30,-LOW(1)
+00018e 93e0 026a 	STS  _cnt_md2,R30
+                 ; 0000 00B9 		if(cnt_md2==10) bMD2=1;
+000190 91a0 026a 	LDS  R26,_cnt_md2
+000192 30aa      	CPI  R26,LOW(0xA)
+000193 f411      	BRNE _0x2E
+000194 9468      	SET
+000195 f837      	BLD  R3,7
+                 ; 0000 00BA 		}
                  _0x2E:
+                 ; 0000 00BB 
+                 ; 0000 00BC 	}
                  _0x2D:
-                 ; 0000 00C5 
-                 ; 0000 00C6 if(!(in_word&(1<<VR1)))
-00019d 91e0 0265 	LDS  R30,_in_word
-00019f 70e4      	ANDI R30,LOW(0x4)
-0001a0 f481      	BRNE _0x30
-                 ; 0000 00C7 	{
-                 ; 0000 00C8 	if(cnt_vr1<10)
-0001a1 91a0 026b 	LDS  R26,_cnt_vr1
-0001a3 30aa      	CPI  R26,LOW(0xA)
-0001a4 f458      	BRSH _0x31
-                 ; 0000 00C9 		{
-                 ; 0000 00CA 		cnt_vr1++;
-0001a5 91e0 026b 	LDS  R30,_cnt_vr1
-0001a7 5fef      	SUBI R30,-LOW(1)
-0001a8 93e0 026b 	STS  _cnt_vr1,R30
-                 ; 0000 00CB 		if(cnt_vr1==10) bVR1=1;
-0001aa 91a0 026b 	LDS  R26,_cnt_vr1
-0001ac 30aa      	CPI  R26,LOW(0xA)
-0001ad f411      	BRNE _0x32
-0001ae 9468      	SET
-0001af f834      	BLD  R3,4
-                 ; 0000 00CC 		}
-                 _0x32:
-                 ; 0000 00CD 
-                 ; 0000 00CE 	}
+                 ; 0000 00BD else
+000196 c00b      	RJMP _0x2F
+                 _0x2C:
+                 ; 0000 00BE 	{
+                 ; 0000 00BF 	if(cnt_md2)
+000197 91e0 026a 	LDS  R30,_cnt_md2
+000199 30e0      	CPI  R30,0
+00019a f039      	BREQ _0x30
+                 ; 0000 00C0 		{
+                 ; 0000 00C1 		cnt_md2--;
+00019b 50e1      	SUBI R30,LOW(1)
+00019c 93e0 026a 	STS  _cnt_md2,R30
+                 ; 0000 00C2 		if(cnt_md2==0) bMD2=0;
+00019e 30e0      	CPI  R30,0
+00019f f411      	BRNE _0x31
+0001a0 94e8      	CLT
+0001a1 f837      	BLD  R3,7
+                 ; 0000 00C3 		}
                  _0x31:
-                 ; 0000 00CF else
-0001b0 c00b      	RJMP _0x33
+                 ; 0000 00C4 
+                 ; 0000 00C5 	}
                  _0x30:
-                 ; 0000 00D0 	{
-                 ; 0000 00D1 	if(cnt_vr1)
-0001b1 91e0 026b 	LDS  R30,_cnt_vr1
-0001b3 30e0      	CPI  R30,0
-0001b4 f039      	BREQ _0x34
-                 ; 0000 00D2 		{
-                 ; 0000 00D3 		cnt_vr1--;
-0001b5 50e1      	SUBI R30,LOW(1)
-0001b6 93e0 026b 	STS  _cnt_vr1,R30
-                 ; 0000 00D4 		if(cnt_vr1==0) bVR1=0;
-0001b8 30e0      	CPI  R30,0
-0001b9 f411      	BRNE _0x35
-0001ba 94e8      	CLT
-0001bb f834      	BLD  R3,4
-                 ; 0000 00D5 		}
-                 _0x35:
-                 ; 0000 00D6 
-                 ; 0000 00D7 	}
+                 _0x2F:
+                 ; 0000 00C6 
+                 ; 0000 00C7 if(!(in_word&(1<<VR1)))
+0001a2 91e0 0265 	LDS  R30,_in_word
+0001a4 70e4      	ANDI R30,LOW(0x4)
+0001a5 f481      	BRNE _0x32
+                 ; 0000 00C8 	{
+                 ; 0000 00C9 	if(cnt_vr1<10)
+0001a6 91a0 026b 	LDS  R26,_cnt_vr1
+0001a8 30aa      	CPI  R26,LOW(0xA)
+0001a9 f458      	BRSH _0x33
+                 ; 0000 00CA 		{
+                 ; 0000 00CB 		cnt_vr1++;
+0001aa 91e0 026b 	LDS  R30,_cnt_vr1
+0001ac 5fef      	SUBI R30,-LOW(1)
+0001ad 93e0 026b 	STS  _cnt_vr1,R30
+                 ; 0000 00CC 		if(cnt_vr1==10) bVR1=1;
+0001af 91a0 026b 	LDS  R26,_cnt_vr1
+0001b1 30aa      	CPI  R26,LOW(0xA)
+0001b2 f411      	BRNE _0x34
+0001b3 9468      	SET
+0001b4 f834      	BLD  R3,4
+                 ; 0000 00CD 		}
                  _0x34:
+                 ; 0000 00CE 
+                 ; 0000 00CF 	}
                  _0x33:
-                 ; 0000 00D8 
-                 ; 0000 00D9 if(!(in_word&(1<<VR2)))
-0001bc 91e0 0265 	LDS  R30,_in_word
-0001be 74e0      	ANDI R30,LOW(0x40)
-0001bf f481      	BRNE _0x36
-                 ; 0000 00DA 	{
-                 ; 0000 00DB 	if(cnt_vr2<10)
-0001c0 91a0 026c 	LDS  R26,_cnt_vr2
-0001c2 30aa      	CPI  R26,LOW(0xA)
-0001c3 f458      	BRSH _0x37
-                 ; 0000 00DC 		{
-                 ; 0000 00DD 		cnt_vr2++;
-0001c4 91e0 026c 	LDS  R30,_cnt_vr2
-0001c6 5fef      	SUBI R30,-LOW(1)
-0001c7 93e0 026c 	STS  _cnt_vr2,R30
-                 ; 0000 00DE 		if(cnt_vr2==10) bVR2=1;
-0001c9 91a0 026c 	LDS  R26,_cnt_vr2
-0001cb 30aa      	CPI  R26,LOW(0xA)
-0001cc f411      	BRNE _0x38
-0001cd 9468      	SET
-0001ce f835      	BLD  R3,5
-                 ; 0000 00DF 		}
-                 _0x38:
-                 ; 0000 00E0 
-                 ; 0000 00E1 	}
+                 ; 0000 00D0 else
+0001b5 c00b      	RJMP _0x35
+                 _0x32:
+                 ; 0000 00D1 	{
+                 ; 0000 00D2 	if(cnt_vr1)
+0001b6 91e0 026b 	LDS  R30,_cnt_vr1
+0001b8 30e0      	CPI  R30,0
+0001b9 f039      	BREQ _0x36
+                 ; 0000 00D3 		{
+                 ; 0000 00D4 		cnt_vr1--;
+0001ba 50e1      	SUBI R30,LOW(1)
+0001bb 93e0 026b 	STS  _cnt_vr1,R30
+                 ; 0000 00D5 		if(cnt_vr1==0) bVR1=0;
+0001bd 30e0      	CPI  R30,0
+0001be f411      	BRNE _0x37
+0001bf 94e8      	CLT
+0001c0 f834      	BLD  R3,4
+                 ; 0000 00D6 		}
                  _0x37:
-                 ; 0000 00E2 else
-0001cf c00b      	RJMP _0x39
+                 ; 0000 00D7 
+                 ; 0000 00D8 	}
                  _0x36:
-                 ; 0000 00E3 	{
-                 ; 0000 00E4 	if(cnt_vr2)
-0001d0 91e0 026c 	LDS  R30,_cnt_vr2
-0001d2 30e0      	CPI  R30,0
-0001d3 f039      	BREQ _0x3A
-                 ; 0000 00E5 		{
-                 ; 0000 00E6 		cnt_vr2--;
-0001d4 50e1      	SUBI R30,LOW(1)
-0001d5 93e0 026c 	STS  _cnt_vr2,R30
-                 ; 0000 00E7 		if(cnt_vr2==0) bVR2=0;
-0001d7 30e0      	CPI  R30,0
-0001d8 f411      	BRNE _0x3B
-0001d9 94e8      	CLT
-0001da f835      	BLD  R3,5
-                 ; 0000 00E8 		}
-                 _0x3B:
-                 ; 0000 00E9 
-                 ; 0000 00EA 	}
+                 _0x35:
+                 ; 0000 00D9 
+                 ; 0000 00DA if(!(in_word&(1<<VR2)))
+0001c1 91e0 0265 	LDS  R30,_in_word
+0001c3 74e0      	ANDI R30,LOW(0x40)
+0001c4 f481      	BRNE _0x38
+                 ; 0000 00DB 	{
+                 ; 0000 00DC 	if(cnt_vr2<10)
+0001c5 91a0 026c 	LDS  R26,_cnt_vr2
+0001c7 30aa      	CPI  R26,LOW(0xA)
+0001c8 f458      	BRSH _0x39
+                 ; 0000 00DD 		{
+                 ; 0000 00DE 		cnt_vr2++;
+0001c9 91e0 026c 	LDS  R30,_cnt_vr2
+0001cb 5fef      	SUBI R30,-LOW(1)
+0001cc 93e0 026c 	STS  _cnt_vr2,R30
+                 ; 0000 00DF 		if(cnt_vr2==10) bVR2=1;
+0001ce 91a0 026c 	LDS  R26,_cnt_vr2
+0001d0 30aa      	CPI  R26,LOW(0xA)
+0001d1 f411      	BRNE _0x3A
+0001d2 9468      	SET
+0001d3 f835      	BLD  R3,5
+                 ; 0000 00E0 		}
                  _0x3A:
+                 ; 0000 00E1 
+                 ; 0000 00E2 	}
                  _0x39:
-                 ; 0000 00EB }
-0001db 9508      	RET
+                 ; 0000 00E3 else
+0001d4 c00b      	RJMP _0x3B
+                 _0x38:
+                 ; 0000 00E4 	{
+                 ; 0000 00E5 	if(cnt_vr2)
+0001d5 91e0 026c 	LDS  R30,_cnt_vr2
+0001d7 30e0      	CPI  R30,0
+0001d8 f039      	BREQ _0x3C
+                 ; 0000 00E6 		{
+                 ; 0000 00E7 		cnt_vr2--;
+0001d9 50e1      	SUBI R30,LOW(1)
+0001da 93e0 026c 	STS  _cnt_vr2,R30
+                 ; 0000 00E8 		if(cnt_vr2==0) bVR2=0;
+0001dc 30e0      	CPI  R30,0
+0001dd f411      	BRNE _0x3D
+0001de 94e8      	CLT
+0001df f835      	BLD  R3,5
+                 ; 0000 00E9 		}
+                 _0x3D:
+                 ; 0000 00EA 
+                 ; 0000 00EB 	}
+                 _0x3C:
+                 _0x3B:
+                 ; 0000 00EC }
+0001e0 9508      	RET
                  ; .FEND
                  ;
                  ;//-----------------------------------------------
                  ;void step1_contr(void)
-                 ; 0000 00EF {
+                 ; 0000 00F0 {
                  _step1_contr:
                  ; .FSTART _step1_contr
-                 ; 0000 00F0 
-                 ; 0000 00F1 out_stat1=0;
-0001dc e0e0      	LDI  R30,LOW(0)
-0001dd 93e0 0278 	STS  _out_stat1,R30
-                 ; 0000 00F2 if(mode1==mOFF)step1=sOFF;
-0001df 91a0 0273 	LDS  R26,_mode1
-0001e1 30a1      	CPI  R26,LOW(0x1)
-0001e2 f411      	BRNE _0x3C
-0001e3 93e0 0271 	STS  _step1,R30
-                 ; 0000 00F3 
-                 ; 0000 00F4 if(step1==sOFF)
-                 _0x3C:
-0001e5 91e0 0271 	LDS  R30,_step1
-0001e7 30e0      	CPI  R30,0
-0001e8 f409      	BRNE _0x3D
-                 ; 0000 00F5 	{
-                 ; 0000 00F6 
-                 ; 0000 00F7 	}
-                 ; 0000 00F8 else if(step1==s1)
-0001e9 c081      	RJMP _0x3E
-                 _0x3D:
-0001ea 91a0 0271 	LDS  R26,_step1
-0001ec 30a1      	CPI  R26,LOW(0x1)
-0001ed f429      	BRNE _0x3F
-                 ; 0000 00F9 	{
-                 ; 0000 00FA 	cnt_del1=20;
-0001ee e1e4      	LDI  R30,LOW(20)
-0001ef 93e0 0275 	STS  _cnt_del1,R30
-                 ; 0000 00FB 	step1=s2;
-0001f1 e0e2      	LDI  R30,LOW(2)
-0001f2 c076      	RJMP _0xEE
-                 ; 0000 00FC 	}
-                 ; 0000 00FD else if(step1==s2)
-                 _0x3F:
-0001f3 91a0 0271 	LDS  R26,_step1
-0001f5 30a2      	CPI  R26,LOW(0x2)
-0001f6 f451      	BRNE _0x41
-                 ; 0000 00FE 	{
-                 ; 0000 00FF 	cnt_del1--;
-0001f7 940e 04fd 	CALL SUBOPT_0x0
-                 ; 0000 0100 	if(cnt_del1==0)
-0001f9 f431      	BRNE _0x42
-                 ; 0000 0101 		{
-                 ; 0000 0102 		cnt_del1=20;
-0001fa e1e4      	LDI  R30,LOW(20)
-0001fb 93e0 0275 	STS  _cnt_del1,R30
-                 ; 0000 0103 		step1=s3;
-0001fd e0e3      	LDI  R30,LOW(3)
-0001fe 93e0 0271 	STS  _step1,R30
-                 ; 0000 0104 		}
-                 ; 0000 0105 	}
-                 _0x42:
-                 ; 0000 0106 else if(step1==s3)
-000200 c06a      	RJMP _0x43
-                 _0x41:
-000201 91a0 0271 	LDS  R26,_step1
-000203 30a3      	CPI  R26,LOW(0x3)
-000204 f451      	BRNE _0x44
-                 ; 0000 0107 	{
-                 ; 0000 0108 	out_stat1|=(1<<PP1_1);
-000205 91e0 0278 	LDS  R30,_out_stat1
-000207 64e0      	ORI  R30,0x40
-000208 940e 0504 	CALL SUBOPT_0x1
-                 ; 0000 0109 	cnt_del1--;
-                 ; 0000 010A 	if(cnt_del1==0)
-00020a f419      	BRNE _0x45
-                 ; 0000 010B 		{
-                 ; 0000 010C 		step1=s4;
-00020b e0e4      	LDI  R30,LOW(4)
-00020c 93e0 0271 	STS  _step1,R30
-                 ; 0000 010D 		}
-                 ; 0000 010E 
-                 ; 0000 010F 	}
-                 _0x45:
-                 ; 0000 0110 else if(step1==s4)
-00020e c05c      	RJMP _0x46
-                 _0x44:
-00020f 91a0 0271 	LDS  R26,_step1
-000211 30a4      	CPI  R26,LOW(0x4)
-000212 f471      	BRNE _0x47
-                 ; 0000 0111 	{
-                 ; 0000 0112 	out_stat1|=(1<<PP1_1)|(1<<PP1_2);
-000213 91e0 0278 	LDS  R30,_out_stat1
-000215 6ce0      	ORI  R30,LOW(0xC0)
-000216 93e0 0278 	STS  _out_stat1,R30
-                 ; 0000 0113 	if(bVR1)
-000218 fe34      	SBRS R3,4
-000219 c006      	RJMP _0x48
-                 ; 0000 0114 		{
-                 ; 0000 0115 		step1=s5;
-00021a e0e5      	LDI  R30,LOW(5)
-00021b 93e0 0271 	STS  _step1,R30
-                 ; 0000 0116 		cnt_del1=50;
-00021d e3e2      	LDI  R30,LOW(50)
-00021e 93e0 0275 	STS  _cnt_del1,R30
-                 ; 0000 0117 		}
-                 ; 0000 0118 	}
-                 _0x48:
-                 ; 0000 0119 else if(step1==s5)
-000220 c04a      	RJMP _0x49
-                 _0x47:
-000221 91a0 0271 	LDS  R26,_step1
-000223 30a5      	CPI  R26,LOW(0x5)
-000224 f469      	BRNE _0x4A
-                 ; 0000 011A 	{
-                 ; 0000 011B 	out_stat1|=(1<<PP1_1)|(1<<PP1_2)|(1<<PP1_3);
-000225 91e0 0278 	LDS  R30,_out_stat1
-000227 6ee0      	ORI  R30,LOW(0xE0)
-000228 940e 0504 	CALL SUBOPT_0x1
-                 ; 0000 011C 	cnt_del1--;
-                 ; 0000 011D 	if(cnt_del1==0)
-00022a f431      	BRNE _0x4B
-                 ; 0000 011E 		{
-                 ; 0000 011F 		cnt_del1=80;
-00022b e5e0      	LDI  R30,LOW(80)
-00022c 93e0 0275 	STS  _cnt_del1,R30
-                 ; 0000 0120 		step1=s6;
-00022e e0e6      	LDI  R30,LOW(6)
-00022f 93e0 0271 	STS  _step1,R30
-                 ; 0000 0121 		}
-                 ; 0000 0122 	}
-                 _0x4B:
-                 ; 0000 0123 else if(step1==s6)
-000231 c039      	RJMP _0x4C
-                 _0x4A:
-000232 91a0 0271 	LDS  R26,_step1
-000234 30a6      	CPI  R26,LOW(0x6)
-000235 f469      	BRNE _0x4D
-                 ; 0000 0124 	{
-                 ; 0000 0125 	out_stat1|=(1<<PP1_1)|(1<<PP1_2)|(1<<PP1_3)|(1<<PP1_4);
-000236 91e0 0278 	LDS  R30,_out_stat1
-000238 6fe0      	ORI  R30,LOW(0xF0)
-000239 940e 0504 	CALL SUBOPT_0x1
-                 ; 0000 0126 	cnt_del1--;
-                 ; 0000 0127 	if(cnt_del1==0)
-00023b f431      	BRNE _0x4E
-                 ; 0000 0128 		{
-                 ; 0000 0129 		cnt_del1=60;
-00023c e3ec      	LDI  R30,LOW(60)
-00023d 93e0 0275 	STS  _cnt_del1,R30
-                 ; 0000 012A 		step1=s7;
-00023f e0e7      	LDI  R30,LOW(7)
-000240 93e0 0271 	STS  _step1,R30
-                 ; 0000 012B 		}
-                 ; 0000 012C 	}
-                 _0x4E:
-                 ; 0000 012D else if(step1==s7)
-000242 c028      	RJMP _0x4F
-                 _0x4D:
-000243 91a0 0271 	LDS  R26,_step1
-000245 30a7      	CPI  R26,LOW(0x7)
-000246 f469      	BRNE _0x50
-                 ; 0000 012E 	{
-                 ; 0000 012F 	out_stat1|=(1<<PP1_1)|(1<<PP1_4);
-000247 91e0 0278 	LDS  R30,_out_stat1
-000249 65e0      	ORI  R30,LOW(0x50)
-00024a 940e 0504 	CALL SUBOPT_0x1
-                 ; 0000 0130 	cnt_del1--;
-                 ; 0000 0131 	if(cnt_del1==0)
-00024c f431      	BRNE _0x51
-                 ; 0000 0132 		{
-                 ; 0000 0133 		cnt_del1=20;
-00024d e1e4      	LDI  R30,LOW(20)
-00024e 93e0 0275 	STS  _cnt_del1,R30
-                 ; 0000 0134 		step1=s8;
-000250 e0e8      	LDI  R30,LOW(8)
-000251 93e0 0271 	STS  _step1,R30
-                 ; 0000 0135 		}
-                 ; 0000 0136 	}
-                 _0x51:
-                 ; 0000 0137 else if(step1==s8)
-000253 c017      	RJMP _0x52
-                 _0x50:
-000254 91a0 0271 	LDS  R26,_step1
-000256 30a8      	CPI  R26,LOW(0x8)
-000257 f451      	BRNE _0x53
-                 ; 0000 0138 	{
-                 ; 0000 0139 	out_stat1|=(1<<PP1_4);
-000258 91e0 0278 	LDS  R30,_out_stat1
-00025a 61e0      	ORI  R30,0x10
-00025b 940e 0504 	CALL SUBOPT_0x1
-                 ; 0000 013A 	cnt_del1--;
-                 ; 0000 013B 	if(cnt_del1==0)
-00025d f419      	BRNE _0x54
-                 ; 0000 013C 		{
-                 ; 0000 013D 		step1=s9;
-00025e e0e9      	LDI  R30,LOW(9)
-00025f 93e0 0271 	STS  _step1,R30
-                 ; 0000 013E 		}
-                 ; 0000 013F 	}
-                 _0x54:
-                 ; 0000 0140 else if(step1==s9)
-000261 c009      	RJMP _0x55
-                 _0x53:
-000262 91a0 0271 	LDS  R26,_step1
-000264 30a9      	CPI  R26,LOW(0x9)
-000265 f429      	BRNE _0x56
-                 ; 0000 0141 	{
-                 ; 0000 0142 	if(bMD1)
-000266 fe36      	SBRS R3,6
-000267 c003      	RJMP _0x57
-                 ; 0000 0143 		{
-                 ; 0000 0144 		step1=sOFF;
-000268 e0e0      	LDI  R30,LOW(0)
-                 _0xEE:
-000269 93e0 0271 	STS  _step1,R30
-                 ; 0000 0145 		}
-                 ; 0000 0146 	}
-                 _0x57:
-                 ; 0000 0147 
-                 ; 0000 0148 if(mode1==mTST)
-                 _0x56:
-                 _0x55:
-                 _0x52:
-                 _0x4F:
-                 _0x4C:
-                 _0x49:
-                 _0x46:
-                 _0x43:
+                 ; 0000 00F1 
+                 ; 0000 00F2 out_stat1=0;
+0001e1 e0e0      	LDI  R30,LOW(0)
+0001e2 93e0 0278 	STS  _out_stat1,R30
+                 ; 0000 00F3 if(mode1==mOFF)step1=sOFF;
+0001e4 91a0 0273 	LDS  R26,_mode1
+0001e6 30a1      	CPI  R26,LOW(0x1)
+0001e7 f411      	BRNE _0x3E
+0001e8 93e0 0271 	STS  _step1,R30
+                 ; 0000 00F4 
+                 ; 0000 00F5 if(step1==sOFF)
                  _0x3E:
-00026b 91a0 0273 	LDS  R26,_mode1
-00026d 30a2      	CPI  R26,LOW(0x2)
-00026e f511      	BRNE _0x58
-                 ; 0000 0149     {
-                 ; 0000 014A     out_stat1=0;
-00026f e0e0      	LDI  R30,LOW(0)
-000270 93e0 0278 	STS  _out_stat1,R30
-                 ; 0000 014B     if(tst_cnt==1)out_stat1|=(1<<PP1_1);
-000272 91a0 0285 	LDS  R26,_tst_cnt
-000274 30a1      	CPI  R26,LOW(0x1)
-000275 f411      	BRNE _0x59
-000276 64e0      	ORI  R30,0x40
-000277 c017      	RJMP _0xEF
-                 ; 0000 014C     else if(tst_cnt==2)out_stat1|=(1<<PP1_2);
+0001ea 91e0 0271 	LDS  R30,_step1
+0001ec 30e0      	CPI  R30,0
+0001ed f409      	BRNE _0x3F
+                 ; 0000 00F6 	{
+                 ; 0000 00F7 
+                 ; 0000 00F8 	}
+                 ; 0000 00F9 else if(step1==s1)
+0001ee c081      	RJMP _0x40
+                 _0x3F:
+0001ef 91a0 0271 	LDS  R26,_step1
+0001f1 30a1      	CPI  R26,LOW(0x1)
+0001f2 f429      	BRNE _0x41
+                 ; 0000 00FA 	{
+                 ; 0000 00FB 	cnt_del1=20;
+0001f3 e1e4      	LDI  R30,LOW(20)
+0001f4 93e0 0275 	STS  _cnt_del1,R30
+                 ; 0000 00FC 	step1=s2;
+0001f6 e0e2      	LDI  R30,LOW(2)
+0001f7 c076      	RJMP _0xF2
+                 ; 0000 00FD 	}
+                 ; 0000 00FE else if(step1==s2)
+                 _0x41:
+0001f8 91a0 0271 	LDS  R26,_step1
+0001fa 30a2      	CPI  R26,LOW(0x2)
+0001fb f451      	BRNE _0x43
+                 ; 0000 00FF 	{
+                 ; 0000 0100 	cnt_del1--;
+0001fc 940e 0509 	CALL SUBOPT_0x0
+                 ; 0000 0101 	if(cnt_del1==0)
+0001fe f431      	BRNE _0x44
+                 ; 0000 0102 		{
+                 ; 0000 0103 		cnt_del1=20;
+0001ff e1e4      	LDI  R30,LOW(20)
+000200 93e0 0275 	STS  _cnt_del1,R30
+                 ; 0000 0104 		step1=s3;
+000202 e0e3      	LDI  R30,LOW(3)
+000203 93e0 0271 	STS  _step1,R30
+                 ; 0000 0105 		}
+                 ; 0000 0106 	}
+                 _0x44:
+                 ; 0000 0107 else if(step1==s3)
+000205 c06a      	RJMP _0x45
+                 _0x43:
+000206 91a0 0271 	LDS  R26,_step1
+000208 30a3      	CPI  R26,LOW(0x3)
+000209 f451      	BRNE _0x46
+                 ; 0000 0108 	{
+                 ; 0000 0109 	out_stat1|=(1<<PP1_1);
+00020a 91e0 0278 	LDS  R30,_out_stat1
+00020c 64e0      	ORI  R30,0x40
+00020d 940e 0510 	CALL SUBOPT_0x1
+                 ; 0000 010A 	cnt_del1--;
+                 ; 0000 010B 	if(cnt_del1==0)
+00020f f419      	BRNE _0x47
+                 ; 0000 010C 		{
+                 ; 0000 010D 		step1=s4;
+000210 e0e4      	LDI  R30,LOW(4)
+000211 93e0 0271 	STS  _step1,R30
+                 ; 0000 010E 		}
+                 ; 0000 010F 
+                 ; 0000 0110 	}
+                 _0x47:
+                 ; 0000 0111 else if(step1==s4)
+000213 c05c      	RJMP _0x48
+                 _0x46:
+000214 91a0 0271 	LDS  R26,_step1
+000216 30a4      	CPI  R26,LOW(0x4)
+000217 f471      	BRNE _0x49
+                 ; 0000 0112 	{
+                 ; 0000 0113 	out_stat1|=(1<<PP1_1)|(1<<PP1_2);
+000218 91e0 0278 	LDS  R30,_out_stat1
+00021a 6ce0      	ORI  R30,LOW(0xC0)
+00021b 93e0 0278 	STS  _out_stat1,R30
+                 ; 0000 0114 	if(bVR1)
+00021d fe34      	SBRS R3,4
+00021e c006      	RJMP _0x4A
+                 ; 0000 0115 		{
+                 ; 0000 0116 		step1=s5;
+00021f e0e5      	LDI  R30,LOW(5)
+000220 93e0 0271 	STS  _step1,R30
+                 ; 0000 0117 		cnt_del1=50;
+000222 e3e2      	LDI  R30,LOW(50)
+000223 93e0 0275 	STS  _cnt_del1,R30
+                 ; 0000 0118 		}
+                 ; 0000 0119 	}
+                 _0x4A:
+                 ; 0000 011A else if(step1==s5)
+000225 c04a      	RJMP _0x4B
+                 _0x49:
+000226 91a0 0271 	LDS  R26,_step1
+000228 30a5      	CPI  R26,LOW(0x5)
+000229 f469      	BRNE _0x4C
+                 ; 0000 011B 	{
+                 ; 0000 011C 	out_stat1|=(1<<PP1_1)|(1<<PP1_2)|(1<<PP1_3);
+00022a 91e0 0278 	LDS  R30,_out_stat1
+00022c 6ee0      	ORI  R30,LOW(0xE0)
+00022d 940e 0510 	CALL SUBOPT_0x1
+                 ; 0000 011D 	cnt_del1--;
+                 ; 0000 011E 	if(cnt_del1==0)
+00022f f431      	BRNE _0x4D
+                 ; 0000 011F 		{
+                 ; 0000 0120 		cnt_del1=80;
+000230 e5e0      	LDI  R30,LOW(80)
+000231 93e0 0275 	STS  _cnt_del1,R30
+                 ; 0000 0121 		step1=s6;
+000233 e0e6      	LDI  R30,LOW(6)
+000234 93e0 0271 	STS  _step1,R30
+                 ; 0000 0122 		}
+                 ; 0000 0123 	}
+                 _0x4D:
+                 ; 0000 0124 else if(step1==s6)
+000236 c039      	RJMP _0x4E
+                 _0x4C:
+000237 91a0 0271 	LDS  R26,_step1
+000239 30a6      	CPI  R26,LOW(0x6)
+00023a f469      	BRNE _0x4F
+                 ; 0000 0125 	{
+                 ; 0000 0126 	out_stat1|=(1<<PP1_1)|(1<<PP1_2)|(1<<PP1_3)|(1<<PP1_4);
+00023b 91e0 0278 	LDS  R30,_out_stat1
+00023d 6fe0      	ORI  R30,LOW(0xF0)
+00023e 940e 0510 	CALL SUBOPT_0x1
+                 ; 0000 0127 	cnt_del1--;
+                 ; 0000 0128 	if(cnt_del1==0)
+000240 f431      	BRNE _0x50
+                 ; 0000 0129 		{
+                 ; 0000 012A 		cnt_del1=60;
+000241 e3ec      	LDI  R30,LOW(60)
+000242 93e0 0275 	STS  _cnt_del1,R30
+                 ; 0000 012B 		step1=s7;
+000244 e0e7      	LDI  R30,LOW(7)
+000245 93e0 0271 	STS  _step1,R30
+                 ; 0000 012C 		}
+                 ; 0000 012D 	}
+                 _0x50:
+                 ; 0000 012E else if(step1==s7)
+000247 c028      	RJMP _0x51
+                 _0x4F:
+000248 91a0 0271 	LDS  R26,_step1
+00024a 30a7      	CPI  R26,LOW(0x7)
+00024b f469      	BRNE _0x52
+                 ; 0000 012F 	{
+                 ; 0000 0130 	out_stat1|=(1<<PP1_1)|(1<<PP1_4);
+00024c 91e0 0278 	LDS  R30,_out_stat1
+00024e 65e0      	ORI  R30,LOW(0x50)
+00024f 940e 0510 	CALL SUBOPT_0x1
+                 ; 0000 0131 	cnt_del1--;
+                 ; 0000 0132 	if(cnt_del1==0)
+000251 f431      	BRNE _0x53
+                 ; 0000 0133 		{
+                 ; 0000 0134 		cnt_del1=20;
+000252 e1e4      	LDI  R30,LOW(20)
+000253 93e0 0275 	STS  _cnt_del1,R30
+                 ; 0000 0135 		step1=s8;
+000255 e0e8      	LDI  R30,LOW(8)
+000256 93e0 0271 	STS  _step1,R30
+                 ; 0000 0136 		}
+                 ; 0000 0137 	}
+                 _0x53:
+                 ; 0000 0138 else if(step1==s8)
+000258 c017      	RJMP _0x54
+                 _0x52:
+000259 91a0 0271 	LDS  R26,_step1
+00025b 30a8      	CPI  R26,LOW(0x8)
+00025c f451      	BRNE _0x55
+                 ; 0000 0139 	{
+                 ; 0000 013A 	out_stat1|=(1<<PP1_4);
+00025d 91e0 0278 	LDS  R30,_out_stat1
+00025f 61e0      	ORI  R30,0x10
+000260 940e 0510 	CALL SUBOPT_0x1
+                 ; 0000 013B 	cnt_del1--;
+                 ; 0000 013C 	if(cnt_del1==0)
+000262 f419      	BRNE _0x56
+                 ; 0000 013D 		{
+                 ; 0000 013E 		step1=s9;
+000263 e0e9      	LDI  R30,LOW(9)
+000264 93e0 0271 	STS  _step1,R30
+                 ; 0000 013F 		}
+                 ; 0000 0140 	}
+                 _0x56:
+                 ; 0000 0141 else if(step1==s9)
+000266 c009      	RJMP _0x57
+                 _0x55:
+000267 91a0 0271 	LDS  R26,_step1
+000269 30a9      	CPI  R26,LOW(0x9)
+00026a f429      	BRNE _0x58
+                 ; 0000 0142 	{
+                 ; 0000 0143 	if(bMD1)
+00026b fe36      	SBRS R3,6
+00026c c003      	RJMP _0x59
+                 ; 0000 0144 		{
+                 ; 0000 0145 		step1=sOFF;
+00026d e0e0      	LDI  R30,LOW(0)
+                 _0xF2:
+00026e 93e0 0271 	STS  _step1,R30
+                 ; 0000 0146 		}
+                 ; 0000 0147 	}
                  _0x59:
-000278 91a0 0285 	LDS  R26,_tst_cnt
-00027a 30a2      	CPI  R26,LOW(0x2)
-00027b f421      	BRNE _0x5B
-00027c 91e0 0278 	LDS  R30,_out_stat1
-00027e 68e0      	ORI  R30,0x80
-00027f c00f      	RJMP _0xEF
-                 ; 0000 014D     else if(tst_cnt==3)out_stat1|=(1<<PP1_3);
-                 _0x5B:
-000280 91a0 0285 	LDS  R26,_tst_cnt
-000282 30a3      	CPI  R26,LOW(0x3)
-000283 f421      	BRNE _0x5D
-000284 91e0 0278 	LDS  R30,_out_stat1
-000286 62e0      	ORI  R30,0x20
-000287 c007      	RJMP _0xEF
-                 ; 0000 014E     else if(tst_cnt==4)out_stat1|=(1<<PP1_4);
-                 _0x5D:
-000288 91a0 0285 	LDS  R26,_tst_cnt
-00028a 30a4      	CPI  R26,LOW(0x4)
-00028b f429      	BRNE _0x5F
-00028c 91e0 0278 	LDS  R30,_out_stat1
-00028e 61e0      	ORI  R30,0x10
-                 _0xEF:
-00028f 93e0 0278 	STS  _out_stat1,R30
-                 ; 0000 014F     }
-                 _0x5F:
-                 ; 0000 0150 }
+                 ; 0000 0148 
+                 ; 0000 0149 if(mode1==mTST)
                  _0x58:
-000291 9508      	RET
+                 _0x57:
+                 _0x54:
+                 _0x51:
+                 _0x4E:
+                 _0x4B:
+                 _0x48:
+                 _0x45:
+                 _0x40:
+000270 91a0 0273 	LDS  R26,_mode1
+000272 30a2      	CPI  R26,LOW(0x2)
+000273 f511      	BRNE _0x5A
+                 ; 0000 014A     {
+                 ; 0000 014B     out_stat1=0;
+000274 e0e0      	LDI  R30,LOW(0)
+000275 93e0 0278 	STS  _out_stat1,R30
+                 ; 0000 014C     if(tst_out_cnt==1)out_stat1|=(1<<PP1_1);
+000277 91a0 0286 	LDS  R26,_tst_out_cnt
+000279 30a1      	CPI  R26,LOW(0x1)
+00027a f411      	BRNE _0x5B
+00027b 64e0      	ORI  R30,0x40
+00027c c017      	RJMP _0xF3
+                 ; 0000 014D     else if(tst_out_cnt==2)out_stat1|=(1<<PP1_2);
+                 _0x5B:
+00027d 91a0 0286 	LDS  R26,_tst_out_cnt
+00027f 30a2      	CPI  R26,LOW(0x2)
+000280 f421      	BRNE _0x5D
+000281 91e0 0278 	LDS  R30,_out_stat1
+000283 68e0      	ORI  R30,0x80
+000284 c00f      	RJMP _0xF3
+                 ; 0000 014E     else if(tst_out_cnt==3)out_stat1|=(1<<PP1_3);
+                 _0x5D:
+000285 91a0 0286 	LDS  R26,_tst_out_cnt
+000287 30a3      	CPI  R26,LOW(0x3)
+000288 f421      	BRNE _0x5F
+000289 91e0 0278 	LDS  R30,_out_stat1
+00028b 62e0      	ORI  R30,0x20
+00028c c007      	RJMP _0xF3
+                 ; 0000 014F     else if(tst_out_cnt==4)out_stat1|=(1<<PP1_4);
+                 _0x5F:
+00028d 91a0 0286 	LDS  R26,_tst_out_cnt
+00028f 30a4      	CPI  R26,LOW(0x4)
+000290 f429      	BRNE _0x61
+000291 91e0 0278 	LDS  R30,_out_stat1
+000293 61e0      	ORI  R30,0x10
+                 _0xF3:
+000294 93e0 0278 	STS  _out_stat1,R30
+                 ; 0000 0150     }
+                 _0x61:
+                 ; 0000 0151 }
+                 _0x5A:
+000296 9508      	RET
                  ; .FEND
                  ;
                  ;//-----------------------------------------------
                  ;void step2_contr(void)
-                 ; 0000 0154 {
+                 ; 0000 0155 {
                  _step2_contr:
                  ; .FSTART _step2_contr
-                 ; 0000 0155 out_stat2=0;
-000292 e0e0      	LDI  R30,LOW(0)
-000293 93e0 0279 	STS  _out_stat2,R30
-                 ; 0000 0156 if(mode2==mOFF)step2=sOFF;
-000295 91a0 0274 	LDS  R26,_mode2
-000297 30a1      	CPI  R26,LOW(0x1)
-000298 f411      	BRNE _0x60
-000299 93e0 0272 	STS  _step2,R30
-                 ; 0000 0157 
-                 ; 0000 0158 if(step2==sOFF)
-                 _0x60:
-00029b 91e0 0272 	LDS  R30,_step2
-00029d 30e0      	CPI  R30,0
-00029e f409      	BRNE _0x61
-                 ; 0000 0159 	{
-                 ; 0000 015A 
-                 ; 0000 015B 	}
-                 ; 0000 015C else if(step2==s1)
-00029f c081      	RJMP _0x62
-                 _0x61:
-0002a0 91a0 0272 	LDS  R26,_step2
-0002a2 30a1      	CPI  R26,LOW(0x1)
-0002a3 f429      	BRNE _0x63
-                 ; 0000 015D 	{
-                 ; 0000 015E 	cnt_del2=20;
-0002a4 e1e4      	LDI  R30,LOW(20)
-0002a5 93e0 0276 	STS  _cnt_del2,R30
-                 ; 0000 015F 	step2=s2;
-0002a7 e0e2      	LDI  R30,LOW(2)
-0002a8 c076      	RJMP _0xF0
-                 ; 0000 0160 	}
-                 ; 0000 0161 else if(step2==s2)
-                 _0x63:
-0002a9 91a0 0272 	LDS  R26,_step2
-0002ab 30a2      	CPI  R26,LOW(0x2)
-0002ac f451      	BRNE _0x65
-                 ; 0000 0162 	{
-                 ; 0000 0163 	cnt_del2--;
-0002ad 940e 0507 	CALL SUBOPT_0x2
-                 ; 0000 0164 	if(cnt_del2==0)
-0002af f431      	BRNE _0x66
-                 ; 0000 0165 		{
-                 ; 0000 0166 		cnt_del2=20;
-0002b0 e1e4      	LDI  R30,LOW(20)
-0002b1 93e0 0276 	STS  _cnt_del2,R30
-                 ; 0000 0167 		step2=s3;
-0002b3 e0e3      	LDI  R30,LOW(3)
-0002b4 93e0 0272 	STS  _step2,R30
-                 ; 0000 0168 		}
-                 ; 0000 0169 	}
-                 _0x66:
-                 ; 0000 016A else if(step2==s3)
-0002b6 c06a      	RJMP _0x67
-                 _0x65:
-0002b7 91a0 0272 	LDS  R26,_step2
-0002b9 30a3      	CPI  R26,LOW(0x3)
-0002ba f451      	BRNE _0x68
-                 ; 0000 016B 	{
-                 ; 0000 016C 	out_stat2|=(1<<PP2_1);
-0002bb 91e0 0279 	LDS  R30,_out_stat2
-0002bd 60e8      	ORI  R30,8
-0002be 940e 050e 	CALL SUBOPT_0x3
-                 ; 0000 016D 	cnt_del2--;
-                 ; 0000 016E 	if(cnt_del2==0)
-0002c0 f419      	BRNE _0x69
-                 ; 0000 016F 		{
-                 ; 0000 0170 		step2=s4;
-0002c1 e0e4      	LDI  R30,LOW(4)
-0002c2 93e0 0272 	STS  _step2,R30
-                 ; 0000 0171 		}
-                 ; 0000 0172 
-                 ; 0000 0173 	}
-                 _0x69:
-                 ; 0000 0174 else if(step2==s4)
-0002c4 c05c      	RJMP _0x6A
-                 _0x68:
-0002c5 91a0 0272 	LDS  R26,_step2
-0002c7 30a4      	CPI  R26,LOW(0x4)
-0002c8 f471      	BRNE _0x6B
-                 ; 0000 0175 	{
-                 ; 0000 0176 	out_stat2|=(1<<PP2_1)|(1<<PP2_2);
-0002c9 91e0 0279 	LDS  R30,_out_stat2
-0002cb 60ec      	ORI  R30,LOW(0xC)
-0002cc 93e0 0279 	STS  _out_stat2,R30
-                 ; 0000 0177 	if(bVR2)
-0002ce fe35      	SBRS R3,5
-0002cf c006      	RJMP _0x6C
-                 ; 0000 0178 		{
-                 ; 0000 0179 		step2=s5;
-0002d0 e0e5      	LDI  R30,LOW(5)
-0002d1 93e0 0272 	STS  _step2,R30
-                 ; 0000 017A 		cnt_del2=50;
-0002d3 e3e2      	LDI  R30,LOW(50)
-0002d4 93e0 0276 	STS  _cnt_del2,R30
-                 ; 0000 017B 		}
-                 ; 0000 017C 	}
-                 _0x6C:
-                 ; 0000 017D else if(step2==s5)
-0002d6 c04a      	RJMP _0x6D
-                 _0x6B:
-0002d7 91a0 0272 	LDS  R26,_step2
-0002d9 30a5      	CPI  R26,LOW(0x5)
-0002da f469      	BRNE _0x6E
-                 ; 0000 017E 	{
-                 ; 0000 017F 	out_stat2|=(1<<PP2_1)|(1<<PP2_2)|(1<<PP2_3);
-0002db 91e0 0279 	LDS  R30,_out_stat2
-0002dd 60ee      	ORI  R30,LOW(0xE)
-0002de 940e 050e 	CALL SUBOPT_0x3
-                 ; 0000 0180 	cnt_del2--;
-                 ; 0000 0181 	if(cnt_del2==0)
-0002e0 f431      	BRNE _0x6F
-                 ; 0000 0182 		{
-                 ; 0000 0183 		cnt_del2=80;
-0002e1 e5e0      	LDI  R30,LOW(80)
-0002e2 93e0 0276 	STS  _cnt_del2,R30
-                 ; 0000 0184 		step2=s6;
-0002e4 e0e6      	LDI  R30,LOW(6)
-0002e5 93e0 0272 	STS  _step2,R30
-                 ; 0000 0185 		}
-                 ; 0000 0186 	}
-                 _0x6F:
-                 ; 0000 0187 else if(step2==s6)
-0002e7 c039      	RJMP _0x70
-                 _0x6E:
-0002e8 91a0 0272 	LDS  R26,_step2
-0002ea 30a6      	CPI  R26,LOW(0x6)
-0002eb f469      	BRNE _0x71
-                 ; 0000 0188 	{
-                 ; 0000 0189 	out_stat2|=(1<<PP2_1)|(1<<PP2_2)|(1<<PP2_3)|(1<<PP2_4);
-0002ec 91e0 0279 	LDS  R30,_out_stat2
-0002ee 60ef      	ORI  R30,LOW(0xF)
-0002ef 940e 050e 	CALL SUBOPT_0x3
-                 ; 0000 018A 	cnt_del2--;
-                 ; 0000 018B 	if(cnt_del2==0)
-0002f1 f431      	BRNE _0x72
-                 ; 0000 018C 		{
-                 ; 0000 018D 		cnt_del2=60;
-0002f2 e3ec      	LDI  R30,LOW(60)
-0002f3 93e0 0276 	STS  _cnt_del2,R30
-                 ; 0000 018E 		step2=s7;
-0002f5 e0e7      	LDI  R30,LOW(7)
-0002f6 93e0 0272 	STS  _step2,R30
-                 ; 0000 018F 		}
-                 ; 0000 0190 	}
-                 _0x72:
-                 ; 0000 0191 else if(step2==s7)
-0002f8 c028      	RJMP _0x73
-                 _0x71:
-0002f9 91a0 0272 	LDS  R26,_step2
-0002fb 30a7      	CPI  R26,LOW(0x7)
-0002fc f469      	BRNE _0x74
-                 ; 0000 0192 	{
-                 ; 0000 0193 	out_stat2|=(1<<PP2_1)|(1<<PP2_4);
-0002fd 91e0 0279 	LDS  R30,_out_stat2
-0002ff 60e9      	ORI  R30,LOW(0x9)
-000300 940e 050e 	CALL SUBOPT_0x3
-                 ; 0000 0194 	cnt_del2--;
-                 ; 0000 0195 	if(cnt_del2==0)
-000302 f431      	BRNE _0x75
-                 ; 0000 0196 		{
-                 ; 0000 0197 		cnt_del2=20;
-000303 e1e4      	LDI  R30,LOW(20)
-000304 93e0 0276 	STS  _cnt_del2,R30
-                 ; 0000 0198 		step2=s8;
-000306 e0e8      	LDI  R30,LOW(8)
-000307 93e0 0272 	STS  _step2,R30
-                 ; 0000 0199 		}
-                 ; 0000 019A 	}
-                 _0x75:
-                 ; 0000 019B else if(step2==s8)
-000309 c017      	RJMP _0x76
-                 _0x74:
-00030a 91a0 0272 	LDS  R26,_step2
-00030c 30a8      	CPI  R26,LOW(0x8)
-00030d f451      	BRNE _0x77
-                 ; 0000 019C 	{
-                 ; 0000 019D 	out_stat2|=(1<<PP2_4);
-00030e 91e0 0279 	LDS  R30,_out_stat2
-000310 60e1      	ORI  R30,1
-000311 940e 050e 	CALL SUBOPT_0x3
-                 ; 0000 019E 	cnt_del2--;
-                 ; 0000 019F 	if(cnt_del2==0)
-000313 f419      	BRNE _0x78
-                 ; 0000 01A0 		{
-                 ; 0000 01A1 		step2=s9;
-000314 e0e9      	LDI  R30,LOW(9)
-000315 93e0 0272 	STS  _step2,R30
-                 ; 0000 01A2 		}
-                 ; 0000 01A3 	}
-                 _0x78:
-                 ; 0000 01A4 else if(step2==s9)
-000317 c009      	RJMP _0x79
-                 _0x77:
-000318 91a0 0272 	LDS  R26,_step2
-00031a 30a9      	CPI  R26,LOW(0x9)
-00031b f429      	BRNE _0x7A
-                 ; 0000 01A5 	{
-                 ; 0000 01A6 	if(bMD2)
-00031c fe37      	SBRS R3,7
-00031d c003      	RJMP _0x7B
-                 ; 0000 01A7 		{
-                 ; 0000 01A8 		step2=sOFF;
-00031e e0e0      	LDI  R30,LOW(0)
-                 _0xF0:
-00031f 93e0 0272 	STS  _step2,R30
-                 ; 0000 01A9 		}
-                 ; 0000 01AA 	}
-                 _0x7B:
-                 ; 0000 01AB 
-                 ; 0000 01AC if(mode2==mTST)
-                 _0x7A:
-                 _0x79:
-                 _0x76:
-                 _0x73:
-                 _0x70:
-                 _0x6D:
-                 _0x6A:
-                 _0x67:
+                 ; 0000 0156 out_stat2=0;
+000297 e0e0      	LDI  R30,LOW(0)
+000298 93e0 0279 	STS  _out_stat2,R30
+                 ; 0000 0157 if(mode2==mOFF)step2=sOFF;
+00029a 91a0 0274 	LDS  R26,_mode2
+00029c 30a1      	CPI  R26,LOW(0x1)
+00029d f411      	BRNE _0x62
+00029e 93e0 0272 	STS  _step2,R30
+                 ; 0000 0158 
+                 ; 0000 0159 if(step2==sOFF)
                  _0x62:
-000321 91a0 0274 	LDS  R26,_mode2
-000323 30a2      	CPI  R26,LOW(0x2)
-000324 f511      	BRNE _0x7C
-                 ; 0000 01AD     {
-                 ; 0000 01AE     out_stat2=0;
-000325 e0e0      	LDI  R30,LOW(0)
-000326 93e0 0279 	STS  _out_stat2,R30
-                 ; 0000 01AF     if(tst_cnt==1)out_stat2|=(1<<PP2_1);
-000328 91a0 0285 	LDS  R26,_tst_cnt
-00032a 30a1      	CPI  R26,LOW(0x1)
-00032b f411      	BRNE _0x7D
-00032c 60e8      	ORI  R30,8
-00032d c017      	RJMP _0xF1
-                 ; 0000 01B0     else if(tst_cnt==2)out_stat2|=(1<<PP2_2);
+0002a0 91e0 0272 	LDS  R30,_step2
+0002a2 30e0      	CPI  R30,0
+0002a3 f409      	BRNE _0x63
+                 ; 0000 015A 	{
+                 ; 0000 015B 
+                 ; 0000 015C 	}
+                 ; 0000 015D else if(step2==s1)
+0002a4 c081      	RJMP _0x64
+                 _0x63:
+0002a5 91a0 0272 	LDS  R26,_step2
+0002a7 30a1      	CPI  R26,LOW(0x1)
+0002a8 f429      	BRNE _0x65
+                 ; 0000 015E 	{
+                 ; 0000 015F 	cnt_del2=20;
+0002a9 e1e4      	LDI  R30,LOW(20)
+0002aa 93e0 0276 	STS  _cnt_del2,R30
+                 ; 0000 0160 	step2=s2;
+0002ac e0e2      	LDI  R30,LOW(2)
+0002ad c076      	RJMP _0xF4
+                 ; 0000 0161 	}
+                 ; 0000 0162 else if(step2==s2)
+                 _0x65:
+0002ae 91a0 0272 	LDS  R26,_step2
+0002b0 30a2      	CPI  R26,LOW(0x2)
+0002b1 f451      	BRNE _0x67
+                 ; 0000 0163 	{
+                 ; 0000 0164 	cnt_del2--;
+0002b2 940e 0513 	CALL SUBOPT_0x2
+                 ; 0000 0165 	if(cnt_del2==0)
+0002b4 f431      	BRNE _0x68
+                 ; 0000 0166 		{
+                 ; 0000 0167 		cnt_del2=20;
+0002b5 e1e4      	LDI  R30,LOW(20)
+0002b6 93e0 0276 	STS  _cnt_del2,R30
+                 ; 0000 0168 		step2=s3;
+0002b8 e0e3      	LDI  R30,LOW(3)
+0002b9 93e0 0272 	STS  _step2,R30
+                 ; 0000 0169 		}
+                 ; 0000 016A 	}
+                 _0x68:
+                 ; 0000 016B else if(step2==s3)
+0002bb c06a      	RJMP _0x69
+                 _0x67:
+0002bc 91a0 0272 	LDS  R26,_step2
+0002be 30a3      	CPI  R26,LOW(0x3)
+0002bf f451      	BRNE _0x6A
+                 ; 0000 016C 	{
+                 ; 0000 016D 	out_stat2|=(1<<PP2_1);
+0002c0 91e0 0279 	LDS  R30,_out_stat2
+0002c2 60e8      	ORI  R30,8
+0002c3 940e 051a 	CALL SUBOPT_0x3
+                 ; 0000 016E 	cnt_del2--;
+                 ; 0000 016F 	if(cnt_del2==0)
+0002c5 f419      	BRNE _0x6B
+                 ; 0000 0170 		{
+                 ; 0000 0171 		step2=s4;
+0002c6 e0e4      	LDI  R30,LOW(4)
+0002c7 93e0 0272 	STS  _step2,R30
+                 ; 0000 0172 		}
+                 ; 0000 0173 
+                 ; 0000 0174 	}
+                 _0x6B:
+                 ; 0000 0175 else if(step2==s4)
+0002c9 c05c      	RJMP _0x6C
+                 _0x6A:
+0002ca 91a0 0272 	LDS  R26,_step2
+0002cc 30a4      	CPI  R26,LOW(0x4)
+0002cd f471      	BRNE _0x6D
+                 ; 0000 0176 	{
+                 ; 0000 0177 	out_stat2|=(1<<PP2_1)|(1<<PP2_2);
+0002ce 91e0 0279 	LDS  R30,_out_stat2
+0002d0 60ec      	ORI  R30,LOW(0xC)
+0002d1 93e0 0279 	STS  _out_stat2,R30
+                 ; 0000 0178 	if(bVR2)
+0002d3 fe35      	SBRS R3,5
+0002d4 c006      	RJMP _0x6E
+                 ; 0000 0179 		{
+                 ; 0000 017A 		step2=s5;
+0002d5 e0e5      	LDI  R30,LOW(5)
+0002d6 93e0 0272 	STS  _step2,R30
+                 ; 0000 017B 		cnt_del2=50;
+0002d8 e3e2      	LDI  R30,LOW(50)
+0002d9 93e0 0276 	STS  _cnt_del2,R30
+                 ; 0000 017C 		}
+                 ; 0000 017D 	}
+                 _0x6E:
+                 ; 0000 017E else if(step2==s5)
+0002db c04a      	RJMP _0x6F
+                 _0x6D:
+0002dc 91a0 0272 	LDS  R26,_step2
+0002de 30a5      	CPI  R26,LOW(0x5)
+0002df f469      	BRNE _0x70
+                 ; 0000 017F 	{
+                 ; 0000 0180 	out_stat2|=(1<<PP2_1)|(1<<PP2_2)|(1<<PP2_3);
+0002e0 91e0 0279 	LDS  R30,_out_stat2
+0002e2 60ee      	ORI  R30,LOW(0xE)
+0002e3 940e 051a 	CALL SUBOPT_0x3
+                 ; 0000 0181 	cnt_del2--;
+                 ; 0000 0182 	if(cnt_del2==0)
+0002e5 f431      	BRNE _0x71
+                 ; 0000 0183 		{
+                 ; 0000 0184 		cnt_del2=80;
+0002e6 e5e0      	LDI  R30,LOW(80)
+0002e7 93e0 0276 	STS  _cnt_del2,R30
+                 ; 0000 0185 		step2=s6;
+0002e9 e0e6      	LDI  R30,LOW(6)
+0002ea 93e0 0272 	STS  _step2,R30
+                 ; 0000 0186 		}
+                 ; 0000 0187 	}
+                 _0x71:
+                 ; 0000 0188 else if(step2==s6)
+0002ec c039      	RJMP _0x72
+                 _0x70:
+0002ed 91a0 0272 	LDS  R26,_step2
+0002ef 30a6      	CPI  R26,LOW(0x6)
+0002f0 f469      	BRNE _0x73
+                 ; 0000 0189 	{
+                 ; 0000 018A 	out_stat2|=(1<<PP2_1)|(1<<PP2_2)|(1<<PP2_3)|(1<<PP2_4);
+0002f1 91e0 0279 	LDS  R30,_out_stat2
+0002f3 60ef      	ORI  R30,LOW(0xF)
+0002f4 940e 051a 	CALL SUBOPT_0x3
+                 ; 0000 018B 	cnt_del2--;
+                 ; 0000 018C 	if(cnt_del2==0)
+0002f6 f431      	BRNE _0x74
+                 ; 0000 018D 		{
+                 ; 0000 018E 		cnt_del2=60;
+0002f7 e3ec      	LDI  R30,LOW(60)
+0002f8 93e0 0276 	STS  _cnt_del2,R30
+                 ; 0000 018F 		step2=s7;
+0002fa e0e7      	LDI  R30,LOW(7)
+0002fb 93e0 0272 	STS  _step2,R30
+                 ; 0000 0190 		}
+                 ; 0000 0191 	}
+                 _0x74:
+                 ; 0000 0192 else if(step2==s7)
+0002fd c028      	RJMP _0x75
+                 _0x73:
+0002fe 91a0 0272 	LDS  R26,_step2
+000300 30a7      	CPI  R26,LOW(0x7)
+000301 f469      	BRNE _0x76
+                 ; 0000 0193 	{
+                 ; 0000 0194 	out_stat2|=(1<<PP2_1)|(1<<PP2_4);
+000302 91e0 0279 	LDS  R30,_out_stat2
+000304 60e9      	ORI  R30,LOW(0x9)
+000305 940e 051a 	CALL SUBOPT_0x3
+                 ; 0000 0195 	cnt_del2--;
+                 ; 0000 0196 	if(cnt_del2==0)
+000307 f431      	BRNE _0x77
+                 ; 0000 0197 		{
+                 ; 0000 0198 		cnt_del2=20;
+000308 e1e4      	LDI  R30,LOW(20)
+000309 93e0 0276 	STS  _cnt_del2,R30
+                 ; 0000 0199 		step2=s8;
+00030b e0e8      	LDI  R30,LOW(8)
+00030c 93e0 0272 	STS  _step2,R30
+                 ; 0000 019A 		}
+                 ; 0000 019B 	}
+                 _0x77:
+                 ; 0000 019C else if(step2==s8)
+00030e c017      	RJMP _0x78
+                 _0x76:
+00030f 91a0 0272 	LDS  R26,_step2
+000311 30a8      	CPI  R26,LOW(0x8)
+000312 f451      	BRNE _0x79
+                 ; 0000 019D 	{
+                 ; 0000 019E 	out_stat2|=(1<<PP2_4);
+000313 91e0 0279 	LDS  R30,_out_stat2
+000315 60e1      	ORI  R30,1
+000316 940e 051a 	CALL SUBOPT_0x3
+                 ; 0000 019F 	cnt_del2--;
+                 ; 0000 01A0 	if(cnt_del2==0)
+000318 f419      	BRNE _0x7A
+                 ; 0000 01A1 		{
+                 ; 0000 01A2 		step2=s9;
+000319 e0e9      	LDI  R30,LOW(9)
+00031a 93e0 0272 	STS  _step2,R30
+                 ; 0000 01A3 		}
+                 ; 0000 01A4 	}
+                 _0x7A:
+                 ; 0000 01A5 else if(step2==s9)
+00031c c009      	RJMP _0x7B
+                 _0x79:
+00031d 91a0 0272 	LDS  R26,_step2
+00031f 30a9      	CPI  R26,LOW(0x9)
+000320 f429      	BRNE _0x7C
+                 ; 0000 01A6 	{
+                 ; 0000 01A7 	if(bMD2)
+000321 fe37      	SBRS R3,7
+000322 c003      	RJMP _0x7D
+                 ; 0000 01A8 		{
+                 ; 0000 01A9 		step2=sOFF;
+000323 e0e0      	LDI  R30,LOW(0)
+                 _0xF4:
+000324 93e0 0272 	STS  _step2,R30
+                 ; 0000 01AA 		}
+                 ; 0000 01AB 	}
                  _0x7D:
-00032e 91a0 0285 	LDS  R26,_tst_cnt
-000330 30a2      	CPI  R26,LOW(0x2)
-000331 f421      	BRNE _0x7F
-000332 91e0 0279 	LDS  R30,_out_stat2
-000334 60e4      	ORI  R30,4
-000335 c00f      	RJMP _0xF1
-                 ; 0000 01B1     else if(tst_cnt==3)out_stat2|=(1<<PP2_3);
-                 _0x7F:
-000336 91a0 0285 	LDS  R26,_tst_cnt
-000338 30a3      	CPI  R26,LOW(0x3)
-000339 f421      	BRNE _0x81
-00033a 91e0 0279 	LDS  R30,_out_stat2
-00033c 60e2      	ORI  R30,2
-00033d c007      	RJMP _0xF1
-                 ; 0000 01B2     else if(tst_cnt==4)out_stat2|=(1<<PP2_4);
-                 _0x81:
-00033e 91a0 0285 	LDS  R26,_tst_cnt
-000340 30a4      	CPI  R26,LOW(0x4)
-000341 f429      	BRNE _0x83
-000342 91e0 0279 	LDS  R30,_out_stat2
-000344 60e1      	ORI  R30,1
-                 _0xF1:
-000345 93e0 0279 	STS  _out_stat2,R30
-                 ; 0000 01B3     }
-                 _0x83:
-                 ; 0000 01B4 }
+                 ; 0000 01AC 
+                 ; 0000 01AD if(mode2==mTST)
                  _0x7C:
-000347 9508      	RET
+                 _0x7B:
+                 _0x78:
+                 _0x75:
+                 _0x72:
+                 _0x6F:
+                 _0x6C:
+                 _0x69:
+                 _0x64:
+000326 91a0 0274 	LDS  R26,_mode2
+000328 30a2      	CPI  R26,LOW(0x2)
+000329 f511      	BRNE _0x7E
+                 ; 0000 01AE     {
+                 ; 0000 01AF     out_stat2=0;
+00032a e0e0      	LDI  R30,LOW(0)
+00032b 93e0 0279 	STS  _out_stat2,R30
+                 ; 0000 01B0     if(tst_out_cnt==1)out_stat2|=(1<<PP2_1);
+00032d 91a0 0286 	LDS  R26,_tst_out_cnt
+00032f 30a1      	CPI  R26,LOW(0x1)
+000330 f411      	BRNE _0x7F
+000331 60e8      	ORI  R30,8
+000332 c017      	RJMP _0xF5
+                 ; 0000 01B1     else if(tst_out_cnt==2)out_stat2|=(1<<PP2_2);
+                 _0x7F:
+000333 91a0 0286 	LDS  R26,_tst_out_cnt
+000335 30a2      	CPI  R26,LOW(0x2)
+000336 f421      	BRNE _0x81
+000337 91e0 0279 	LDS  R30,_out_stat2
+000339 60e4      	ORI  R30,4
+00033a c00f      	RJMP _0xF5
+                 ; 0000 01B2     else if(tst_out_cnt==3)out_stat2|=(1<<PP2_3);
+                 _0x81:
+00033b 91a0 0286 	LDS  R26,_tst_out_cnt
+00033d 30a3      	CPI  R26,LOW(0x3)
+00033e f421      	BRNE _0x83
+00033f 91e0 0279 	LDS  R30,_out_stat2
+000341 60e2      	ORI  R30,2
+000342 c007      	RJMP _0xF5
+                 ; 0000 01B3     else if(tst_out_cnt==4)out_stat2|=(1<<PP2_4);
+                 _0x83:
+000343 91a0 0286 	LDS  R26,_tst_out_cnt
+000345 30a4      	CPI  R26,LOW(0x4)
+000346 f429      	BRNE _0x85
+000347 91e0 0279 	LDS  R30,_out_stat2
+000349 60e1      	ORI  R30,1
+                 _0xF5:
+00034a 93e0 0279 	STS  _out_stat2,R30
+                 ; 0000 01B4     }
+                 _0x85:
+                 ; 0000 01B5 }
+                 _0x7E:
+00034c 9508      	RET
                  ; .FEND
                  ;
                  ;//-----------------------------------------------
                  ;void step1_contr_new(void)
-                 ; 0000 01B8 {
-                 ; 0000 01B9 
-                 ; 0000 01BA out_stat1=0;
-                 ; 0000 01BB if(mode1==mOFF)step1=sOFF;
-                 ; 0000 01BC 
-                 ; 0000 01BD if(step1==sOFF)
-                 ; 0000 01BE 	{
-                 ; 0000 01BF 
-                 ; 0000 01C0 	}
-                 ; 0000 01C1 else if(step1==s1)
-                 ; 0000 01C2 	{
-                 ; 0000 01C3 	cnt_del1=20;
-                 ; 0000 01C4 	step1=s2;
-                 ; 0000 01C5 	}
-                 ; 0000 01C6 else if(step1==s2)
-                 ; 0000 01C7 	{
-                 ; 0000 01C8 	cnt_del1--;
-                 ; 0000 01C9 	if(cnt_del1==0)
-                 ; 0000 01CA 		{
-                 ; 0000 01CB 		//cnt_del1=20;
-                 ; 0000 01CC 		step1=s4;
-                 ; 0000 01CD 		}
-                 ; 0000 01CE 	}
-                 ; 0000 01CF     /*
-                 ; 0000 01D0 else if(step1==s3)
-                 ; 0000 01D1 	{
-                 ; 0000 01D2 	out_stat1|=(1<<PP1_1);
-                 ; 0000 01D3 	cnt_del1--;
-                 ; 0000 01D4 	if(cnt_del1==0)
-                 ; 0000 01D5 		{
-                 ; 0000 01D6 		step1=s4;
-                 ; 0000 01D7 		}
-                 ; 0000 01D8 
-                 ; 0000 01D9 	}*/
-                 ; 0000 01DA else if(step1==s4)
-                 ; 0000 01DB 	{
-                 ; 0000 01DC 	out_stat1|=(1<<PP1_1)|(1<<PP1_2);
-                 ; 0000 01DD 	if(bVR1)
-                 ; 0000 01DE 		{
-                 ; 0000 01DF 		step1=s5;
-                 ; 0000 01E0 		cnt_del1=30;
-                 ; 0000 01E1 		}
-                 ; 0000 01E2 	}
-                 ; 0000 01E3 
-                 ; 0000 01E4 else if(step1==s5)
-                 ; 0000 01E5 	{
-                 ; 0000 01E6 	out_stat1|=(1<<PP1_1)|(1<<PP1_2)|(1<<PP1_3);
-                 ; 0000 01E7 	cnt_del1--;
-                 ; 0000 01E8 	if(cnt_del1==0)
-                 ; 0000 01E9 		{
-                 ; 0000 01EA 		cnt_del1=30;
-                 ; 0000 01EB 		step1=s6;
-                 ; 0000 01EC 		}
-                 ; 0000 01ED 	}
-                 ; 0000 01EE else if(step1==s6)
-                 ; 0000 01EF 	{
-                 ; 0000 01F0 	out_stat1|=(1<<PP1_1)|(1<<PP1_2)|(1<<PP1_3)|(1<<PP1_4);
-                 ; 0000 01F1 	cnt_del1--;
-                 ; 0000 01F2 	if(cnt_del1==0)
-                 ; 0000 01F3 		{
-                 ; 0000 01F4 		cnt_del1=30;
-                 ; 0000 01F5 		step1=s7;
-                 ; 0000 01F6 		}
-                 ; 0000 01F7 	}
-                 ; 0000 01F8 else if(step1==s7)
-                 ; 0000 01F9 	{
-                 ; 0000 01FA 	out_stat1|=(1<<PP1_1)|(1<<PP1_2)|(1<<PP1_4);
-                 ; 0000 01FB 	cnt_del1--;
-                 ; 0000 01FC 	if(cnt_del1==0)
-                 ; 0000 01FD 		{
-                 ; 0000 01FE 		cnt_del1=20;
-                 ; 0000 01FF 		step1=s8;
-                 ; 0000 0200 		}
-                 ; 0000 0201 	}
-                 ; 0000 0202 else if(step1==s8)
-                 ; 0000 0203 	{
-                 ; 0000 0204 	out_stat1|=(1<<PP1_1);
-                 ; 0000 0205 	cnt_del1--;
-                 ; 0000 0206 	if(cnt_del1==0)
-                 ; 0000 0207 		{
-                 ; 0000 0208 		step1=s9;
-                 ; 0000 0209 		}
-                 ; 0000 020A 	}
-                 ; 0000 020B else if(step1==s9)
-                 ; 0000 020C 	{
-                 ; 0000 020D 	if(bMD1)
-                 ; 0000 020E 		{
-                 ; 0000 020F 		step1=sOFF;
-                 ; 0000 0210 		}
-                 ; 0000 0211 	}
-                 ; 0000 0212 
-                 ; 0000 0213 if(mode1==mTST)
-                 ; 0000 0214     {
-                 ; 0000 0215     out_stat1=0;
-                 ; 0000 0216     if(tst_cnt==1)out_stat1|=(1<<PP1_1);
-                 ; 0000 0217     else if(tst_cnt==2)out_stat1|=(1<<PP1_2);
-                 ; 0000 0218     else if(tst_cnt==3)out_stat1|=(1<<PP1_3);
-                 ; 0000 0219     else if(tst_cnt==4)out_stat1|=(1<<PP1_4);
-                 ; 0000 021A     }
-                 ; 0000 021B }
+                 ; 0000 01B9 {
+                 ; 0000 01BA 
+                 ; 0000 01BB out_stat1=0;
+                 ; 0000 01BC if(mode1==mOFF)step1=sOFF;
+                 ; 0000 01BD 
+                 ; 0000 01BE if(step1==sOFF)
+                 ; 0000 01BF 	{
+                 ; 0000 01C0 
+                 ; 0000 01C1 	}
+                 ; 0000 01C2 else if(step1==s1)
+                 ; 0000 01C3 	{
+                 ; 0000 01C4 	cnt_del1=20;
+                 ; 0000 01C5 	step1=s2;
+                 ; 0000 01C6 	}
+                 ; 0000 01C7 else if(step1==s2)
+                 ; 0000 01C8 	{
+                 ; 0000 01C9 	cnt_del1--;
+                 ; 0000 01CA 	if(cnt_del1==0)
+                 ; 0000 01CB 		{
+                 ; 0000 01CC 		//cnt_del1=20;
+                 ; 0000 01CD 		step1=s4;
+                 ; 0000 01CE 		}
+                 ; 0000 01CF 	}
+                 ; 0000 01D0     /*
+                 ; 0000 01D1 else if(step1==s3)
+                 ; 0000 01D2 	{
+                 ; 0000 01D3 	out_stat1|=(1<<PP1_1);
+                 ; 0000 01D4 	cnt_del1--;
+                 ; 0000 01D5 	if(cnt_del1==0)
+                 ; 0000 01D6 		{
+                 ; 0000 01D7 		step1=s4;
+                 ; 0000 01D8 		}
+                 ; 0000 01D9 
+                 ; 0000 01DA 	}*/
+                 ; 0000 01DB else if(step1==s4)
+                 ; 0000 01DC 	{
+                 ; 0000 01DD 	out_stat1|=(1<<PP1_1)|(1<<PP1_2);
+                 ; 0000 01DE 	if(bVR1)
+                 ; 0000 01DF 		{
+                 ; 0000 01E0 		step1=s5;
+                 ; 0000 01E1 		cnt_del1=30;
+                 ; 0000 01E2 		}
+                 ; 0000 01E3 	}
+                 ; 0000 01E4 
+                 ; 0000 01E5 else if(step1==s5)
+                 ; 0000 01E6 	{
+                 ; 0000 01E7 	out_stat1|=(1<<PP1_1)|(1<<PP1_2)|(1<<PP1_3);
+                 ; 0000 01E8 	cnt_del1--;
+                 ; 0000 01E9 	if(cnt_del1==0)
+                 ; 0000 01EA 		{
+                 ; 0000 01EB 		cnt_del1=30;
+                 ; 0000 01EC 		step1=s6;
+                 ; 0000 01ED 		}
+                 ; 0000 01EE 	}
+                 ; 0000 01EF else if(step1==s6)
+                 ; 0000 01F0 	{
+                 ; 0000 01F1 	out_stat1|=(1<<PP1_1)|(1<<PP1_2)|(1<<PP1_3)|(1<<PP1_4);
+                 ; 0000 01F2 	cnt_del1--;
+                 ; 0000 01F3 	if(cnt_del1==0)
+                 ; 0000 01F4 		{
+                 ; 0000 01F5 		cnt_del1=30;
+                 ; 0000 01F6 		step1=s7;
+                 ; 0000 01F7 		}
+                 ; 0000 01F8 	}
+                 ; 0000 01F9 else if(step1==s7)
+                 ; 0000 01FA 	{
+                 ; 0000 01FB 	out_stat1|=(1<<PP1_1)|(1<<PP1_2)|(1<<PP1_4);
+                 ; 0000 01FC 	cnt_del1--;
+                 ; 0000 01FD 	if(cnt_del1==0)
+                 ; 0000 01FE 		{
+                 ; 0000 01FF 		cnt_del1=20;
+                 ; 0000 0200 		step1=s8;
+                 ; 0000 0201 		}
+                 ; 0000 0202 	}
+                 ; 0000 0203 else if(step1==s8)
+                 ; 0000 0204 	{
+                 ; 0000 0205 	out_stat1|=(1<<PP1_1);
+                 ; 0000 0206 	cnt_del1--;
+                 ; 0000 0207 	if(cnt_del1==0)
+                 ; 0000 0208 		{
+                 ; 0000 0209 		step1=s9;
+                 ; 0000 020A 		}
+                 ; 0000 020B 	}
+                 ; 0000 020C else if(step1==s9)
+                 ; 0000 020D 	{
+                 ; 0000 020E 	if(bMD1)
+                 ; 0000 020F 		{
+                 ; 0000 0210 		step1=sOFF;
+                 ; 0000 0211 		}
+                 ; 0000 0212 	}
+                 ; 0000 0213 
+                 ; 0000 0214 if(mode1==mTST)
+                 ; 0000 0215     {
+                 ; 0000 0216     out_stat1=0;
+                 ; 0000 0217     if(tst_cnt==1)out_stat1|=(1<<PP1_1);
+                 ; 0000 0218     else if(tst_cnt==2)out_stat1|=(1<<PP1_2);
+                 ; 0000 0219     else if(tst_cnt==3)out_stat1|=(1<<PP1_3);
+                 ; 0000 021A     else if(tst_cnt==4)out_stat1|=(1<<PP1_4);
+                 ; 0000 021B     }
+                 ; 0000 021C }
                  ;
                  ;//-----------------------------------------------
                  ;void cmnd_an(void)
-                 ; 0000 021F {
+                 ; 0000 0220 {
                  _cmnd_an:
                  ; .FSTART _cmnd_an
-                 ; 0000 0220 /*DDRD.2=1;
-                 ; 0000 0221 PORTD.2=!PORTD.2;*/
-                 ; 0000 0222 if(cmnd==0x55)
-000348 91a0 027c 	LDS  R26,_cmnd
-00034a 35a5      	CPI  R26,LOW(0x55)
-00034b f479      	BRNE _0xA5
-                 ; 0000 0223 	{
-                 ; 0000 0224 	if(mode1==mON)step1=s1;
-00034c 91e0 0273 	LDS  R30,_mode1
-00034e 30e0      	CPI  R30,0
-00034f f419      	BRNE _0xA6
-000350 e0e1      	LDI  R30,LOW(1)
-000351 93e0 0271 	STS  _step1,R30
-                 ; 0000 0225 	if(mode2==mON)
-                 _0xA6:
-000353 91e0 0274 	LDS  R30,_mode2
-000355 30e0      	CPI  R30,0
-000356 f419      	BRNE _0xA7
-                 ; 0000 0226 		{
-                 ; 0000 0227 		step2=s1;
-000357 e0e1      	LDI  R30,LOW(1)
-000358 93e0 0272 	STS  _step2,R30
-                 ; 0000 0228 		/*PORTD.2=!PORTD.2; */
-                 ; 0000 0229 		}
-                 ; 0000 022A 	}
-                 _0xA7:
-                 ; 0000 022B else if(cmnd==0x33)
-00035a c012      	RJMP _0xA8
-                 _0xA5:
-00035b 91a0 027c 	LDS  R26,_cmnd
-00035d 33a3      	CPI  R26,LOW(0x33)
-00035e f471      	BRNE _0xA9
-                 ; 0000 022C 	{
-                 ; 0000 022D 	if(mode1==mON)step1=sOFF;
-00035f 91e0 0273 	LDS  R30,_mode1
-000361 30e0      	CPI  R30,0
-000362 f419      	BRNE _0xAA
-000363 e0e0      	LDI  R30,LOW(0)
-000364 93e0 0271 	STS  _step1,R30
-                 ; 0000 022E 	if(mode2==mON)step2=sOFF;
-                 _0xAA:
-000366 91e0 0274 	LDS  R30,_mode2
-000368 30e0      	CPI  R30,0
-000369 f419      	BRNE _0xAB
-00036a e0e0      	LDI  R30,LOW(0)
-00036b 93e0 0272 	STS  _step2,R30
-                 ; 0000 022F 	}
-                 _0xAB:
-                 ; 0000 0230 
-                 ; 0000 0231 }
-                 _0xA9:
+                 ; 0000 0221 /*DDRD.2=1;
+                 ; 0000 0222 PORTD.2=!PORTD.2;*/
+                 ; 0000 0223 if(cmnd==0x55)
+00034d 91a0 027c 	LDS  R26,_cmnd
+00034f 35a5      	CPI  R26,LOW(0x55)
+000350 f479      	BRNE _0xA7
+                 ; 0000 0224 	{
+                 ; 0000 0225 	if(mode1==mON)step1=s1;
+000351 91e0 0273 	LDS  R30,_mode1
+000353 30e0      	CPI  R30,0
+000354 f419      	BRNE _0xA8
+000355 e0e1      	LDI  R30,LOW(1)
+000356 93e0 0271 	STS  _step1,R30
+                 ; 0000 0226 	if(mode2==mON)
                  _0xA8:
-00036d 9508      	RET
+000358 91e0 0274 	LDS  R30,_mode2
+00035a 30e0      	CPI  R30,0
+00035b f419      	BRNE _0xA9
+                 ; 0000 0227 		{
+                 ; 0000 0228 		step2=s1;
+00035c e0e1      	LDI  R30,LOW(1)
+00035d 93e0 0272 	STS  _step2,R30
+                 ; 0000 0229 		/*PORTD.2=!PORTD.2; */
+                 ; 0000 022A 		}
+                 ; 0000 022B 	}
+                 _0xA9:
+                 ; 0000 022C else if(cmnd==0x33)
+00035f c012      	RJMP _0xAA
+                 _0xA7:
+000360 91a0 027c 	LDS  R26,_cmnd
+000362 33a3      	CPI  R26,LOW(0x33)
+000363 f471      	BRNE _0xAB
+                 ; 0000 022D 	{
+                 ; 0000 022E 	if(mode1==mON)step1=sOFF;
+000364 91e0 0273 	LDS  R30,_mode1
+000366 30e0      	CPI  R30,0
+000367 f419      	BRNE _0xAC
+000368 e0e0      	LDI  R30,LOW(0)
+000369 93e0 0271 	STS  _step1,R30
+                 ; 0000 022F 	if(mode2==mON)step2=sOFF;
+                 _0xAC:
+00036b 91e0 0274 	LDS  R30,_mode2
+00036d 30e0      	CPI  R30,0
+00036e f419      	BRNE _0xAD
+00036f e0e0      	LDI  R30,LOW(0)
+000370 93e0 0272 	STS  _step2,R30
+                 ; 0000 0230 	}
+                 _0xAD:
+                 ; 0000 0231 
+                 ; 0000 0232 }
+                 _0xAB:
+                 _0xAA:
+000372 9508      	RET
                  ; .FEND
                  ;
                  ;//-----------------------------------------------
                  ;void state_an(void)
-                 ; 0000 0235 {
+                 ; 0000 0236 {
                  _state_an:
                  ; .FSTART _state_an
-                 ; 0000 0236 #if(NUM_OF_SLAVE==1)
-                 ; 0000 0237 if(state&0x01)mode1=mON;
-                 ; 0000 0238 else if(!(tst&0x01))mode1=mTST;
-                 ; 0000 0239 else mode1=mOFF;
-                 ; 0000 023A 
-                 ; 0000 023B if(state&0x02)mode2=mON;
-                 ; 0000 023C else if(!(tst&0x02))mode2=mTST;
-                 ; 0000 023D else mode2=mOFF;
-                 ; 0000 023E 
-                 ; 0000 023F #elif(NUM_OF_SLAVE==2)
-                 ; 0000 0240 if(state&0x04)mode1=mON;
-                 ; 0000 0241 else if(!(tst&0x04))mode1=mTST;
-                 ; 0000 0242 else mode1=mOFF;
-                 ; 0000 0243 
-                 ; 0000 0244 if(state&0x08)mode2=mON;
-                 ; 0000 0245 else if(!(tst&0x08))mode2=mTST;
-                 ; 0000 0246 else mode2=mOFF;
-                 ; 0000 0247 
-                 ; 0000 0248 #elif(NUM_OF_SLAVE==3)
-                 ; 0000 0249 if(state&0x10)mode1=mON;
-00036e 91e0 0280 	LDS  R30,_state
-000370 71e0      	ANDI R30,LOW(0x10)
-000371 f011      	BREQ _0xAC
-000372 e0e0      	LDI  R30,LOW(0)
-000373 c007      	RJMP _0xF4
-                 ; 0000 024A else if(!(tst&0x10))mode1=mTST;
-                 _0xAC:
-000374 91e0 0284 	LDS  R30,_tst
-000376 71e0      	ANDI R30,LOW(0x10)
-000377 f411      	BRNE _0xAE
-000378 e0e2      	LDI  R30,LOW(2)
-000379 c001      	RJMP _0xF4
-                 ; 0000 024B else mode1=mOFF;
+                 ; 0000 0237 #if(NUM_OF_SLAVE==1)
+                 ; 0000 0238 if(state&0x01)mode1=mON;
+                 ; 0000 0239 else if(!(tst&0x01))mode1=mTST;
+                 ; 0000 023A else mode1=mOFF;
+                 ; 0000 023B 
+                 ; 0000 023C if(state&0x02)mode2=mON;
+                 ; 0000 023D else if(!(tst&0x02))mode2=mTST;
+                 ; 0000 023E else mode2=mOFF;
+                 ; 0000 023F 
+                 ; 0000 0240 #elif(NUM_OF_SLAVE==2)
+                 ; 0000 0241 if(state&0x04)mode1=mON;
+                 ; 0000 0242 else if(!(tst&0x04))mode1=mTST;
+                 ; 0000 0243 else mode1=mOFF;
+                 ; 0000 0244 
+                 ; 0000 0245 if(state&0x08)mode2=mON;
+                 ; 0000 0246 else if(!(tst&0x08))mode2=mTST;
+                 ; 0000 0247 else mode2=mOFF;
+                 ; 0000 0248 
+                 ; 0000 0249 #elif(NUM_OF_SLAVE==3)
+                 ; 0000 024A if(state&0x10)mode1=mON;
+000373 91e0 0280 	LDS  R30,_state
+000375 71e0      	ANDI R30,LOW(0x10)
+000376 f011      	BREQ _0xAE
+000377 e0e0      	LDI  R30,LOW(0)
+000378 c007      	RJMP _0xF8
+                 ; 0000 024B else if(!(tst&0x10))mode1=mTST;
                  _0xAE:
-00037a e0e1      	LDI  R30,LOW(1)
-                 _0xF4:
-00037b 93e0 0273 	STS  _mode1,R30
-                 ; 0000 024C 
-                 ; 0000 024D if(state&0x20)mode2=mON;
-00037d 91e0 0280 	LDS  R30,_state
-00037f 72e0      	ANDI R30,LOW(0x20)
-000380 f011      	BREQ _0xB0
-000381 e0e0      	LDI  R30,LOW(0)
-000382 c007      	RJMP _0xF5
-                 ; 0000 024E else if(!(tst&0x20))mode2=mTST;
+000379 91e0 0284 	LDS  R30,_tst
+00037b 71e0      	ANDI R30,LOW(0x10)
+00037c f411      	BRNE _0xB0
+00037d e0e2      	LDI  R30,LOW(2)
+00037e c001      	RJMP _0xF8
+                 ; 0000 024C else mode1=mOFF;
                  _0xB0:
-000383 91e0 0284 	LDS  R30,_tst
-000385 72e0      	ANDI R30,LOW(0x20)
-000386 f411      	BRNE _0xB2
-000387 e0e2      	LDI  R30,LOW(2)
-000388 c001      	RJMP _0xF5
-                 ; 0000 024F else mode2=mOFF;
+00037f e0e1      	LDI  R30,LOW(1)
+                 _0xF8:
+000380 93e0 0273 	STS  _mode1,R30
+                 ; 0000 024D 
+                 ; 0000 024E if(state&0x20)mode2=mON;
+000382 91e0 0280 	LDS  R30,_state
+000384 72e0      	ANDI R30,LOW(0x20)
+000385 f011      	BREQ _0xB2
+000386 e0e0      	LDI  R30,LOW(0)
+000387 c007      	RJMP _0xF9
+                 ; 0000 024F else if(!(tst&0x20))mode2=mTST;
                  _0xB2:
-000389 e0e1      	LDI  R30,LOW(1)
-                 _0xF5:
-00038a 93e0 0274 	STS  _mode2,R30
-                 ; 0000 0250 #endif
-                 ; 0000 0251 }
-00038c 9508      	RET
+000388 91e0 0284 	LDS  R30,_tst
+00038a 72e0      	ANDI R30,LOW(0x20)
+00038b f411      	BRNE _0xB4
+00038c e0e2      	LDI  R30,LOW(2)
+00038d c001      	RJMP _0xF9
+                 ; 0000 0250 else mode2=mOFF;
+                 _0xB4:
+00038e e0e1      	LDI  R30,LOW(1)
+                 _0xF9:
+00038f 93e0 0274 	STS  _mode2,R30
+                 ; 0000 0251 #endif
+                 ; 0000 0252 }
+000391 9508      	RET
                  ; .FEND
                  ;
                  ;//-----------------------------------------------
                  ;void uart_in_an(void)
-                 ; 0000 0255 {
+                 ; 0000 0256 {
                  _uart_in_an:
                  ; .FSTART _uart_in_an
-                 ; 0000 0256 if(rx_buffer[0]==NUM_OF_SLAVE)
-00038d 91a0 0286 	LDS  R26,_rx_buffer
-00038f 30a3      	CPI  R26,LOW(0x3)
-000390 f009      	BREQ PC+2
-000391 c045      	RJMP _0xB4
-                 ; 0000 0257 	{
-                 ; 0000 0258 	char temp1,temp2,temp3,temp4;
-                 ; 0000 0259 
-                 ; 0000 025A 	temp1=NUM_OF_SLAVE;
-000392 9724      	SBIW R28,4
+                 ; 0000 0257 if(rx_buffer[0]==NUM_OF_SLAVE)
+000392 91a0 0287 	LDS  R26,_rx_buffer
+000394 30a3      	CPI  R26,LOW(0x3)
+000395 f009      	BREQ PC+2
+000396 c045      	RJMP _0xB6
+                 ; 0000 0258 	{
+                 ; 0000 0259 	char temp1,temp2,temp3,temp4;
+                 ; 0000 025A 
+                 ; 0000 025B 	temp1=NUM_OF_SLAVE;
+000397 9724      	SBIW R28,4
                  ;	temp1 -> Y+3
                  ;	temp2 -> Y+2
                  ;	temp3 -> Y+1
                  ;	temp4 -> Y+0
-000393 e0e3      	LDI  R30,LOW(3)
-000394 83eb      	STD  Y+3,R30
-                 ; 0000 025B 	temp4=temp1;
-000395 83e8      	ST   Y,R30
-                 ; 0000 025C 
-                 ; 0000 025D 	temp2=0x80;
-000396 e8e0      	LDI  R30,LOW(128)
-000397 83ea      	STD  Y+2,R30
-                 ; 0000 025E 	if(bVR1)temp2|=(1<<0);
-000398 fe34      	SBRS R3,4
-000399 c003      	RJMP _0xB5
-00039a 81ea      	LDD  R30,Y+2
-00039b 60e1      	ORI  R30,1
+000398 e0e3      	LDI  R30,LOW(3)
+000399 83eb      	STD  Y+3,R30
+                 ; 0000 025C 	temp4=temp1;
+00039a 83e8      	ST   Y,R30
+                 ; 0000 025D 
+                 ; 0000 025E 	temp2=0x80;
+00039b e8e0      	LDI  R30,LOW(128)
 00039c 83ea      	STD  Y+2,R30
-                 ; 0000 025F 	if(bMD1)temp2|=(1<<1);
-                 _0xB5:
-00039d fe36      	SBRS R3,6
-00039e c003      	RJMP _0xB6
+                 ; 0000 025F 	if(bVR1)temp2|=(1<<0);
+00039d fe34      	SBRS R3,4
+00039e c003      	RJMP _0xB7
 00039f 81ea      	LDD  R30,Y+2
-0003a0 60e2      	ORI  R30,2
+0003a0 60e1      	ORI  R30,1
 0003a1 83ea      	STD  Y+2,R30
-                 ; 0000 0260 	if(step1!=sOFF)temp2|=(1<<2);
-                 _0xB6:
-0003a2 91e0 0271 	LDS  R30,_step1
-0003a4 30e0      	CPI  R30,0
-0003a5 f019      	BREQ _0xB7
-0003a6 81ea      	LDD  R30,Y+2
-0003a7 60e4      	ORI  R30,4
-0003a8 83ea      	STD  Y+2,R30
-                 ; 0000 0261 	if(bVR2)temp2|=(1<<3);
+                 ; 0000 0260 	if(bMD1)temp2|=(1<<1);
                  _0xB7:
-0003a9 fe35      	SBRS R3,5
-0003aa c003      	RJMP _0xB8
-0003ab 81ea      	LDD  R30,Y+2
-0003ac 60e8      	ORI  R30,8
-0003ad 83ea      	STD  Y+2,R30
-                 ; 0000 0262 	if(bMD2)temp2|=(1<<4);
+0003a2 fe36      	SBRS R3,6
+0003a3 c003      	RJMP _0xB8
+0003a4 81ea      	LDD  R30,Y+2
+0003a5 60e2      	ORI  R30,2
+0003a6 83ea      	STD  Y+2,R30
+                 ; 0000 0261 	if(step1!=sOFF)temp2|=(1<<2);
                  _0xB8:
-0003ae fe37      	SBRS R3,7
-0003af c003      	RJMP _0xB9
-0003b0 81ea      	LDD  R30,Y+2
-0003b1 61e0      	ORI  R30,0x10
-0003b2 83ea      	STD  Y+2,R30
-                 ; 0000 0263 	if(step2!=sOFF)temp2|=(1<<5);
+0003a7 91e0 0271 	LDS  R30,_step1
+0003a9 30e0      	CPI  R30,0
+0003aa f019      	BREQ _0xB9
+0003ab 81ea      	LDD  R30,Y+2
+0003ac 60e4      	ORI  R30,4
+0003ad 83ea      	STD  Y+2,R30
+                 ; 0000 0262 	if(bVR2)temp2|=(1<<3);
                  _0xB9:
-0003b3 91e0 0272 	LDS  R30,_step2
-0003b5 30e0      	CPI  R30,0
-0003b6 f019      	BREQ _0xBA
-0003b7 81ea      	LDD  R30,Y+2
-0003b8 62e0      	ORI  R30,0x20
-0003b9 83ea      	STD  Y+2,R30
-                 ; 0000 0264 	//temp2=0xff;
-                 ; 0000 0265 
-                 ; 0000 0266 	temp4^=temp2;
+0003ae fe35      	SBRS R3,5
+0003af c003      	RJMP _0xBA
+0003b0 81ea      	LDD  R30,Y+2
+0003b1 60e8      	ORI  R30,8
+0003b2 83ea      	STD  Y+2,R30
+                 ; 0000 0263 	if(bMD2)temp2|=(1<<4);
                  _0xBA:
-0003ba 81ea      	LDD  R30,Y+2
-0003bb 81a8      	LD   R26,Y
-0003bc 27ea      	EOR  R30,R26
-0003bd 83e8      	ST   Y,R30
-                 ; 0000 0267 
-                 ; 0000 0268 	temp3=0x80;
-0003be e8e0      	LDI  R30,LOW(128)
-0003bf 83e9      	STD  Y+1,R30
-                 ; 0000 0269 	temp4^=temp3;
+0003b3 fe37      	SBRS R3,7
+0003b4 c003      	RJMP _0xBB
+0003b5 81ea      	LDD  R30,Y+2
+0003b6 61e0      	ORI  R30,0x10
+0003b7 83ea      	STD  Y+2,R30
+                 ; 0000 0264 	if(step2!=sOFF)temp2|=(1<<5);
+                 _0xBB:
+0003b8 91e0 0272 	LDS  R30,_step2
+0003ba 30e0      	CPI  R30,0
+0003bb f019      	BREQ _0xBC
+0003bc 81ea      	LDD  R30,Y+2
+0003bd 62e0      	ORI  R30,0x20
+0003be 83ea      	STD  Y+2,R30
+                 ; 0000 0265 	//temp2=0xff;
+                 ; 0000 0266 
+                 ; 0000 0267 	temp4^=temp2;
+                 _0xBC:
+0003bf 81ea      	LDD  R30,Y+2
 0003c0 81a8      	LD   R26,Y
 0003c1 27ea      	EOR  R30,R26
 0003c2 83e8      	ST   Y,R30
-                 ; 0000 026A 
-                 ; 0000 026B 	temp4|=0x80;
-0003c3 68e0      	ORI  R30,0x80
-0003c4 83e8      	ST   Y,R30
-                 ; 0000 026C 
-                 ; 0000 026D 	out_usart(4,temp1,temp2,temp3,temp4,0,0,0,0,0);
-0003c5 e0e4      	LDI  R30,LOW(4)
-0003c6 93ea      	ST   -Y,R30
-0003c7 81ec      	LDD  R30,Y+4
-0003c8 93ea      	ST   -Y,R30
-0003c9 81ec      	LDD  R30,Y+4
-0003ca 93ea      	ST   -Y,R30
-0003cb 81ec      	LDD  R30,Y+4
-0003cc 93ea      	ST   -Y,R30
-0003cd 81ec      	LDD  R30,Y+4
-0003ce 93ea      	ST   -Y,R30
-0003cf e0e0      	LDI  R30,LOW(0)
-0003d0 93ea      	ST   -Y,R30
+                 ; 0000 0268 
+                 ; 0000 0269 	temp3=0x80;
+0003c3 e8e0      	LDI  R30,LOW(128)
+0003c4 83e9      	STD  Y+1,R30
+                 ; 0000 026A 	temp4^=temp3;
+0003c5 81a8      	LD   R26,Y
+0003c6 27ea      	EOR  R30,R26
+0003c7 83e8      	ST   Y,R30
+                 ; 0000 026B 
+                 ; 0000 026C 	temp4|=0x80;
+0003c8 68e0      	ORI  R30,0x80
+0003c9 83e8      	ST   Y,R30
+                 ; 0000 026D 
+                 ; 0000 026E 	out_usart(4,temp1,temp2,temp3,temp4,0,0,0,0,0);
+0003ca e0e4      	LDI  R30,LOW(4)
+0003cb 93ea      	ST   -Y,R30
+0003cc 81ec      	LDD  R30,Y+4
+0003cd 93ea      	ST   -Y,R30
+0003ce 81ec      	LDD  R30,Y+4
+0003cf 93ea      	ST   -Y,R30
+0003d0 81ec      	LDD  R30,Y+4
 0003d1 93ea      	ST   -Y,R30
-0003d2 93ea      	ST   -Y,R30
+0003d2 81ec      	LDD  R30,Y+4
 0003d3 93ea      	ST   -Y,R30
-0003d4 e0a0      	LDI  R26,LOW(0)
-0003d5 dd33      	RCALL _out_usart
-                 ; 0000 026E     //out_usart(4,1,2,3,0x55,0,0,0,0,0);
-                 ; 0000 026F 
-                 ; 0000 0270 	}
-0003d6 9624      	ADIW R28,4
-                 ; 0000 0271 
-                 ; 0000 0272 cmnd_new=rx_buffer[1];
-                 _0xB4:
+0003d4 e0e0      	LDI  R30,LOW(0)
+0003d5 93ea      	ST   -Y,R30
+0003d6 93ea      	ST   -Y,R30
+0003d7 93ea      	ST   -Y,R30
+0003d8 93ea      	ST   -Y,R30
+0003d9 e0a0      	LDI  R26,LOW(0)
+0003da dd33      	RCALL _out_usart
+                 ; 0000 026F     //out_usart(4,1,2,3,0x55,0,0,0,0,0);
+                 ; 0000 0270 
+                 ; 0000 0271 	}
+0003db 9624      	ADIW R28,4
+                 ; 0000 0272 
+                 ; 0000 0273 cmnd_new=rx_buffer[1];
+                 _0xB6:
                 +
-0003d7 91e0 0287+LDS R30 , _rx_buffer + ( 1 )
+0003dc 91e0 0288+LDS R30 , _rx_buffer + ( 1 )
                  	__GETB1MN _rx_buffer,1
-0003d9 93e0 027a 	STS  _cmnd_new,R30
-                 ; 0000 0273 if(cmnd_new==cmnd_old)
-0003db 91e0 027b 	LDS  R30,_cmnd_old
-0003dd 91a0 027a 	LDS  R26,_cmnd_new
-0003df 17ea      	CP   R30,R26
-0003e0 f4e1      	BRNE _0xBB
-                 ; 0000 0274 	{
-                 ; 0000 0275 	if(cmnd_cnt<4)
-0003e1 91a0 027d 	LDS  R26,_cmnd_cnt
-0003e3 30a4      	CPI  R26,LOW(0x4)
-0003e4 f4b8      	BRSH _0xBC
-                 ; 0000 0276 		{
-                 ; 0000 0277 		cmnd_cnt++;
-0003e5 91e0 027d 	LDS  R30,_cmnd_cnt
-0003e7 5fef      	SUBI R30,-LOW(1)
-0003e8 93e0 027d 	STS  _cmnd_cnt,R30
-                 ; 0000 0278 		if(cmnd_cnt>=4)
-0003ea 91a0 027d 	LDS  R26,_cmnd_cnt
-0003ec 30a4      	CPI  R26,LOW(0x4)
-0003ed f070      	BRLO _0xBD
-                 ; 0000 0279 			{
-                 ; 0000 027A 			if((cmnd_new&0x7f)!=cmnd)
-0003ee 91e0 027a 	LDS  R30,_cmnd_new
-0003f0 77ef      	ANDI R30,0x7F
-0003f1 2fae      	MOV  R26,R30
-0003f2 91e0 027c 	LDS  R30,_cmnd
-0003f4 17ea      	CP   R30,R26
-0003f5 f031      	BREQ _0xBE
-                 ; 0000 027B 				{
-                 ; 0000 027C 				cmnd=cmnd_new&0x7f;
-0003f6 91e0 027a 	LDS  R30,_cmnd_new
-0003f8 77ef      	ANDI R30,0x7F
-0003f9 93e0 027c 	STS  _cmnd,R30
-                 ; 0000 027D 				cmnd_an();
-0003fb df4c      	RCALL _cmnd_an
-                 ; 0000 027E 				}
-                 ; 0000 027F 			}
-                 _0xBE:
-                 ; 0000 0280 		}
-                 _0xBD:
-                 ; 0000 0281 	}
-                 _0xBC:
-                 ; 0000 0282 else cmnd_cnt=0;
-0003fc c003      	RJMP _0xBF
-                 _0xBB:
-0003fd e0e0      	LDI  R30,LOW(0)
-0003fe 93e0 027d 	STS  _cmnd_cnt,R30
-                 ; 0000 0283 cmnd_old=cmnd_new;
-                 _0xBF:
-000400 91e0 027a 	LDS  R30,_cmnd_new
-000402 93e0 027b 	STS  _cmnd_old,R30
-                 ; 0000 0284 
-                 ; 0000 0285 state_new=rx_buffer[2];
-                +
-000404 91e0 0288+LDS R30 , _rx_buffer + ( 2 )
-                 	__GETB1MN _rx_buffer,2
-000406 93e0 027e 	STS  _state_new,R30
-                 ; 0000 0286 if(state_new==state_old)
-000408 91e0 027f 	LDS  R30,_state_old
-00040a 91a0 027e 	LDS  R26,_state_new
-00040c 17ea      	CP   R30,R26
-00040d f4e1      	BRNE _0xC0
-                 ; 0000 0287 	{
-                 ; 0000 0288 	if(state_cnt<4)
-00040e 91a0 0281 	LDS  R26,_state_cnt
-000410 30a4      	CPI  R26,LOW(0x4)
-000411 f4b8      	BRSH _0xC1
-                 ; 0000 0289 		{
-                 ; 0000 028A 		state_cnt++;
-000412 91e0 0281 	LDS  R30,_state_cnt
-000414 5fef      	SUBI R30,-LOW(1)
-000415 93e0 0281 	STS  _state_cnt,R30
-                 ; 0000 028B 		if(state_cnt>=4)
-000417 91a0 0281 	LDS  R26,_state_cnt
-000419 30a4      	CPI  R26,LOW(0x4)
-00041a f070      	BRLO _0xC2
-                 ; 0000 028C 			{
-                 ; 0000 028D 			if((state_new&0x7f)!=state)
-00041b 91e0 027e 	LDS  R30,_state_new
-00041d 77ef      	ANDI R30,0x7F
-00041e 2fae      	MOV  R26,R30
-00041f 91e0 0280 	LDS  R30,_state
-000421 17ea      	CP   R30,R26
-000422 f031      	BREQ _0xC3
-                 ; 0000 028E 				{
-                 ; 0000 028F 				state=state_new&0x7f;
-000423 91e0 027e 	LDS  R30,_state_new
-000425 77ef      	ANDI R30,0x7F
-000426 93e0 0280 	STS  _state,R30
-                 ; 0000 0290 				state_an();
-000428 df45      	RCALL _state_an
-                 ; 0000 0291 				}
-                 ; 0000 0292 			}
-                 _0xC3:
-                 ; 0000 0293 		}
-                 _0xC2:
-                 ; 0000 0294 	}
-                 _0xC1:
-                 ; 0000 0295 else state_cnt=0;
-000429 c003      	RJMP _0xC4
+0003de 93e0 027a 	STS  _cmnd_new,R30
+                 ; 0000 0274 if(cmnd_new==cmnd_old)
+0003e0 91e0 027b 	LDS  R30,_cmnd_old
+0003e2 91a0 027a 	LDS  R26,_cmnd_new
+0003e4 17ea      	CP   R30,R26
+0003e5 f4e1      	BRNE _0xBD
+                 ; 0000 0275 	{
+                 ; 0000 0276 	if(cmnd_cnt<4)
+0003e6 91a0 027d 	LDS  R26,_cmnd_cnt
+0003e8 30a4      	CPI  R26,LOW(0x4)
+0003e9 f4b8      	BRSH _0xBE
+                 ; 0000 0277 		{
+                 ; 0000 0278 		cmnd_cnt++;
+0003ea 91e0 027d 	LDS  R30,_cmnd_cnt
+0003ec 5fef      	SUBI R30,-LOW(1)
+0003ed 93e0 027d 	STS  _cmnd_cnt,R30
+                 ; 0000 0279 		if(cmnd_cnt>=4)
+0003ef 91a0 027d 	LDS  R26,_cmnd_cnt
+0003f1 30a4      	CPI  R26,LOW(0x4)
+0003f2 f070      	BRLO _0xBF
+                 ; 0000 027A 			{
+                 ; 0000 027B 			if((cmnd_new&0x7f)!=cmnd)
+0003f3 91e0 027a 	LDS  R30,_cmnd_new
+0003f5 77ef      	ANDI R30,0x7F
+0003f6 2fae      	MOV  R26,R30
+0003f7 91e0 027c 	LDS  R30,_cmnd
+0003f9 17ea      	CP   R30,R26
+0003fa f031      	BREQ _0xC0
+                 ; 0000 027C 				{
+                 ; 0000 027D 				cmnd=cmnd_new&0x7f;
+0003fb 91e0 027a 	LDS  R30,_cmnd_new
+0003fd 77ef      	ANDI R30,0x7F
+0003fe 93e0 027c 	STS  _cmnd,R30
+                 ; 0000 027E 				cmnd_an();
+000400 df4c      	RCALL _cmnd_an
+                 ; 0000 027F 				}
+                 ; 0000 0280 			}
                  _0xC0:
-00042a e0e0      	LDI  R30,LOW(0)
-00042b 93e0 0281 	STS  _state_cnt,R30
-                 ; 0000 0296 state_old=state_new;
-                 _0xC4:
-00042d 91e0 027e 	LDS  R30,_state_new
-00042f 93e0 027f 	STS  _state_old,R30
-                 ; 0000 0297 
-                 ; 0000 0298 tst_new=rx_buffer[3];
+                 ; 0000 0281 		}
+                 _0xBF:
+                 ; 0000 0282 	}
+                 _0xBE:
+                 ; 0000 0283 else cmnd_cnt=0;
+000401 c003      	RJMP _0xC1
+                 _0xBD:
+000402 e0e0      	LDI  R30,LOW(0)
+000403 93e0 027d 	STS  _cmnd_cnt,R30
+                 ; 0000 0284 cmnd_old=cmnd_new;
+                 _0xC1:
+000405 91e0 027a 	LDS  R30,_cmnd_new
+000407 93e0 027b 	STS  _cmnd_old,R30
+                 ; 0000 0285 
+                 ; 0000 0286 state_new=rx_buffer[2];
                 +
-000431 91e0 0289+LDS R30 , _rx_buffer + ( 3 )
-                 	__GETB1MN _rx_buffer,3
-000433 93e0 0282 	STS  _tst_new,R30
-                 ; 0000 0299 if(tst_new==tst_old)
-000435 91e0 0283 	LDS  R30,_tst_old
-000437 91a0 0282 	LDS  R26,_tst_new
-000439 17ea      	CP   R30,R26
-00043a f4e1      	BRNE _0xC5
-                 ; 0000 029A 	{
-                 ; 0000 029B 	if(tst_cnt<4)
-00043b 91a0 0285 	LDS  R26,_tst_cnt
-00043d 30a4      	CPI  R26,LOW(0x4)
-00043e f4b8      	BRSH _0xC6
-                 ; 0000 029C 		{
-                 ; 0000 029D 		tst_cnt++;
-00043f 91e0 0285 	LDS  R30,_tst_cnt
-000441 5fef      	SUBI R30,-LOW(1)
-000442 93e0 0285 	STS  _tst_cnt,R30
-                 ; 0000 029E 		if(tst_cnt>=4)
-000444 91a0 0285 	LDS  R26,_tst_cnt
-000446 30a4      	CPI  R26,LOW(0x4)
-000447 f070      	BRLO _0xC7
-                 ; 0000 029F 			{
-                 ; 0000 02A0 			if((tst_new&0x7f)!=tst)
-000448 91e0 0282 	LDS  R30,_tst_new
-00044a 77ef      	ANDI R30,0x7F
-00044b 2fae      	MOV  R26,R30
-00044c 91e0 0284 	LDS  R30,_tst
-00044e 17ea      	CP   R30,R26
-00044f f031      	BREQ _0xC8
-                 ; 0000 02A1 				{
-                 ; 0000 02A2 				tst=tst_new&0x7f;
-000450 91e0 0282 	LDS  R30,_tst_new
-000452 77ef      	ANDI R30,0x7F
-000453 93e0 0284 	STS  _tst,R30
-                 ; 0000 02A3 				state_an();
-000455 df18      	RCALL _state_an
-                 ; 0000 02A4 				}
-                 ; 0000 02A5 			}
-                 _0xC8:
-                 ; 0000 02A6 		}
-                 _0xC7:
-                 ; 0000 02A7 	}
-                 _0xC6:
-                 ; 0000 02A8 else tst_cnt=0;
-000456 c003      	RJMP _0xC9
+000409 91e0 0289+LDS R30 , _rx_buffer + ( 2 )
+                 	__GETB1MN _rx_buffer,2
+00040b 93e0 027e 	STS  _state_new,R30
+                 ; 0000 0287 if(state_new==state_old)
+00040d 91e0 027f 	LDS  R30,_state_old
+00040f 91a0 027e 	LDS  R26,_state_new
+000411 17ea      	CP   R30,R26
+000412 f4e1      	BRNE _0xC2
+                 ; 0000 0288 	{
+                 ; 0000 0289 	if(state_cnt<4)
+000413 91a0 0281 	LDS  R26,_state_cnt
+000415 30a4      	CPI  R26,LOW(0x4)
+000416 f4b8      	BRSH _0xC3
+                 ; 0000 028A 		{
+                 ; 0000 028B 		state_cnt++;
+000417 91e0 0281 	LDS  R30,_state_cnt
+000419 5fef      	SUBI R30,-LOW(1)
+00041a 93e0 0281 	STS  _state_cnt,R30
+                 ; 0000 028C 		if(state_cnt>=4)
+00041c 91a0 0281 	LDS  R26,_state_cnt
+00041e 30a4      	CPI  R26,LOW(0x4)
+00041f f070      	BRLO _0xC4
+                 ; 0000 028D 			{
+                 ; 0000 028E 			if((state_new&0x7f)!=state)
+000420 91e0 027e 	LDS  R30,_state_new
+000422 77ef      	ANDI R30,0x7F
+000423 2fae      	MOV  R26,R30
+000424 91e0 0280 	LDS  R30,_state
+000426 17ea      	CP   R30,R26
+000427 f031      	BREQ _0xC5
+                 ; 0000 028F 				{
+                 ; 0000 0290 				state=state_new&0x7f;
+000428 91e0 027e 	LDS  R30,_state_new
+00042a 77ef      	ANDI R30,0x7F
+00042b 93e0 0280 	STS  _state,R30
+                 ; 0000 0291 				state_an();
+00042d df45      	RCALL _state_an
+                 ; 0000 0292 				}
+                 ; 0000 0293 			}
                  _0xC5:
-000457 e0e0      	LDI  R30,LOW(0)
-000458 93e0 0285 	STS  _tst_cnt,R30
-                 ; 0000 02A9 tst_old=tst_new;
+                 ; 0000 0294 		}
+                 _0xC4:
+                 ; 0000 0295 	}
+                 _0xC3:
+                 ; 0000 0296 else state_cnt=0;
+00042e c003      	RJMP _0xC6
+                 _0xC2:
+00042f e0e0      	LDI  R30,LOW(0)
+000430 93e0 0281 	STS  _state_cnt,R30
+                 ; 0000 0297 state_old=state_new;
+                 _0xC6:
+000432 91e0 027e 	LDS  R30,_state_new
+000434 93e0 027f 	STS  _state_old,R30
+                 ; 0000 0298 
+                 ; 0000 0299 tst_new=rx_buffer[3];
+                +
+000436 91e0 028a+LDS R30 , _rx_buffer + ( 3 )
+                 	__GETB1MN _rx_buffer,3
+000438 93e0 0282 	STS  _tst_new,R30
+                 ; 0000 029A if(tst_new==tst_old)
+00043a 91e0 0283 	LDS  R30,_tst_old
+00043c 91a0 0282 	LDS  R26,_tst_new
+00043e 17ea      	CP   R30,R26
+00043f f4e1      	BRNE _0xC7
+                 ; 0000 029B 	{
+                 ; 0000 029C 	if(tst_cnt<4)
+000440 91a0 0285 	LDS  R26,_tst_cnt
+000442 30a4      	CPI  R26,LOW(0x4)
+000443 f4b8      	BRSH _0xC8
+                 ; 0000 029D 		{
+                 ; 0000 029E 		tst_cnt++;
+000444 91e0 0285 	LDS  R30,_tst_cnt
+000446 5fef      	SUBI R30,-LOW(1)
+000447 93e0 0285 	STS  _tst_cnt,R30
+                 ; 0000 029F 		if(tst_cnt>=4)
+000449 91a0 0285 	LDS  R26,_tst_cnt
+00044b 30a4      	CPI  R26,LOW(0x4)
+00044c f070      	BRLO _0xC9
+                 ; 0000 02A0 			{
+                 ; 0000 02A1 			if((tst_new&0x7f)!=tst)
+00044d 91e0 0282 	LDS  R30,_tst_new
+00044f 77ef      	ANDI R30,0x7F
+000450 2fae      	MOV  R26,R30
+000451 91e0 0284 	LDS  R30,_tst
+000453 17ea      	CP   R30,R26
+000454 f031      	BREQ _0xCA
+                 ; 0000 02A2 				{
+                 ; 0000 02A3 				tst=tst_new&0x7f;
+000455 91e0 0282 	LDS  R30,_tst_new
+000457 77ef      	ANDI R30,0x7F
+000458 93e0 0284 	STS  _tst,R30
+                 ; 0000 02A4 				state_an();
+00045a df18      	RCALL _state_an
+                 ; 0000 02A5 				}
+                 ; 0000 02A6 			}
+                 _0xCA:
+                 ; 0000 02A7 		}
                  _0xC9:
-00045a 91e0 0282 	LDS  R30,_tst_new
-00045c 93e0 0283 	STS  _tst_old,R30
-                 ; 0000 02AA 
-                 ; 0000 02AB /*state=rx_buffer[2];
-                 ; 0000 02AC state_an();*/
-                 ; 0000 02AD 
-                 ; 0000 02AE }
-00045e 9508      	RET
+                 ; 0000 02A8 	}
+                 _0xC8:
+                 ; 0000 02A9 else tst_cnt=0;
+00045b c003      	RJMP _0xCB
+                 _0xC7:
+00045c e0e0      	LDI  R30,LOW(0)
+00045d 93e0 0285 	STS  _tst_cnt,R30
+                 ; 0000 02AA tst_old=tst_new;
+                 _0xCB:
+00045f 91e0 0282 	LDS  R30,_tst_new
+000461 93e0 0283 	STS  _tst_old,R30
+                 ; 0000 02AB 
+                 ; 0000 02AC /*state=rx_buffer[2];
+                 ; 0000 02AD state_an();*/
+                 ; 0000 02AE 
+                 ; 0000 02AF }
+000463 9508      	RET
                  ; .FEND
                  ;
                  ;//-----------------------------------------------
                  ;void mathemat(void)
-                 ; 0000 02B2 {
+                 ; 0000 02B3 {
                  _mathemat:
                  ; .FSTART _mathemat
-                 ; 0000 02B3 timer1_delay=ee_timer1_delay*31;
-00045f e0a6      	LDI  R26,LOW(_ee_timer1_delay)
-000460 e0b0      	LDI  R27,HIGH(_ee_timer1_delay)
-000461 940e 0519 	CALL __EEPROMRDW
-000463 e1af      	LDI  R26,LOW(31)
-000464 e0b0      	LDI  R27,HIGH(31)
-000465 940e 0511 	CALL __MULW12U
-000467 93e0 026d 	STS  _timer1_delay,R30
-000469 93f0 026e 	STS  _timer1_delay+1,R31
-                 ; 0000 02B4 }
-00046b 9508      	RET
+                 ; 0000 02B4 timer1_delay=ee_timer1_delay*31;
+000464 e0a6      	LDI  R26,LOW(_ee_timer1_delay)
+000465 e0b0      	LDI  R27,HIGH(_ee_timer1_delay)
+000466 940e 0525 	CALL __EEPROMRDW
+000468 e1af      	LDI  R26,LOW(31)
+000469 e0b0      	LDI  R27,HIGH(31)
+00046a 940e 051d 	CALL __MULW12U
+00046c 93e0 026d 	STS  _timer1_delay,R30
+00046e 93f0 026e 	STS  _timer1_delay+1,R31
+                 ; 0000 02B5 }
+000470 9508      	RET
                  ; .FEND
                  ;
                  ;
                  ;//-----------------------------------------------
                  ;void led_hndl(void)
-                 ; 0000 02B9 {
+                 ; 0000 02BA {
                  _led_hndl:
                  ; .FSTART _led_hndl
-                 ; 0000 02BA 
-                 ; 0000 02BB }
-00046c 9508      	RET
+                 ; 0000 02BB 
+                 ; 0000 02BC }
+000471 9508      	RET
                  ; .FEND
                  ;
                  ;//-----------------------------------------------
@@ -3098,72 +3108,72 @@ E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ;
                  ;
                  ;void but_drv(void)
-                 ; 0000 02CE {
-                 ; 0000 02CF DDRD&=0b00000111;
-                 ; 0000 02D0 PORTD|=0b11111000;
-                 ; 0000 02D1 
-                 ; 0000 02D2 but_port|=(but_mask^0xff);
-                 ; 0000 02D3 but_dir&=but_mask;
-                 ; 0000 02D4 #asm
-                 ; 0000 02D5 nop
+                 ; 0000 02CF {
+                 ; 0000 02D0 DDRD&=0b00000111;
+                 ; 0000 02D1 PORTD|=0b11111000;
+                 ; 0000 02D2 
+                 ; 0000 02D3 but_port|=(but_mask^0xff);
+                 ; 0000 02D4 but_dir&=but_mask;
+                 ; 0000 02D5 #asm
                  ; 0000 02D6 nop
                  ; 0000 02D7 nop
                  ; 0000 02D8 nop
                  ; 0000 02D9 nop
                  ; 0000 02DA nop
                  ; 0000 02DB nop
-                 ; 0000 02DC 
+                 ; 0000 02DC nop
                  ; 0000 02DD 
-                 ; 0000 02DE #endasm
-                 ; 0000 02DF 
-                 ; 0000 02E0 but_n=but_pin|but_mask;
-                 ; 0000 02E1 
-                 ; 0000 02E2 if((but_n==no_but)||(but_n!=but_s))
-                 ; 0000 02E3  	{
-                 ; 0000 02E4  	speed=0;
-                 ; 0000 02E5    	if (((but0_cnt>=but_on)||(but1_cnt!=0))&&(!l_but))
-                 ; 0000 02E6   		{
-                 ; 0000 02E7    	     n_but=1;
-                 ; 0000 02E8           but=but_s;
-                 ; 0000 02E9           }
-                 ; 0000 02EA    	if (but1_cnt>=but_onL_temp)
-                 ; 0000 02EB   		{
-                 ; 0000 02EC    	     n_but=1;
-                 ; 0000 02ED           but=but_s&0b11111101;
-                 ; 0000 02EE           }
-                 ; 0000 02EF     	l_but=0;
-                 ; 0000 02F0    	but_onL_temp=but_onL;
-                 ; 0000 02F1     	but0_cnt=0;
-                 ; 0000 02F2   	but1_cnt=0;
-                 ; 0000 02F3      goto but_drv_out;
-                 ; 0000 02F4   	}
-                 ; 0000 02F5 
-                 ; 0000 02F6 if(but_n==but_s)
-                 ; 0000 02F7  	{
-                 ; 0000 02F8   	but0_cnt++;
-                 ; 0000 02F9   	if(but0_cnt>=but_on)
-                 ; 0000 02FA   		{
-                 ; 0000 02FB    		but0_cnt=0;
-                 ; 0000 02FC    		but1_cnt++;
-                 ; 0000 02FD    		if(but1_cnt>=but_onL_temp)
-                 ; 0000 02FE    			{
-                 ; 0000 02FF     			but=but_s&0b11111101;
-                 ; 0000 0300     			but1_cnt=0;
-                 ; 0000 0301     			n_but=1;
-                 ; 0000 0302     			l_but=1;
-                 ; 0000 0303 			if(speed)
-                 ; 0000 0304 				{
-                 ; 0000 0305     				but_onL_temp=but_onL_temp>>1;
-                 ; 0000 0306         			if(but_onL_temp<=2) but_onL_temp=2;
-                 ; 0000 0307 				}
-                 ; 0000 0308    			}
-                 ; 0000 0309   		}
-                 ; 0000 030A  	}
-                 ; 0000 030B but_drv_out:
-                 ; 0000 030C but_s=but_n;
-                 ; 0000 030D but_port|=(but_mask^0xff);
-                 ; 0000 030E but_dir&=but_mask;
-                 ; 0000 030F }
+                 ; 0000 02DE 
+                 ; 0000 02DF #endasm
+                 ; 0000 02E0 
+                 ; 0000 02E1 but_n=but_pin|but_mask;
+                 ; 0000 02E2 
+                 ; 0000 02E3 if((but_n==no_but)||(but_n!=but_s))
+                 ; 0000 02E4  	{
+                 ; 0000 02E5  	speed=0;
+                 ; 0000 02E6    	if (((but0_cnt>=but_on)||(but1_cnt!=0))&&(!l_but))
+                 ; 0000 02E7   		{
+                 ; 0000 02E8    	     n_but=1;
+                 ; 0000 02E9           but=but_s;
+                 ; 0000 02EA           }
+                 ; 0000 02EB    	if (but1_cnt>=but_onL_temp)
+                 ; 0000 02EC   		{
+                 ; 0000 02ED    	     n_but=1;
+                 ; 0000 02EE           but=but_s&0b11111101;
+                 ; 0000 02EF           }
+                 ; 0000 02F0     	l_but=0;
+                 ; 0000 02F1    	but_onL_temp=but_onL;
+                 ; 0000 02F2     	but0_cnt=0;
+                 ; 0000 02F3   	but1_cnt=0;
+                 ; 0000 02F4      goto but_drv_out;
+                 ; 0000 02F5   	}
+                 ; 0000 02F6 
+                 ; 0000 02F7 if(but_n==but_s)
+                 ; 0000 02F8  	{
+                 ; 0000 02F9   	but0_cnt++;
+                 ; 0000 02FA   	if(but0_cnt>=but_on)
+                 ; 0000 02FB   		{
+                 ; 0000 02FC    		but0_cnt=0;
+                 ; 0000 02FD    		but1_cnt++;
+                 ; 0000 02FE    		if(but1_cnt>=but_onL_temp)
+                 ; 0000 02FF    			{
+                 ; 0000 0300     			but=but_s&0b11111101;
+                 ; 0000 0301     			but1_cnt=0;
+                 ; 0000 0302     			n_but=1;
+                 ; 0000 0303     			l_but=1;
+                 ; 0000 0304 			if(speed)
+                 ; 0000 0305 				{
+                 ; 0000 0306     				but_onL_temp=but_onL_temp>>1;
+                 ; 0000 0307         			if(but_onL_temp<=2) but_onL_temp=2;
+                 ; 0000 0308 				}
+                 ; 0000 0309    			}
+                 ; 0000 030A   		}
+                 ; 0000 030B  	}
+                 ; 0000 030C but_drv_out:
+                 ; 0000 030D but_s=but_n;
+                 ; 0000 030E but_port|=(but_mask^0xff);
+                 ; 0000 030F but_dir&=but_mask;
+                 ; 0000 0310 }
                  ;
                  ;#define butA	239
                  ;#define butA_	237
@@ -3184,95 +3194,95 @@ E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ;//***********************************************
                  ;//***********************************************
                  ;interrupt [TIM0_OVF] void timer0_ovf_isr(void)
-                 ; 0000 0324 {
+                 ; 0000 0325 {
                  _timer0_ovf_isr:
                  ; .FSTART _timer0_ovf_isr
-00046d 93ea      	ST   -Y,R30
-00046e b7ef      	IN   R30,SREG
-00046f 93ea      	ST   -Y,R30
-                 ; 0000 0325 TCCR0=0x05;
-000470 e0e5      	LDI  R30,LOW(5)
-000471 bfe3      	OUT  0x33,R30
-                 ; 0000 0326 TCNT0=-78;
-000472 ebe2      	LDI  R30,LOW(178)
-000473 bfe2      	OUT  0x32,R30
-                 ; 0000 0327 OCR0=0x00;
-000474 e0e0      	LDI  R30,LOW(0)
-000475 bfec      	OUT  0x3C,R30
-                 ; 0000 0328 
-                 ; 0000 0329 b100Hz=1;
-000476 9468      	SET
-000477 f821      	BLD  R2,1
-                 ; 0000 032A 
-                 ; 0000 032B if(++t0_cnt1>=10)
-000478 9493      	INC  R9
-000479 e0ea      	LDI  R30,LOW(10)
-00047a 169e      	CP   R9,R30
-00047b f0b0      	BRLO _0xD9
-                 ; 0000 032C 	{
-                 ; 0000 032D 	t0_cnt1=0;
-00047c 2499      	CLR  R9
-                 ; 0000 032E 	b10Hz=1;
-00047d f822      	BLD  R2,2
-                 ; 0000 032F 
-                 ; 0000 0330 	if(++t0_cnt2>=2)
-00047e 9483      	INC  R8
-00047f e0e2      	LDI  R30,LOW(2)
-000480 168e      	CP   R8,R30
-000481 f010      	BRLO _0xDA
-                 ; 0000 0331 		{
-                 ; 0000 0332 		t0_cnt2=0;
-000482 2488      	CLR  R8
-                 ; 0000 0333 		bFL5=!bFL5;
-000483 263e      	EOR  R3,R30
-                 ; 0000 0334 		}
-                 ; 0000 0335 
-                 ; 0000 0336 	if(++t0_cnt3>=5)
-                 _0xDA:
-000484 94b3      	INC  R11
-000485 e0e5      	LDI  R30,LOW(5)
-000486 16be      	CP   R11,R30
-000487 f018      	BRLO _0xDB
-                 ; 0000 0337 		{
-                 ; 0000 0338 		t0_cnt3=0;
-000488 24bb      	CLR  R11
-                 ; 0000 0339 		bFL2=!bFL2;
-000489 e0e1      	LDI  R30,LOW(1)
-00048a 263e      	EOR  R3,R30
-                 ; 0000 033A 		}
-                 ; 0000 033B 
-                 ; 0000 033C 	if(++t0_cnt4>=10)
-                 _0xDB:
-00048b 94a3      	INC  R10
-00048c e0ea      	LDI  R30,LOW(10)
-00048d 16ae      	CP   R10,R30
-00048e f018      	BRLO _0xDC
-                 ; 0000 033D 		{
-                 ; 0000 033E 		t0_cnt4=0;
-00048f 24aa      	CLR  R10
-                 ; 0000 033F 		b1Hz=!b1Hz;
-000490 e0e8      	LDI  R30,LOW(8)
-000491 262e      	EOR  R2,R30
-                 ; 0000 0340 		}
-                 ; 0000 0341 	}
+000472 93ea      	ST   -Y,R30
+000473 b7ef      	IN   R30,SREG
+000474 93ea      	ST   -Y,R30
+                 ; 0000 0326 TCCR0=0x05;
+000475 e0e5      	LDI  R30,LOW(5)
+000476 bfe3      	OUT  0x33,R30
+                 ; 0000 0327 TCNT0=-78;
+000477 ebe2      	LDI  R30,LOW(178)
+000478 bfe2      	OUT  0x32,R30
+                 ; 0000 0328 OCR0=0x00;
+000479 e0e0      	LDI  R30,LOW(0)
+00047a bfec      	OUT  0x3C,R30
+                 ; 0000 0329 
+                 ; 0000 032A b100Hz=1;
+00047b 9468      	SET
+00047c f821      	BLD  R2,1
+                 ; 0000 032B 
+                 ; 0000 032C if(++t0_cnt1>=10)
+00047d 9493      	INC  R9
+00047e e0ea      	LDI  R30,LOW(10)
+00047f 169e      	CP   R9,R30
+000480 f0b0      	BRLO _0xDB
+                 ; 0000 032D 	{
+                 ; 0000 032E 	t0_cnt1=0;
+000481 2499      	CLR  R9
+                 ; 0000 032F 	b10Hz=1;
+000482 f822      	BLD  R2,2
+                 ; 0000 0330 
+                 ; 0000 0331 	if(++t0_cnt2>=2)
+000483 9483      	INC  R8
+000484 e0e2      	LDI  R30,LOW(2)
+000485 168e      	CP   R8,R30
+000486 f010      	BRLO _0xDC
+                 ; 0000 0332 		{
+                 ; 0000 0333 		t0_cnt2=0;
+000487 2488      	CLR  R8
+                 ; 0000 0334 		bFL5=!bFL5;
+000488 263e      	EOR  R3,R30
+                 ; 0000 0335 		}
+                 ; 0000 0336 
+                 ; 0000 0337 	if(++t0_cnt3>=5)
                  _0xDC:
-                 ; 0000 0342 }
-                 _0xD9:
-000492 91e9      	LD   R30,Y+
-000493 bfef      	OUT  SREG,R30
-000494 91e9      	LD   R30,Y+
-000495 9518      	RETI
+000489 94b3      	INC  R11
+00048a e0e5      	LDI  R30,LOW(5)
+00048b 16be      	CP   R11,R30
+00048c f018      	BRLO _0xDD
+                 ; 0000 0338 		{
+                 ; 0000 0339 		t0_cnt3=0;
+00048d 24bb      	CLR  R11
+                 ; 0000 033A 		bFL2=!bFL2;
+00048e e0e1      	LDI  R30,LOW(1)
+00048f 263e      	EOR  R3,R30
+                 ; 0000 033B 		}
+                 ; 0000 033C 
+                 ; 0000 033D 	if(++t0_cnt4>=10)
+                 _0xDD:
+000490 94a3      	INC  R10
+000491 e0ea      	LDI  R30,LOW(10)
+000492 16ae      	CP   R10,R30
+000493 f018      	BRLO _0xDE
+                 ; 0000 033E 		{
+                 ; 0000 033F 		t0_cnt4=0;
+000494 24aa      	CLR  R10
+                 ; 0000 0340 		b1Hz=!b1Hz;
+000495 e0e8      	LDI  R30,LOW(8)
+000496 262e      	EOR  R2,R30
+                 ; 0000 0341 		}
+                 ; 0000 0342 	}
+                 _0xDE:
+                 ; 0000 0343 }
+                 _0xDB:
+000497 91e9      	LD   R30,Y+
+000498 bfef      	OUT  SREG,R30
+000499 91e9      	LD   R30,Y+
+00049a 9518      	RETI
                  ; .FEND
                  ;
                  ;//***********************************************
                  ;// Timer 1 output compare A interrupt service routine
                  ;interrupt [TIM1_COMPA] void timer1_compa_isr(void)
-                 ; 0000 0347 {
+                 ; 0000 0348 {
                  _timer1_compa_isr:
                  ; .FSTART _timer1_compa_isr
-                 ; 0000 0348 
-                 ; 0000 0349 }
-000496 9518      	RETI
+                 ; 0000 0349 
+                 ; 0000 034A }
+00049b 9518      	RETI
                  ; .FEND
                  ;
                  ;
@@ -3282,211 +3292,222 @@ E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ;//===============================================
                  ;
                  ;void main(void)
-                 ; 0000 0352 {
+                 ; 0000 0353 {
                  _main:
                  ; .FSTART _main
-                 ; 0000 0353 
-                 ; 0000 0354 PORTA=0xff;
-000497 efef      	LDI  R30,LOW(255)
-000498 bbeb      	OUT  0x1B,R30
-                 ; 0000 0355 DDRA=0x00;
-000499 e0e0      	LDI  R30,LOW(0)
-00049a bbea      	OUT  0x1A,R30
-                 ; 0000 0356 
-                 ; 0000 0357 PORTB=0x00;
-00049b bbe8      	OUT  0x18,R30
-                 ; 0000 0358 DDRB=0xFF;
+                 ; 0000 0354 
+                 ; 0000 0355 PORTA=0xff;
 00049c efef      	LDI  R30,LOW(255)
-00049d bbe7      	OUT  0x17,R30
-                 ; 0000 0359 
-                 ; 0000 035A PORTC=0x00;
+00049d bbeb      	OUT  0x1B,R30
+                 ; 0000 0356 DDRA=0x00;
 00049e e0e0      	LDI  R30,LOW(0)
-00049f bbe5      	OUT  0x15,R30
-                 ; 0000 035B DDRC=0x00;
-0004a0 bbe4      	OUT  0x14,R30
-                 ; 0000 035C 
+00049f bbea      	OUT  0x1A,R30
+                 ; 0000 0357 
+                 ; 0000 0358 PORTB=0x00;
+0004a0 bbe8      	OUT  0x18,R30
+                 ; 0000 0359 DDRB=0xFF;
+0004a1 efef      	LDI  R30,LOW(255)
+0004a2 bbe7      	OUT  0x17,R30
+                 ; 0000 035A 
+                 ; 0000 035B PORTC=0x00;
+0004a3 e0e0      	LDI  R30,LOW(0)
+0004a4 bbe5      	OUT  0x15,R30
+                 ; 0000 035C DDRC=0x00;
+0004a5 bbe4      	OUT  0x14,R30
                  ; 0000 035D 
-                 ; 0000 035E PORTD=0x00;
-0004a1 bbe2      	OUT  0x12,R30
-                 ; 0000 035F DDRD=0x00;
-0004a2 bbe1      	OUT  0x11,R30
-                 ; 0000 0360 
+                 ; 0000 035E 
+                 ; 0000 035F PORTD=0x00;
+0004a6 bbe2      	OUT  0x12,R30
+                 ; 0000 0360 DDRD=0x00;
+0004a7 bbe1      	OUT  0x11,R30
                  ; 0000 0361 
-                 ; 0000 0362 TCCR0=0x02;
-0004a3 e0e2      	LDI  R30,LOW(2)
-0004a4 bfe3      	OUT  0x33,R30
-                 ; 0000 0363 TCNT0=-99;
-0004a5 e9ed      	LDI  R30,LOW(157)
-0004a6 bfe2      	OUT  0x32,R30
-                 ; 0000 0364 OCR0=0x00;
-0004a7 e0e0      	LDI  R30,LOW(0)
-0004a8 bfec      	OUT  0x3C,R30
-                 ; 0000 0365 
-                 ; 0000 0366 TCCR1A=0x00;
-0004a9 bdef      	OUT  0x2F,R30
-                 ; 0000 0367 TCCR1B=0x00;
-0004aa bdee      	OUT  0x2E,R30
-                 ; 0000 0368 TCNT1H=0x00;
-0004ab bded      	OUT  0x2D,R30
-                 ; 0000 0369 TCNT1L=0x00;
-0004ac bdec      	OUT  0x2C,R30
-                 ; 0000 036A ICR1H=0x00;
-0004ad bde7      	OUT  0x27,R30
-                 ; 0000 036B ICR1L=0x00;
-0004ae bde6      	OUT  0x26,R30
-                 ; 0000 036C OCR1AH=0x00;
-0004af bdeb      	OUT  0x2B,R30
-                 ; 0000 036D OCR1AL=0x00;
-0004b0 bdea      	OUT  0x2A,R30
-                 ; 0000 036E OCR1BH=0x00;
-0004b1 bde9      	OUT  0x29,R30
-                 ; 0000 036F OCR1BL=0x00;
-0004b2 bde8      	OUT  0x28,R30
-                 ; 0000 0370 
+                 ; 0000 0362 
+                 ; 0000 0363 TCCR0=0x02;
+0004a8 e0e2      	LDI  R30,LOW(2)
+0004a9 bfe3      	OUT  0x33,R30
+                 ; 0000 0364 TCNT0=-99;
+0004aa e9ed      	LDI  R30,LOW(157)
+0004ab bfe2      	OUT  0x32,R30
+                 ; 0000 0365 OCR0=0x00;
+0004ac e0e0      	LDI  R30,LOW(0)
+0004ad bfec      	OUT  0x3C,R30
+                 ; 0000 0366 
+                 ; 0000 0367 TCCR1A=0x00;
+0004ae bdef      	OUT  0x2F,R30
+                 ; 0000 0368 TCCR1B=0x00;
+0004af bdee      	OUT  0x2E,R30
+                 ; 0000 0369 TCNT1H=0x00;
+0004b0 bded      	OUT  0x2D,R30
+                 ; 0000 036A TCNT1L=0x00;
+0004b1 bdec      	OUT  0x2C,R30
+                 ; 0000 036B ICR1H=0x00;
+0004b2 bde7      	OUT  0x27,R30
+                 ; 0000 036C ICR1L=0x00;
+0004b3 bde6      	OUT  0x26,R30
+                 ; 0000 036D OCR1AH=0x00;
+0004b4 bdeb      	OUT  0x2B,R30
+                 ; 0000 036E OCR1AL=0x00;
+0004b5 bdea      	OUT  0x2A,R30
+                 ; 0000 036F OCR1BH=0x00;
+0004b6 bde9      	OUT  0x29,R30
+                 ; 0000 0370 OCR1BL=0x00;
+0004b7 bde8      	OUT  0x28,R30
                  ; 0000 0371 
-                 ; 0000 0372 ASSR=0x00;
-0004b3 bde2      	OUT  0x22,R30
-                 ; 0000 0373 TCCR2=0x00;
-0004b4 bde5      	OUT  0x25,R30
-                 ; 0000 0374 TCNT2=0x00;
-0004b5 bde4      	OUT  0x24,R30
-                 ; 0000 0375 OCR2=0x00;
-0004b6 bde3      	OUT  0x23,R30
-                 ; 0000 0376 
-                 ; 0000 0377 // USART initialization
-                 ; 0000 0378 // Communication Parameters: 8 Data, 1 Stop, No Parity
-                 ; 0000 0379 // USART Receiver: On
-                 ; 0000 037A // USART Transmitter: On
-                 ; 0000 037B // USART Mode: Asynchronous
-                 ; 0000 037C // USART Baud rate: 19200
-                 ; 0000 037D UCSRA=0x00;
-0004b7 b9eb      	OUT  0xB,R30
-                 ; 0000 037E UCSRB=0xD8;
-0004b8 ede8      	LDI  R30,LOW(216)
-0004b9 b9ea      	OUT  0xA,R30
-                 ; 0000 037F UCSRC=0x86;
-0004ba e8e6      	LDI  R30,LOW(134)
-0004bb bde0      	OUT  0x20,R30
-                 ; 0000 0380 UBRRH=0x00;
-0004bc e0e0      	LDI  R30,LOW(0)
-0004bd bde0      	OUT  0x20,R30
-                 ; 0000 0381 UBRRL=0x19;
-0004be e1e9      	LDI  R30,LOW(25)
-0004bf b9e9      	OUT  0x9,R30
-                 ; 0000 0382 
-                 ; 0000 0383 MCUCR=0x00;
-0004c0 e0e0      	LDI  R30,LOW(0)
-0004c1 bfe5      	OUT  0x35,R30
-                 ; 0000 0384 MCUCSR=0x00;
-0004c2 bfe4      	OUT  0x34,R30
-                 ; 0000 0385 
-                 ; 0000 0386 TIMSK=0x01;
-0004c3 e0e1      	LDI  R30,LOW(1)
-0004c4 bfe9      	OUT  0x39,R30
-                 ; 0000 0387 
-                 ; 0000 0388 ACSR=0x80;
-0004c5 e8e0      	LDI  R30,LOW(128)
-0004c6 b9e8      	OUT  0x8,R30
-                 ; 0000 0389 SFIOR=0x00;
-0004c7 e0e0      	LDI  R30,LOW(0)
-0004c8 bfe0      	OUT  0x30,R30
-                 ; 0000 038A 
-                 ; 0000 038B #asm("sei")
-0004c9 9478      	sei
-                 ; 0000 038C led_hndl();
-0004ca dfa1      	RCALL _led_hndl
-                 ; 0000 038D ch_on[0]=coON;
-0004cb e0a0      	LDI  R26,LOW(_ch_on)
-0004cc e0b0      	LDI  R27,HIGH(_ch_on)
-0004cd eaea      	LDI  R30,LOW(170)
-0004ce 940e 0529 	CALL __EEPROMWRB
-                 ; 0000 038E //ee_avtom_mode=eamOFF;
-                 ; 0000 038F //ind=iSet_delay;
-                 ; 0000 0390 while (1)
-                 _0xDD:
-                 ; 0000 0391       {
-                 ; 0000 0392       if(b600Hz)
-0004d0 fe20      	SBRS R2,0
-0004d1 c002      	RJMP _0xE0
-                 ; 0000 0393 		{
-                 ; 0000 0394 		b600Hz=0;
-0004d2 94e8      	CLT
-0004d3 f820      	BLD  R2,0
-                 ; 0000 0395 
-                 ; 0000 0396 		}
-                 ; 0000 0397       if(b100Hz)
-                 _0xE0:
-0004d4 fe21      	SBRS R2,1
-0004d5 c009      	RJMP _0xE1
-                 ; 0000 0398 		{
-                 ; 0000 0399 		b100Hz=0;
-0004d6 94e8      	CLT
-0004d7 f821      	BLD  R2,1
-                 ; 0000 039A 
-                 ; 0000 039B           in_drv();
-0004d8 940e 0132 	CALL _in_drv
-                 ; 0000 039C           mdvr_drv();
-0004da dc84      	RCALL _mdvr_drv
-                 ; 0000 039D           step1_contr();
-0004db dd00      	RCALL _step1_contr
-                 ; 0000 039E 		step2_contr();
-0004dc ddb5      	RCALL _step2_contr
-                 ; 0000 039F           out_drv();
-0004dd 940e 00fd 	CALL _out_drv
-                 ; 0000 03A0     		}
-                 ; 0000 03A1 	if(b10Hz)
-                 _0xE1:
-0004df fe22      	SBRS R2,2
-0004e0 c00c      	RJMP _0xE2
-                 ; 0000 03A2 		{
-                 ; 0000 03A3 		b10Hz=0;
-0004e1 94e8      	CLT
-0004e2 f822      	BLD  R2,2
-                 ; 0000 03A4 
-                 ; 0000 03A5         led_hndl();
-0004e3 df88      	RCALL _led_hndl
-                 ; 0000 03A6         mathemat();
-0004e4 df7a      	RCALL _mathemat
-                 ; 0000 03A7         DDRD.2=1;
-0004e5 9a8a      	SBI  0x11,2
-                 ; 0000 03A8         if(step2!=sOFF) PORTD.2=0;
-0004e6 91e0 0272 	LDS  R30,_step2
-0004e8 30e0      	CPI  R30,0
-0004e9 f011      	BREQ _0xE5
-0004ea 9892      	CBI  0x12,2
-                 ; 0000 03A9         else PORTD.2=1;
-0004eb c001      	RJMP _0xE8
-                 _0xE5:
-0004ec 9a92      	SBI  0x12,2
-                 ; 0000 03AA 
-                 ; 0000 03AB 
-                 ; 0000 03AC         }
-                 _0xE8:
-                 ; 0000 03AD 	if(b1Hz)
+                 ; 0000 0372 
+                 ; 0000 0373 ASSR=0x00;
+0004b8 bde2      	OUT  0x22,R30
+                 ; 0000 0374 TCCR2=0x00;
+0004b9 bde5      	OUT  0x25,R30
+                 ; 0000 0375 TCNT2=0x00;
+0004ba bde4      	OUT  0x24,R30
+                 ; 0000 0376 OCR2=0x00;
+0004bb bde3      	OUT  0x23,R30
+                 ; 0000 0377 
+                 ; 0000 0378 // USART initialization
+                 ; 0000 0379 // Communication Parameters: 8 Data, 1 Stop, No Parity
+                 ; 0000 037A // USART Receiver: On
+                 ; 0000 037B // USART Transmitter: On
+                 ; 0000 037C // USART Mode: Asynchronous
+                 ; 0000 037D // USART Baud rate: 19200
+                 ; 0000 037E UCSRA=0x00;
+0004bc b9eb      	OUT  0xB,R30
+                 ; 0000 037F UCSRB=0xD8;
+0004bd ede8      	LDI  R30,LOW(216)
+0004be b9ea      	OUT  0xA,R30
+                 ; 0000 0380 UCSRC=0x86;
+0004bf e8e6      	LDI  R30,LOW(134)
+0004c0 bde0      	OUT  0x20,R30
+                 ; 0000 0381 UBRRH=0x00;
+0004c1 e0e0      	LDI  R30,LOW(0)
+0004c2 bde0      	OUT  0x20,R30
+                 ; 0000 0382 UBRRL=0x19;
+0004c3 e1e9      	LDI  R30,LOW(25)
+0004c4 b9e9      	OUT  0x9,R30
+                 ; 0000 0383 
+                 ; 0000 0384 MCUCR=0x00;
+0004c5 e0e0      	LDI  R30,LOW(0)
+0004c6 bfe5      	OUT  0x35,R30
+                 ; 0000 0385 MCUCSR=0x00;
+0004c7 bfe4      	OUT  0x34,R30
+                 ; 0000 0386 
+                 ; 0000 0387 TIMSK=0x01;
+0004c8 e0e1      	LDI  R30,LOW(1)
+0004c9 bfe9      	OUT  0x39,R30
+                 ; 0000 0388 
+                 ; 0000 0389 ACSR=0x80;
+0004ca e8e0      	LDI  R30,LOW(128)
+0004cb b9e8      	OUT  0x8,R30
+                 ; 0000 038A SFIOR=0x00;
+0004cc e0e0      	LDI  R30,LOW(0)
+0004cd bfe0      	OUT  0x30,R30
+                 ; 0000 038B 
+                 ; 0000 038C #asm("sei")
+0004ce 9478      	sei
+                 ; 0000 038D led_hndl();
+0004cf dfa1      	RCALL _led_hndl
+                 ; 0000 038E ch_on[0]=coON;
+0004d0 e0a0      	LDI  R26,LOW(_ch_on)
+0004d1 e0b0      	LDI  R27,HIGH(_ch_on)
+0004d2 eaea      	LDI  R30,LOW(170)
+0004d3 940e 0535 	CALL __EEPROMWRB
+                 ; 0000 038F //ee_avtom_mode=eamOFF;
+                 ; 0000 0390 //ind=iSet_delay;
+                 ; 0000 0391 while (1)
+                 _0xDF:
+                 ; 0000 0392       {
+                 ; 0000 0393       if(b600Hz)
+0004d5 fe20      	SBRS R2,0
+0004d6 c002      	RJMP _0xE2
+                 ; 0000 0394 		{
+                 ; 0000 0395 		b600Hz=0;
+0004d7 94e8      	CLT
+0004d8 f820      	BLD  R2,0
+                 ; 0000 0396 
+                 ; 0000 0397 		}
+                 ; 0000 0398       if(b100Hz)
                  _0xE2:
-0004ed fe23      	SBRS R2,3
-0004ee c00c      	RJMP _0xEB
-                 ; 0000 03AE 		{
-                 ; 0000 03AF 		b1Hz=0;
-0004ef 94e8      	CLT
-0004f0 f823      	BLD  R2,3
-                 ; 0000 03B0 
-                 ; 0000 03B1         if(++tst_cnt>=5)tst_cnt=0;
-0004f1 91a0 0285 	LDS  R26,_tst_cnt
-0004f3 5faf      	SUBI R26,-LOW(1)
-0004f4 93a0 0285 	STS  _tst_cnt,R26
-0004f6 30a5      	CPI  R26,LOW(0x5)
-0004f7 f018      	BRLO _0xEC
-0004f8 e0e0      	LDI  R30,LOW(0)
-0004f9 93e0 0285 	STS  _tst_cnt,R30
-                 ; 0000 03B2         }
-                 _0xEC:
-                 ; 0000 03B3       };
-                 _0xEB:
-0004fb cfd4      	RJMP _0xDD
-                 ; 0000 03B4 }
+0004d9 fe21      	SBRS R2,1
+0004da c009      	RJMP _0xE3
+                 ; 0000 0399 		{
+                 ; 0000 039A 		b100Hz=0;
+0004db 94e8      	CLT
+0004dc f821      	BLD  R2,1
+                 ; 0000 039B 
+                 ; 0000 039C         in_drv();
+0004dd 940e 0137 	CALL _in_drv
+                 ; 0000 039D         mdvr_drv();
+0004df dc84      	RCALL _mdvr_drv
+                 ; 0000 039E         step1_contr();
+0004e0 dd00      	RCALL _step1_contr
+                 ; 0000 039F 		step2_contr();
+0004e1 ddb5      	RCALL _step2_contr
+                 ; 0000 03A0         out_drv();
+0004e2 940e 0102 	CALL _out_drv
+                 ; 0000 03A1     	}
+                 ; 0000 03A2 	if(b10Hz)
+                 _0xE3:
+0004e4 fe22      	SBRS R2,2
+0004e5 c00e      	RJMP _0xE4
+                 ; 0000 03A3 		{
+                 ; 0000 03A4 		b10Hz=0;
+0004e6 94e8      	CLT
+0004e7 f822      	BLD  R2,2
+                 ; 0000 03A5 
+                 ; 0000 03A6         led_hndl();
+0004e8 df88      	RCALL _led_hndl
+                 ; 0000 03A7         mathemat();
+0004e9 df7a      	RCALL _mathemat
+                 ; 0000 03A8         DDRD.2=1;
+0004ea 9a8a      	SBI  0x11,2
+                 ; 0000 03A9         if(step2!=sOFF) PORTD.2=0;
+0004eb 91e0 0272 	LDS  R30,_step2
+0004ed 30e0      	CPI  R30,0
+0004ee f011      	BREQ _0xE7
+0004ef 9892      	CBI  0x12,2
+                 ; 0000 03AA         else PORTD.2=1;
+0004f0 c001      	RJMP _0xEA
+                 _0xE7:
+0004f1 9a92      	SBI  0x12,2
+                 ; 0000 03AB 
+                 ; 0000 03AC         DDRC=0xFF;
+                 _0xEA:
+0004f2 efef      	LDI  R30,LOW(255)
+0004f3 bbe4      	OUT  0x14,R30
+                 ; 0000 03AD 
+                 ; 0000 03AE         }
+                 ; 0000 03AF 	if(b1Hz)
+                 _0xE4:
+0004f4 fe23      	SBRS R2,3
+0004f5 c011      	RJMP _0xED
+                 ; 0000 03B0 		{
+                 ; 0000 03B1 		b1Hz=0;
+0004f6 94e8      	CLT
+0004f7 f823      	BLD  R2,3
+                 ; 0000 03B2 
+                 ; 0000 03B3         if(++tst_out_cnt>=5)tst_out_cnt=0;
+0004f8 91a0 0286 	LDS  R26,_tst_out_cnt
+0004fa 5faf      	SUBI R26,-LOW(1)
+0004fb 93a0 0286 	STS  _tst_out_cnt,R26
+0004fd 30a5      	CPI  R26,LOW(0x5)
+0004fe f018      	BRLO _0xEE
+0004ff e0e0      	LDI  R30,LOW(0)
+000500 93e0 0286 	STS  _tst_out_cnt,R30
+                 ; 0000 03B4         PORTC.1=!PORTC.1;
+                 _0xEE:
+000502 9ba9      	SBIS 0x15,1
+000503 c002      	RJMP _0xEF
+000504 98a9      	CBI  0x15,1
+000505 c001      	RJMP _0xF0
+                 _0xEF:
+000506 9aa9      	SBI  0x15,1
+                 _0xF0:
+                 ; 0000 03B5         }
+                 ; 0000 03B6       };
                  _0xED:
-0004fc cfff      	RJMP _0xED
+000507 cfcd      	RJMP _0xDF
+                 ; 0000 03B7 }
+                 _0xF1:
+000508 cfff      	RJMP _0xF1
                  ; .FEND
                  ;
                  ;
@@ -3584,120 +3605,122 @@ E:\Users\Pal\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
 000284           	.BYTE 0x1
                  _tst_cnt:
 000285           	.BYTE 0x1
+                 _tst_out_cnt:
+000286           	.BYTE 0x1
                  _rx_buffer:
-000286           	.BYTE 0x32
+000287           	.BYTE 0x32
                  _rx_wr_index:
-0002b8           	.BYTE 0x1
-                 _rx_rd_index:
 0002b9           	.BYTE 0x1
-                 _rx_counter:
+                 _rx_rd_index:
 0002ba           	.BYTE 0x1
+                 _rx_counter:
+0002bb           	.BYTE 0x1
                  _tx_buffer:
-0002bb           	.BYTE 0x64
+0002bc           	.BYTE 0x64
                  _tx_wr_index:
-00031f           	.BYTE 0x1
-                 _tx_rd_index:
 000320           	.BYTE 0x1
-                 _tx_counter:
+                 _tx_rd_index:
 000321           	.BYTE 0x1
+                 _tx_counter:
+000322           	.BYTE 0x1
                  
                  	.CSEG
                  ;OPTIMIZER ADDED SUBROUTINE, CALLED 6 TIMES, CODE SIZE REDUCTION:27 WORDS
                  SUBOPT_0x0:
-0004fd 91e0 0275 	LDS  R30,_cnt_del1
-0004ff 50e1      	SUBI R30,LOW(1)
-000500 93e0 0275 	STS  _cnt_del1,R30
-000502 30e0      	CPI  R30,0
-000503 9508      	RET
+000509 91e0 0275 	LDS  R30,_cnt_del1
+00050b 50e1      	SUBI R30,LOW(1)
+00050c 93e0 0275 	STS  _cnt_del1,R30
+00050e 30e0      	CPI  R30,0
+00050f 9508      	RET
                  
                  ;OPTIMIZER ADDED SUBROUTINE, CALLED 5 TIMES, CODE SIZE REDUCTION:5 WORDS
                  SUBOPT_0x1:
-000504 93e0 0278 	STS  _out_stat1,R30
-000506 cff6      	RJMP SUBOPT_0x0
+000510 93e0 0278 	STS  _out_stat1,R30
+000512 cff6      	RJMP SUBOPT_0x0
                  
                  ;OPTIMIZER ADDED SUBROUTINE, CALLED 6 TIMES, CODE SIZE REDUCTION:27 WORDS
                  SUBOPT_0x2:
-000507 91e0 0276 	LDS  R30,_cnt_del2
-000509 50e1      	SUBI R30,LOW(1)
-00050a 93e0 0276 	STS  _cnt_del2,R30
-00050c 30e0      	CPI  R30,0
-00050d 9508      	RET
+000513 91e0 0276 	LDS  R30,_cnt_del2
+000515 50e1      	SUBI R30,LOW(1)
+000516 93e0 0276 	STS  _cnt_del2,R30
+000518 30e0      	CPI  R30,0
+000519 9508      	RET
                  
                  ;OPTIMIZER ADDED SUBROUTINE, CALLED 5 TIMES, CODE SIZE REDUCTION:5 WORDS
                  SUBOPT_0x3:
-00050e 93e0 0279 	STS  _out_stat2,R30
-000510 cff6      	RJMP SUBOPT_0x2
+00051a 93e0 0279 	STS  _out_stat2,R30
+00051c cff6      	RJMP SUBOPT_0x2
                  
                  
                  	.CSEG
                  __MULW12U:
-000511 9ffa      	MUL  R31,R26
-000512 2df0      	MOV  R31,R0
-000513 9feb      	MUL  R30,R27
-000514 0df0      	ADD  R31,R0
-000515 9fea      	MUL  R30,R26
-000516 2de0      	MOV  R30,R0
-000517 0df1      	ADD  R31,R1
-000518 9508      	RET
+00051d 9ffa      	MUL  R31,R26
+00051e 2df0      	MOV  R31,R0
+00051f 9feb      	MUL  R30,R27
+000520 0df0      	ADD  R31,R0
+000521 9fea      	MUL  R30,R26
+000522 2de0      	MOV  R30,R0
+000523 0df1      	ADD  R31,R1
+000524 9508      	RET
                  
                  __EEPROMRDW:
-000519 9611      	ADIW R26,1
-00051a d002      	RCALL __EEPROMRDB
-00051b 2ffe      	MOV  R31,R30
-00051c 9711      	SBIW R26,1
+000525 9611      	ADIW R26,1
+000526 d002      	RCALL __EEPROMRDB
+000527 2ffe      	MOV  R31,R30
+000528 9711      	SBIW R26,1
                  
                  __EEPROMRDB:
-00051d 99e1      	SBIC EECR,EEWE
-00051e cffe      	RJMP __EEPROMRDB
-00051f 93ff      	PUSH R31
-000520 b7ff      	IN   R31,SREG
-000521 94f8      	CLI
-000522 bbae      	OUT  EEARL,R26
-000523 bbbf      	OUT  EEARH,R27
-000524 9ae0      	SBI  EECR,EERE
-000525 b3ed      	IN   R30,EEDR
-000526 bfff      	OUT  SREG,R31
-000527 91ff      	POP  R31
-000528 9508      	RET
+000529 99e1      	SBIC EECR,EEWE
+00052a cffe      	RJMP __EEPROMRDB
+00052b 93ff      	PUSH R31
+00052c b7ff      	IN   R31,SREG
+00052d 94f8      	CLI
+00052e bbae      	OUT  EEARL,R26
+00052f bbbf      	OUT  EEARH,R27
+000530 9ae0      	SBI  EECR,EERE
+000531 b3ed      	IN   R30,EEDR
+000532 bfff      	OUT  SREG,R31
+000533 91ff      	POP  R31
+000534 9508      	RET
                  
                  __EEPROMWRB:
-000529 9be1      	SBIS EECR,EEWE
-00052a c002      	RJMP __EEPROMWRB1
-00052b 95a8      	WDR
-00052c cffc      	RJMP __EEPROMWRB
+000535 9be1      	SBIS EECR,EEWE
+000536 c002      	RJMP __EEPROMWRB1
+000537 95a8      	WDR
+000538 cffc      	RJMP __EEPROMWRB
                  __EEPROMWRB1:
-00052d b79f      	IN   R25,SREG
-00052e 94f8      	CLI
-00052f bbae      	OUT  EEARL,R26
-000530 bbbf      	OUT  EEARH,R27
-000531 9ae0      	SBI  EECR,EERE
-000532 b38d      	IN   R24,EEDR
-000533 17e8      	CP   R30,R24
-000534 f019      	BREQ __EEPROMWRB0
-000535 bbed      	OUT  EEDR,R30
-000536 9ae2      	SBI  EECR,EEMWE
-000537 9ae1      	SBI  EECR,EEWE
+000539 b79f      	IN   R25,SREG
+00053a 94f8      	CLI
+00053b bbae      	OUT  EEARL,R26
+00053c bbbf      	OUT  EEARH,R27
+00053d 9ae0      	SBI  EECR,EERE
+00053e b38d      	IN   R24,EEDR
+00053f 17e8      	CP   R30,R24
+000540 f019      	BREQ __EEPROMWRB0
+000541 bbed      	OUT  EEDR,R30
+000542 9ae2      	SBI  EECR,EEMWE
+000543 9ae1      	SBI  EECR,EEWE
                  __EEPROMWRB0:
-000538 bf9f      	OUT  SREG,R25
-000539 9508      	RET
+000544 bf9f      	OUT  SREG,R25
+000545 9508      	RET
                  
                  __SAVELOCR4:
-00053a 933a      	ST   -Y,R19
+000546 933a      	ST   -Y,R19
                  __SAVELOCR3:
-00053b 932a      	ST   -Y,R18
+000547 932a      	ST   -Y,R18
                  __SAVELOCR2:
-00053c 931a      	ST   -Y,R17
-00053d 930a      	ST   -Y,R16
-00053e 9508      	RET
+000548 931a      	ST   -Y,R17
+000549 930a      	ST   -Y,R16
+00054a 9508      	RET
                  
                  __LOADLOCR4:
-00053f 813b      	LDD  R19,Y+3
+00054b 813b      	LDD  R19,Y+3
                  __LOADLOCR3:
-000540 812a      	LDD  R18,Y+2
+00054c 812a      	LDD  R18,Y+2
                  __LOADLOCR2:
-000541 8119      	LDD  R17,Y+1
-000542 8108      	LD   R16,Y
-000543 9508      	RET
+00054d 8119      	LDD  R17,Y+1
+00054e 8108      	LD   R16,Y
+00054f 9508      	RET
                  
                  ;END OF CODE MARKER
                  __END_OF_CODE:
@@ -3721,7 +3744,7 @@ ATmega32 register use summary:
 r0 :   9 r1 :   2 r2 :  11 r3 :  18 r4 :   0 r5 :   0 r6 :   0 r7 :   0 
 r8 :   3 r9 :   3 r10:   3 r11:   3 r12:   0 r13:   0 r14:   0 r15:   0 
 r16:  10 r17:  12 r18:   2 r19:   2 r20:   0 r21:   0 r22:   2 r23:   0 
-r24:   9 r25:   4 r26: 179 r27:  13 r28:   8 r29:   1 r30: 498 r31:  27 
+r24:   9 r25:   4 r26: 179 r27:  13 r28:   8 r29:   1 r30: 500 r31:  27 
 x  :   4 y  :  78 z  :  10 
 Registers used: 24 out of 35 (68.6%)
 
@@ -3732,16 +3755,16 @@ brbc  :   0 brbs  :   0 brcc  :   0 brcs  :   0 break :   0 breq  :  17
 brge  :   0 brhc  :   0 brhs  :   0 brid  :   0 brie  :   0 brlo  :  11 
 brlt  :   0 brmi  :   0 brne  :  77 brpl  :   0 brsh  :   9 brtc  :   0 
 brts  :   0 brvc  :   0 brvs  :   0 bset  :   0 bst   :   0 call  :  20 
-cbi   :   1 cbr   :   0 clc   :   0 clh   :   0 cli   :   4 cln   :   0 
+cbi   :   3 cbr   :   0 clc   :   0 clh   :   0 cli   :   4 cln   :   0 
 clr   :   6 cls   :   0 clt   :   8 clv   :   0 clz   :   0 com   :   1 
 cp    :  13 cpc   :   0 cpi   :  76 cpse  :   0 dec   :   1 des   :   0 
 eor   :   9 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
-in    :  12 inc   :   4 jmp   :  22 ld    :  11 ldd   :  26 ldi   : 110 
+in    :  12 inc   :   4 jmp   :  22 ld    :  11 ldd   :  26 ldi   : 111 
 lds   : 141 lpm   :   7 lsl   :   0 lsr   :   0 mov   :  11 movw  :   4 
 mul   :   3 muls  :   0 mulsu :   0 neg   :   0 nop   :   0 or    :   1 
-ori   :  29 out   :  62 pop   :  11 push  :  11 rcall :  12 ret   :  19 
-reti  :   4 rjmp  :  62 rol   :   0 ror   :   0 sbc   :   0 sbci  :   3 
-sbi   :   6 sbic  :   2 sbis  :   1 sbiw  :   6 sbr   :   0 sbrc  :   0 
+ori   :  29 out   :  63 pop   :  11 push  :  11 rcall :  12 ret   :  19 
+reti  :   4 rjmp  :  66 rol   :   0 ror   :   0 sbc   :   0 sbci  :   3 
+sbi   :   8 sbic  :   2 sbis  :   3 sbiw  :   6 sbr   :   0 sbrc  :   0 
 sbrs  :  12 sec   :   0 seh   :   0 sei   :   2 sen   :   0 ser   :   0 
 ses   :   0 set   :   5 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
 st    :  29 std   :  19 sts   :  90 sub   :   0 subi  :  24 swap  :   0 
@@ -3751,8 +3774,8 @@ Instructions used: 52 out of 116 (44.8%)
 ATmega32 memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000a88   2660     36   2696   32768   8.2%
-[.dseg] 0x000060 0x000322      0    194    194    2048   9.5%
+[.cseg] 0x000000 0x000aa0   2684     36   2720   32768   8.3%
+[.dseg] 0x000060 0x000323      0    195    195    2048   9.5%
 [.eseg] 0x000000 0x000008      0      8      8    1024   0.8%
 
 Assembly complete, 0 errors, 9 warnings

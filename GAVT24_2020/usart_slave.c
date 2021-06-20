@@ -39,13 +39,15 @@ char status,data;
 #endasm
 status=UCSRA;
 data=UDR;
+//if(data==1)
 if ((status & (FRAMING_ERROR | PARITY_ERROR | DATA_OVERRUN))==0)
    { 
 
    if((data&0b11111000)==0)rx_wr_index=0;
    rx_buffer[rx_wr_index]=data;
    if (++rx_wr_index >= HOST_MESS_LEN)
-   	{
+   	{   
+    PORTC.0=!PORTC.0;
    	if((((rx_buffer[0]^rx_buffer[1])^(rx_buffer[2]^rx_buffer[3]^rx_buffer[4]))&0b01111111)==0)
    		{
    		uart_in_an();
