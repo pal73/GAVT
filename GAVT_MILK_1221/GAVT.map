@@ -1,0 +1,71 @@
+CodeVisionAVR C Compiler V1.24.1d Standard
+(C) Copyright 1998-2004 Pavel Haiduc, HP InfoTech s.r.l.
+http://www.hpinfotech.ro
+e-mail:office@hpinfotech.ro
+
+File: E:\Users\Pal\DEVICES\GAVT\GAVT_MILK_1215\GAVT.c
+Global variables memory map:
+
+Variable                          Address   Size
+b600Hz                               R2.0    1/8
+b100Hz                               R2.1    1/8
+b10Hz                                R2.2    1/8
+t0_cnt0                                R6      1
+t0_cnt1                                R7      1
+t0_cnt2                                R8      1
+t0_cnt3                                R9      1
+ind_cnt                               R10      1
+ind_out                              160h      5
+dig                                  165h      4
+bZ                                   R2.3    1/8
+but                                   R11      1
+but_n_G1                             169h      1
+but_s_G1                             16Ah      1
+but0_cnt_G1                          16Bh      1
+but1_cnt_G1                          16Ch      1
+but_onL_temp_G1                      16Dh      1
+l_but                                R2.4    1/8
+n_but                                R2.5    1/8
+speed                                R2.6    1/8
+bFL2                                 R2.7    1/8
+bFL5                                 R3.0    1/8
+step                                  R12      1
+ind                                   R13      1
+sub_ind                               R14      1
+in_word                              16Eh      1
+in_word_old                          16Fh      1
+in_word_new                          170h      1
+in_word_cnt                          171h      1
+bERR                                 R3.1    1/8
+cnt_del                              172h      2
+bSW1                                 R3.2    1/8
+bSW2                                 R3.3    1/8
+cnt_sw1                              174h      1
+cnt_sw2                              175h      1
+bPP1                                 R3.4    1/8
+bPP2                                 R3.5    1/8
+bPP3                                 R3.6    1/8
+bPP4                                 R3.7    1/8
+bPP5                                 R4.0    1/8
+bPP6                                 R4.1    1/8
+bPP7                                 R4.2    1/8
+bPP8                                 R4.3    1/8
+payka_step                           176h      1
+napoln_step                          177h      1
+orient_step                          178h      1
+main_loop_step                       179h      1
+payka_cmd                            17Ah      1
+napoln_cmd                           17Bh      1
+orient_cmd                           17Ch      1
+main_loop_cmd                        17Dh      1
+payka_cnt_del                        17Eh      2
+napoln_cnt_del                       180h      2
+orient_cnt_del                       182h      2
+main_loop_cnt_del                    184h      2
+bPAYKA_COMPLETE                      R4.4    1/8
+bNAPOLN_COMPLETE                     R4.5    1/8
+bORIENT_COMPLETE                     R4.6    1/8
+time_cnt                             186h      2
+adc_output                           188h      2
+adc_data                             18Ah      2
+input_index_S10                      18Ch      1

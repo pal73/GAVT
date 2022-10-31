@@ -1,0 +1,93 @@
+RAM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+ind_out                                                                           0x0160       5
+dig                                                                               0x0165       4
+but_n                                                                             0x0169       1
+but_s                                                                             0x016A       1
+but0_cnt                                                                          0x016B       1
+but1_cnt                                                                          0x016C       1
+but_onL_temp                                                                      0x016D       1
+step                                                                              0x016E       1
+ind                                                                               0x016F       1
+in_word                                                                           0x0170       1
+in_word_old                                                                       0x0171       1
+in_word_new                                                                       0x0172       1
+in_word_cnt                                                                       0x0173       1
+adc_output                                                                        0x0174       2
+pump_cntrl_cnt                                                                    0x0176       2
+cnt_start                                                                         0x0178       2
+cnt_stop                                                                          0x017A       2
+cnt_md1                                                                           0x017C       2
+cnt_botl                                                                          0x017E       2
+cnt_pump                                                                          0x0180       2
+cnt_avt                                                                           0x0182       2
+cnt_stop_long                                                                     0x0184       2
+stop_process_cnt                                                                  0x0186       2
+step_max_cnt                                                                      0x0188       2
+
+EEPROM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+ee_prog                                                                           0x0000       1
+
+Register Allocation
+Variable                                                                          Register  Size
+------------------------------------------------------------------------------------------------
+b600Hz                                                                            R2.0      1bit
+b100Hz                                                                            R2.1      1bit
+b10Hz                                                                             R2.2      1bit
+b1Hz                                                                              R2.3      1bit
+t0_cnt0                                                                           R8           1
+t0_cnt1                                                                           R7           1
+t0_cnt2                                                                           R10          1
+t0_cnt3                                                                           R9           1
+t0_cnt4                                                                           R11,R12      2
+ind_cnt                                                                           R14          1
+bZ                                                                                R2.4      1bit
+but                                                                               R13          1
+l_but                                                                             R2.5      1bit
+n_but                                                                             R2.6      1bit
+speed                                                                             R2.7      1bit
+bFL2                                                                              R3.0      1bit
+bFL5                                                                              R3.1      1bit
+bERR                                                                              R3.2      1bit
+bSTART                                                                            R3.3      1bit
+bSTOP                                                                             R3.4      1bit
+bMD1                                                                              R3.5      1bit
+bBOTL                                                                             R3.6      1bit
+bBOTL_OLD                                                                         R3.7      1bit
+bBOTL_CH                                                                          R4.0      1bit
+bPUMP                                                                             R4.1      1bit
+bPUMP_OFF                                                                         R4.2      1bit
+bPUMP_OLD                                                                         R4.3      1bit
+bAVT                                                                              R4.4      1bit
+bSTOP_PROCESS                                                                     R4.5      1bit
+bSTOP_LONG                                                                        R4.6      1bit
+bPP1                                                                              R4.7      1bit
+bPP2                                                                              R5.0      1bit
+bPP3                                                                              R5.1      1bit
+bPP4                                                                              R5.2      1bit
+bPP5                                                                              R5.3      1bit
+bPP6                                                                              R5.4      1bit
+bPP7                                                                              R5.5      1bit
+bPP8                                                                              R5.6      1bit
+bPAYKA_COMPLETE                                                                   R5.7      1bit
+bNAPOLN_COMPLETE                                                                  R6.0      1bit
+bORIENT_COMPLETE                                                                  R6.1      1bit
+bLED_G                                                                            R6.2      1bit
+bLED_Y                                                                            R6.3      1bit
+
+FLASH Allocation [words]
+Function                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+prog_drv                                                                          0x0006D     32
+in_an                                                                             0x0008D    293
+stop_process                                                                      0x001C1     15
+stop_process_drv                                                                  0x001D0     31
+step_contr                                                                        0x001EF    139
+ind_hndl                                                                          0x0027A     11
+ind_drv                                                                           0x00285     18
+timer0_ovf_isr                                                                    0x00297     76
+adc_isr                                                                           0x002E3     13
+main                                                                              0x002F0     76

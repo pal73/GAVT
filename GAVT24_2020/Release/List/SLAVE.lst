@@ -1,14 +1,16 @@
 
-AVRASM ver. 2.1.30  E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm Wed Dec 09 02:36:34 2020
+AVRASM ver. 2.1.30  E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm Thu Oct 06 09:15:02 2022
 
-E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1088): warning: Register r7 already defined by the .DEF directive
-E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1089): warning: Register r6 already defined by the .DEF directive
-E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1090): warning: Register r9 already defined by the .DEF directive
-E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1091): warning: Register r8 already defined by the .DEF directive
-E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1092): warning: Register r11 already defined by the .DEF directive
-E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1093): warning: Register r10 already defined by the .DEF directive
-E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1094): warning: Register r13 already defined by the .DEF directive
-E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1095): warning: Register r12 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1088): warning: Register r6 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1089): warning: Register r5 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1090): warning: Register r8 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1091): warning: Register r7 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1092): warning: Register r10 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1093): warning: Register r9 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1094): warning: Register r12 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1095): warning: Register r11 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1096): warning: Register r14 already defined by the .DEF directive
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1097): warning: Register r13 already defined by the .DEF directive
                  
                  
                  ;CodeVisionAVR C Compiler V3.12 Advanced
@@ -16,15 +18,15 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1095): warning: Reg
                  ;http://www.hpinfotech.com
                  
                  ;Build configuration    : Release
-                 ;Chip type              : ATmega32
+                 ;Chip type              : ATmega16
                  ;Program type           : Application
-                 ;Clock frequency        : 8.000000 MHz
+                 ;Clock frequency        : 8,000000 MHz
                  ;Memory model           : Small
                  ;Optimize for           : Size
                  ;(s)printf features     : int, width
                  ;(s)scanf features      : int, width
                  ;External RAM size      : 0
-                 ;Data Stack size        : 512 byte(s)
+                 ;Data Stack size        : 256 byte(s)
                  ;Heap size              : 0 byte(s)
                  ;Promote 'char' to 'int': No
                  ;'char' is unsigned     : Yes
@@ -37,10 +39,10 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1095): warning: Reg
                  
                  	#define _MODEL_SMALL_
                  
-                 	#pragma AVRPART ADMIN PART_NAME ATmega32
-                 	#pragma AVRPART MEMORY PROG_FLASH 32768
-                 	#pragma AVRPART MEMORY EEPROM 1024
-                 	#pragma AVRPART MEMORY INT_SRAM SIZE 2048
+                 	#pragma AVRPART ADMIN PART_NAME ATmega16
+                 	#pragma AVRPART MEMORY PROG_FLASH 16384
+                 	#pragma AVRPART MEMORY EEPROM 512
+                 	#pragma AVRPART MEMORY INT_SRAM SIZE 1024
                  	#pragma AVRPART MEMORY INT_SRAM START_ADDR 0x60
                  
                  	#define CALL_SUPPORTED 1
@@ -100,8 +102,8 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1095): warning: Reg
                  	.DEF R0X1F=R31
                  
                  	.EQU __SRAM_START=0x0060
-                 	.EQU __SRAM_END=0x085F
-                 	.EQU __DSTACK_SIZE=0x0200
+                 	.EQU __SRAM_END=0x045F
+                 	.EQU __DSTACK_SIZE=0x0100
                  	.EQU __HEAP_SIZE=0x0000
                  	.EQU __CLEAR_SRAM_SIZE=__SRAM_END-__SRAM_START+1
                  
@@ -1097,14 +1099,16 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1095): warning: Reg
                  	.ENDM
                  
                  ;NAME DEFINITIONS FOR GLOBAL VARIABLES ALLOCATED TO REGISTERS
-                 	.DEF _t0_cnt0_=R7
-                 	.DEF _t0_cnt0=R6
-                 	.DEF _t0_cnt1=R9
-                 	.DEF _t0_cnt2=R8
-                 	.DEF _t0_cnt3=R11
-                 	.DEF _t0_cnt4=R10
-                 	.DEF _ind_cnt=R13
-                 	.DEF _but=R12
+                 	.DEF _t0_cnt0_=R6
+                 	.DEF _t0_cnt0=R5
+                 	.DEF _t0_cnt1=R8
+                 	.DEF _t0_cnt2=R7
+                 	.DEF _t0_cnt3=R10
+                 	.DEF _t0_cnt4=R9
+                 	.DEF _ind_cnt=R12
+                 	.DEF _but=R11
+                 	.DEF _prog=R14
+                 	.DEF _sub_ind=R13
                  
                  	.CSEG
                  	.ORG 0x00
@@ -1119,16 +1123,16 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1095): warning: Reg
 000006 940c 0000 	JMP  0x00
 000008 940c 0000 	JMP  0x00
 00000a 940c 0000 	JMP  0x00
-00000c 940c 0000 	JMP  0x00
-00000e 940c 049b 	JMP  _timer1_compa_isr
+00000c 940c 049b 	JMP  _timer1_compa_isr
+00000e 940c 0000 	JMP  0x00
 000010 940c 0000 	JMP  0x00
-000012 940c 0000 	JMP  0x00
+000012 940c 0472 	JMP  _timer0_ovf_isr
 000014 940c 0000 	JMP  0x00
-000016 940c 0472 	JMP  _timer0_ovf_isr
+000016 940c 006c 	JMP  _uart_rx_isr
 000018 940c 0000 	JMP  0x00
-00001a 940c 006c 	JMP  _uart_rx_isr
+00001a 940c 00b5 	JMP  _uart_tx_isr
 00001c 940c 0000 	JMP  0x00
-00001e 940c 00b5 	JMP  _uart_tx_isr
+00001e 940c 0000 	JMP  0x00
 000020 940c 0000 	JMP  0x00
 000022 940c 0000 	JMP  0x00
 000024 940c 0000 	JMP  0x00
@@ -1155,7 +1159,7 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1095): warning: Reg
                  _0x3:
 000035 5555
 000036 5555
-E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cseg .db misalignment - padding zero byte
+E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1140): warning: .cseg .db misalignment - padding zero byte
 000037 0055      	.DB  0x55,0x55,0x55,0x55,0x55
                  
                  __GLOBAL_INI_TBL:
@@ -1196,7 +1200,7 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  
                  ;CLEAR SRAM
 00004c e080      	LDI  R24,LOW(__CLEAR_SRAM_SIZE)
-00004d e098      	LDI  R25,HIGH(__CLEAR_SRAM_SIZE)
+00004d e094      	LDI  R25,HIGH(__CLEAR_SRAM_SIZE)
 00004e e6a0      	LDI  R26,__SRAM_START
                  __CLEAR_SRAM:
 00004f 93ed      	ST   X+,R30
@@ -1229,12 +1233,12 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ;HARDWARE STACK POINTER INITIALIZATION
 000064 e5ef      	LDI  R30,LOW(__SRAM_END-__HEAP_SIZE)
 000065 bfed      	OUT  SPL,R30
-000066 e0e8      	LDI  R30,HIGH(__SRAM_END-__HEAP_SIZE)
+000066 e0e4      	LDI  R30,HIGH(__SRAM_END-__HEAP_SIZE)
 000067 bfee      	OUT  SPH,R30
                  
                  ;DATA STACK POINTER INITIALIZATION
 000068 e6c0      	LDI  R28,LOW(__SRAM_START+__DSTACK_SIZE)
-000069 e0d2      	LDI  R29,HIGH(__SRAM_START+__DSTACK_SIZE)
+000069 e0d1      	LDI  R29,HIGH(__SRAM_START+__DSTACK_SIZE)
                  
 00006a 940c 049c 	JMP  _main
                  
@@ -1242,7 +1246,7 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  	.ORG 0
                  
                  	.DSEG
-                 	.ORG 0x260
+                 	.ORG 0x160
                  
                  	.CSEG
                  ;#define NUM_OF_SLAVE	3
@@ -1322,15 +1326,15 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ;char tst_new,tst_old,tst,tst_cnt;
                  ;char tst_out_cnt;
                  ;
-                 ;#include <mega32.h>
+                 ;#include <mega16.h>
                  	#ifndef __SLEEP_DEFINED__
                  	#define __SLEEP_DEFINED__
-                 	.EQU __se_bit=0x80
-                 	.EQU __sm_mask=0x70
+                 	.EQU __se_bit=0x40
+                 	.EQU __sm_mask=0xB0
                  	.EQU __sm_powerdown=0x20
                  	.EQU __sm_powersave=0x30
-                 	.EQU __sm_standby=0x60
-                 	.EQU __sm_ext_standby=0x70
+                 	.EQU __sm_standby=0xA0
+                 	.EQU __sm_ext_standby=0xB0
                  	.EQU __sm_adc_noise_red=0x10
                  	.SET power_ctrl_reg=mcucr
                  	#endif
@@ -1398,18 +1402,18 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
 00007a 7fe8      	ANDI R30,LOW(0xF8)
 00007b f419      	BRNE _0x5
 00007c e0e0      	LDI  R30,LOW(0)
-00007d 93e0 02b9 	STS  _rx_wr_index,R30
+00007d 93e0 01b9 	STS  _rx_wr_index,R30
                  ;   rx_buffer[rx_wr_index]=data;
                  _0x5:
-00007f 91e0 02b9 	LDS  R30,_rx_wr_index
+00007f 91e0 01b9 	LDS  R30,_rx_wr_index
 000081 e0f0      	LDI  R31,0
 000082 57e9      	SUBI R30,LOW(-_rx_buffer)
-000083 4ffd      	SBCI R31,HIGH(-_rx_buffer)
+000083 4ffe      	SBCI R31,HIGH(-_rx_buffer)
 000084 8300      	ST   Z,R16
                  ;   if (++rx_wr_index >= HOST_MESS_LEN)
-000085 91a0 02b9 	LDS  R26,_rx_wr_index
+000085 91a0 01b9 	LDS  R26,_rx_wr_index
 000087 5faf      	SUBI R26,-LOW(1)
-000088 93a0 02b9 	STS  _rx_wr_index,R26
+000088 93a0 01b9 	STS  _rx_wr_index,R26
 00008a 30a5      	CPI  R26,LOW(0x5)
 00008b f0c8      	BRLO _0x6
                  ;   	{
@@ -1423,20 +1427,20 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  _0x8:
                  ;   	if((((rx_buffer[0]^rx_buffer[1])^(rx_buffer[2]^rx_buffer[3]^rx_buffer[4]))&0b01111111)==0)
                 +
-000091 91e0 0288+LDS R30 , _rx_buffer + ( 1 )
+000091 91e0 0188+LDS R30 , _rx_buffer + ( 1 )
                  	__GETB1MN _rx_buffer,1
-000093 91a0 0287 	LDS  R26,_rx_buffer
+000093 91a0 0187 	LDS  R26,_rx_buffer
 000095 27ea      	EOR  R30,R26
 000096 2e0e      	MOV  R0,R30
                 +
-000097 91a0 0289+LDS R26 , _rx_buffer + ( 2 )
+000097 91a0 0189+LDS R26 , _rx_buffer + ( 2 )
                  	__GETB2MN _rx_buffer,2
                 +
-000099 91e0 028a+LDS R30 , _rx_buffer + ( 3 )
+000099 91e0 018a+LDS R30 , _rx_buffer + ( 3 )
                  	__GETB1MN _rx_buffer,3
 00009b 27ae      	EOR  R26,R30
                 +
-00009c 91e0 028b+LDS R30 , _rx_buffer + ( 4 )
+00009c 91e0 018b+LDS R30 , _rx_buffer + ( 4 )
                  	__GETB1MN _rx_buffer,4
 00009e 27ea      	EOR  R30,R26
 00009f 2da0      	MOV  R26,R0
@@ -1451,11 +1455,11 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  _0x9:
                  ;   if (rx_wr_index >= RX_BUFFER_SIZE) rx_wr_index=0;
                  _0x6:
-0000a5 91a0 02b9 	LDS  R26,_rx_wr_index
+0000a5 91a0 01b9 	LDS  R26,_rx_wr_index
 0000a7 33a2      	CPI  R26,LOW(0x32)
 0000a8 f018      	BRLO _0xA
 0000a9 e0e0      	LDI  R30,LOW(0)
-0000aa 93e0 02b9 	STS  _rx_wr_index,R30
+0000aa 93e0 01b9 	STS  _rx_wr_index,R30
                  ;   };
                  _0xA:
                  _0x4:
@@ -1511,28 +1515,28 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
 0000b9 b7af          in   r26,sreg
 0000ba 93af          push r26
                  ;if (tx_counter)
-0000bb 91e0 0322 	LDS  R30,_tx_counter
+0000bb 91e0 0222 	LDS  R30,_tx_counter
 0000bd 30e0      	CPI  R30,0
 0000be f0a1      	BREQ _0xF
                  ;   {
                  ;   --tx_counter;
 0000bf 50e1      	SUBI R30,LOW(1)
-0000c0 93e0 0322 	STS  _tx_counter,R30
+0000c0 93e0 0222 	STS  _tx_counter,R30
                  ;   UDR=tx_buffer[tx_rd_index];
-0000c2 91e0 0321 	LDS  R30,_tx_rd_index
+0000c2 91e0 0221 	LDS  R30,_tx_rd_index
 0000c4 e0f0      	LDI  R31,0
 0000c5 54e4      	SUBI R30,LOW(-_tx_buffer)
-0000c6 4ffd      	SBCI R31,HIGH(-_tx_buffer)
+0000c6 4ffe      	SBCI R31,HIGH(-_tx_buffer)
 0000c7 81e0      	LD   R30,Z
 0000c8 b9ec      	OUT  0xC,R30
                  ;   if (++tx_rd_index == TX_BUFFER_SIZE) tx_rd_index=0;
-0000c9 91a0 0321 	LDS  R26,_tx_rd_index
+0000c9 91a0 0221 	LDS  R26,_tx_rd_index
 0000cb 5faf      	SUBI R26,-LOW(1)
-0000cc 93a0 0321 	STS  _tx_rd_index,R26
+0000cc 93a0 0221 	STS  _tx_rd_index,R26
 0000ce 36a4      	CPI  R26,LOW(0x64)
 0000cf f419      	BRNE _0x10
 0000d0 e0e0      	LDI  R30,LOW(0)
-0000d1 93e0 0321 	STS  _tx_rd_index,R30
+0000d1 93e0 0221 	STS  _tx_rd_index,R30
                  ;   };
                  _0x10:
                  _0xF:
@@ -1560,13 +1564,13 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
 0000da 93aa      	ST   -Y,R26
                  ;	c -> Y+0
                  _0x11:
-0000db 91a0 0322 	LDS  R26,_tx_counter
+0000db 91a0 0222 	LDS  R26,_tx_counter
 0000dd 36a4      	CPI  R26,LOW(0x64)
 0000de f3e1      	BREQ _0x11
                  ;#asm("cli")
 0000df 94f8      	cli
                  ;if (tx_counter || ((UCSRA & DATA_REGISTER_EMPTY)==0))
-0000e0 91e0 0322 	LDS  R30,_tx_counter
+0000e0 91e0 0222 	LDS  R30,_tx_counter
 0000e2 30e0      	CPI  R30,0
 0000e3 f411      	BRNE _0x15
 0000e4 995d      	SBIC 0xB,5
@@ -1574,25 +1578,25 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  _0x15:
                  ;   {
                  ;   tx_buffer[tx_wr_index]=c;
-0000e6 91e0 0320 	LDS  R30,_tx_wr_index
+0000e6 91e0 0220 	LDS  R30,_tx_wr_index
 0000e8 e0f0      	LDI  R31,0
 0000e9 54e4      	SUBI R30,LOW(-_tx_buffer)
-0000ea 4ffd      	SBCI R31,HIGH(-_tx_buffer)
+0000ea 4ffe      	SBCI R31,HIGH(-_tx_buffer)
 0000eb 81a8      	LD   R26,Y
 0000ec 83a0      	STD  Z+0,R26
                  ;   if (++tx_wr_index == TX_BUFFER_SIZE) tx_wr_index=0;
-0000ed 91a0 0320 	LDS  R26,_tx_wr_index
+0000ed 91a0 0220 	LDS  R26,_tx_wr_index
 0000ef 5faf      	SUBI R26,-LOW(1)
-0000f0 93a0 0320 	STS  _tx_wr_index,R26
+0000f0 93a0 0220 	STS  _tx_wr_index,R26
 0000f2 36a4      	CPI  R26,LOW(0x64)
 0000f3 f419      	BRNE _0x17
 0000f4 e0e0      	LDI  R30,LOW(0)
-0000f5 93e0 0320 	STS  _tx_wr_index,R30
+0000f5 93e0 0220 	STS  _tx_wr_index,R30
                  ;   ++tx_counter;
                  _0x17:
-0000f7 91e0 0322 	LDS  R30,_tx_counter
+0000f7 91e0 0222 	LDS  R30,_tx_counter
 0000f9 5fef      	SUBI R30,-LOW(1)
-0000fa 93e0 0322 	STS  _tx_counter,R30
+0000fa 93e0 0222 	STS  _tx_counter,R30
                  ;   }
                  ;else UDR=c;
 0000fc c002      	RJMP _0x18
@@ -1619,10 +1623,10 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
 000102 efef      	LDI  R30,LOW(255)
 000103 bbe7      	OUT  0x17,R30
                  ; 0000 0055 out_stat=out_stat1|out_stat2;
-000104 91e0 0279 	LDS  R30,_out_stat2
-000106 91a0 0278 	LDS  R26,_out_stat1
+000104 91e0 0179 	LDS  R30,_out_stat2
+000106 91a0 0178 	LDS  R26,_out_stat1
 000108 2bea      	OR   R30,R26
-000109 93e0 0277 	STS  _out_stat,R30
+000109 93e0 0177 	STS  _out_stat,R30
                  ; 0000 0056 PORTB=~out_stat;
 00010b 95e0      	COM  R30
 00010c bbe8      	OUT  0x18,R30
@@ -1753,29 +1757,29 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; 0000 008A in_word_new=PINA|0x33;
 00013f b3e9      	IN   R30,0x19
 000140 63e3      	ORI  R30,LOW(0x33)
-000141 93e0 0267 	STS  _in_word_new,R30
+000141 93e0 0167 	STS  _in_word_new,R30
                  ; 0000 008B if(in_word_old==in_word_new)
-000143 91a0 0266 	LDS  R26,_in_word_old
+000143 91a0 0166 	LDS  R26,_in_word_old
 000145 17ea      	CP   R30,R26
 000146 f491      	BRNE _0x22
                  ; 0000 008C 	{
                  ; 0000 008D 	if(in_word_cnt<10)
-000147 91a0 0268 	LDS  R26,_in_word_cnt
+000147 91a0 0168 	LDS  R26,_in_word_cnt
 000149 30aa      	CPI  R26,LOW(0xA)
 00014a f468      	BRSH _0x23
                  ; 0000 008E 		{
                  ; 0000 008F 		in_word_cnt++;
-00014b 91e0 0268 	LDS  R30,_in_word_cnt
+00014b 91e0 0168 	LDS  R30,_in_word_cnt
 00014d 5fef      	SUBI R30,-LOW(1)
-00014e 93e0 0268 	STS  _in_word_cnt,R30
+00014e 93e0 0168 	STS  _in_word_cnt,R30
                  ; 0000 0090 		if(in_word_cnt>=10)
-000150 91a0 0268 	LDS  R26,_in_word_cnt
+000150 91a0 0168 	LDS  R26,_in_word_cnt
 000152 30aa      	CPI  R26,LOW(0xA)
 000153 f020      	BRLO _0x24
                  ; 0000 0091 			{
                  ; 0000 0092 			in_word=in_word_old;
-000154 91e0 0266 	LDS  R30,_in_word_old
-000156 93e0 0265 	STS  _in_word,R30
+000154 91e0 0166 	LDS  R30,_in_word_old
+000156 93e0 0165 	STS  _in_word,R30
                  ; 0000 0093 			}
                  ; 0000 0094 		}
                  _0x24:
@@ -1785,13 +1789,13 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
 000158 c003      	RJMP _0x25
                  _0x22:
 000159 e0e0      	LDI  R30,LOW(0)
-00015a 93e0 0268 	STS  _in_word_cnt,R30
+00015a 93e0 0168 	STS  _in_word_cnt,R30
                  ; 0000 0097 
                  ; 0000 0098 
                  ; 0000 0099 in_word_old=in_word_new;
                  _0x25:
-00015c 91e0 0267 	LDS  R30,_in_word_new
-00015e 93e0 0266 	STS  _in_word_old,R30
+00015c 91e0 0167 	LDS  R30,_in_word_new
+00015e 93e0 0166 	STS  _in_word_old,R30
                  ; 0000 009A }
 000160 940e 054b 	CALL __LOADLOCR4
 000162 9624      	ADIW R28,4
@@ -1806,21 +1810,21 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  _mdvr_drv:
                  ; .FSTART _mdvr_drv
                  ; 0000 00A1 if(!(in_word&(1<<MD1)))
-000164 91e0 0265 	LDS  R30,_in_word
+000164 91e0 0165 	LDS  R30,_in_word
 000166 70e8      	ANDI R30,LOW(0x8)
 000167 f481      	BRNE _0x26
                  ; 0000 00A2 	{
                  ; 0000 00A3 	if(cnt_md1<10)
-000168 91a0 0269 	LDS  R26,_cnt_md1
+000168 91a0 0169 	LDS  R26,_cnt_md1
 00016a 30aa      	CPI  R26,LOW(0xA)
 00016b f458      	BRSH _0x27
                  ; 0000 00A4 		{
                  ; 0000 00A5 		cnt_md1++;
-00016c 91e0 0269 	LDS  R30,_cnt_md1
+00016c 91e0 0169 	LDS  R30,_cnt_md1
 00016e 5fef      	SUBI R30,-LOW(1)
-00016f 93e0 0269 	STS  _cnt_md1,R30
+00016f 93e0 0169 	STS  _cnt_md1,R30
                  ; 0000 00A6 		if(cnt_md1==10) bMD1=1;
-000171 91a0 0269 	LDS  R26,_cnt_md1
+000171 91a0 0169 	LDS  R26,_cnt_md1
 000173 30aa      	CPI  R26,LOW(0xA)
 000174 f411      	BRNE _0x28
 000175 9468      	SET
@@ -1835,13 +1839,13 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  _0x26:
                  ; 0000 00AB 	{
                  ; 0000 00AC 	if(cnt_md1)
-000178 91e0 0269 	LDS  R30,_cnt_md1
+000178 91e0 0169 	LDS  R30,_cnt_md1
 00017a 30e0      	CPI  R30,0
 00017b f039      	BREQ _0x2A
                  ; 0000 00AD 		{
                  ; 0000 00AE 		cnt_md1--;
 00017c 50e1      	SUBI R30,LOW(1)
-00017d 93e0 0269 	STS  _cnt_md1,R30
+00017d 93e0 0169 	STS  _cnt_md1,R30
                  ; 0000 00AF 		if(cnt_md1==0) bMD1=0;
 00017f 30e0      	CPI  R30,0
 000180 f411      	BRNE _0x2B
@@ -1855,21 +1859,21 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  _0x29:
                  ; 0000 00B3 
                  ; 0000 00B4 if(!(in_word&(1<<MD2)))
-000183 91e0 0265 	LDS  R30,_in_word
+000183 91e0 0165 	LDS  R30,_in_word
 000185 78e0      	ANDI R30,LOW(0x80)
 000186 f481      	BRNE _0x2C
                  ; 0000 00B5 	{
                  ; 0000 00B6 	if(cnt_md2<10)
-000187 91a0 026a 	LDS  R26,_cnt_md2
+000187 91a0 016a 	LDS  R26,_cnt_md2
 000189 30aa      	CPI  R26,LOW(0xA)
 00018a f458      	BRSH _0x2D
                  ; 0000 00B7 		{
                  ; 0000 00B8 		cnt_md2++;
-00018b 91e0 026a 	LDS  R30,_cnt_md2
+00018b 91e0 016a 	LDS  R30,_cnt_md2
 00018d 5fef      	SUBI R30,-LOW(1)
-00018e 93e0 026a 	STS  _cnt_md2,R30
+00018e 93e0 016a 	STS  _cnt_md2,R30
                  ; 0000 00B9 		if(cnt_md2==10) bMD2=1;
-000190 91a0 026a 	LDS  R26,_cnt_md2
+000190 91a0 016a 	LDS  R26,_cnt_md2
 000192 30aa      	CPI  R26,LOW(0xA)
 000193 f411      	BRNE _0x2E
 000194 9468      	SET
@@ -1884,13 +1888,13 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  _0x2C:
                  ; 0000 00BE 	{
                  ; 0000 00BF 	if(cnt_md2)
-000197 91e0 026a 	LDS  R30,_cnt_md2
+000197 91e0 016a 	LDS  R30,_cnt_md2
 000199 30e0      	CPI  R30,0
 00019a f039      	BREQ _0x30
                  ; 0000 00C0 		{
                  ; 0000 00C1 		cnt_md2--;
 00019b 50e1      	SUBI R30,LOW(1)
-00019c 93e0 026a 	STS  _cnt_md2,R30
+00019c 93e0 016a 	STS  _cnt_md2,R30
                  ; 0000 00C2 		if(cnt_md2==0) bMD2=0;
 00019e 30e0      	CPI  R30,0
 00019f f411      	BRNE _0x31
@@ -1904,21 +1908,21 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  _0x2F:
                  ; 0000 00C6 
                  ; 0000 00C7 if(!(in_word&(1<<VR1)))
-0001a2 91e0 0265 	LDS  R30,_in_word
+0001a2 91e0 0165 	LDS  R30,_in_word
 0001a4 70e4      	ANDI R30,LOW(0x4)
 0001a5 f481      	BRNE _0x32
                  ; 0000 00C8 	{
                  ; 0000 00C9 	if(cnt_vr1<10)
-0001a6 91a0 026b 	LDS  R26,_cnt_vr1
+0001a6 91a0 016b 	LDS  R26,_cnt_vr1
 0001a8 30aa      	CPI  R26,LOW(0xA)
 0001a9 f458      	BRSH _0x33
                  ; 0000 00CA 		{
                  ; 0000 00CB 		cnt_vr1++;
-0001aa 91e0 026b 	LDS  R30,_cnt_vr1
+0001aa 91e0 016b 	LDS  R30,_cnt_vr1
 0001ac 5fef      	SUBI R30,-LOW(1)
-0001ad 93e0 026b 	STS  _cnt_vr1,R30
+0001ad 93e0 016b 	STS  _cnt_vr1,R30
                  ; 0000 00CC 		if(cnt_vr1==10) bVR1=1;
-0001af 91a0 026b 	LDS  R26,_cnt_vr1
+0001af 91a0 016b 	LDS  R26,_cnt_vr1
 0001b1 30aa      	CPI  R26,LOW(0xA)
 0001b2 f411      	BRNE _0x34
 0001b3 9468      	SET
@@ -1933,13 +1937,13 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  _0x32:
                  ; 0000 00D1 	{
                  ; 0000 00D2 	if(cnt_vr1)
-0001b6 91e0 026b 	LDS  R30,_cnt_vr1
+0001b6 91e0 016b 	LDS  R30,_cnt_vr1
 0001b8 30e0      	CPI  R30,0
 0001b9 f039      	BREQ _0x36
                  ; 0000 00D3 		{
                  ; 0000 00D4 		cnt_vr1--;
 0001ba 50e1      	SUBI R30,LOW(1)
-0001bb 93e0 026b 	STS  _cnt_vr1,R30
+0001bb 93e0 016b 	STS  _cnt_vr1,R30
                  ; 0000 00D5 		if(cnt_vr1==0) bVR1=0;
 0001bd 30e0      	CPI  R30,0
 0001be f411      	BRNE _0x37
@@ -1953,21 +1957,21 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  _0x35:
                  ; 0000 00D9 
                  ; 0000 00DA if(!(in_word&(1<<VR2)))
-0001c1 91e0 0265 	LDS  R30,_in_word
+0001c1 91e0 0165 	LDS  R30,_in_word
 0001c3 74e0      	ANDI R30,LOW(0x40)
 0001c4 f481      	BRNE _0x38
                  ; 0000 00DB 	{
                  ; 0000 00DC 	if(cnt_vr2<10)
-0001c5 91a0 026c 	LDS  R26,_cnt_vr2
+0001c5 91a0 016c 	LDS  R26,_cnt_vr2
 0001c7 30aa      	CPI  R26,LOW(0xA)
 0001c8 f458      	BRSH _0x39
                  ; 0000 00DD 		{
                  ; 0000 00DE 		cnt_vr2++;
-0001c9 91e0 026c 	LDS  R30,_cnt_vr2
+0001c9 91e0 016c 	LDS  R30,_cnt_vr2
 0001cb 5fef      	SUBI R30,-LOW(1)
-0001cc 93e0 026c 	STS  _cnt_vr2,R30
+0001cc 93e0 016c 	STS  _cnt_vr2,R30
                  ; 0000 00DF 		if(cnt_vr2==10) bVR2=1;
-0001ce 91a0 026c 	LDS  R26,_cnt_vr2
+0001ce 91a0 016c 	LDS  R26,_cnt_vr2
 0001d0 30aa      	CPI  R26,LOW(0xA)
 0001d1 f411      	BRNE _0x3A
 0001d2 9468      	SET
@@ -1982,13 +1986,13 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  _0x38:
                  ; 0000 00E4 	{
                  ; 0000 00E5 	if(cnt_vr2)
-0001d5 91e0 026c 	LDS  R30,_cnt_vr2
+0001d5 91e0 016c 	LDS  R30,_cnt_vr2
 0001d7 30e0      	CPI  R30,0
 0001d8 f039      	BREQ _0x3C
                  ; 0000 00E6 		{
                  ; 0000 00E7 		cnt_vr2--;
 0001d9 50e1      	SUBI R30,LOW(1)
-0001da 93e0 026c 	STS  _cnt_vr2,R30
+0001da 93e0 016c 	STS  _cnt_vr2,R30
                  ; 0000 00E8 		if(cnt_vr2==0) bVR2=0;
 0001dc 30e0      	CPI  R30,0
 0001dd f411      	BRNE _0x3D
@@ -2012,16 +2016,16 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; 0000 00F1 
                  ; 0000 00F2 out_stat1=0;
 0001e1 e0e0      	LDI  R30,LOW(0)
-0001e2 93e0 0278 	STS  _out_stat1,R30
+0001e2 93e0 0178 	STS  _out_stat1,R30
                  ; 0000 00F3 if(mode1==mOFF)step1=sOFF;
-0001e4 91a0 0273 	LDS  R26,_mode1
+0001e4 91a0 0173 	LDS  R26,_mode1
 0001e6 30a1      	CPI  R26,LOW(0x1)
 0001e7 f411      	BRNE _0x3E
-0001e8 93e0 0271 	STS  _step1,R30
+0001e8 93e0 0171 	STS  _step1,R30
                  ; 0000 00F4 
                  ; 0000 00F5 if(step1==sOFF)
                  _0x3E:
-0001ea 91e0 0271 	LDS  R30,_step1
+0001ea 91e0 0171 	LDS  R30,_step1
 0001ec 30e0      	CPI  R30,0
 0001ed f409      	BRNE _0x3F
                  ; 0000 00F6 	{
@@ -2030,20 +2034,20 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; 0000 00F9 else if(step1==s1)
 0001ee c081      	RJMP _0x40
                  _0x3F:
-0001ef 91a0 0271 	LDS  R26,_step1
+0001ef 91a0 0171 	LDS  R26,_step1
 0001f1 30a1      	CPI  R26,LOW(0x1)
 0001f2 f429      	BRNE _0x41
                  ; 0000 00FA 	{
                  ; 0000 00FB 	cnt_del1=20;
 0001f3 e1e4      	LDI  R30,LOW(20)
-0001f4 93e0 0275 	STS  _cnt_del1,R30
+0001f4 93e0 0175 	STS  _cnt_del1,R30
                  ; 0000 00FC 	step1=s2;
 0001f6 e0e2      	LDI  R30,LOW(2)
 0001f7 c076      	RJMP _0xF2
                  ; 0000 00FD 	}
                  ; 0000 00FE else if(step1==s2)
                  _0x41:
-0001f8 91a0 0271 	LDS  R26,_step1
+0001f8 91a0 0171 	LDS  R26,_step1
 0001fa 30a2      	CPI  R26,LOW(0x2)
 0001fb f451      	BRNE _0x43
                  ; 0000 00FF 	{
@@ -2054,22 +2058,22 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; 0000 0102 		{
                  ; 0000 0103 		cnt_del1=20;
 0001ff e1e4      	LDI  R30,LOW(20)
-000200 93e0 0275 	STS  _cnt_del1,R30
+000200 93e0 0175 	STS  _cnt_del1,R30
                  ; 0000 0104 		step1=s3;
 000202 e0e3      	LDI  R30,LOW(3)
-000203 93e0 0271 	STS  _step1,R30
+000203 93e0 0171 	STS  _step1,R30
                  ; 0000 0105 		}
                  ; 0000 0106 	}
                  _0x44:
                  ; 0000 0107 else if(step1==s3)
 000205 c06a      	RJMP _0x45
                  _0x43:
-000206 91a0 0271 	LDS  R26,_step1
+000206 91a0 0171 	LDS  R26,_step1
 000208 30a3      	CPI  R26,LOW(0x3)
 000209 f451      	BRNE _0x46
                  ; 0000 0108 	{
                  ; 0000 0109 	out_stat1|=(1<<PP1_1);
-00020a 91e0 0278 	LDS  R30,_out_stat1
+00020a 91e0 0178 	LDS  R30,_out_stat1
 00020c 64e0      	ORI  R30,0x40
 00020d 940e 0510 	CALL SUBOPT_0x1
                  ; 0000 010A 	cnt_del1--;
@@ -2078,7 +2082,7 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; 0000 010C 		{
                  ; 0000 010D 		step1=s4;
 000210 e0e4      	LDI  R30,LOW(4)
-000211 93e0 0271 	STS  _step1,R30
+000211 93e0 0171 	STS  _step1,R30
                  ; 0000 010E 		}
                  ; 0000 010F 
                  ; 0000 0110 	}
@@ -2086,36 +2090,36 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; 0000 0111 else if(step1==s4)
 000213 c05c      	RJMP _0x48
                  _0x46:
-000214 91a0 0271 	LDS  R26,_step1
+000214 91a0 0171 	LDS  R26,_step1
 000216 30a4      	CPI  R26,LOW(0x4)
 000217 f471      	BRNE _0x49
                  ; 0000 0112 	{
                  ; 0000 0113 	out_stat1|=(1<<PP1_1)|(1<<PP1_2);
-000218 91e0 0278 	LDS  R30,_out_stat1
+000218 91e0 0178 	LDS  R30,_out_stat1
 00021a 6ce0      	ORI  R30,LOW(0xC0)
-00021b 93e0 0278 	STS  _out_stat1,R30
+00021b 93e0 0178 	STS  _out_stat1,R30
                  ; 0000 0114 	if(bVR1)
 00021d fe34      	SBRS R3,4
 00021e c006      	RJMP _0x4A
                  ; 0000 0115 		{
                  ; 0000 0116 		step1=s5;
 00021f e0e5      	LDI  R30,LOW(5)
-000220 93e0 0271 	STS  _step1,R30
+000220 93e0 0171 	STS  _step1,R30
                  ; 0000 0117 		cnt_del1=50;
 000222 e3e2      	LDI  R30,LOW(50)
-000223 93e0 0275 	STS  _cnt_del1,R30
+000223 93e0 0175 	STS  _cnt_del1,R30
                  ; 0000 0118 		}
                  ; 0000 0119 	}
                  _0x4A:
                  ; 0000 011A else if(step1==s5)
 000225 c04a      	RJMP _0x4B
                  _0x49:
-000226 91a0 0271 	LDS  R26,_step1
+000226 91a0 0171 	LDS  R26,_step1
 000228 30a5      	CPI  R26,LOW(0x5)
 000229 f469      	BRNE _0x4C
                  ; 0000 011B 	{
                  ; 0000 011C 	out_stat1|=(1<<PP1_1)|(1<<PP1_2)|(1<<PP1_3);
-00022a 91e0 0278 	LDS  R30,_out_stat1
+00022a 91e0 0178 	LDS  R30,_out_stat1
 00022c 6ee0      	ORI  R30,LOW(0xE0)
 00022d 940e 0510 	CALL SUBOPT_0x1
                  ; 0000 011D 	cnt_del1--;
@@ -2124,22 +2128,22 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; 0000 011F 		{
                  ; 0000 0120 		cnt_del1=80;
 000230 e5e0      	LDI  R30,LOW(80)
-000231 93e0 0275 	STS  _cnt_del1,R30
+000231 93e0 0175 	STS  _cnt_del1,R30
                  ; 0000 0121 		step1=s6;
 000233 e0e6      	LDI  R30,LOW(6)
-000234 93e0 0271 	STS  _step1,R30
+000234 93e0 0171 	STS  _step1,R30
                  ; 0000 0122 		}
                  ; 0000 0123 	}
                  _0x4D:
                  ; 0000 0124 else if(step1==s6)
 000236 c039      	RJMP _0x4E
                  _0x4C:
-000237 91a0 0271 	LDS  R26,_step1
+000237 91a0 0171 	LDS  R26,_step1
 000239 30a6      	CPI  R26,LOW(0x6)
 00023a f469      	BRNE _0x4F
                  ; 0000 0125 	{
                  ; 0000 0126 	out_stat1|=(1<<PP1_1)|(1<<PP1_2)|(1<<PP1_3)|(1<<PP1_4);
-00023b 91e0 0278 	LDS  R30,_out_stat1
+00023b 91e0 0178 	LDS  R30,_out_stat1
 00023d 6fe0      	ORI  R30,LOW(0xF0)
 00023e 940e 0510 	CALL SUBOPT_0x1
                  ; 0000 0127 	cnt_del1--;
@@ -2148,22 +2152,22 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; 0000 0129 		{
                  ; 0000 012A 		cnt_del1=60;
 000241 e3ec      	LDI  R30,LOW(60)
-000242 93e0 0275 	STS  _cnt_del1,R30
+000242 93e0 0175 	STS  _cnt_del1,R30
                  ; 0000 012B 		step1=s7;
 000244 e0e7      	LDI  R30,LOW(7)
-000245 93e0 0271 	STS  _step1,R30
+000245 93e0 0171 	STS  _step1,R30
                  ; 0000 012C 		}
                  ; 0000 012D 	}
                  _0x50:
                  ; 0000 012E else if(step1==s7)
 000247 c028      	RJMP _0x51
                  _0x4F:
-000248 91a0 0271 	LDS  R26,_step1
+000248 91a0 0171 	LDS  R26,_step1
 00024a 30a7      	CPI  R26,LOW(0x7)
 00024b f469      	BRNE _0x52
                  ; 0000 012F 	{
                  ; 0000 0130 	out_stat1|=(1<<PP1_1)|(1<<PP1_4);
-00024c 91e0 0278 	LDS  R30,_out_stat1
+00024c 91e0 0178 	LDS  R30,_out_stat1
 00024e 65e0      	ORI  R30,LOW(0x50)
 00024f 940e 0510 	CALL SUBOPT_0x1
                  ; 0000 0131 	cnt_del1--;
@@ -2172,22 +2176,22 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; 0000 0133 		{
                  ; 0000 0134 		cnt_del1=20;
 000252 e1e4      	LDI  R30,LOW(20)
-000253 93e0 0275 	STS  _cnt_del1,R30
+000253 93e0 0175 	STS  _cnt_del1,R30
                  ; 0000 0135 		step1=s8;
 000255 e0e8      	LDI  R30,LOW(8)
-000256 93e0 0271 	STS  _step1,R30
+000256 93e0 0171 	STS  _step1,R30
                  ; 0000 0136 		}
                  ; 0000 0137 	}
                  _0x53:
                  ; 0000 0138 else if(step1==s8)
 000258 c017      	RJMP _0x54
                  _0x52:
-000259 91a0 0271 	LDS  R26,_step1
+000259 91a0 0171 	LDS  R26,_step1
 00025b 30a8      	CPI  R26,LOW(0x8)
 00025c f451      	BRNE _0x55
                  ; 0000 0139 	{
                  ; 0000 013A 	out_stat1|=(1<<PP1_4);
-00025d 91e0 0278 	LDS  R30,_out_stat1
+00025d 91e0 0178 	LDS  R30,_out_stat1
 00025f 61e0      	ORI  R30,0x10
 000260 940e 0510 	CALL SUBOPT_0x1
                  ; 0000 013B 	cnt_del1--;
@@ -2196,14 +2200,14 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; 0000 013D 		{
                  ; 0000 013E 		step1=s9;
 000263 e0e9      	LDI  R30,LOW(9)
-000264 93e0 0271 	STS  _step1,R30
+000264 93e0 0171 	STS  _step1,R30
                  ; 0000 013F 		}
                  ; 0000 0140 	}
                  _0x56:
                  ; 0000 0141 else if(step1==s9)
 000266 c009      	RJMP _0x57
                  _0x55:
-000267 91a0 0271 	LDS  R26,_step1
+000267 91a0 0171 	LDS  R26,_step1
 000269 30a9      	CPI  R26,LOW(0x9)
 00026a f429      	BRNE _0x58
                  ; 0000 0142 	{
@@ -2214,7 +2218,7 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; 0000 0145 		step1=sOFF;
 00026d e0e0      	LDI  R30,LOW(0)
                  _0xF2:
-00026e 93e0 0271 	STS  _step1,R30
+00026e 93e0 0171 	STS  _step1,R30
                  ; 0000 0146 		}
                  ; 0000 0147 	}
                  _0x59:
@@ -2229,44 +2233,44 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  _0x48:
                  _0x45:
                  _0x40:
-000270 91a0 0273 	LDS  R26,_mode1
+000270 91a0 0173 	LDS  R26,_mode1
 000272 30a2      	CPI  R26,LOW(0x2)
 000273 f511      	BRNE _0x5A
                  ; 0000 014A     {
                  ; 0000 014B     out_stat1=0;
 000274 e0e0      	LDI  R30,LOW(0)
-000275 93e0 0278 	STS  _out_stat1,R30
+000275 93e0 0178 	STS  _out_stat1,R30
                  ; 0000 014C     if(tst_out_cnt==1)out_stat1|=(1<<PP1_1);
-000277 91a0 0286 	LDS  R26,_tst_out_cnt
+000277 91a0 0186 	LDS  R26,_tst_out_cnt
 000279 30a1      	CPI  R26,LOW(0x1)
 00027a f411      	BRNE _0x5B
 00027b 64e0      	ORI  R30,0x40
 00027c c017      	RJMP _0xF3
                  ; 0000 014D     else if(tst_out_cnt==2)out_stat1|=(1<<PP1_2);
                  _0x5B:
-00027d 91a0 0286 	LDS  R26,_tst_out_cnt
+00027d 91a0 0186 	LDS  R26,_tst_out_cnt
 00027f 30a2      	CPI  R26,LOW(0x2)
 000280 f421      	BRNE _0x5D
-000281 91e0 0278 	LDS  R30,_out_stat1
+000281 91e0 0178 	LDS  R30,_out_stat1
 000283 68e0      	ORI  R30,0x80
 000284 c00f      	RJMP _0xF3
                  ; 0000 014E     else if(tst_out_cnt==3)out_stat1|=(1<<PP1_3);
                  _0x5D:
-000285 91a0 0286 	LDS  R26,_tst_out_cnt
+000285 91a0 0186 	LDS  R26,_tst_out_cnt
 000287 30a3      	CPI  R26,LOW(0x3)
 000288 f421      	BRNE _0x5F
-000289 91e0 0278 	LDS  R30,_out_stat1
+000289 91e0 0178 	LDS  R30,_out_stat1
 00028b 62e0      	ORI  R30,0x20
 00028c c007      	RJMP _0xF3
                  ; 0000 014F     else if(tst_out_cnt==4)out_stat1|=(1<<PP1_4);
                  _0x5F:
-00028d 91a0 0286 	LDS  R26,_tst_out_cnt
+00028d 91a0 0186 	LDS  R26,_tst_out_cnt
 00028f 30a4      	CPI  R26,LOW(0x4)
 000290 f429      	BRNE _0x61
-000291 91e0 0278 	LDS  R30,_out_stat1
+000291 91e0 0178 	LDS  R30,_out_stat1
 000293 61e0      	ORI  R30,0x10
                  _0xF3:
-000294 93e0 0278 	STS  _out_stat1,R30
+000294 93e0 0178 	STS  _out_stat1,R30
                  ; 0000 0150     }
                  _0x61:
                  ; 0000 0151 }
@@ -2281,16 +2285,16 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; .FSTART _step2_contr
                  ; 0000 0156 out_stat2=0;
 000297 e0e0      	LDI  R30,LOW(0)
-000298 93e0 0279 	STS  _out_stat2,R30
+000298 93e0 0179 	STS  _out_stat2,R30
                  ; 0000 0157 if(mode2==mOFF)step2=sOFF;
-00029a 91a0 0274 	LDS  R26,_mode2
+00029a 91a0 0174 	LDS  R26,_mode2
 00029c 30a1      	CPI  R26,LOW(0x1)
 00029d f411      	BRNE _0x62
-00029e 93e0 0272 	STS  _step2,R30
+00029e 93e0 0172 	STS  _step2,R30
                  ; 0000 0158 
                  ; 0000 0159 if(step2==sOFF)
                  _0x62:
-0002a0 91e0 0272 	LDS  R30,_step2
+0002a0 91e0 0172 	LDS  R30,_step2
 0002a2 30e0      	CPI  R30,0
 0002a3 f409      	BRNE _0x63
                  ; 0000 015A 	{
@@ -2299,20 +2303,20 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; 0000 015D else if(step2==s1)
 0002a4 c081      	RJMP _0x64
                  _0x63:
-0002a5 91a0 0272 	LDS  R26,_step2
+0002a5 91a0 0172 	LDS  R26,_step2
 0002a7 30a1      	CPI  R26,LOW(0x1)
 0002a8 f429      	BRNE _0x65
                  ; 0000 015E 	{
                  ; 0000 015F 	cnt_del2=20;
 0002a9 e1e4      	LDI  R30,LOW(20)
-0002aa 93e0 0276 	STS  _cnt_del2,R30
+0002aa 93e0 0176 	STS  _cnt_del2,R30
                  ; 0000 0160 	step2=s2;
 0002ac e0e2      	LDI  R30,LOW(2)
 0002ad c076      	RJMP _0xF4
                  ; 0000 0161 	}
                  ; 0000 0162 else if(step2==s2)
                  _0x65:
-0002ae 91a0 0272 	LDS  R26,_step2
+0002ae 91a0 0172 	LDS  R26,_step2
 0002b0 30a2      	CPI  R26,LOW(0x2)
 0002b1 f451      	BRNE _0x67
                  ; 0000 0163 	{
@@ -2323,22 +2327,22 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; 0000 0166 		{
                  ; 0000 0167 		cnt_del2=20;
 0002b5 e1e4      	LDI  R30,LOW(20)
-0002b6 93e0 0276 	STS  _cnt_del2,R30
+0002b6 93e0 0176 	STS  _cnt_del2,R30
                  ; 0000 0168 		step2=s3;
 0002b8 e0e3      	LDI  R30,LOW(3)
-0002b9 93e0 0272 	STS  _step2,R30
+0002b9 93e0 0172 	STS  _step2,R30
                  ; 0000 0169 		}
                  ; 0000 016A 	}
                  _0x68:
                  ; 0000 016B else if(step2==s3)
 0002bb c06a      	RJMP _0x69
                  _0x67:
-0002bc 91a0 0272 	LDS  R26,_step2
+0002bc 91a0 0172 	LDS  R26,_step2
 0002be 30a3      	CPI  R26,LOW(0x3)
 0002bf f451      	BRNE _0x6A
                  ; 0000 016C 	{
                  ; 0000 016D 	out_stat2|=(1<<PP2_1);
-0002c0 91e0 0279 	LDS  R30,_out_stat2
+0002c0 91e0 0179 	LDS  R30,_out_stat2
 0002c2 60e8      	ORI  R30,8
 0002c3 940e 051a 	CALL SUBOPT_0x3
                  ; 0000 016E 	cnt_del2--;
@@ -2347,7 +2351,7 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; 0000 0170 		{
                  ; 0000 0171 		step2=s4;
 0002c6 e0e4      	LDI  R30,LOW(4)
-0002c7 93e0 0272 	STS  _step2,R30
+0002c7 93e0 0172 	STS  _step2,R30
                  ; 0000 0172 		}
                  ; 0000 0173 
                  ; 0000 0174 	}
@@ -2355,36 +2359,36 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; 0000 0175 else if(step2==s4)
 0002c9 c05c      	RJMP _0x6C
                  _0x6A:
-0002ca 91a0 0272 	LDS  R26,_step2
+0002ca 91a0 0172 	LDS  R26,_step2
 0002cc 30a4      	CPI  R26,LOW(0x4)
 0002cd f471      	BRNE _0x6D
                  ; 0000 0176 	{
                  ; 0000 0177 	out_stat2|=(1<<PP2_1)|(1<<PP2_2);
-0002ce 91e0 0279 	LDS  R30,_out_stat2
+0002ce 91e0 0179 	LDS  R30,_out_stat2
 0002d0 60ec      	ORI  R30,LOW(0xC)
-0002d1 93e0 0279 	STS  _out_stat2,R30
+0002d1 93e0 0179 	STS  _out_stat2,R30
                  ; 0000 0178 	if(bVR2)
 0002d3 fe35      	SBRS R3,5
 0002d4 c006      	RJMP _0x6E
                  ; 0000 0179 		{
                  ; 0000 017A 		step2=s5;
 0002d5 e0e5      	LDI  R30,LOW(5)
-0002d6 93e0 0272 	STS  _step2,R30
+0002d6 93e0 0172 	STS  _step2,R30
                  ; 0000 017B 		cnt_del2=50;
 0002d8 e3e2      	LDI  R30,LOW(50)
-0002d9 93e0 0276 	STS  _cnt_del2,R30
+0002d9 93e0 0176 	STS  _cnt_del2,R30
                  ; 0000 017C 		}
                  ; 0000 017D 	}
                  _0x6E:
                  ; 0000 017E else if(step2==s5)
 0002db c04a      	RJMP _0x6F
                  _0x6D:
-0002dc 91a0 0272 	LDS  R26,_step2
+0002dc 91a0 0172 	LDS  R26,_step2
 0002de 30a5      	CPI  R26,LOW(0x5)
 0002df f469      	BRNE _0x70
                  ; 0000 017F 	{
                  ; 0000 0180 	out_stat2|=(1<<PP2_1)|(1<<PP2_2)|(1<<PP2_3);
-0002e0 91e0 0279 	LDS  R30,_out_stat2
+0002e0 91e0 0179 	LDS  R30,_out_stat2
 0002e2 60ee      	ORI  R30,LOW(0xE)
 0002e3 940e 051a 	CALL SUBOPT_0x3
                  ; 0000 0181 	cnt_del2--;
@@ -2393,22 +2397,22 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; 0000 0183 		{
                  ; 0000 0184 		cnt_del2=80;
 0002e6 e5e0      	LDI  R30,LOW(80)
-0002e7 93e0 0276 	STS  _cnt_del2,R30
+0002e7 93e0 0176 	STS  _cnt_del2,R30
                  ; 0000 0185 		step2=s6;
 0002e9 e0e6      	LDI  R30,LOW(6)
-0002ea 93e0 0272 	STS  _step2,R30
+0002ea 93e0 0172 	STS  _step2,R30
                  ; 0000 0186 		}
                  ; 0000 0187 	}
                  _0x71:
                  ; 0000 0188 else if(step2==s6)
 0002ec c039      	RJMP _0x72
                  _0x70:
-0002ed 91a0 0272 	LDS  R26,_step2
+0002ed 91a0 0172 	LDS  R26,_step2
 0002ef 30a6      	CPI  R26,LOW(0x6)
 0002f0 f469      	BRNE _0x73
                  ; 0000 0189 	{
                  ; 0000 018A 	out_stat2|=(1<<PP2_1)|(1<<PP2_2)|(1<<PP2_3)|(1<<PP2_4);
-0002f1 91e0 0279 	LDS  R30,_out_stat2
+0002f1 91e0 0179 	LDS  R30,_out_stat2
 0002f3 60ef      	ORI  R30,LOW(0xF)
 0002f4 940e 051a 	CALL SUBOPT_0x3
                  ; 0000 018B 	cnt_del2--;
@@ -2417,22 +2421,22 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; 0000 018D 		{
                  ; 0000 018E 		cnt_del2=60;
 0002f7 e3ec      	LDI  R30,LOW(60)
-0002f8 93e0 0276 	STS  _cnt_del2,R30
+0002f8 93e0 0176 	STS  _cnt_del2,R30
                  ; 0000 018F 		step2=s7;
 0002fa e0e7      	LDI  R30,LOW(7)
-0002fb 93e0 0272 	STS  _step2,R30
+0002fb 93e0 0172 	STS  _step2,R30
                  ; 0000 0190 		}
                  ; 0000 0191 	}
                  _0x74:
                  ; 0000 0192 else if(step2==s7)
 0002fd c028      	RJMP _0x75
                  _0x73:
-0002fe 91a0 0272 	LDS  R26,_step2
+0002fe 91a0 0172 	LDS  R26,_step2
 000300 30a7      	CPI  R26,LOW(0x7)
 000301 f469      	BRNE _0x76
                  ; 0000 0193 	{
                  ; 0000 0194 	out_stat2|=(1<<PP2_1)|(1<<PP2_4);
-000302 91e0 0279 	LDS  R30,_out_stat2
+000302 91e0 0179 	LDS  R30,_out_stat2
 000304 60e9      	ORI  R30,LOW(0x9)
 000305 940e 051a 	CALL SUBOPT_0x3
                  ; 0000 0195 	cnt_del2--;
@@ -2441,22 +2445,22 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; 0000 0197 		{
                  ; 0000 0198 		cnt_del2=20;
 000308 e1e4      	LDI  R30,LOW(20)
-000309 93e0 0276 	STS  _cnt_del2,R30
+000309 93e0 0176 	STS  _cnt_del2,R30
                  ; 0000 0199 		step2=s8;
 00030b e0e8      	LDI  R30,LOW(8)
-00030c 93e0 0272 	STS  _step2,R30
+00030c 93e0 0172 	STS  _step2,R30
                  ; 0000 019A 		}
                  ; 0000 019B 	}
                  _0x77:
                  ; 0000 019C else if(step2==s8)
 00030e c017      	RJMP _0x78
                  _0x76:
-00030f 91a0 0272 	LDS  R26,_step2
+00030f 91a0 0172 	LDS  R26,_step2
 000311 30a8      	CPI  R26,LOW(0x8)
 000312 f451      	BRNE _0x79
                  ; 0000 019D 	{
                  ; 0000 019E 	out_stat2|=(1<<PP2_4);
-000313 91e0 0279 	LDS  R30,_out_stat2
+000313 91e0 0179 	LDS  R30,_out_stat2
 000315 60e1      	ORI  R30,1
 000316 940e 051a 	CALL SUBOPT_0x3
                  ; 0000 019F 	cnt_del2--;
@@ -2465,14 +2469,14 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; 0000 01A1 		{
                  ; 0000 01A2 		step2=s9;
 000319 e0e9      	LDI  R30,LOW(9)
-00031a 93e0 0272 	STS  _step2,R30
+00031a 93e0 0172 	STS  _step2,R30
                  ; 0000 01A3 		}
                  ; 0000 01A4 	}
                  _0x7A:
                  ; 0000 01A5 else if(step2==s9)
 00031c c009      	RJMP _0x7B
                  _0x79:
-00031d 91a0 0272 	LDS  R26,_step2
+00031d 91a0 0172 	LDS  R26,_step2
 00031f 30a9      	CPI  R26,LOW(0x9)
 000320 f429      	BRNE _0x7C
                  ; 0000 01A6 	{
@@ -2483,7 +2487,7 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; 0000 01A9 		step2=sOFF;
 000323 e0e0      	LDI  R30,LOW(0)
                  _0xF4:
-000324 93e0 0272 	STS  _step2,R30
+000324 93e0 0172 	STS  _step2,R30
                  ; 0000 01AA 		}
                  ; 0000 01AB 	}
                  _0x7D:
@@ -2498,44 +2502,44 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  _0x6C:
                  _0x69:
                  _0x64:
-000326 91a0 0274 	LDS  R26,_mode2
+000326 91a0 0174 	LDS  R26,_mode2
 000328 30a2      	CPI  R26,LOW(0x2)
 000329 f511      	BRNE _0x7E
                  ; 0000 01AE     {
                  ; 0000 01AF     out_stat2=0;
 00032a e0e0      	LDI  R30,LOW(0)
-00032b 93e0 0279 	STS  _out_stat2,R30
+00032b 93e0 0179 	STS  _out_stat2,R30
                  ; 0000 01B0     if(tst_out_cnt==1)out_stat2|=(1<<PP2_1);
-00032d 91a0 0286 	LDS  R26,_tst_out_cnt
+00032d 91a0 0186 	LDS  R26,_tst_out_cnt
 00032f 30a1      	CPI  R26,LOW(0x1)
 000330 f411      	BRNE _0x7F
 000331 60e8      	ORI  R30,8
 000332 c017      	RJMP _0xF5
                  ; 0000 01B1     else if(tst_out_cnt==2)out_stat2|=(1<<PP2_2);
                  _0x7F:
-000333 91a0 0286 	LDS  R26,_tst_out_cnt
+000333 91a0 0186 	LDS  R26,_tst_out_cnt
 000335 30a2      	CPI  R26,LOW(0x2)
 000336 f421      	BRNE _0x81
-000337 91e0 0279 	LDS  R30,_out_stat2
+000337 91e0 0179 	LDS  R30,_out_stat2
 000339 60e4      	ORI  R30,4
 00033a c00f      	RJMP _0xF5
                  ; 0000 01B2     else if(tst_out_cnt==3)out_stat2|=(1<<PP2_3);
                  _0x81:
-00033b 91a0 0286 	LDS  R26,_tst_out_cnt
+00033b 91a0 0186 	LDS  R26,_tst_out_cnt
 00033d 30a3      	CPI  R26,LOW(0x3)
 00033e f421      	BRNE _0x83
-00033f 91e0 0279 	LDS  R30,_out_stat2
+00033f 91e0 0179 	LDS  R30,_out_stat2
 000341 60e2      	ORI  R30,2
 000342 c007      	RJMP _0xF5
                  ; 0000 01B3     else if(tst_out_cnt==4)out_stat2|=(1<<PP2_4);
                  _0x83:
-000343 91a0 0286 	LDS  R26,_tst_out_cnt
+000343 91a0 0186 	LDS  R26,_tst_out_cnt
 000345 30a4      	CPI  R26,LOW(0x4)
 000346 f429      	BRNE _0x85
-000347 91e0 0279 	LDS  R30,_out_stat2
+000347 91e0 0179 	LDS  R30,_out_stat2
 000349 60e1      	ORI  R30,1
                  _0xF5:
-00034a 93e0 0279 	STS  _out_stat2,R30
+00034a 93e0 0179 	STS  _out_stat2,R30
                  ; 0000 01B4     }
                  _0x85:
                  ; 0000 01B5 }
@@ -2654,25 +2658,25 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; 0000 0221 /*DDRD.2=1;
                  ; 0000 0222 PORTD.2=!PORTD.2;*/
                  ; 0000 0223 if(cmnd==0x55)
-00034d 91a0 027c 	LDS  R26,_cmnd
+00034d 91a0 017c 	LDS  R26,_cmnd
 00034f 35a5      	CPI  R26,LOW(0x55)
 000350 f479      	BRNE _0xA7
                  ; 0000 0224 	{
                  ; 0000 0225 	if(mode1==mON)step1=s1;
-000351 91e0 0273 	LDS  R30,_mode1
+000351 91e0 0173 	LDS  R30,_mode1
 000353 30e0      	CPI  R30,0
 000354 f419      	BRNE _0xA8
 000355 e0e1      	LDI  R30,LOW(1)
-000356 93e0 0271 	STS  _step1,R30
+000356 93e0 0171 	STS  _step1,R30
                  ; 0000 0226 	if(mode2==mON)
                  _0xA8:
-000358 91e0 0274 	LDS  R30,_mode2
+000358 91e0 0174 	LDS  R30,_mode2
 00035a 30e0      	CPI  R30,0
 00035b f419      	BRNE _0xA9
                  ; 0000 0227 		{
                  ; 0000 0228 		step2=s1;
 00035c e0e1      	LDI  R30,LOW(1)
-00035d 93e0 0272 	STS  _step2,R30
+00035d 93e0 0172 	STS  _step2,R30
                  ; 0000 0229 		/*PORTD.2=!PORTD.2; */
                  ; 0000 022A 		}
                  ; 0000 022B 	}
@@ -2680,23 +2684,23 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; 0000 022C else if(cmnd==0x33)
 00035f c012      	RJMP _0xAA
                  _0xA7:
-000360 91a0 027c 	LDS  R26,_cmnd
+000360 91a0 017c 	LDS  R26,_cmnd
 000362 33a3      	CPI  R26,LOW(0x33)
 000363 f471      	BRNE _0xAB
                  ; 0000 022D 	{
                  ; 0000 022E 	if(mode1==mON)step1=sOFF;
-000364 91e0 0273 	LDS  R30,_mode1
+000364 91e0 0173 	LDS  R30,_mode1
 000366 30e0      	CPI  R30,0
 000367 f419      	BRNE _0xAC
 000368 e0e0      	LDI  R30,LOW(0)
-000369 93e0 0271 	STS  _step1,R30
+000369 93e0 0171 	STS  _step1,R30
                  ; 0000 022F 	if(mode2==mON)step2=sOFF;
                  _0xAC:
-00036b 91e0 0274 	LDS  R30,_mode2
+00036b 91e0 0174 	LDS  R30,_mode2
 00036d 30e0      	CPI  R30,0
 00036e f419      	BRNE _0xAD
 00036f e0e0      	LDI  R30,LOW(0)
-000370 93e0 0272 	STS  _step2,R30
+000370 93e0 0172 	STS  _step2,R30
                  ; 0000 0230 	}
                  _0xAD:
                  ; 0000 0231 
@@ -2731,14 +2735,14 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; 0000 0248 
                  ; 0000 0249 #elif(NUM_OF_SLAVE==3)
                  ; 0000 024A if(state&0x10)mode1=mON;
-000373 91e0 0280 	LDS  R30,_state
+000373 91e0 0180 	LDS  R30,_state
 000375 71e0      	ANDI R30,LOW(0x10)
 000376 f011      	BREQ _0xAE
 000377 e0e0      	LDI  R30,LOW(0)
 000378 c007      	RJMP _0xF8
                  ; 0000 024B else if(!(tst&0x10))mode1=mTST;
                  _0xAE:
-000379 91e0 0284 	LDS  R30,_tst
+000379 91e0 0184 	LDS  R30,_tst
 00037b 71e0      	ANDI R30,LOW(0x10)
 00037c f411      	BRNE _0xB0
 00037d e0e2      	LDI  R30,LOW(2)
@@ -2747,17 +2751,17 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  _0xB0:
 00037f e0e1      	LDI  R30,LOW(1)
                  _0xF8:
-000380 93e0 0273 	STS  _mode1,R30
+000380 93e0 0173 	STS  _mode1,R30
                  ; 0000 024D 
                  ; 0000 024E if(state&0x20)mode2=mON;
-000382 91e0 0280 	LDS  R30,_state
+000382 91e0 0180 	LDS  R30,_state
 000384 72e0      	ANDI R30,LOW(0x20)
 000385 f011      	BREQ _0xB2
 000386 e0e0      	LDI  R30,LOW(0)
 000387 c007      	RJMP _0xF9
                  ; 0000 024F else if(!(tst&0x20))mode2=mTST;
                  _0xB2:
-000388 91e0 0284 	LDS  R30,_tst
+000388 91e0 0184 	LDS  R30,_tst
 00038a 72e0      	ANDI R30,LOW(0x20)
 00038b f411      	BRNE _0xB4
 00038c e0e2      	LDI  R30,LOW(2)
@@ -2766,7 +2770,7 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  _0xB4:
 00038e e0e1      	LDI  R30,LOW(1)
                  _0xF9:
-00038f 93e0 0274 	STS  _mode2,R30
+00038f 93e0 0174 	STS  _mode2,R30
                  ; 0000 0251 #endif
                  ; 0000 0252 }
 000391 9508      	RET
@@ -2778,7 +2782,7 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  _uart_in_an:
                  ; .FSTART _uart_in_an
                  ; 0000 0257 if(rx_buffer[0]==NUM_OF_SLAVE)
-000392 91a0 0287 	LDS  R26,_rx_buffer
+000392 91a0 0187 	LDS  R26,_rx_buffer
 000394 30a3      	CPI  R26,LOW(0x3)
 000395 f009      	BREQ PC+2
 000396 c045      	RJMP _0xB6
@@ -2814,7 +2818,7 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
 0003a6 83ea      	STD  Y+2,R30
                  ; 0000 0261 	if(step1!=sOFF)temp2|=(1<<2);
                  _0xB8:
-0003a7 91e0 0271 	LDS  R30,_step1
+0003a7 91e0 0171 	LDS  R30,_step1
 0003a9 30e0      	CPI  R30,0
 0003aa f019      	BREQ _0xB9
 0003ab 81ea      	LDD  R30,Y+2
@@ -2836,7 +2840,7 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
 0003b7 83ea      	STD  Y+2,R30
                  ; 0000 0264 	if(step2!=sOFF)temp2|=(1<<5);
                  _0xBB:
-0003b8 91e0 0272 	LDS  R30,_step2
+0003b8 91e0 0172 	LDS  R30,_step2
 0003ba 30e0      	CPI  R30,0
 0003bb f019      	BREQ _0xBC
 0003bc 81ea      	LDD  R30,Y+2
@@ -2889,41 +2893,41 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; 0000 0273 cmnd_new=rx_buffer[1];
                  _0xB6:
                 +
-0003dc 91e0 0288+LDS R30 , _rx_buffer + ( 1 )
+0003dc 91e0 0188+LDS R30 , _rx_buffer + ( 1 )
                  	__GETB1MN _rx_buffer,1
-0003de 93e0 027a 	STS  _cmnd_new,R30
+0003de 93e0 017a 	STS  _cmnd_new,R30
                  ; 0000 0274 if(cmnd_new==cmnd_old)
-0003e0 91e0 027b 	LDS  R30,_cmnd_old
-0003e2 91a0 027a 	LDS  R26,_cmnd_new
+0003e0 91e0 017b 	LDS  R30,_cmnd_old
+0003e2 91a0 017a 	LDS  R26,_cmnd_new
 0003e4 17ea      	CP   R30,R26
 0003e5 f4e1      	BRNE _0xBD
                  ; 0000 0275 	{
                  ; 0000 0276 	if(cmnd_cnt<4)
-0003e6 91a0 027d 	LDS  R26,_cmnd_cnt
+0003e6 91a0 017d 	LDS  R26,_cmnd_cnt
 0003e8 30a4      	CPI  R26,LOW(0x4)
 0003e9 f4b8      	BRSH _0xBE
                  ; 0000 0277 		{
                  ; 0000 0278 		cmnd_cnt++;
-0003ea 91e0 027d 	LDS  R30,_cmnd_cnt
+0003ea 91e0 017d 	LDS  R30,_cmnd_cnt
 0003ec 5fef      	SUBI R30,-LOW(1)
-0003ed 93e0 027d 	STS  _cmnd_cnt,R30
+0003ed 93e0 017d 	STS  _cmnd_cnt,R30
                  ; 0000 0279 		if(cmnd_cnt>=4)
-0003ef 91a0 027d 	LDS  R26,_cmnd_cnt
+0003ef 91a0 017d 	LDS  R26,_cmnd_cnt
 0003f1 30a4      	CPI  R26,LOW(0x4)
 0003f2 f070      	BRLO _0xBF
                  ; 0000 027A 			{
                  ; 0000 027B 			if((cmnd_new&0x7f)!=cmnd)
-0003f3 91e0 027a 	LDS  R30,_cmnd_new
+0003f3 91e0 017a 	LDS  R30,_cmnd_new
 0003f5 77ef      	ANDI R30,0x7F
 0003f6 2fae      	MOV  R26,R30
-0003f7 91e0 027c 	LDS  R30,_cmnd
+0003f7 91e0 017c 	LDS  R30,_cmnd
 0003f9 17ea      	CP   R30,R26
 0003fa f031      	BREQ _0xC0
                  ; 0000 027C 				{
                  ; 0000 027D 				cmnd=cmnd_new&0x7f;
-0003fb 91e0 027a 	LDS  R30,_cmnd_new
+0003fb 91e0 017a 	LDS  R30,_cmnd_new
 0003fd 77ef      	ANDI R30,0x7F
-0003fe 93e0 027c 	STS  _cmnd,R30
+0003fe 93e0 017c 	STS  _cmnd,R30
                  ; 0000 027E 				cmnd_an();
 000400 df4c      	RCALL _cmnd_an
                  ; 0000 027F 				}
@@ -2937,49 +2941,49 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
 000401 c003      	RJMP _0xC1
                  _0xBD:
 000402 e0e0      	LDI  R30,LOW(0)
-000403 93e0 027d 	STS  _cmnd_cnt,R30
+000403 93e0 017d 	STS  _cmnd_cnt,R30
                  ; 0000 0284 cmnd_old=cmnd_new;
                  _0xC1:
-000405 91e0 027a 	LDS  R30,_cmnd_new
-000407 93e0 027b 	STS  _cmnd_old,R30
+000405 91e0 017a 	LDS  R30,_cmnd_new
+000407 93e0 017b 	STS  _cmnd_old,R30
                  ; 0000 0285 
                  ; 0000 0286 state_new=rx_buffer[2];
                 +
-000409 91e0 0289+LDS R30 , _rx_buffer + ( 2 )
+000409 91e0 0189+LDS R30 , _rx_buffer + ( 2 )
                  	__GETB1MN _rx_buffer,2
-00040b 93e0 027e 	STS  _state_new,R30
+00040b 93e0 017e 	STS  _state_new,R30
                  ; 0000 0287 if(state_new==state_old)
-00040d 91e0 027f 	LDS  R30,_state_old
-00040f 91a0 027e 	LDS  R26,_state_new
+00040d 91e0 017f 	LDS  R30,_state_old
+00040f 91a0 017e 	LDS  R26,_state_new
 000411 17ea      	CP   R30,R26
 000412 f4e1      	BRNE _0xC2
                  ; 0000 0288 	{
                  ; 0000 0289 	if(state_cnt<4)
-000413 91a0 0281 	LDS  R26,_state_cnt
+000413 91a0 0181 	LDS  R26,_state_cnt
 000415 30a4      	CPI  R26,LOW(0x4)
 000416 f4b8      	BRSH _0xC3
                  ; 0000 028A 		{
                  ; 0000 028B 		state_cnt++;
-000417 91e0 0281 	LDS  R30,_state_cnt
+000417 91e0 0181 	LDS  R30,_state_cnt
 000419 5fef      	SUBI R30,-LOW(1)
-00041a 93e0 0281 	STS  _state_cnt,R30
+00041a 93e0 0181 	STS  _state_cnt,R30
                  ; 0000 028C 		if(state_cnt>=4)
-00041c 91a0 0281 	LDS  R26,_state_cnt
+00041c 91a0 0181 	LDS  R26,_state_cnt
 00041e 30a4      	CPI  R26,LOW(0x4)
 00041f f070      	BRLO _0xC4
                  ; 0000 028D 			{
                  ; 0000 028E 			if((state_new&0x7f)!=state)
-000420 91e0 027e 	LDS  R30,_state_new
+000420 91e0 017e 	LDS  R30,_state_new
 000422 77ef      	ANDI R30,0x7F
 000423 2fae      	MOV  R26,R30
-000424 91e0 0280 	LDS  R30,_state
+000424 91e0 0180 	LDS  R30,_state
 000426 17ea      	CP   R30,R26
 000427 f031      	BREQ _0xC5
                  ; 0000 028F 				{
                  ; 0000 0290 				state=state_new&0x7f;
-000428 91e0 027e 	LDS  R30,_state_new
+000428 91e0 017e 	LDS  R30,_state_new
 00042a 77ef      	ANDI R30,0x7F
-00042b 93e0 0280 	STS  _state,R30
+00042b 93e0 0180 	STS  _state,R30
                  ; 0000 0291 				state_an();
 00042d df45      	RCALL _state_an
                  ; 0000 0292 				}
@@ -2993,49 +2997,49 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
 00042e c003      	RJMP _0xC6
                  _0xC2:
 00042f e0e0      	LDI  R30,LOW(0)
-000430 93e0 0281 	STS  _state_cnt,R30
+000430 93e0 0181 	STS  _state_cnt,R30
                  ; 0000 0297 state_old=state_new;
                  _0xC6:
-000432 91e0 027e 	LDS  R30,_state_new
-000434 93e0 027f 	STS  _state_old,R30
+000432 91e0 017e 	LDS  R30,_state_new
+000434 93e0 017f 	STS  _state_old,R30
                  ; 0000 0298 
                  ; 0000 0299 tst_new=rx_buffer[3];
                 +
-000436 91e0 028a+LDS R30 , _rx_buffer + ( 3 )
+000436 91e0 018a+LDS R30 , _rx_buffer + ( 3 )
                  	__GETB1MN _rx_buffer,3
-000438 93e0 0282 	STS  _tst_new,R30
+000438 93e0 0182 	STS  _tst_new,R30
                  ; 0000 029A if(tst_new==tst_old)
-00043a 91e0 0283 	LDS  R30,_tst_old
-00043c 91a0 0282 	LDS  R26,_tst_new
+00043a 91e0 0183 	LDS  R30,_tst_old
+00043c 91a0 0182 	LDS  R26,_tst_new
 00043e 17ea      	CP   R30,R26
 00043f f4e1      	BRNE _0xC7
                  ; 0000 029B 	{
                  ; 0000 029C 	if(tst_cnt<4)
-000440 91a0 0285 	LDS  R26,_tst_cnt
+000440 91a0 0185 	LDS  R26,_tst_cnt
 000442 30a4      	CPI  R26,LOW(0x4)
 000443 f4b8      	BRSH _0xC8
                  ; 0000 029D 		{
                  ; 0000 029E 		tst_cnt++;
-000444 91e0 0285 	LDS  R30,_tst_cnt
+000444 91e0 0185 	LDS  R30,_tst_cnt
 000446 5fef      	SUBI R30,-LOW(1)
-000447 93e0 0285 	STS  _tst_cnt,R30
+000447 93e0 0185 	STS  _tst_cnt,R30
                  ; 0000 029F 		if(tst_cnt>=4)
-000449 91a0 0285 	LDS  R26,_tst_cnt
+000449 91a0 0185 	LDS  R26,_tst_cnt
 00044b 30a4      	CPI  R26,LOW(0x4)
 00044c f070      	BRLO _0xC9
                  ; 0000 02A0 			{
                  ; 0000 02A1 			if((tst_new&0x7f)!=tst)
-00044d 91e0 0282 	LDS  R30,_tst_new
+00044d 91e0 0182 	LDS  R30,_tst_new
 00044f 77ef      	ANDI R30,0x7F
 000450 2fae      	MOV  R26,R30
-000451 91e0 0284 	LDS  R30,_tst
+000451 91e0 0184 	LDS  R30,_tst
 000453 17ea      	CP   R30,R26
 000454 f031      	BREQ _0xCA
                  ; 0000 02A2 				{
                  ; 0000 02A3 				tst=tst_new&0x7f;
-000455 91e0 0282 	LDS  R30,_tst_new
+000455 91e0 0182 	LDS  R30,_tst_new
 000457 77ef      	ANDI R30,0x7F
-000458 93e0 0284 	STS  _tst,R30
+000458 93e0 0184 	STS  _tst,R30
                  ; 0000 02A4 				state_an();
 00045a df18      	RCALL _state_an
                  ; 0000 02A5 				}
@@ -3049,11 +3053,11 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
 00045b c003      	RJMP _0xCB
                  _0xC7:
 00045c e0e0      	LDI  R30,LOW(0)
-00045d 93e0 0285 	STS  _tst_cnt,R30
+00045d 93e0 0185 	STS  _tst_cnt,R30
                  ; 0000 02AA tst_old=tst_new;
                  _0xCB:
-00045f 91e0 0282 	LDS  R30,_tst_new
-000461 93e0 0283 	STS  _tst_old,R30
+00045f 91e0 0182 	LDS  R30,_tst_new
+000461 93e0 0183 	STS  _tst_old,R30
                  ; 0000 02AB 
                  ; 0000 02AC /*state=rx_buffer[2];
                  ; 0000 02AD state_an();*/
@@ -3074,8 +3078,8 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
 000468 e1af      	LDI  R26,LOW(31)
 000469 e0b0      	LDI  R27,HIGH(31)
 00046a 940e 051d 	CALL __MULW12U
-00046c 93e0 026d 	STS  _timer1_delay,R30
-00046e 93f0 026e 	STS  _timer1_delay+1,R31
+00046c 93e0 016d 	STS  _timer1_delay,R30
+00046e 93f0 016e 	STS  _timer1_delay+1,R31
                  ; 0000 02B5 }
 000470 9508      	RET
                  ; .FEND
@@ -3215,37 +3219,37 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
 00047c f821      	BLD  R2,1
                  ; 0000 032B 
                  ; 0000 032C if(++t0_cnt1>=10)
-00047d 9493      	INC  R9
+00047d 9483      	INC  R8
 00047e e0ea      	LDI  R30,LOW(10)
-00047f 169e      	CP   R9,R30
+00047f 168e      	CP   R8,R30
 000480 f0b0      	BRLO _0xDB
                  ; 0000 032D 	{
                  ; 0000 032E 	t0_cnt1=0;
-000481 2499      	CLR  R9
+000481 2488      	CLR  R8
                  ; 0000 032F 	b10Hz=1;
 000482 f822      	BLD  R2,2
                  ; 0000 0330 
                  ; 0000 0331 	if(++t0_cnt2>=2)
-000483 9483      	INC  R8
+000483 9473      	INC  R7
 000484 e0e2      	LDI  R30,LOW(2)
-000485 168e      	CP   R8,R30
+000485 167e      	CP   R7,R30
 000486 f010      	BRLO _0xDC
                  ; 0000 0332 		{
                  ; 0000 0333 		t0_cnt2=0;
-000487 2488      	CLR  R8
+000487 2477      	CLR  R7
                  ; 0000 0334 		bFL5=!bFL5;
 000488 263e      	EOR  R3,R30
                  ; 0000 0335 		}
                  ; 0000 0336 
                  ; 0000 0337 	if(++t0_cnt3>=5)
                  _0xDC:
-000489 94b3      	INC  R11
+000489 94a3      	INC  R10
 00048a e0e5      	LDI  R30,LOW(5)
-00048b 16be      	CP   R11,R30
+00048b 16ae      	CP   R10,R30
 00048c f018      	BRLO _0xDD
                  ; 0000 0338 		{
                  ; 0000 0339 		t0_cnt3=0;
-00048d 24bb      	CLR  R11
+00048d 24aa      	CLR  R10
                  ; 0000 033A 		bFL2=!bFL2;
 00048e e0e1      	LDI  R30,LOW(1)
 00048f 263e      	EOR  R3,R30
@@ -3253,13 +3257,13 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; 0000 033C 
                  ; 0000 033D 	if(++t0_cnt4>=10)
                  _0xDD:
-000490 94a3      	INC  R10
+000490 9493      	INC  R9
 000491 e0ea      	LDI  R30,LOW(10)
-000492 16ae      	CP   R10,R30
+000492 169e      	CP   R9,R30
 000493 f018      	BRLO _0xDE
                  ; 0000 033E 		{
                  ; 0000 033F 		t0_cnt4=0;
-000494 24aa      	CLR  R10
+000494 2499      	CLR  R9
                  ; 0000 0340 		b1Hz=!b1Hz;
 000495 e0e8      	LDI  R30,LOW(8)
 000496 262e      	EOR  R2,R30
@@ -3460,7 +3464,7 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  ; 0000 03A8         DDRD.2=1;
 0004ea 9a8a      	SBI  0x11,2
                  ; 0000 03A9         if(step2!=sOFF) PORTD.2=0;
-0004eb 91e0 0272 	LDS  R30,_step2
+0004eb 91e0 0172 	LDS  R30,_step2
 0004ed 30e0      	CPI  R30,0
 0004ee f011      	BREQ _0xE7
 0004ef 9892      	CBI  0x12,2
@@ -3485,13 +3489,13 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
 0004f7 f823      	BLD  R2,3
                  ; 0000 03B2 
                  ; 0000 03B3         if(++tst_out_cnt>=5)tst_out_cnt=0;
-0004f8 91a0 0286 	LDS  R26,_tst_out_cnt
+0004f8 91a0 0186 	LDS  R26,_tst_out_cnt
 0004fa 5faf      	SUBI R26,-LOW(1)
-0004fb 93a0 0286 	STS  _tst_out_cnt,R26
+0004fb 93a0 0186 	STS  _tst_out_cnt,R26
 0004fd 30a5      	CPI  R26,LOW(0x5)
 0004fe f018      	BRLO _0xEE
 0004ff e0e0      	LDI  R30,LOW(0)
-000500 93e0 0286 	STS  _tst_out_cnt,R30
+000500 93e0 0186 	STS  _tst_out_cnt,R30
                  ; 0000 03B4         PORTC.1=!PORTC.1;
                  _0xEE:
 000502 9ba9      	SBIS 0x15,1
@@ -3524,31 +3528,31 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  
                  	.DSEG
                  _but_n_G000:
-000260           	.BYTE 0x1
+000160           	.BYTE 0x1
                  _but_s_G000:
-000261           	.BYTE 0x1
+000161           	.BYTE 0x1
                  _but0_cnt_G000:
-000262           	.BYTE 0x1
+000162           	.BYTE 0x1
                  _but1_cnt_G000:
-000263           	.BYTE 0x1
+000163           	.BYTE 0x1
                  _but_onL_temp_G000:
-000264           	.BYTE 0x1
+000164           	.BYTE 0x1
                  _in_word:
-000265           	.BYTE 0x1
+000165           	.BYTE 0x1
                  _in_word_old:
-000266           	.BYTE 0x1
+000166           	.BYTE 0x1
                  _in_word_new:
-000267           	.BYTE 0x1
+000167           	.BYTE 0x1
                  _in_word_cnt:
-000268           	.BYTE 0x1
+000168           	.BYTE 0x1
                  _cnt_md1:
-000269           	.BYTE 0x1
+000169           	.BYTE 0x1
                  _cnt_md2:
-00026a           	.BYTE 0x1
+00016a           	.BYTE 0x1
                  _cnt_vr1:
-00026b           	.BYTE 0x1
+00016b           	.BYTE 0x1
                  _cnt_vr2:
-00026c           	.BYTE 0x1
+00016c           	.BYTE 0x1
                  
                  	.ESEG
                  _ch_on:
@@ -3558,97 +3562,97 @@ E:\USERS\PAL\DEVICES\GAVT\GAVT24_2020\Release\List\SLAVE.asm(1138): warning: .cs
                  
                  	.DSEG
                  _timer1_delay:
-00026d           	.BYTE 0x2
+00016d           	.BYTE 0x2
                  _cmnd_byte:
-00026f           	.BYTE 0x1
+00016f           	.BYTE 0x1
                  _state_byte:
-000270           	.BYTE 0x1
+000170           	.BYTE 0x1
                  _step1:
-000271           	.BYTE 0x1
+000171           	.BYTE 0x1
                  _step2:
-000272           	.BYTE 0x1
+000172           	.BYTE 0x1
                  _mode1:
-000273           	.BYTE 0x1
+000173           	.BYTE 0x1
                  _mode2:
-000274           	.BYTE 0x1
+000174           	.BYTE 0x1
                  _cnt_del1:
-000275           	.BYTE 0x1
+000175           	.BYTE 0x1
                  _cnt_del2:
-000276           	.BYTE 0x1
+000176           	.BYTE 0x1
                  _out_stat:
-000277           	.BYTE 0x1
+000177           	.BYTE 0x1
                  _out_stat1:
-000278           	.BYTE 0x1
+000178           	.BYTE 0x1
                  _out_stat2:
-000279           	.BYTE 0x1
+000179           	.BYTE 0x1
                  _cmnd_new:
-00027a           	.BYTE 0x1
+00017a           	.BYTE 0x1
                  _cmnd_old:
-00027b           	.BYTE 0x1
+00017b           	.BYTE 0x1
                  _cmnd:
-00027c           	.BYTE 0x1
+00017c           	.BYTE 0x1
                  _cmnd_cnt:
-00027d           	.BYTE 0x1
+00017d           	.BYTE 0x1
                  _state_new:
-00027e           	.BYTE 0x1
+00017e           	.BYTE 0x1
                  _state_old:
-00027f           	.BYTE 0x1
+00017f           	.BYTE 0x1
                  _state:
-000280           	.BYTE 0x1
+000180           	.BYTE 0x1
                  _state_cnt:
-000281           	.BYTE 0x1
+000181           	.BYTE 0x1
                  _tst_new:
-000282           	.BYTE 0x1
+000182           	.BYTE 0x1
                  _tst_old:
-000283           	.BYTE 0x1
+000183           	.BYTE 0x1
                  _tst:
-000284           	.BYTE 0x1
+000184           	.BYTE 0x1
                  _tst_cnt:
-000285           	.BYTE 0x1
+000185           	.BYTE 0x1
                  _tst_out_cnt:
-000286           	.BYTE 0x1
+000186           	.BYTE 0x1
                  _rx_buffer:
-000287           	.BYTE 0x32
+000187           	.BYTE 0x32
                  _rx_wr_index:
-0002b9           	.BYTE 0x1
+0001b9           	.BYTE 0x1
                  _rx_rd_index:
-0002ba           	.BYTE 0x1
+0001ba           	.BYTE 0x1
                  _rx_counter:
-0002bb           	.BYTE 0x1
+0001bb           	.BYTE 0x1
                  _tx_buffer:
-0002bc           	.BYTE 0x64
+0001bc           	.BYTE 0x64
                  _tx_wr_index:
-000320           	.BYTE 0x1
+000220           	.BYTE 0x1
                  _tx_rd_index:
-000321           	.BYTE 0x1
+000221           	.BYTE 0x1
                  _tx_counter:
-000322           	.BYTE 0x1
+000222           	.BYTE 0x1
                  
                  	.CSEG
                  ;OPTIMIZER ADDED SUBROUTINE, CALLED 6 TIMES, CODE SIZE REDUCTION:27 WORDS
                  SUBOPT_0x0:
-000509 91e0 0275 	LDS  R30,_cnt_del1
+000509 91e0 0175 	LDS  R30,_cnt_del1
 00050b 50e1      	SUBI R30,LOW(1)
-00050c 93e0 0275 	STS  _cnt_del1,R30
+00050c 93e0 0175 	STS  _cnt_del1,R30
 00050e 30e0      	CPI  R30,0
 00050f 9508      	RET
                  
                  ;OPTIMIZER ADDED SUBROUTINE, CALLED 5 TIMES, CODE SIZE REDUCTION:5 WORDS
                  SUBOPT_0x1:
-000510 93e0 0278 	STS  _out_stat1,R30
+000510 93e0 0178 	STS  _out_stat1,R30
 000512 cff6      	RJMP SUBOPT_0x0
                  
                  ;OPTIMIZER ADDED SUBROUTINE, CALLED 6 TIMES, CODE SIZE REDUCTION:27 WORDS
                  SUBOPT_0x2:
-000513 91e0 0276 	LDS  R30,_cnt_del2
+000513 91e0 0176 	LDS  R30,_cnt_del2
 000515 50e1      	SUBI R30,LOW(1)
-000516 93e0 0276 	STS  _cnt_del2,R30
+000516 93e0 0176 	STS  _cnt_del2,R30
 000518 30e0      	CPI  R30,0
 000519 9508      	RET
                  
                  ;OPTIMIZER ADDED SUBROUTINE, CALLED 5 TIMES, CODE SIZE REDUCTION:5 WORDS
                  SUBOPT_0x3:
-00051a 93e0 0279 	STS  _out_stat2,R30
+00051a 93e0 0179 	STS  _out_stat2,R30
 00051c cff6      	RJMP SUBOPT_0x2
                  
                  
@@ -3740,15 +3744,15 @@ counted separately from r26..r31 here.
 
 .dseg memory usage only counts static data declared with .byte
 
-ATmega32 register use summary:
-r0 :   9 r1 :   2 r2 :  11 r3 :  18 r4 :   0 r5 :   0 r6 :   0 r7 :   0 
-r8 :   3 r9 :   3 r10:   3 r11:   3 r12:   0 r13:   0 r14:   0 r15:   0 
+ATmega16 register use summary:
+r0 :   9 r1 :   2 r2 :  11 r3 :  18 r4 :   0 r5 :   0 r6 :   0 r7 :   3 
+r8 :   3 r9 :   3 r10:   3 r11:   0 r12:   0 r13:   0 r14:   0 r15:   0 
 r16:  10 r17:  12 r18:   2 r19:   2 r20:   0 r21:   0 r22:   2 r23:   0 
 r24:   9 r25:   4 r26: 179 r27:  13 r28:   8 r29:   1 r30: 500 r31:  27 
 x  :   4 y  :  78 z  :  10 
 Registers used: 24 out of 35 (68.6%)
 
-ATmega32 instruction use summary:
+ATmega16 instruction use summary:
 .lds  :   0 .lds.l:   0 .sts  :   0 .sts.l:   0 adc   :   1 add   :   3 
 adiw  :   6 and   :   0 andi  :  18 asr   :   0 bclr  :   0 bld   :  14 
 brbc  :   0 brbs  :   0 brcc  :   0 brcs  :   0 break :   0 breq  :  17 
@@ -3771,11 +3775,11 @@ st    :  29 std   :  19 sts   :  90 sub   :   0 subi  :  24 swap  :   0
 tst   :   0 wdr   :   1 
 Instructions used: 52 out of 116 (44.8%)
 
-ATmega32 memory use summary [bytes]:
+ATmega16 memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000aa0   2684     36   2720   32768   8.3%
-[.dseg] 0x000060 0x000323      0    195    195    2048   9.5%
-[.eseg] 0x000000 0x000008      0      8      8    1024   0.8%
+[.cseg] 0x000000 0x000aa0   2684     36   2720   16384  16.6%
+[.dseg] 0x000060 0x000223      0    195    195    1024  19.0%
+[.eseg] 0x000000 0x000008      0      8      8     512   1.6%
 
-Assembly complete, 0 errors, 9 warnings
+Assembly complete, 0 errors, 11 warnings

@@ -73,7 +73,7 @@ char state_new,state_old,state,state_cnt;
 char tst_new,tst_old,tst,tst_cnt;
 char tst_out_cnt;
 
-#include <mega32.h>
+#include <mega16.h>
 #include <stdio.h>
 #include "usart_slave.c"
 

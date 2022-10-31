@@ -4,15 +4,15 @@
 ;http://www.hpinfotech.com
 
 ;Build configuration    : Release
-;Chip type              : ATmega32
+;Chip type              : ATmega16
 ;Program type           : Application
-;Clock frequency        : 8.000000 MHz
+;Clock frequency        : 8,000000 MHz
 ;Memory model           : Small
 ;Optimize for           : Size
 ;(s)printf features     : int, width
 ;(s)scanf features      : int, width
 ;External RAM size      : 0
-;Data Stack size        : 512 byte(s)
+;Data Stack size        : 256 byte(s)
 ;Heap size              : 0 byte(s)
 ;Promote 'char' to 'int': No
 ;'char' is unsigned     : Yes
@@ -25,10 +25,10 @@
 
 	#define _MODEL_SMALL_
 
-	#pragma AVRPART ADMIN PART_NAME ATmega32
-	#pragma AVRPART MEMORY PROG_FLASH 32768
-	#pragma AVRPART MEMORY EEPROM 1024
-	#pragma AVRPART MEMORY INT_SRAM SIZE 2048
+	#pragma AVRPART ADMIN PART_NAME ATmega16
+	#pragma AVRPART MEMORY PROG_FLASH 16384
+	#pragma AVRPART MEMORY EEPROM 512
+	#pragma AVRPART MEMORY INT_SRAM SIZE 1024
 	#pragma AVRPART MEMORY INT_SRAM START_ADDR 0x60
 
 	#define CALL_SUPPORTED 1
@@ -88,8 +88,8 @@
 	.DEF R0X1F=R31
 
 	.EQU __SRAM_START=0x0060
-	.EQU __SRAM_END=0x085F
-	.EQU __DSTACK_SIZE=0x0200
+	.EQU __SRAM_END=0x045F
+	.EQU __DSTACK_SIZE=0x0100
 	.EQU __HEAP_SIZE=0x0000
 	.EQU __CLEAR_SRAM_SIZE=__SRAM_END-__SRAM_START+1
 
@@ -1109,9 +1109,7 @@ __START_OF_CODE:
 	JMP  0x00
 	JMP  0x00
 	JMP  0x00
-	JMP  0x00
 	JMP  _timer1_compa_isr
-	JMP  0x00
 	JMP  0x00
 	JMP  0x00
 	JMP  _timer0_ovf_isr
@@ -1119,6 +1117,8 @@ __START_OF_CODE:
 	JMP  _uart_rx_isr
 	JMP  0x00
 	JMP  _uart_tx_isr
+	JMP  0x00
+	JMP  0x00
 	JMP  0x00
 	JMP  0x00
 	JMP  0x00
@@ -1238,7 +1238,7 @@ __GLOBAL_INI_END:
 	.ORG 0
 
 	.DSEG
-	.ORG 0x260
+	.ORG 0x160
 
 	.CSEG
 ;#define SLAVE_MESS_LEN	4
@@ -1330,15 +1330,15 @@ __GLOBAL_INI_END:
 ;char plazma;
 ;signed cnt_del_main;
 ;bit bDel;
-;#include <mega32.h>
+;#include <mega16.h>
 	#ifndef __SLEEP_DEFINED__
 	#define __SLEEP_DEFINED__
-	.EQU __se_bit=0x80
-	.EQU __sm_mask=0x70
+	.EQU __se_bit=0x40
+	.EQU __sm_mask=0xB0
 	.EQU __sm_powerdown=0x20
 	.EQU __sm_powersave=0x30
-	.EQU __sm_standby=0x60
-	.EQU __sm_ext_standby=0x70
+	.EQU __sm_standby=0xA0
+	.EQU __sm_ext_standby=0xB0
 	.EQU __sm_adc_noise_red=0x10
 	.SET power_ctrl_reg=mcucr
 	#endif
@@ -5030,12 +5030,12 @@ _0x159:
 ;
 	#ifndef __SLEEP_DEFINED__
 	#define __SLEEP_DEFINED__
-	.EQU __se_bit=0x80
-	.EQU __sm_mask=0x70
+	.EQU __se_bit=0x40
+	.EQU __sm_mask=0xB0
 	.EQU __sm_powerdown=0x20
 	.EQU __sm_powersave=0x30
-	.EQU __sm_standby=0x60
-	.EQU __sm_ext_standby=0x70
+	.EQU __sm_standby=0xA0
+	.EQU __sm_ext_standby=0xB0
 	.EQU __sm_adc_noise_red=0x10
 	.SET power_ctrl_reg=mcucr
 	#endif
