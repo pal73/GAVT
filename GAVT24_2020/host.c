@@ -85,7 +85,7 @@ enum{sOFF,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16}step_main=sOFF;
 char plazma;
 signed cnt_del_main;
 bit bDel;
-#include <mega32.h>
+#include <mega16.h>
 #include <stdio.h>
 #include "usart_host.c"  
 enum{amON=0x55,amOFF=0xaa}avtom_mode=amOFF; 
