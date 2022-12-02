@@ -1,4 +1,4 @@
-#define SLAVE_MESS_LEN	4
+#define SLAVE_MESS_LEN	 4
 
 #define LED_POW_ON	5
 #define LED_PROG4	1
